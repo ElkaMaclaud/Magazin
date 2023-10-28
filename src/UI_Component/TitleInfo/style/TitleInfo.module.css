@@ -1,0 +1,7 @@
+.titleWrapper {
+    display: flex;
+    gap: 30px;
+}
+.titleWrapper h1 {
+    margin: 0;
+}

@@ -1,0 +1,19 @@
+.cardWrappper {
+  flex-wrap: wrap;
+  gap: 30px;
+}
+.infoWrapper {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.infoWrapper p {
+  margin: 0;
+  font-size: 15px;
+  color: #666;
+}
+.infoWrapper h3 {
+  margin: 0;
+  font-size: 16px;
+}

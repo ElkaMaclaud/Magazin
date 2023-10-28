@@ -1,0 +1,9 @@
+.profileWrapper {
+    width: 70%;
+    text-align: left;
+}
+.text {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 1.5rem;
+}

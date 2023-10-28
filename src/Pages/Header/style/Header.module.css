@@ -1,0 +1,28 @@
+.header {
+    width: 100%;
+    padding: 30px 0;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+.searchBar {
+    display: flex;
+    width: 700px;
+    padding: 1px;
+    background-color: blueviolet;
+    display: flex;
+    align-items: center;
+    border-color: 2px  blueviolet;
+    border-radius: 15px;
+}
+.searchBar button {
+    border-color: none;
+}
+.buttonGroop {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+.buttonGroop svg {
+    cursor: pointer;
+}

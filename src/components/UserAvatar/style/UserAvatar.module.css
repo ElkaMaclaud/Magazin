@@ -1,0 +1,28 @@
+.userAvatarWrapper {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.userAvatarWrapper  > * {
+    margin: 0;
+    max-width: 60%;
+}
+.userAvatarWrapper a{
+    font-size: .9rem;
+    color: blue;
+    cursor: pointer;
+}
+.round {
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    background-color: rgb(138 180 248);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.roundInfo {
+    font-size: 45px;
+    color: #fff;
+}
