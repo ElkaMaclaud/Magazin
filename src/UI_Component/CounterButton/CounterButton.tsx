@@ -1,7 +1,7 @@
 import React, { FC, ReactNode, useState } from "react";
 import classes from "./style/CounterButton.module.css";
 
-export const CounterButton: FC<{ text?: ReactNode; title?: string; handleClick: (id: string) => void; id: string; counter: number}> = ({
+export const CounterButton: FC<{ text?: ReactNode; title?: string; handleClick: (id: string, increment: number) => void; id: string; counter: number}> = ({
   text,
   title,
   handleClick,
@@ -10,7 +10,7 @@ export const CounterButton: FC<{ text?: ReactNode; title?: string; handleClick: 
 }) => {
   const [count, setCount] = useState(counter);
   const handler = (id: string, increment=1) => {
-    handleClick(id);
+    handleClick(id, increment);
     setCount((prev) => prev+=increment)
   }
   const BaksetCount = () => {

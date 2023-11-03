@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { IGoods } from "../../type/goodsType";
+import React from "react";
 import GoodsList from "../../components/GoodsList/GoodsList";
 import { goods } from "../../MockupData/goods";
 
