@@ -1,15 +1,41 @@
-import React from "react";
+import React, { FC } from "react";
+import "../icons.css"
 
-export const Favorites = () => {
+export const Favorites: FC<{width?: string, height?: string, className?: string, like?: boolean}> = ({width, height, className, like}) => {
+  if (like) {
+    return (
+      <svg
+        version="1.1"
+        id="Capa_1"
+        xmlns="http://www.w3.org/2000/svg"
+        x="0px"
+        y="0px"
+        width="30px"
+        height="30px"
+        viewBox="0 0 615.433 615.433"
+      >
+        <g>
+          <path
+            d="M253.193,573.177c12.128,10.043,23.367,19,33.493,26.733c6.092,4.674,10.488,7.929,12.88,9.653l8.151,5.869l8.123-5.869
+      c2.393-1.725,6.787-4.979,12.88-9.653c10.126-7.761,21.392-16.719,33.493-26.733c34.605-28.681,69.239-60.31,101.563-94.025
+      c72.217-75.304,122.706-149.912,141.762-220.766c5.396-20.057,8.179-39.613,8.179-58.641
+      c0-188.913-172.473-269.697-306.139-127.352C174.412-69.98,1.716,15.812,1.716,199.745c0,19.028,2.782,38.612,8.151,58.641
+      c19.027,70.854,69.518,145.434,141.761,220.766C183.981,512.867,218.587,544.496,253.193,573.177z" fill="red"
+          />
+        </g>
+      </svg>
+    );
+  }
   return (
     <svg
+      className={className || "icon"}
       version="1.1"
       id="Capa_1"
       xmlns="http://www.w3.org/2000/svg"
       x="0px"
       y="0px"
-      width="50px"
-      height="50px"
+      width={width || "50px"}
+      height={height || "50px"}
       viewBox="0 0 612 612"
     >
       <g>
@@ -27,5 +53,6 @@ export const Favorites = () => {
       </g>
     </svg>
   );
+  
 };
 

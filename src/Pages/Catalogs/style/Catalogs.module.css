@@ -1,0 +1,13 @@
+.contentWrapper {
+    min-width: 100%;
+    margin-top: 30px;
+    display: flex;
+
+}
+.sideBar {
+    width: 25%;
+}
+.content {
+    width: 75%;
+}
+

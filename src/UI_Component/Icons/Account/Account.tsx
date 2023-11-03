@@ -1,8 +1,8 @@
 import React, { FC } from "react";
-
+import "../icons.css";
 export const Account: FC<{width?: string, height?: string}> = ({width, height}) => {
   return (
-  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width={width || "60"} height={height || "60"}>
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width={width || "60"} height={height || "60"} className="icon">
       <defs>
         <style></style>
       </defs>

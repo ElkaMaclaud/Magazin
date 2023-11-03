@@ -1,6 +1,7 @@
 .wrapperPage {
-    max-height: 100vh;
     max-width: 1400px;
-    overflow: hidden;
     margin: auto;
+}
+.content {
+    width: 100%;
 }

@@ -1,8 +1,10 @@
 import React from "react";
+import "../icons.css";
 
 export const Orders = () => {
   return (
     <svg
+      className="icon"
       version="1.1"
       width="60px"
       height="55px"
@@ -24,4 +26,3 @@ export const Orders = () => {
     </svg>
   );
 };
-

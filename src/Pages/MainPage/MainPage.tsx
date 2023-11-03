@@ -1,14 +1,16 @@
 import React from "react";
 import classes from "./style/MainPage.module.css";
-import Header from "../Header/Header";
-import SideBar from "../../components/SideBar/SideBar";
-import Content from "../Content/Content";
+import Header from "../../components/Header/Header";
+import Catalogs from "../Catalogs/Catalogs";
+import { Outlet } from "react-router-dom";
 
 const MainPage = () => {
   return (
     <div className={classes.wrapperPage}>
       <Header />
-      <Content />
+      <div className={classes.content}>
+        <Outlet />
+      </div>
     </div>
   );
 };

@@ -1,0 +1,4 @@
+.burgerMenu {
+    display: flex;
+    gap: .2rem;
+}
