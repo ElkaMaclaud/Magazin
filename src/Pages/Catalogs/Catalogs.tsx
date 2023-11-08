@@ -24,11 +24,9 @@ const Catalogs = () => {
         <SideBar>
           <>
           <ListItem list={categories} />
-            {/* <UserAvatar name={personPrivateInfo["ФИО"]} /> */}
           </>
         </SideBar>
       </div>
-      {/* <div><Profile /></div> */}
       <div className={classes.content}>
         <GoodsList data={data} icon={"like"}/>
       </div>

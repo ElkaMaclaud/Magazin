@@ -2,7 +2,6 @@ import React from "react";
 import classes from "./style/Header.module.css";
 import { Link } from "react-router-dom";
 import {
-  Account,
   Basket,
   Burger,
   Cross,
@@ -13,6 +12,7 @@ import {
 import { Button, InputSearch } from "../../UI_Component";
 import CustomLink from "../CustomLink/CustomLink";
 import ConstructorFoCustomLink from "../ConstructorFoCustomLink/ConstructorFoCustomLink";
+import MenuLogin from "../Menu/MenuLogin";
 
 const Header = () => {
   return (
@@ -28,9 +28,7 @@ const Header = () => {
         <Button title={<SearchIcon />} onClick={() => console.log("Basket")} />
       </div>
       <div className={classes.buttonGroop}>
-        <Link to="Basket">
-          <Account width={"60"} height={"60"} />
-        </Link>
+          <MenuLogin />
         <Link to="Basket">
           <Orders />
         </Link>

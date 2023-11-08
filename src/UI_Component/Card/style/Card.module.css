@@ -1,4 +1,6 @@
 .cardWrappper {
+  display: flex;
+  margin: 0 1rem;
   flex-wrap: wrap;
   gap: 30px;
 }
@@ -15,5 +17,6 @@
 }
 .infoWrapper h3 {
   margin: 0;
+  padding: 0;
   font-size: 16px;
 }

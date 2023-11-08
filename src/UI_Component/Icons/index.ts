@@ -7,3 +7,4 @@ export { Favorites } from "./Favorites/Favorites";
 export { Orders } from "./Orders/Orders";
 export { SearchIcon } from "./SearchIcon/SearchIcon";
 export { PublicInfo } from "./PublicInfo/PublicInfo";
+export { Trash } from "./Trash/Trash";

@@ -17,7 +17,7 @@ export const CounterButton: FC<{ text?: ReactNode; title?: string; handleClick: 
     if (count) {
       return (
         <div className={classes.buttonGroop}>
-          <button className={classes.littleButton} onClick={() => handler(id, -1)}>-</button>
+          <button className={classes.littleButton} onClick={() => handler(id, -1)} disabled={!text && count === 1}>-</button>
           <span>{count}</span>
           <button className={classes.littleButton} onClick={() => handler(id)}>+</button>
         </div>

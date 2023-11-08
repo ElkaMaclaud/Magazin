@@ -1,0 +1,28 @@
+.wrapper {
+    height: auto;
+    min-height: 100vh;
+    background-color: #efefef;
+}
+.wrapper h1, h2, h3 {
+    padding: 1rem;
+}
+.contentWrapper {
+    max-width: 1400px;
+    margin: auto;
+}
+.basketWrapper {
+    display: flex;
+    gap: 1rem;
+}
+.basket {
+    border-radius: 4px;
+    padding: 0 1rem;
+    background-color: #fff;
+    width: 70%;
+}
+.calculationRegistration {
+    height: fit-content;
+    border-radius: 4px;
+    background-color: #fff;
+    width: 30%;
+}

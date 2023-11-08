@@ -1,0 +1,12 @@
+.wrapper h3 {
+    padding-top: 0;
+}
+.text {
+    font-size: 16px;
+    color: #666;
+    margin: .5rem;
+}
+.line {
+    margin: 1rem;
+    border-bottom: 1px solid #ccc;
+}

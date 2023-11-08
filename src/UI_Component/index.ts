@@ -5,3 +5,4 @@ export { ImageGood } from "./ImageGood/ImageGood";
 export { InputSearch } from "./InputSearch/InputSearch";
 export { TitleInfo } from "./TitleInfo/TitleInfo";
 export { InfoCard } from "./InfoCard/InfoCard";
+export { SmallCard } from "./SmallCard/SmallCard";

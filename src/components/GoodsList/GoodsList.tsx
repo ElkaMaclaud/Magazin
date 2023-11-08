@@ -2,7 +2,7 @@ import React, { FC, ReactNode } from "react";
 import { IGoods } from "../../type/goodsType";
 import { WideCard } from "../WideCard/WideCard";
 
-const FavoritesList: FC<{
+const GoodsList: FC<{
   data: IGoods[];
   icon?: ReactNode;
 }> = ({ data, icon }) => {
@@ -16,4 +16,4 @@ const FavoritesList: FC<{
   );
 };
 
-export default FavoritesList;
+export default GoodsList;
