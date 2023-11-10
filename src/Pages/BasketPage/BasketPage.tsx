@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import GoodsList from "../../components/GoodsList/GoodsList";
 import { goods } from "../../MockupData/goods";
 import { useAppSelector } from "../../store/reduxHooks";
@@ -8,6 +8,9 @@ import CalculateAndRegisration from "../../components/CalculateAndRegisration/Ca
 
 const BasketPage = () => {
   const {} = useAppSelector((state) => state.page);
+  const [list, setList] = useState(goods.filter((item) => item.count))
+  const [checked, setChecked] = useState(false);
+  
 
   return (
     <div className={classes.wrapper}>

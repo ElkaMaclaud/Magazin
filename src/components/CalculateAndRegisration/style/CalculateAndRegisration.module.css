@@ -1,12 +1,47 @@
 .wrapper h3 {
-    padding-top: 0;
+  padding-top: 0;
+}
+.textWrapper {
+  display: flex;
+  align-items: start;
+  margin: 10px 0;
+  padding: 10px 12px;
+  width: 100%;
+  height: fit-content;
+  background-color: #eee;
+  border-radius: 10px;
+}
+.round {
+  width: 26px;
+  height: 25px;
+  border-radius: 50%;
+  border: 2px solid #999;
+  position: relative;
+}
+.round::after {
+  content: "i";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
 }
 .text {
-    font-size: 16px;
-    color: #666;
-    margin: .5rem;
+  font-size: 16px;
+  color: #666;
+  margin: 0.5rem;
+}
+.textWrapper .text {
+  margin: 0.1rem 0.5rem;
 }
 .line {
-    margin: 1rem;
-    border-bottom: 1px solid #ccc;
+  margin: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+.goods {
+  display: flex;
+  gap: 2px;
+}
+.goods div {
+  font-size: 18px;
 }

@@ -16,28 +16,42 @@ import MenuLogin from "../Menu/MenuLogin";
 
 const Header = () => {
   return (
-    <div className={classes.header}>
-      <CustomLink to="basket">Что-нибудь</CustomLink>
-      <ConstructorFoCustomLink
-        firsChild={<Burger />}
-        secondChild={<Cross />}
-        text={"Каталог"}
-      />
-      <div className={classes.searchBar}>
-        <InputSearch />
-        <Button title={<SearchIcon />} onClick={() => console.log("Basket")} />
-      </div>
-      <div className={classes.buttonGroop}>
+    <div className={classes.headerWrapper}>
+      <div className={classes.header}>
+        <CustomLink to="basket">Что-нибудь</CustomLink>
+        <ConstructorFoCustomLink
+          firsChild={<Burger />}
+          secondChild={<Cross />}
+          text={"Каталог"}
+        />
+        <div className={classes.searchBar}>
+          <InputSearch />
+          <Button
+            title={<SearchIcon />}
+            onClick={() => console.log("Basket")}
+          />
+        </div>
+        <div className={classes.buttonGroop}>
           <MenuLogin />
-        <Link to="Basket">
-          <Orders />
-        </Link>
-        <Link to="favorites">
-          <Favorites />
-        </Link>
-        <Link to="basket">
-          <Basket />
-        </Link>
+          <Link to="Basket" className={classes.link}>
+            <div className={classes.linkWrapperText}>
+              <Orders />
+              Заказы
+            </div>
+          </Link>
+          <Link to="favorites" className={classes.link}>
+            <div className={classes.linkWrapperText}>
+              <Favorites />
+              Избранное
+            </div>
+          </Link>
+          <Link to="basket" className={classes.link}>
+            <div className={classes.linkWrapperText}>
+              <Basket />
+              Корзина
+            </div>
+          </Link>
+        </div>
       </div>
     </div>
   );

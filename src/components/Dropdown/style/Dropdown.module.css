@@ -3,11 +3,11 @@
   cursor: pointer;
   box-shadow: 0px 0px 50px rgba(56, 49, 49, 0.5);
   height: fit-content;
-  width: 350px;
+  width: 250px;
   background-color: #fff;
   border-radius: 20px;
-  left: 63%;
-  top: 11vh;
+  left: 60.8%;
+  top: 9.8vh;
   padding: 1rem 0;
 }
 .container::before {
