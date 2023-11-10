@@ -1,28 +1,87 @@
 .wrapper {
-    height: auto;
-    min-height: 100vh;
-    background-color: #efefef;
+  height: auto;
+  min-height: 100vh;
+  height: auto;
+  background-color: #efefef;
 }
-.wrapper h1, h2, h3 {
-    padding: 1rem;
+.wrapper h1,
+h2,
+h3 {
+  padding: 1rem;
 }
 .contentWrapper {
-    max-width: 1400px;
-    margin: auto;
+  max-width: 1400px;
+  margin: auto;
 }
 .basketWrapper {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  gap: 1rem;
+  max-width: 1400px;
+}
+.basketHeaderWrapper {
+  padding: 15px 0 ;
+  display: flex;
+  justify-content: space-between;
+}
+.basketHeaderWrapperchild {
+  font-size: 18px;
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+  align-items: center;
+}
+.basketHeaderWrapperchild > * {
+  cursor: pointer;
+}
+.basketHeaderWrapperchild:nth-child(2) {
+  color: blue;
+  gap: 5px;
+}
+.basketHeaderWrapperchild:nth-child(2) svg {
+  margin-top: -2px;
+}
+.basketHeaderWrapperchild p:nth-child(3) {
+  color: red;
+}
+.inputWrapper {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.inputWrapper .checkHover {
+  position: absolute;
+  top: -1px;
+  left: 1px;
+  width: 11px;
+  height: 11px;
+  fill: rgb(39, 126, 160);
+  display: none;
+  transition: 0.2s ease-in-out;
+}
+
+.inputWrapper:hover .checkHover {
+  display: block;
+}
+
+.inputWrapper:hover input {
+  border: 2px solid rgb(39, 126, 160);
+}
+.line {
+  margin: 0 -1rem;
+  border-bottom: 1px solid #ccc;
 }
 .basket {
-    border-radius: 4px;
-    padding: 0 1rem;
-    background-color: #fff;
-    width: 70%;
+  width: 64%;
+  border-radius: 4px;
+  padding: 0 1rem;
+  background-color: #fff;
 }
 .calculationRegistration {
-    height: fit-content;
-    border-radius: 4px;
-    background-color: #fff;
-    width: 30%;
+  position: fixed;
+  left: 63%;
+  height: fit-content;
+  border-radius: 4px;
+  background-color: #fff;
+  width: 25%;
 }
