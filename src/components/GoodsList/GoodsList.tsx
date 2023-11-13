@@ -9,7 +9,7 @@ const GoodsList: FC<{
 }> = ({ data, icon, setList }) => {
  
   return (
-    <div key={Math.floor(Math.random()).toString(36).substring(2, 15)}>
+    <div>
       {data.map((item) => {
         return <WideCard key={item.id} good={item} child={icon} setList={setList}/>;
       })}

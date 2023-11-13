@@ -1,5 +1,6 @@
 .wrapperPage {
     margin: auto;
+    position: relative;
 }
 .content {
     margin: auto;

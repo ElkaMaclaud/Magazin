@@ -1,0 +1,48 @@
+.cardWrapper {
+  min-width: 100%;
+  overflow: hidden;
+}
+.imagesWrapper {
+  display: flex;
+  justify-content: left;
+  gap: 7px;
+  transition: transform .8s linear;
+}
+.imageWrapper {
+  width: 109px;
+  min-height: 62px;
+  border: 2px solid #ccc;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.image {
+  width: 100px;
+  height: 58px;
+  object-fit: contain;
+}
+.imageWrapper:hover {
+  border-color: blue;
+}
+.arrow {
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #fff;
+  position: absolute;
+  transition: background-color 0.2s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px #999;
+}
+.arrowHidden {
+  display: none;
+}
+.arrow:hover {
+  background-color: #005bff;
+}

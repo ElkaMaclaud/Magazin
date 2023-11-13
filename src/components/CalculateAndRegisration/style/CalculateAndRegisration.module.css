@@ -1,5 +1,6 @@
-.wrapper h3 {
-  padding-top: 0;
+.wrapper h3, h2 {
+  padding: 0;
+  margin: 0;
 }
 .textWrapper {
   display: flex;
@@ -27,21 +28,10 @@
   font-size: 12px;
 }
 .text {
-  font-size: 16px;
-  color: #666;
-  margin: 0.5rem;
-}
-.textWrapper .text {
   margin: 0.1rem 0.5rem;
 }
 .line {
   margin: 1rem;
   border-bottom: 1px solid #ccc;
 }
-.goods {
-  display: flex;
-  gap: 2px;
-}
-.goods div {
-  font-size: 18px;
-}
+

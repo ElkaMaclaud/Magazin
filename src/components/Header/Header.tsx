@@ -33,7 +33,7 @@ const Header = () => {
         </div>
         <div className={classes.buttonGroop}>
           <MenuLogin />
-          <Link to="Basket" className={classes.link}>
+          <Link to="basket" className={classes.link}>
             <div className={classes.linkWrapperText}>
               <Orders />
               Заказы

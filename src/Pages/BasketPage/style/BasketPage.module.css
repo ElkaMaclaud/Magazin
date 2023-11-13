@@ -1,25 +1,9 @@
-.wrapper {
-  height: auto;
-  min-height: 100vh;
-  height: auto;
-  background-color: #efefef;
-}
-.wrapper h1,
-h2,
-h3 {
-  padding: 1rem;
-}
-.contentWrapper {
-  max-width: 1400px;
-  margin: auto;
-}
-.basketWrapper {
+.headerBasket {
   display: flex;
-  gap: 1rem;
-  max-width: 1400px;
+  gap: 5px;
 }
 .basketHeaderWrapper {
-  padding: 15px 0 ;
+  padding-bottom: 15px;
   display: flex;
   justify-content: space-between;
 }
@@ -42,6 +26,22 @@ h3 {
 }
 .basketHeaderWrapperchild p:nth-child(3) {
   color: red;
+}
+.basketEmpty {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 600px;
+  font-size: 18px;
+}
+.basket {
+  background-color: #fff;
+}
+.link {
+  padding-left: 5px;
+  color: blue;
+  text-decoration: none;
 }
 .inputWrapper {
   position: relative;
@@ -68,20 +68,19 @@ h3 {
   border: 2px solid rgb(39, 126, 160);
 }
 .line {
-  margin: 0 -1rem;
+  margin: 0 -.7rem;
   border-bottom: 1px solid #ccc;
 }
-.basket {
-  width: 64%;
-  border-radius: 4px;
-  padding: 0 1rem;
-  background-color: #fff;
+.goods {
+  display: flex;
+  font-size: 18px;
+  gap: 5px;
 }
-.calculationRegistration {
-  position: fixed;
-  left: 63%;
-  height: fit-content;
-  border-radius: 4px;
-  background-color: #fff;
-  width: 25%;
+.name {
+  font-size: 18px;
+}
+.headerName {
+  margin: 0;
+  padding: 0;
+  font-size: 22px;
 }
