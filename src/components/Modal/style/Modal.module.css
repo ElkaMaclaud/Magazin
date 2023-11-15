@@ -3,7 +3,7 @@
   height: fit-content;
   width: 600px;
   position: absolute;
-  top: 20%;
+  top: 30%;
   left: 40%;
   background-color: #fff;
   border-radius: 50px;
@@ -35,6 +35,10 @@
   gap: 1rem;
   align-items: flex-start;
   justify-content: start;
+}
+.modalContent p {
+  font-size: 20px;
+  line-height: 1.4;
 }
 .modal span {
   width: 100%;

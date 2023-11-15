@@ -1,6 +1,7 @@
 export { Button } from "./Button/Button";
 export { Card } from "./Card/Card";
 export { Slider } from "./Slider/Slider";
+export { SliderMouseMove } from "./SliderMouseMove/SliderMouseMove";
 export { CardPageFlex } from "./CardPageFlex/CardPageFlex";
 export { CounterButton } from "./CounterButton/CounterButton";
 export { ImageGood } from "./ImageGood/ImageGood";

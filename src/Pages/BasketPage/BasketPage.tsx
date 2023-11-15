@@ -148,7 +148,7 @@ const BasketPage = () => {
             </div>
           </label>
           <p onClick={onChange}>Выбрать все </p>
-        </div>{" "}
+        </div>
       </div>
     );
   };
@@ -190,7 +190,7 @@ const BasketPage = () => {
             <Modal
               title={"Удалить товары"}
               text={`Вы точно хотите удалить выбранные товары? Отменить данное действие будет невозможно.`}
-              removeBasket={removeBasket}
+              handleAction={removeBasket}
             />
           )}
         </>,
@@ -201,7 +201,7 @@ const BasketPage = () => {
           styles={[styles, stylesHover, stylesDisabled]}
         />,
       ]}
-      style={{ backgroundColor: "#fff",   padding: ".7rem" }}
+      style={{ backgroundColor: "#fff", padding: ".7rem" }}
     />
   );
 };

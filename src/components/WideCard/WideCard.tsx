@@ -110,7 +110,7 @@ export const WideCard: FC<{
   };
   const props: WideCardProps = {
     firstChild: child ? (
-      <ImageGood path={good.image[0]} />
+      <ImageGood path={good.image} />
     ) : (
       <div className={classes.checkGood}>
         <label htmlFor={`${good.id}`} className={classes.inputWrapper}>
@@ -124,7 +124,7 @@ export const WideCard: FC<{
             <СheckMark />
           </div>
         </label>
-        <ImageGood path={good.image[0]} size={150} />
+        <ImageGood path={good.image} size={150} />
       </div>
     ),
     sedondChild: child ? (
@@ -168,7 +168,7 @@ export const WideCard: FC<{
         <Modal
           title={"Удалить товар"}
           text={`Вы точно хотите удалить выбранный товар? Отменить данное действие будет невозможно.`}
-          removeBasket={removeBasket}
+          handleAction={removeBasket}
         />
       )}
       <div className={classes[classesChoises[1]]}>{firstChild}</div>

@@ -55,7 +55,6 @@ const CalculateAndRegisration: FC<{ sum: number; obj: {name: ReactNode; value: R
         </InfoCard>
         {obj.map((item) => {
           const key = Math.random().toString(36).substring(2, 15);
-          console.log(key)
           return (
             <div key={key}>
               <div className={classes.line}></div>

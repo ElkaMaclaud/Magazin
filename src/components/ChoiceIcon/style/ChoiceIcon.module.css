@@ -1,6 +1,6 @@
 .favorites {
     cursor: pointer;
 }
-/* .favorites:hover svg {
-    fill-rule: red;
-} */
+.favorites:hover svg {
+    fill: red;
+}

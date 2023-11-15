@@ -1,15 +1,16 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, ReactNode } from "react";
 import ReactDOM from "react-dom";
 import classes from "./style/Modal.module.css";
 import { Cross } from "../../UI_Component/Icons";
 
 interface IModal {
-  title: string;
+  title: ReactNode;
   text: string;
-  removeBasket: (remove?: boolean) => void;
+  handleAction: (remove?: boolean) => void;
+  buttonText?: ReactNode;
 }
 
-export function Modal({ title, text, removeBasket }: IModal) {
+export function Modal({ title, text, handleAction, buttonText }: IModal) {
   const ref = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(true);
   const [open, setOpen] = useState(false);
@@ -22,7 +23,7 @@ export function Modal({ title, text, removeBasket }: IModal) {
         !ref.current?.contains(event.target)
       ) {
         if (open) {
-          removeBasket(false);
+          handleAction(false);
           setActive(false);
         }
       }
@@ -31,11 +32,11 @@ export function Modal({ title, text, removeBasket }: IModal) {
     return () => {
       document.removeEventListener("click", handleClick);
     };
-  });
+  }, [open, handleAction]);
   function onClick() {
     function handleClick(event: MouseEvent) {
       if (event.target instanceof Node && ref.current?.contains(event.target)) {
-        removeBasket();
+        handleAction();
         setActive(false);
       }
     }
@@ -45,7 +46,7 @@ export function Modal({ title, text, removeBasket }: IModal) {
     };
   }
   const closeModal = () => {
-    removeBasket(false);
+    handleAction(false);
     setActive(false);
   };
 
@@ -60,7 +61,7 @@ export function Modal({ title, text, removeBasket }: IModal) {
         <span></span>
         <p>{text}</p>
         <button className={classes.button} onClick={onClick}>
-          Удалить
+          {buttonText || "Удалить"}
         </button>
       </div>
     </div>,
