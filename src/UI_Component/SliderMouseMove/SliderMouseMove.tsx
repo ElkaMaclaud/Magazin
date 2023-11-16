@@ -47,12 +47,13 @@ export const SliderMouseMove: FC<{
   const style: CSSProperties = {
     width: `${sizeImg}px`,
     maxWidth: `${sizeImg}px`,
-    maxHeight: `${sizeImg}px`,
+    height: `${sizeImg * .92}px`,
   };
   const styleDot: CSSProperties = {
     width: `${sizeImg / 39}px`,
     height: `${sizeImg / 39}px`,
   };
+  console.log(offset)
   return (
     <div className={classes.wrapper}>
       <div

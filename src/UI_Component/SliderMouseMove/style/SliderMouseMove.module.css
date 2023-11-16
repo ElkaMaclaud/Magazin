@@ -4,6 +4,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  gap: 5px;
 }
 .slider {
   height: 92%;
@@ -14,7 +15,6 @@
   min-width: 100%;
   min-height: 100%;
   text-align: center;
-  margin-bottom: 5px;
 }
 .imageWrapper img {
   width: 100%;
