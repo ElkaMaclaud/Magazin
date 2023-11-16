@@ -1,11 +1,14 @@
 import React, { FC, useState, useRef, MouseEvent, CSSProperties } from "react";
 import classes from "./style/SliderMouseMove.module.css";
-
+interface IOffset {
+  value: number;
+  begin: boolean;
+}
 export const SliderMouseMove: FC<{
   images: Array<string>;
   size?: number;
 }> = ({ images, size }) => {
-  const [offset, setOffset] = useState(0);
+  const [offset, setOffset] = useState<IOffset>({ value: 0, begin: true });
   const ref = useRef<HTMLDivElement>(null);
   const prevMouseX = useRef<number>(0);
   const sizeImg = size || 270;
@@ -14,25 +17,40 @@ export const SliderMouseMove: FC<{
     //const movementSpeed = 2;
     //const deltaX = (event.movementX || event.movementX || 0) * movementSpeed;
     const currentMouseX = event.clientX;
-
-    // if (currentMouseX > 0) {
-
-    // }
+    if (
+      offset.value === 0 &&
+      offset.begin === true &&
+      ref.current &&
+      currentMouseX - ref.current?.offsetLeft >= (sizeImg / (images.length * 2))
+    ) {
+      setOffset(() => {
+        const index =
+          images.length -
+          Math.round(
+            sizeImg /
+              (currentMouseX - (ref.current ? ref.current?.offsetLeft : 1))
+          );
+        const valueIndex = index <= 0 ? 1 : index === 1 ? index + 1 : index;
+        return {
+          value: valueIndex * sizeImg,
+          begin: false,
+        };
+      });
+    }
     const direction = currentMouseX > prevMouseX.current ? "right" : "left";
     const difference = currentMouseX - prevMouseX.current;
-
-    if (Math.abs(difference) >= sizeImg / (images.length * 2)) {
+    if (Math.abs(difference) >= sizeImg / ((images.length - 1) * 2)) {
       if (direction === "right") {
         setOffset((prev) => {
-          if (prev < sizeImg * (images.length - 1)) {
-            return prev + sizeImg;
+          if (prev.value < sizeImg * (images.length - 1)) {
+            return { ...prev, value: prev.value + sizeImg };
           }
           return prev;
         });
       } else {
         setOffset((prev) => {
-          if (prev > 0) {
-            return prev - sizeImg;
+          if (prev.value > 0) {
+            return { ...prev, value: prev.value - sizeImg };
           }
           return prev;
         });
@@ -41,27 +59,25 @@ export const SliderMouseMove: FC<{
     }
   };
   const handleMouseOut = () => {
-    setOffset(0);
+    setOffset(() => ({ value: 0, begin: true }));
   };
   //const debouncedHandleMouseMove = debounce(handleMouseMove, 60);
   const style: CSSProperties = {
     width: `${sizeImg}px`,
     maxWidth: `${sizeImg}px`,
-    height: `${sizeImg * .92}px`,
+    height: `${sizeImg * 0.92}px`,
   };
   const styleDot: CSSProperties = {
     width: `${sizeImg / 39}px`,
     height: `${sizeImg / 39}px`,
   };
-  console.log(offset)
   return (
-    <div className={classes.wrapper}>
+    <div ref={ref} className={classes.wrapper}>
       <div
         className={classes.slider}
         onMouseOut={handleMouseOut}
         onMouseMove={handleMouseMove}
-        ref={ref}
-        style={{ transform: `translateX(${-offset}px)`, ...style }}
+        style={{ transform: `translateX(${-offset.value}px)`, ...style }}
       >
         {images.map((img) => {
           const key = Math.random().toString(16);
@@ -80,7 +96,9 @@ export const SliderMouseMove: FC<{
               style={styleDot}
               key={key}
               className={
-                index * sizeImg === offset ? classes.dotActive : classes.dot
+                index * sizeImg === offset.value
+                  ? classes.dotActive
+                  : classes.dot
               }
             ></div>
           );
@@ -94,7 +112,6 @@ export const SliderMouseMove: FC<{
 // const ref = useRef<HTMLDivElement>(null);
 // const prevMouseX = useRef<number>(0);
 // const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
-//   console.log("handleMouseMove", event.clientX);
 //   const currentMouseX = event.clientX;
 //   const direction = currentMouseX > prevMouseX.current ? "right" : "left";
 //   prevMouseX.current = currentMouseX;
