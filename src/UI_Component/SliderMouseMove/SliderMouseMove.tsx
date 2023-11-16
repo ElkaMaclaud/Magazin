@@ -8,26 +8,31 @@ export const SliderMouseMove: FC<{
   const [offset, setOffset] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   const prevMouseX = useRef<number>(0);
+  const sizeImg = size || 270;
 
   const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
     //const movementSpeed = 2;
     //const deltaX = (event.movementX || event.movementX || 0) * movementSpeed;
     const currentMouseX = event.clientX;
+
+    // if (currentMouseX > 0) {
+
+    // }
     const direction = currentMouseX > prevMouseX.current ? "right" : "left";
     const difference = currentMouseX - prevMouseX.current;
-    const sizeX = size || 270;
-    if (Math.abs(difference) >= sizeX / 7) {
+
+    if (Math.abs(difference) >= sizeImg / (images.length * 2)) {
       if (direction === "right") {
         setOffset((prev) => {
-          if (prev < sizeX * 4) {
-            return prev + sizeX;
+          if (prev < sizeImg * (images.length - 1)) {
+            return prev + sizeImg;
           }
           return prev;
         });
       } else {
         setOffset((prev) => {
           if (prev > 0) {
-            return prev - sizeX;
+            return prev - sizeImg;
           }
           return prev;
         });
@@ -40,9 +45,13 @@ export const SliderMouseMove: FC<{
   };
   //const debouncedHandleMouseMove = debounce(handleMouseMove, 60);
   const style: CSSProperties = {
-    width: `${size || 270}px`,
-    maxWidth: `${size || 270}px`,
-    maxHeight: `${size || 270}px`,
+    width: `${sizeImg}px`,
+    maxWidth: `${sizeImg}px`,
+    maxHeight: `${sizeImg}px`,
+  };
+  const styleDot: CSSProperties = {
+    width: `${sizeImg / 39}px`,
+    height: `${sizeImg / 39}px`,
   };
   return (
     <div className={classes.wrapper}>
@@ -58,8 +67,21 @@ export const SliderMouseMove: FC<{
           return (
             <div key={key} className={classes.imageWrapper}>
               <img src={img} alt="Фото техники" />
-              <div className={classes.dot}></div>
             </div>
+          );
+        })}
+      </div>
+      <div className={classes.dotWrapper}>
+        {images.map((item, index) => {
+          const key = Math.random().toString(16);
+          return (
+            <div
+              style={styleDot}
+              key={key}
+              className={
+                index * sizeImg === offset ? classes.dotActive : classes.dot
+              }
+            ></div>
           );
         })}
       </div>
