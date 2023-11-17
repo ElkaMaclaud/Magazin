@@ -6,6 +6,7 @@
     justify-content: space-between;
 }
 .button {
+    cursor: pointer;
     padding: 1rem;
     background-color: rgb(73, 159, 230);
     border-radius: 10px;
@@ -28,6 +29,7 @@
     text-align: start;
 }
 .littleButton {
+    cursor: pointer;
     background-color: rgb(156, 198, 233);
     padding: .5rem 1rem;
     border-radius: 10px;

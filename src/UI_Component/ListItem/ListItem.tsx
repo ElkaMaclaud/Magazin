@@ -6,8 +6,9 @@ export const ListItem: FC<{ list: IListCategory[] }> = ({ list }) => {
   return (
     <div className={classes.wrapperList}>
       {list.map((item) => {
+        const key = Math.random().toString(36).substring(2, 15);
         return (
-          <div key={item.name} className={classes.item}>
+          <div key={key} className={classes.item}>
             <div className={classes.itemInfo}>
               <div>{item.icon}</div>
               <div>{item.name}</div>

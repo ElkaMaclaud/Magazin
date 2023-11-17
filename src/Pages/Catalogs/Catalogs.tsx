@@ -16,26 +16,21 @@ const Catalogs = () => {
     }, 700);
   }, []);
 
-
   if (data) {
-  return (
-    <div className={classes.contentWrapper}>
-      <div className={classes.sideBar}>
-        <SideBar>
-          <>
-          <ListItem list={categories} />
-            {/* <UserAvatar name={personPrivateInfo["ФИО"]} /> */}
-          </>
-        </SideBar>
+    return (
+      <div className={classes.contentWrapper}>
+        <div className={classes.sideBar}>
+          <SideBar>
+            <ListItem list={categories} />
+          </SideBar>
+        </div>
+        <div className={classes.content}>
+          <GoodsList data={data} icon={"like"} />
+        </div>
       </div>
-      {/* <div><Profile /></div> */}
-      <div className={classes.content}>
-        <GoodsList data={data} icon={"like"}/>
-      </div>
-    </div>
-  );
-}
-return <LoadingPage />;
+    );
+  }
+  return <LoadingPage />;
 };
 
 export default Catalogs;

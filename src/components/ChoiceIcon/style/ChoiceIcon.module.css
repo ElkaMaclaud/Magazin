@@ -1,0 +1,6 @@
+.favorites {
+    cursor: pointer;
+}
+.favorites:hover svg {
+    fill: red;
+}

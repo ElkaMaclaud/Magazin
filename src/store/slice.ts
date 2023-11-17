@@ -1,7 +1,4 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { goods } from "../MockupData/goods";
-import { IGoods } from "../type/goodsType";
-
 
 // export const REGISTER_USER = createAsyncThunk<
 //   {
@@ -24,21 +21,26 @@ import { IGoods } from "../type/goodsType";
 //   }
 // });
 interface IInitialState {
-  LoadingPage: "LOADING" | "COMPLICATED" | "LOGIN" ;
+  LoadingPage: "LOADING" | "COMPLICATED" | "LOGIN";
+  isShowDropLogin: boolean;
 }
 const state: IInitialState = {
-  LoadingPage: "COMPLICATED"
-}
+  LoadingPage: "COMPLICATED",
+  isShowDropLogin: false,
+};
 
-const authSlice = createSlice({
-    name: "AUTH_SLICE_LOGIN",
-    initialState: state,
-    reducers: {
-      LOADING_PAGE: (state, action) => {
-        state.LoadingPage = action.payload;
-      },
+const slice = createSlice({
+  name: "Page",
+  initialState: state,
+  reducers: {
+    LOADING_PAGE: (state, action) => {
+      state.LoadingPage = action.payload;
     },
-  });
+    SHOW_LOGIN_DROPDOWN: (state) => {
+      state.isShowDropLogin = !state.isShowDropLogin;
+    },
+  },
+});
 //     extraReducers: (builder) => {
 //       builder.addCase(API_AUTH_AGENT.fulfilled, (state, action) => {
 //         if (action.payload) {
@@ -123,10 +125,10 @@ const authSlice = createSlice({
 //       });
 //     },
 //   });
-  
-  // export const selectAuth = (state: RootState) => state.authSlice;
-  // export const ID_USER_AUTH = (state: RootState) => state.authSlice.data.user?.id;
-  // export const { TYPE_POSTION, LOADING_PAGE, CSP_CERTIFICATE } =
-  //   authSlice.actions;
-  export default authSlice.reducer;
-  
+
+// export const selectAuth = (state: RootState) => state.authSlice;
+// export const ID_USER_AUTH = (state: RootState) => state.authSlice.data.user?.id;
+// export const { TYPE_POSTION, LOADING_PAGE, CSP_CERTIFICATE } =
+//   authSlice.actions;
+export default slice.reducer;
+export const { LOADING_PAGE, SHOW_LOGIN_DROPDOWN } = slice.actions;

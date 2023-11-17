@@ -1,7 +1,6 @@
 import React from "react";
 import classes from "./style/MainPage.module.css";
 import Header from "../../components/Header/Header";
-import Catalogs from "../Catalogs/Catalogs";
 import { Outlet } from "react-router-dom";
 
 const MainPage = () => {

@@ -6,6 +6,8 @@ import LoadingPage from "./components/LoadingPage/LoadingPage";
 import Catalogs from "./Pages/Catalogs/Catalogs";
 import FavoritesPage from "./Pages/FavoritesPage/FavoritesPage";
 import BasketPage from "./Pages/BasketPage/BasketPage";
+import Profile from "./components/Pfofile/Profile";
+import PlacingAnOrderPage from "./Pages/PlacingAnOrderPage/PlacingAnOrderPage";
 
 function App() {
   const page = useAppSelector((state) => state.page.LoadingPage);
@@ -18,13 +20,16 @@ function App() {
       catalog: <Catalogs />,
       favorites: <FavoritesPage />,
       basket: <BasketPage />,
+      profile: <Profile />,
+      placingAnOrderPage: <PlacingAnOrderPage />,
     };
     return (
       <Routes>
         <Route path={"/"} element={<MainPage />}>
           <Route key={Math.random().toString(36)} path={"/"} element={<Catalogs />} />
           {Object.keys(ROUTS_ELEMENT).map((route) => {
-            return <Route key={Math.random().toString(36)} path={route} element={ROUTS_ELEMENT[route]} />;
+            const key = Math.random().toString(36);
+            return <Route key={key} path={route} element={ROUTS_ELEMENT[route]} />;
           })}
         </Route>
       </Routes>

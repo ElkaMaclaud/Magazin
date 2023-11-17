@@ -1,0 +1,40 @@
+.wrapper {
+  width: fit-content;
+  background-color: rgb(238, 247, 239, 0.3);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.slider {
+  max-height: 92%;
+  display: flex;
+}
+.imageWrapper {
+  min-width: 100%;
+  min-height: 100%;
+  text-align: center;
+  border-radius: 10px;
+}
+.imageWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.dotWrapper {
+  display: flex;
+  gap: 3px;
+  height: 8%;
+  margin: 0 auto;
+}
+.dot,
+.dotActive {
+  border: 1px solid #ccc;
+  background-color: #ccc;
+  border-radius: 50%;
+}
+.dotActive {
+  border: 1px solid black;
+  background-color: black;
+}

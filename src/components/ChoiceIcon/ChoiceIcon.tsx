@@ -1,5 +1,6 @@
 import React, { FC, useState } from "react";
 import { Favorites } from "../../UI_Component/Icons";
+import classes from "./style/ChoiceIcon.module.css";
 
 const ChoiceIcon: FC<{
   favorite?: boolean;
@@ -13,14 +14,14 @@ const ChoiceIcon: FC<{
   };
   if (like) {
     return (
-      <div onClick={() => handleClick(id)}>
-        <Favorites width="30" height="30" className="like" like={like} />
+      <div onClick={() => handleClick(id)} className={classes.favorites}>
+        <Favorites like={like} />
       </div>
     );
   }
   return (
-    <div onClick={() => handleClick(id)}>
-      <Favorites width="30" height="30" className="like" />
+    <div onClick={() => handleClick(id)} className={classes.favorites}>
+      <Favorites />
     </div>
   );
 };

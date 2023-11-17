@@ -8,5 +8,6 @@ export interface IGoods {
     characteristics: any;
     favorite?: boolean;
     count?: number;
+    choice?: boolean;
 }
 

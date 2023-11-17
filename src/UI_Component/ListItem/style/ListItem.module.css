@@ -12,7 +12,7 @@
     justify-content: space-between;
     padding: 15px;
     align-items: center;
-    transition: .3s linear;
+    transition: .1s linear;
 }
 .arrow {
     border: solid blue;
@@ -20,7 +20,7 @@
     display: inline-block;
     padding: 6px;
     transform: rotate(-45deg);
-    transition: .5s linear;
+    transition: .1s linear;
     opacity: 0;
 }
 .itemInfo  {
