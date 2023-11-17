@@ -34,7 +34,10 @@ const PlacingAnOrder: FC = () => {
       <div className={classes.cardWrapper}>
         <div className={classes.headerWrapper}>
           <h3>Баллы и бонусы</h3>
-          <div className={classes.roundWrapper} onClick={() => setShowModal(true)}>
+          <div
+            className={classes.roundWrapper}
+            onClick={() => setShowModal(true)}
+          >
             <div className={classes.round}></div>
           </div>
         </div>
@@ -67,11 +70,15 @@ const PlacingAnOrder: FC = () => {
       </div>
     );
   };
+  const MethodOfObtaining = () => {
+    return <div className={classes.cardWrapper}></div>;
+  };
 
   return (
     <div className={classes.placingWrapper}>
       {MemoizedBanksList}
       <ChoiceBlock />
+      <MethodOfObtaining />
       {showModal && (
         <Modal
           title={"Копите бонусы продавца, а затем тратьте при оплате заказа"}
@@ -79,7 +86,7 @@ const PlacingAnOrder: FC = () => {
               Эти бонусы вы сможете потратить на будущие покупки у этого же продавца и сэкономить до 25% стоимости заказа. Найти информацию о своем бонусном балансе вы можете в личном кабинете.
               За покупки товаров на Ozon больше не начисляются Premium-баллы. Все накопленные ранее баллы доступны на вашем балансе для оплаты заказов.`}
           handleAction={() => setShowModal(false)}
-          buttonText= {"Понятно"}
+          buttonText={"Понятно"}
         />
       )}
     </div>
