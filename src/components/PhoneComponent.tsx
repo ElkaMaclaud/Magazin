@@ -31,6 +31,12 @@ const PhoneInput = ({
     }
   }, [value]);
   // useEffect(() => {
+  //   return () => {
+  //     if (upDataInput && typeof upDataInput === "function" && objName) {
+  //     upDataInput(objName, formattedInputValue);
+  //     }}
+  // });
+  // useEffect(() => {
   //   if (inputRef.current?.input) {
   //     inputRef.current.input.setSelectionRange(cursor, cursor);
   //   }
@@ -68,8 +74,8 @@ const PhoneInput = ({
       }
       setFormattedInputValue(formatTempValue);
     }
-    // if (upDataInput && typeof upDataInput === "function") {
-    //   upDataInput(objName, formatInputValue(inputNumbersValue));
+    // if (upDataInput && typeof upDataInput === "function" && objName) {
+    //   upDataInput(objName, e.target.value);
     // }
     if (
       handlePhoneInput &&
@@ -80,6 +86,11 @@ const PhoneInput = ({
       handlePhoneInput(setDataFun);
     }
   };
+  const onBlur = () => {
+    if (upDataInput && typeof upDataInput === "function" && objName) {
+      upDataInput(objName, formattedInputValue);
+    }
+  }
   const handlePhoneKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (cursor !== null) {
       if (e.key !== "Backspace" && (cursor === 12 || cursor === 15)) {
@@ -123,6 +134,7 @@ const PhoneInput = ({
         onChange={onChange}
         value={formattedInputValue}
         onKeyDown={handlePhoneKeyDown}
+        onBlur={onBlur}
       ></input>
     </>
   );

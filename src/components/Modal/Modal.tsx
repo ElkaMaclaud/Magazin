@@ -4,13 +4,13 @@ import classes from "./style/Modal.module.css";
 import { Cross } from "../../UI_Component/Icons";
 
 interface IModal {
-  title: ReactNode;
-  text: string;
+  title: string;
+  content: ReactNode;
   handleAction: (remove?: boolean) => void;
   buttonText?: ReactNode;
 }
 
-export function Modal({ title, text, handleAction, buttonText }: IModal) {
+export function Modal({ title, content, handleAction, buttonText }: IModal) {
   const ref = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(true);
   const [open, setOpen] = useState(false);
@@ -49,8 +49,22 @@ export function Modal({ title, text, handleAction, buttonText }: IModal) {
     handleAction(false);
     setActive(false);
   };
+  const checkPropsType = (prop: ReactNode = content): prop is string => {
+    return typeof prop === "string";
+  };
 
   if (!node) return null;
+  const ContentModal = () => {
+    if (checkPropsType()) {
+      return (
+        <>
+          <span></span>
+          <p>{content}</p>
+        </>
+      );
+    }
+    return <>{content}</>;
+  };
   return ReactDOM.createPortal(
     <div className={active ? classes.modal : classes.modalFalse} ref={ref}>
       <div className={classes.roundCross} onClick={closeModal}>
@@ -58,11 +72,12 @@ export function Modal({ title, text, handleAction, buttonText }: IModal) {
       </div>
       <div className={classes.modalContent}>
         <h2>{title}</h2>
-        <span></span>
-        <p>{text}</p>
-        <button className={classes.button} onClick={onClick}>
-          {buttonText || "Удалить"}
-        </button>
+        <ContentModal />
+        {buttonText && (
+          <button className={classes.button} onClick={onClick}>
+            {buttonText}
+          </button>
+        )}
       </div>
     </div>,
     node

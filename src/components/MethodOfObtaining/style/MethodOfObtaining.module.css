@@ -1,0 +1,67 @@
+.infoPersonal {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+.headerWrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: fit-content;
+  align-items: center;
+}
+.buttonObtaining,
+.buttonObtainingActive {
+  cursor: pointer;
+  background-color: rgba(90, 126, 151, 0.08);
+  padding: 10px;
+  border-radius: 10px;
+  color: blue;
+}
+.buttonObtaining:hover {
+  background-color: rgba(12, 32, 49, 0.08);
+}
+.buttonObtainingActive {
+  background-color: blue;
+  color: #fff;
+}
+
+.infoPersonal:not(:last-child) {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+}
+.infoPersonal svg {
+  fill: #888;
+}
+.infoData {
+  display: flex;
+  gap: 10px;
+}
+
+.changeInfo {
+  color: blue;
+}
+.adress {
+  margin-bottom: 20px;
+}
+.acountInfo {
+  display: flex;
+  gap: 10px;
+}
+.acountInfoEdit {
+  display: flex;
+  gap: 5px;
+  max-width: 100%;
+}
+.inputWrapper {
+  border: 1px solid #ccc;
+  padding: 0 8px;
+  border-radius: 10px;
+}
+.acountInfoEdit label {
+  font-size: 14px;
+  color: #ccc;
+}
+.acountInfoEdit input {
+  outline: none;
+}

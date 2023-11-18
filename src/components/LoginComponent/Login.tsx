@@ -1,5 +1,5 @@
 import React, {MouseEvent} from 'react';
-import PhoneInput from '../components/PhoneComponent';
+import PhoneInput from '../PhoneComponent';
 import "./login.css";
 
 export const Login = () => {

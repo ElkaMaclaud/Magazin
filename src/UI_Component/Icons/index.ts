@@ -10,5 +10,7 @@ export { Favorites } from "./Favorites/Favorites";
 export { Orders } from "./Orders/Orders";
 export { SearchIcon } from "./SearchIcon/SearchIcon";
 export { PublicInfo } from "./PublicInfo/PublicInfo";
+export { Location } from "./Location/Location";
 export { Share } from "./Share/Share";
+export { SmallArrow } from "./SmallArrow/SmallArrow";
 export { Trash } from "./Trash/Trash";
