@@ -18,3 +18,7 @@ export const personPrivateInfoP = {
   name: "Алексей Алексеич",
   phone: "+7 917 956 23 45",
 };
+export const deliveryChoice = {
+  pickUpPoin: true,
+  address: false,
+};

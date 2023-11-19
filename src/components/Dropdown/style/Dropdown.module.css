@@ -1,4 +1,4 @@
-.container {
+.container, .containerAfter {
   position: absolute;
   cursor: pointer;
   box-shadow: 0px 0px 50px rgba(56, 49, 49, 0.5);
@@ -20,7 +20,20 @@
 }
 .container::before {
   top: -39px;
-  border-bottom: 10px solid #fff;
+  border-bottom: 15px solid #fff;
+}
+.containerAfter::after {
+  display: block;
+  content: "";
+  position: absolute;
+  height: 20px;
+  left: 42%;
+  border: 10px solid transparent;
+  transform: rotate(180deg);
+}
+.containerAfter::after {
+  bottom: -45px;
+  border-bottom: 15px solid #fff;
 }
 .list {
   padding: 0.5rem;

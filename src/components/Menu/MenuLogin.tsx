@@ -3,6 +3,7 @@ import { Account } from "../../UI_Component/Icons";
 import { Link } from "react-router-dom";
 import Dropdown from "../Dropdown/Dropdown";
 import classes from "./style/MenuLogin.module.css";
+import { menuItems } from "../../MockupData/menuItems";
 
 const MenuLogin = () => {
   const [showDropDown, setShowDropDown] = useState(false);
@@ -25,7 +26,9 @@ const MenuLogin = () => {
       document.removeEventListener("mouseout", handleMouseOut);
     };
   }, []);
-
+  const handleAction = () => {
+    setShowDropDown(false);
+  }
   return (
     <div  className={classes.menuWrapper}>
       <Link
@@ -38,7 +41,7 @@ const MenuLogin = () => {
           Аккаунт
         </div>
       </Link>
-      {showDropDown && <Dropdown setShowDropDown={setShowDropDown} ref={ref} />}
+      {showDropDown && <Dropdown handleAction={handleAction} ref={ref} list={menuItems}/>}
     </div>
   );
 };

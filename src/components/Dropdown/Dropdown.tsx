@@ -1,26 +1,49 @@
-import React, { forwardRef } from "react";
+import React, { CSSProperties, FC, forwardRef } from "react";
 import classes from "./style/Dropdown.module.css";
-import { menuItems } from "../../MockupData/menuItems";
+import { IMenuItems } from "../../MockupData/menuItems";
 import { Link } from "react-router-dom";
 
 interface DropdownProps {
-  setShowDropDown: React.Dispatch<React.SetStateAction<boolean>>;
+  list: IMenuItems[] | string[];
+  handleAction: () => void;
+  style?: CSSProperties;
+  after?: boolean;
 }
 
 const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
-  ({ setShowDropDown }, ref) => {
+  ({  list, handleAction, style, after }, ref) => {
     const handleClick = () => {
-      setShowDropDown(false);
+      handleAction();
     };
-
+    const checkPropsType = (prop: string | IMenuItems): prop is string => {
+      return typeof prop === "string";
+    };
+    const ChilContent: FC<{
+      link: string | null;
+      name: string | null;
+      menu: string | IMenuItems;
+    }> = ({ link, name, menu }) => {
+      if (link && name) {
+        return (
+          <Link to={link} className={classes.listText}>
+            {name}
+          </Link>
+        );
+      } else if (checkPropsType(menu)) {
+        return <div className={classes.listText}>{menu}</div>;
+      }
+      return null;
+    };
     return (
-      <div ref={ref} className={classes.container}>
+      <div ref={ref} className={after ? classes.containerAfter : classes.container} style={style}>
         <div className={classes.listContainer}>
-          {menuItems.map((menu) => {
+          {list.map((menu: string | IMenuItems) => {
             const key = Math.random().toString(36).substring(2, 15);
+            const link = !checkPropsType(menu) ? menu.link : null;
+            const name = !checkPropsType(menu) ? menu.name : null;
             return (
               <div key={key} className={classes.list} onClick={handleClick}>
-                <Link to={menu.link}  className={classes.listText} >{menu.name}</Link>
+                <ChilContent link={link} name={name} menu={menu} />
               </div>
             );
           })}

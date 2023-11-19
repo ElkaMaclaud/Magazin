@@ -1,15 +1,14 @@
 .modal {
-  box-shadow: 0px 0px 800px rgba(56, 49, 49, 0.5);
+  box-shadow: 0px 0px 800px rgba(43, 37, 37, 0.5);
   height: fit-content;
   width: 600px;
   position: absolute;
-  top: 30%;
   left: 40%;
   background-color: #fff;
   border-radius: 50px;
 }
 .modalFalse {
-    display: none;
+  display: none;
 }
 .roundCross {
   cursor: pointer;
@@ -19,14 +18,17 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #ccc;
+  background-color: #ddd;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: .1s ease-in-out;
+  transition: 0.1s ease-in-out;
 }
 .roundCross:hover {
-    background-color: #bbb;
+  background-color: #ccc;
+}
+.roundCross svg {
+  fill: #fff;
 }
 .modalContent {
   padding: 2.5rem 4rem;
@@ -50,8 +52,8 @@
   cursor: pointer;
   border-radius: 10px;
   color: #fff;
-  transition: .1s ease-in-out;
+  transition: 0.1s ease-in-out;
 }
 .button:hover {
-    background-color: rgb(21, 21, 182); 
+  background-color: rgb(21, 21, 182);
 }

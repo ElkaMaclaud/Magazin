@@ -3,6 +3,7 @@ export { Arrow } from "./Arrow/Arrow";
 export { Basket } from "./Basket/Basket";
 export { Book } from "./Book/Book";
 export { Burger } from "./Burger/Burger";
+export { BurgerMenu } from "./BurgerMenu/BurgerMenu";
 export { СheckMark } from "./СheckMark/СheckMark";
 export { Cross } from "./Cross/Cross";
 export { Currency } from "./Currency/Currency";

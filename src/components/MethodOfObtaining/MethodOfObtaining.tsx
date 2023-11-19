@@ -57,7 +57,7 @@ const MethodOfObtaining: FC = () => {
               }
               onClick={() =>
                 setActiveButton((prev) => ({
-                  curier: !prev.curier,
+                  curier: false,
                   pickup: true,
                 }))
               }
@@ -72,7 +72,7 @@ const MethodOfObtaining: FC = () => {
               }
               onClick={() =>
                 setActiveButton((prev) => ({
-                  pickup: !prev.pickup,
+                  pickup: false,
                   curier: true,
                 }))
               }

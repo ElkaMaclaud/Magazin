@@ -5,6 +5,7 @@ import { banksList } from "../../MockupData/banks";
 import { CardForInfo, Slider } from "../../UI_Component";
 import MethodOfObtaining from "../MethodOfObtaining/MethodOfObtaining";
 import ChoiceBlock from "../ChoiceBlock/ChoiceBlock";
+import DeliveryDate from "../DeliveryDate/DeliveryDate";
 
 interface BanksListProps {
   list: string[];
@@ -29,6 +30,7 @@ const PlacingAnOrder: FC = () => {
       <BanksList list={banksList} />
       <ChoiceBlock />
       <MethodOfObtaining/>
+      <DeliveryDate />
     </div>
   );
 };

@@ -3,6 +3,7 @@
   min-height: 100vh;
   height: auto;
   background-color: #efefef;
+  padding-bottom: 50px;
 }
 .wrapper h1, h2, h3, div, p {
   padding: 0;
