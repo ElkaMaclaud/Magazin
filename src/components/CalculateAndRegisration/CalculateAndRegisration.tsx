@@ -1,4 +1,4 @@
-import React, { useState, CSSProperties, FC, ReactNode } from "react";
+import React, { CSSProperties, FC, ReactNode } from "react";
 import { Button, Card, InfoCard, SmallCard } from "../../UI_Component";
 import classes from "./style/CalculateAndRegisration.module.css";
 import { Link } from "react-router-dom";
@@ -9,20 +9,20 @@ const infoStyle: CSSProperties = {
   justifyContent: "space-between",
   alignItems: "center",
 };
-const CalculateAndRegisration: FC<{ sum: number; obj: {name: ReactNode; value: ReactNode}[][];  title: ReactNode; styles: CSSProperties[]}> = ({
+const CalculateAndRegisration: FC<{ sum: number; obj: {name: ReactNode; value: ReactNode}[][];  title: ReactNode; stylesForButton: CSSProperties[]; link: string}> = ({
   sum,
   obj,
   title,
-  styles,
+  stylesForButton,
+  link,
 }) => {
-  const [style, setStyle] = useState<CSSProperties>(styles[0]);
-
+  
   if (sum === 0) {
     return (
       <SmallCard>
         <Button
           disabled={true}
-          style={styles[2] || style}
+          styles={stylesForButton}
           title={title}
         ></Button>
         <InfoCard>
@@ -39,12 +39,10 @@ const CalculateAndRegisration: FC<{ sum: number; obj: {name: ReactNode; value: R
   return (
     <div className={classes.wrapper}>
       <SmallCard>
-        <Link to="../placingAnOrderPage">
+        <Link to={link}>
           <Button
-            style={style}
+            styles={stylesForButton}
             title={title}
-            onMouseEnter={() => setStyle(styles[1])}
-            onMouseLeave={() => setStyle(styles[0])}
           ></Button>
         </Link>
         <InfoCard>

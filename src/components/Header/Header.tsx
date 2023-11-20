@@ -18,7 +18,7 @@ const Header = () => {
   return (
     <div className={classes.headerWrapper}>
       <div className={classes.header}>
-        <CustomLink to="basket">Что-нибудь</CustomLink>
+        <CustomLink to="basket">Magazin</CustomLink>
         <ConstructorFoCustomLink
           firsChild={<Burger />}
           secondChild={<Cross />}
@@ -33,7 +33,7 @@ const Header = () => {
         </div>
         <div className={classes.buttonGroop}>
           <MenuLogin />
-          <Link to="basket" className={classes.link}>
+          <Link to="orderListPage" className={classes.link}>
             <div className={classes.linkWrapperText}>
               <Orders />
               Заказы

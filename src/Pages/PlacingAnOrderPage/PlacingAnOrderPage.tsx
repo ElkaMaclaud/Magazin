@@ -79,7 +79,8 @@ const PlacingAnOrderPage = () => {
           sum={sum}
           title={"Оплатить"}
           obj={obj}
-          styles={[styles, stylesHover]}
+          stylesForButton={[styles, stylesHover]}
+          link="../orderPaidPage"
         />,
       ]}
     />

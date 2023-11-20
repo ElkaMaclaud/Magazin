@@ -1,11 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, CSSProperties } from "react";
 import { Account } from "../../UI_Component/Icons";
 import { Link } from "react-router-dom";
 import Dropdown from "../Dropdown/Dropdown";
 import classes from "./style/MenuLogin.module.css";
-import { menuItems } from "../../MockupData/menuItems";
-
+import InfoNoAvtorizetionPerson from "../InfoNoAvtorizetionPerson/InfoNoAvtorizetionPerson";
+import { Modal } from "../Modal/Modal";
+import { Login } from "../Login/Login";
+const style: CSSProperties = { width: "300px", left: "59.5%" };
 const MenuLogin = () => {
+  const [showModal, setShowModal] = useState(false);
   const [showDropDown, setShowDropDown] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -28,22 +31,48 @@ const MenuLogin = () => {
   }, []);
   const handleAction = () => {
     setShowDropDown(false);
-  }
+  };
+  const handleActionNoAvtorization = () => {
+    setShowModal(true);
+    setShowDropDown(false);
+  };
   return (
-    <div  className={classes.menuWrapper}>
+    <div className={classes.menuWrapper}>
       <Link
-        to={"catalog"}
+        to={"accountPage"}
         className={classes.link}
         onMouseOver={handleMouseOver}
       >
         <div className={classes.linkWrapperText}>
           <Account />
-          Аккаунт
+          Войти
         </div>
       </Link>
-      {showDropDown && <Dropdown handleAction={handleAction} ref={ref} list={menuItems}/>}
+      {showDropDown && (
+        <Dropdown handleAction={handleActionNoAvtorization} ref={ref} style={style}>
+          <InfoNoAvtorizetionPerson handler={handleActionNoAvtorization}/>
+        </Dropdown>
+      )}
+      {showModal && <Modal  title="Magazin ID"
+          content={<Login />}
+          handleAction={() => {}}/>}
     </div>
   );
+  // return (
+  //   <div  className={classes.menuWrapper}>
+  //     <Link
+  //       to={"accountPage"}
+  //       className={classes.link}
+  //       onMouseOver={handleMouseOver}
+  //     >
+  //       <div className={classes.linkWrapperText}>
+  //         <Account />
+  //         {personPublicInfo[0].value.split(" ")[0]}
+  //       </div>
+  //     </Link>
+  //     {showDropDown && <Dropdown handleAction={handleAction} ref={ref} list={menuItems}/>}
+  //   </div>
+  // );
 };
 
 export default MenuLogin;

@@ -4,6 +4,7 @@
   min-width: 100%;
   padding: 20px 0;
   justify-content: space-between;
+  font-size: 20px
 }
 .card {
   gap: 1rem;

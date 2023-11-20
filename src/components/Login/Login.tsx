@@ -1,6 +1,6 @@
 import React, {MouseEvent} from 'react';
 import PhoneInput from '../PhoneComponent';
-import "./login.css";
+import classes from "./style/Login.module.css";
 
 export const Login = () => {
   const handleSubmit = (event: MouseEvent) =>  {
@@ -11,7 +11,7 @@ export const Login = () => {
   return (
     <div>
       <h1 style={{textAlign: "center", marginTop: "10%"}}>Войти в профиль</h1>
-      <form className={"form"}>
+      <form className={classes.form}>
         <label htmlFor="">Ваше имя</label>
         <input></input>
         <label htmlFor="">Ваш Email</label>

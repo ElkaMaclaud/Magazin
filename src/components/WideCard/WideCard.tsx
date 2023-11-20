@@ -20,8 +20,9 @@ export const WideCard: FC<{
   setList?: React.Dispatch<React.SetStateAction<IGoods[]>>;
 }> = memo(({ good, child, setList }) => {
   const [showModal, setShowModal] = useState(false);
-  //eslint-disable-next-line
+ //const {goods} = 
   const [localGoods, setLocalGoods] = useState<IGoods[]>(goods);
+
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setLocalGoods((prev) =>
     prev.map((item) => {

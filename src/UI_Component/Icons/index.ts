@@ -7,6 +7,7 @@ export { BurgerMenu } from "./BurgerMenu/BurgerMenu";
 export { СheckMark } from "./СheckMark/СheckMark";
 export { Cross } from "./Cross/Cross";
 export { Currency } from "./Currency/Currency";
+export { Complite } from "./Complite/Complite";
 export { Favorites } from "./Favorites/Favorites";
 export { Orders } from "./Orders/Orders";
 export { SearchIcon } from "./SearchIcon/SearchIcon";

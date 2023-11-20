@@ -7,7 +7,6 @@ const GoodsList: FC<{
   setList?: React.Dispatch<React.SetStateAction<IGoods[]>>;
   icon?: ReactNode;
 }> = ({ data, icon, setList }) => {
- 
   return (
     <div>
       {data.map((item) => {

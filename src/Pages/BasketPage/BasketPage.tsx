@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { Share, СheckMark } from "../../UI_Component/Icons";
 import { Modal } from "../../components/Modal/Modal";
 import { CardPageFlex } from "../../UI_Component";
+import { useAppSelector } from "../../store/reduxHooks";
 const styles = {
   height: "50px",
   color: "#fff",
@@ -30,12 +31,12 @@ const stylesHover = {
   borderRadius: "10px",
 };
 const BasketPage = () => {
-  //const {} = useAppSelector((state) => state.page);
-  const [list, setList] = useState(() => goods.filter((item) => item.count));
+  const { basket } = useAppSelector((state) => state.page.data.user);
+  const [list, setList] = useState(basket);
   const [checked, setChecked] = useState(false);
   const [sum, setSum] = useState(0);
   const [showModal, setShowModal] = useState(false);
-  const basket = [
+  const basketOfGoods = [
     { name: <h2 className={classes.headerName}>Ваша корзина</h2>, value: "" },
     {
       name: (
@@ -74,7 +75,7 @@ const BasketPage = () => {
       value: sum * 1.7,
     },
   ];
-  const obj = [basket, pay];
+  const obj = [basketOfGoods, pay];
   useEffect(() => {
     if (list.filter((item) => item.choice).length === list.length) {
       setChecked(true);
@@ -199,7 +200,8 @@ const BasketPage = () => {
           sum={sum}
           obj={obj}
           title="Перейти к оформлению"
-          styles={[styles, stylesHover, stylesDisabled]}
+          stylesForButton={[styles, stylesHover, stylesDisabled]}
+          link="../placingAnOrderPage"
         />,
       ]}
       style={{ backgroundColor: "#fff", padding: ".7rem" }}

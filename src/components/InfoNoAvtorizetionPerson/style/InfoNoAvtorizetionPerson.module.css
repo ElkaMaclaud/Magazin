@@ -1,0 +1,9 @@
+.wrapperdropDown {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.wrapperdropDown p {
+    font-size: 18px;
+}
