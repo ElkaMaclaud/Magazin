@@ -11,14 +11,16 @@ import OrderPaidPage from "./Pages/OrderPaidPage/OrderPaidPage";
 import OrderListPage from "./Pages/OrderListPage/OrderListPage";
 import AccountPage from "./Pages/AccountPage/AccountPage";
 import LoadingPage from "./Pages/LoadingPage/LoadingPage";
-import { GET_GOODS } from "./store/slice";
+import { GET_BASKET_OF_GOODS, GET_FAVORITE_GOODS, GET_GOODS } from "./store/slice";
 
 function App() {
   const page = useAppSelector((state) => state.page.loading);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(GET_GOODS())
-  }, []);
+    dispatch(GET_BASKET_OF_GOODS())
+    dispatch(GET_FAVORITE_GOODS())
+  }, [dispatch])
   interface Elements {
     [key: string]: ReactElement;
   }

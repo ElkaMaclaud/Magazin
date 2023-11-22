@@ -22,9 +22,6 @@ const BanksList: FC<BanksListProps> = ({ list }) => {
   );
 };
 const PlacingAnOrder: FC = () => {
-  // const MemoizedBanksList = useMemo(() => <BanksList list={banksList} />, []);
-  // const MemoMethodOfObtaining =  useMemo(() => <MethodOfObtaining/>, [])
-
   return (
     <div className={classes.placingWrapper}>
       <BanksList list={banksList} />

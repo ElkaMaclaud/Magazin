@@ -1,10 +1,11 @@
 import React from "react";
 import classes from "./style/PlacingAnOrderPage.module.css";
 import CalculateAndRegisration from "../../components/CalculateAndRegisration/CalculateAndRegisration";
-import { goods } from "../../MockupData/goods";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CardPageFlex } from "../../UI_Component";
 import PlacingAnOrder from "../../components/PlacingAnOrder/PlacingAnOrder";
+import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
+import { PAY_GOODS } from "../../store/slice";
 
 const styles = {
   height: "50px",
@@ -21,14 +22,24 @@ const stylesHover = {
   backgroundColor: "#0000dd",
   borderRadius: "10px",
 };
+const stylesDisabled = {
+  height: "50px",
+  color: "#ccc",
+  width: "100%",
+  backgroundColor: "#eee",
+  borderRadius: "10px",
+};
 const PlacingAnOrderPage = () => {
-  const sum = goods.reduce((prev, current) => {
-    if (current.choice && current.count) {
+  const { registered } = useAppSelector((state) => state.page.data.user);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const sum = registered.reduce((prev, current) => {
+    if (current.count) {
       return prev + current.count * current.price;
     }
     return prev;
   }, 0);
-  const len = goods.reduce((prev, current) => {
+  const len = registered.reduce((prev, current) => {
     if (current.choice && current.count) {
       return prev + current.count;
     }
@@ -62,6 +73,10 @@ const PlacingAnOrderPage = () => {
     { name: <h2 className={classes.headerName}>Итого</h2>, value: `${sum} ₽` },
   ];
   const obj = [basket, pay];
+  const handlePurchase = () => {
+    dispatch(PAY_GOODS())
+    navigate("../orderPaidPage")
+  }
   return (
     <CardPageFlex
       // maxWidth={1200}
@@ -76,11 +91,11 @@ const PlacingAnOrderPage = () => {
           <PlacingAnOrder />
         </div>,
         <CalculateAndRegisration
+          handler={handlePurchase}
           sum={sum}
           title={"Оплатить"}
           obj={obj}
-          stylesForButton={[styles, stylesHover]}
-          link="../orderPaidPage"
+          stylesForButton={[styles, stylesHover, stylesDisabled]}
         />,
       ]}
     />

@@ -7,28 +7,24 @@ export const Button: FC<{
   title: ReactNode;
   styles?: CSSProperties | CSSProperties[];
   onClick?: () => void;
-  onMouseEnter?: () => void;
-  onMouseLeave?: () => void;
   disabled?: boolean;
   props?: ButtonHTMLAttributes<HTMLButtonElement>;
 }> = ({
   title,
   styles,
   onClick,
-  onMouseEnter,
-  onMouseLeave,
   disabled,
   props,
 }) => {
-  const [style, setStyle] = useState(checkProperty(styles) ? styles[0] : styles);
+  const [style, setStyle] = useState(checkProperty(styles) ?  disabled ? styles[2] : styles[0] : styles);
   return (
     <button
       disabled={disabled}
       style={style}
       className={classes.button}
       onClick={onClick}
-      onMouseEnter={() => checkProperty(styles) && setStyle(styles[1])}
-      onMouseLeave={() => checkProperty(styles) && setStyle(styles[0])}
+      onMouseEnter={() => !disabled && checkProperty(styles) && setStyle(styles[1])}
+      onMouseLeave={() => !disabled && checkProperty(styles) && setStyle(styles[0])}
       {...props}
     >
       {title}

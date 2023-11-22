@@ -6,6 +6,8 @@ export interface IUser {
   private: IInfoPrivate;
   favorite: IGoods[]; //string[];
   basket: IGoods[]; //Array<string>;
+  registered: IGoods[];
+  purchased: IGoods[];
 }
 export interface IInfoPublik {
   name: string;

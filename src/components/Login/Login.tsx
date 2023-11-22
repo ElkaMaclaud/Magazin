@@ -6,7 +6,6 @@ export const Login = () => {
   const handleSubmit = (event: MouseEvent) =>  {
     event.stopPropagation();
     event.preventDefault();
-    console.log("ghgg",  event.target)
   }
   return (
     <div>

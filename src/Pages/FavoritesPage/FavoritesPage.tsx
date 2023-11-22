@@ -1,12 +1,13 @@
 import React from "react";
-import { goods } from "../../MockupData/goods";
 import GoodsList from "../../components/GoodsList/GoodsList";
 import classes from "./style/FavoritesPage.module.css";
+import { useAppSelector } from "../../store/reduxHooks";
 
 const FavoritesPage = () => {
+  const { favorite } = useAppSelector((state) => state.page.data.user);
   return (
     <div className={classes.wrapper}>
-      <GoodsList data={goods.filter((item) => item.favorite)} icon={"like"} />
+      <GoodsList data={favorite} icon={"like"} />
     </div>
   );
 };

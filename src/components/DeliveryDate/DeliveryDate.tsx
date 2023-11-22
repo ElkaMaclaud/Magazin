@@ -4,28 +4,30 @@ import React, {
   useEffect,
   useRef,
   useState,
+  useMemo,
 } from "react";
 import { CardForInfo, Slider } from "../../UI_Component";
 import classes from "./style/DeliveryDate.module.css";
 import { BurgerMenu } from "../../UI_Component/Icons";
-import { goods } from "../../MockupData/goods";
 import { deliveryChoice } from "../../MockupData/personInfoData";
 import Dropdown from "../Dropdown/Dropdown";
 import { Modal } from "../Modal/Modal";
+import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
+import { CANSEL_PURCHASE } from "../../store/slice";
+import { debounce } from "../../utils/debounce";
 
 const DeliveryDate = () => {
+  const { registered } = useAppSelector((state) => state.page.data.user);
   const [showModal, setShowModal] = useState(false);
   const [showDropDown, setShowDropDown] = useState(false);
+  const dispatch =  useAppDispatch();
   const ref = useRef<HTMLDivElement>(null);
   const refShowDropDown = useRef<HTMLDivElement>(null);
   const [tooltipPosition, setTooltipPosition] = useState("bottom");
   let style: CSSProperties = getСoordinates();
-  const [choicesGoods, setChoicesGoods] = useState(
-    goods.filter((item) => item.choice).map((img) => img.image[0])
-  );
-
+  const MemoSlider = useMemo(() => <Slider list={registered.map((item) => item.image[0])} />, [registered])
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = debounce(() => {
       if (ref.current) {
         const tooltipRect = ref.current.getBoundingClientRect();
         if (tooltipRect.bottom - 100 > window.innerHeight) {
@@ -34,8 +36,10 @@ const DeliveryDate = () => {
           setTooltipPosition("bottom");
         }
       }
-    };
+    }, 50); 
+  
     window.addEventListener("scroll", handleScroll);
+  
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -45,7 +49,7 @@ const DeliveryDate = () => {
     style = getСoordinates();
   }, [tooltipPosition]);
   const canselPurchase = () => {
-    setChoicesGoods(() => []);
+    dispatch(CANSEL_PURCHASE())
     setShowDropDown(false);
     setShowModal(false);
   };
@@ -73,11 +77,10 @@ const DeliveryDate = () => {
           <BurgerMenu />
         </div>
       </div>
-      <Slider list={choicesGoods} />
-      {/* goods.filter((item) => item.choice).map((img) => img.image[0]) */}
+      {MemoSlider}
       <div className={classes.footer}>
         <p>
-          Доставка в{" "}
+          Доставка в
           {`${
             deliveryChoice.pickUpPoin
               ? "Пункт Magazin"
@@ -107,3 +110,21 @@ const DeliveryDate = () => {
 };
 
 export default DeliveryDate;
+
+
+// let animationFrameId: number;
+  
+//     const handleScroll = () => {
+//       animationFrameId = requestAnimationFrame(() => {
+//         if (ref.current) {
+//           const tooltipRect = ref.current.getBoundingClientRect();
+//           if (tooltipRect.bottom > window.innerHeight) {
+//             setTooltipPosition("top");
+//           } else if (tooltipRect.bottom < window.innerHeight) {
+//             setTooltipPosition("bottom");
+//           }
+//         }
+//       });
+//     };
+
+// cancelAnimationFrame(animationFrameId);

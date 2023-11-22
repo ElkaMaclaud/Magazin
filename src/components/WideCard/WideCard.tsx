@@ -3,9 +3,16 @@ import classes from "./style/WideCard.module.css";
 import { IGoods } from "../../type/goodsType";
 import { CounterButton, ImageGood } from "../../UI_Component";
 import ChoiceIcon from "../ChoiceIcon/ChoiceIcon";
-import { goods } from "../../MockupData/goods";
 import { Trash, СheckMark } from "../../UI_Component/Icons";
 import { Modal } from "../Modal/Modal";
+import { useAppDispatch } from "../../store/reduxHooks";
+import {
+  ADD_BASKET_OF_GOODS,
+  CHANGE_FAVORITE_GOOD,
+  CHOICE_BASKET_OF_GOODS,
+  DECREMENT_BASKET_OF_GOODS,
+  REMOVE_GOOD_BASKET_OF_GOODS,
+} from "../../store/slice";
 
 interface WideCardProps {
   firstChild: ReactNode;
@@ -17,71 +24,44 @@ interface WideCardProps {
 export const WideCard: FC<{
   good: IGoods;
   child?: ReactNode;
-  setList?: React.Dispatch<React.SetStateAction<IGoods[]>>;
-}> = memo(({ good, child, setList }) => {
+  setList?: React.Dispatch<React.SetStateAction<IGoods[]>>}> =
+  memo(({ good, child, setList }) => {
   const [showModal, setShowModal] = useState(false);
- //const {goods} = 
-  const [localGoods, setLocalGoods] = useState<IGoods[]>(goods);
-
+  const dispatch = useAppDispatch();
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setLocalGoods((prev) =>
-    prev.map((item) => {
-      if (item.id === good.id) {
-        return {...item, choice: e.target.checked};
-      }
-      return item;
-    })
-  );
+    dispatch(CHOICE_BASKET_OF_GOODS(good.id));
     setList &&
       setList((prev) =>
         prev.map((item) => {
           if (item.id === good.id) {
-            item.choice = e.target.checked;
+            return {...item, choice: e.target.checked}
           }
           return item;
         })
       );
   };
-  const addFavorites = (id: string) => {
-    setLocalGoods((prev) =>
-      prev.map((item) => {
-        if (item.id === id) {
-          item.favorite = item.favorite === true ? false : true;
-        }
-        return item;
-      })
-    );
+  const addFavorites = () => {
+    dispatch(CHANGE_FAVORITE_GOOD(good.id));
   };
-  const addBasket = (id: string, increment: number) => {
-    const count = good.count
-    setLocalGoods((prev) =>
-      prev.map((item) => {
-        if (item.id === id) {
-          item.count = count !== undefined ? (count + increment) : 1;
-        }
-        return item;
-      })
-    );
+  const addBasket = (increment: number) => {
+    if (increment > 0) {
+      dispatch(ADD_BASKET_OF_GOODS(good.id));
+    } else {
+      dispatch(DECREMENT_BASKET_OF_GOODS(good.id));
+    }
     setList &&
-      setList((prev) =>
-        prev.map((item) => {
-          if (item.id === id) {
-            item.count = count !== undefined ? (count + increment) : 1;
-          }
-          return item;
-        })
-      );
+    setList((prev) =>
+      prev.map((item) => {
+        if (item.id === good.id) {
+         return {...item, count: item.count && (item.count + increment )};
+        }
+        return item;
+      })
+    );
   };
   const removeBasket = (remove = true) => {
     if (remove) {
-      setLocalGoods((prev) =>
-        prev.map((elem) => {
-          if (elem.id === good.id) {
-            elem.count = 0;
-          }
-          return elem;
-        })
-      );
+      dispatch(REMOVE_GOOD_BASKET_OF_GOODS(good.id));
       setList && setList((prev) => prev.filter((elem) => elem.id !== good.id));
     }
     setShowModal(false);
@@ -104,7 +84,6 @@ export const WideCard: FC<{
         text={simple ? null : card.price}
         title={"Добавить в корзину"}
         handleClick={addBasket}
-        id={card.id}
         counter={checkProperty(card) || 0}
       />
     );

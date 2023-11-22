@@ -4,23 +4,23 @@ import classes from "./style/ChoiceIcon.module.css";
 
 const ChoiceIcon: FC<{
   favorite?: boolean;
-  onClick: (id: string) => void;
+  onClick: () => void;
   id: string;
-}> = ({ favorite, onClick, id }) => {
+}> = ({ favorite, onClick}) => {
   const [like, setLike] = useState<boolean>(favorite || false);
-  const handleClick = (id: string) => {
+  const handleClick = () => {
     setLike(!like);
-    onClick(id);
+    onClick();
   };
   if (like) {
     return (
-      <div onClick={() => handleClick(id)} className={classes.favorites}>
+      <div onClick={() => handleClick()} className={classes.favorites}>
         <Favorites like={like} />
       </div>
     );
   }
   return (
-    <div onClick={() => handleClick(id)} className={classes.favorites}>
+    <div onClick={() => handleClick()} className={classes.favorites}>
       <Favorites />
     </div>
   );

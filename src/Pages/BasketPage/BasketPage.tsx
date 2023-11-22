@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
-import GoodsList from "../../components/GoodsList/GoodsList";
-import { goods } from "../../MockupData/goods";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import classes from "./style/BasketPage.module.css";
 import CalculateAndRegisration from "../../components/CalculateAndRegisration/CalculateAndRegisration";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Share, СheckMark } from "../../UI_Component/Icons";
 import { Modal } from "../../components/Modal/Modal";
 import { CardPageFlex } from "../../UI_Component";
-import { useAppSelector } from "../../store/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
+import { CHOICE_ALL_BASKET_OF_GOODS, CLEARANCE_OF_GOODS, REMOVE_CHOICES_BASKET_OF_GOODS } from "../../store/slice";
+import GoodsList from "../../components/GoodsList/GoodsList";
+
 const styles = {
   height: "50px",
   color: "#fff",
@@ -32,17 +33,18 @@ const stylesHover = {
 };
 const BasketPage = () => {
   const { basket } = useAppSelector((state) => state.page.data.user);
-  const [list, setList] = useState(basket);
+  const dispatch = useAppDispatch();
   const [checked, setChecked] = useState(false);
   const [sum, setSum] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
   const basketOfGoods = [
     { name: <h2 className={classes.headerName}>Ваша корзина</h2>, value: "" },
     {
       name: (
         <div className={classes.goods}>
-          Товары{" "}
-          <div className={classes.name}>{`(${list.reduce((prev, current) => {
+          Товары
+          <div className={classes.name}>{`(${basket.reduce((prev, current) => {
             if (current.choice && current.count) {
               return prev + current.count;
             }
@@ -77,39 +79,39 @@ const BasketPage = () => {
   ];
   const obj = [basketOfGoods, pay];
   useEffect(() => {
-    if (list.filter((item) => item.choice).length === list.length) {
+    if (basket.filter((item) => item.choice).length === basket.length) {
       setChecked(true);
     } else {
       setChecked(false);
     }
     setSum(
-      list.reduce((prev, current) => {
+      basket.reduce((prev, current) => {
         if (current.choice && current.count) {
           return prev + current.count * current.price;
         }
         return prev;
       }, 0)
     );
-  }, [list]);
-  const onChange = () => {
+  }, [basket]);
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setChecked(!checked);
-    setList((prev) =>
-      prev.map((item) => {
-        return { ...item, choice: !checked };
-      })
-    );
+    dispatch(CHOICE_ALL_BASKET_OF_GOODS(e.target.checked))
   };
   const removeChoiceGoods = () => {
     setShowModal(true);
   };
   const removeBasket = (remove = true) => {
     if (remove) {
-      setList((prev) => prev.filter((item) => !item.choice));
+      dispatch(REMOVE_CHOICES_BASKET_OF_GOODS())
     }
     setShowModal(false);
   };
+  const handleCalculateGoods = () => {
+    dispatch(CLEARANCE_OF_GOODS())
+    navigate("../placingAnOrderPage")
+  }
   const BasketHeader = () => {
-    if (list.filter((item) => item.choice).length) {
+    if (basket.filter((item) => item.choice).length) {
       return (
         <div className={classes.basketHeaderWrapper}>
           <div className={classes.basketHeaderWrapperchild}>
@@ -124,7 +126,7 @@ const BasketPage = () => {
                 <СheckMark />
               </div>
             </label>
-            <p onClick={onChange}>Выбрать все </p>
+            <p>Выбрать все </p>
             <p onClick={removeChoiceGoods}>Удалить выбранные</p>
           </div>
           <div className={classes.basketHeaderWrapperchild}>
@@ -148,13 +150,13 @@ const BasketPage = () => {
               <СheckMark />
             </div>
           </label>
-          <p onClick={onChange}>Выбрать все </p>
+          <p>Выбрать все </p>
         </div>
       </div>
     );
   };
 
-  if (list.length === 0) {
+  if (basket.length === 0) {
     return (
       <CardPageFlex>
         <>
@@ -176,7 +178,7 @@ const BasketPage = () => {
       children={[
         <div className={classes.headerBasket}>
           <h2>Корзина</h2>
-          <p>{`(${list.reduce((prev, current) => {
+          <p>{`(${basket.reduce((prev, current) => {
             if (current.count) {
               return prev + current.count;
             }
@@ -186,7 +188,7 @@ const BasketPage = () => {
         <>
           <BasketHeader />
           <div className={classes.line}></div>
-          <GoodsList data={list} setList={setList} />
+          <GoodsList data={basket} />
           {showModal && (
             <Modal
               title={"Удалить товары"}
@@ -197,11 +199,11 @@ const BasketPage = () => {
           )}
         </>,
         <CalculateAndRegisration
+          handler={handleCalculateGoods}
           sum={sum}
           obj={obj}
           title="Перейти к оформлению"
           stylesForButton={[styles, stylesHover, stylesDisabled]}
-          link="../placingAnOrderPage"
         />,
       ]}
       style={{ backgroundColor: "#fff", padding: ".7rem" }}
