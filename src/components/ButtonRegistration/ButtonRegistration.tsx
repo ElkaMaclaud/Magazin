@@ -11,16 +11,14 @@ const ButtonRegistration: FC<{
     height: "50px",
     color: "#fff",
     width: "100%",
-    backgroundColor: `${backgroundColor || "#005bff"}`,
-    borderRadius: "10px",
+    backgroundColor: `${backgroundColor}`,
     transition: ".3s linear",
   };
   const stylesHover = {
     height: "50px",
     color: "#fff",
     width: "100%",
-    backgroundColor: `${backgroundColorHover || "#0000dd"}`,
-    borderRadius: "10px",
+    backgroundColor: `${backgroundColorHover}`,
   };
   return (
     <Button onClick={handler} title={title} styles={[styles, stylesHover]}></Button>

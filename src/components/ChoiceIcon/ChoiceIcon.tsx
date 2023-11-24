@@ -15,7 +15,7 @@ const ChoiceIcon: FC<{
   if (like) {
     return (
       <div onClick={() => handleClick()} className={classes.favorites}>
-        <Favorites like={like} />
+        <Favorites like />
       </div>
     );
   }

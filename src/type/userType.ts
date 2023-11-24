@@ -15,9 +15,9 @@ export interface IInfoPublik {
   age?: number;
 }
 export interface IInfoPrivate extends IInfoPublik {
-  phone: string;
+  phone?: string;
   dateOfBirt?: Date;
-  email?: string;
+  email: string;
   gender?: "Ж" | "М";
 }
 export interface IDelivery {

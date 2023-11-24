@@ -6,8 +6,11 @@ import classes from "./style/MenuLogin.module.css";
 import InfoNoAvtorizetionPerson from "../InfoNoAvtorizetionPerson/InfoNoAvtorizetionPerson";
 import { Modal } from "../Modal/Modal";
 import { Login } from "../Login/Login";
+import { useAppSelector } from "../../store/reduxHooks";
+import { menuItems } from "../../MockupData/menuItems";
 const style: CSSProperties = { width: "300px", left: "59.5%" };
 const MenuLogin = () => {
+  const {token, data} = useAppSelector(state => state.page)
   const [showModal, setShowModal] = useState(false);
   const [showDropDown, setShowDropDown] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -36,6 +39,23 @@ const MenuLogin = () => {
     setShowModal(true);
     setShowDropDown(false);
   };
+  if (token) {
+     return (
+    <div  className={classes.menuWrapper}>
+      <Link
+        to={"accountPage"}
+        className={classes.link}
+        onMouseOver={handleMouseOver}
+      >
+        <div className={classes.linkWrapperText}>
+          <Account />
+          {data.user.publik.name.split(" ")[0]}
+        </div>
+      </Link>
+      {showDropDown && <Dropdown handleAction={handleAction} ref={ref} list={menuItems}/>}
+    </div>
+  );
+  }
   return (
     <div className={classes.menuWrapper}>
       <Link
@@ -55,24 +75,9 @@ const MenuLogin = () => {
       )}
       {showModal && <Modal  title="Magazin ID"
           content={<Login />}
-          handleAction={() => {}}/>}
+          handleAction={() => setShowModal(false)}/>}
     </div>
   );
-  // return (
-  //   <div  className={classes.menuWrapper}>
-  //     <Link
-  //       to={"accountPage"}
-  //       className={classes.link}
-  //       onMouseOver={handleMouseOver}
-  //     >
-  //       <div className={classes.linkWrapperText}>
-  //         <Account />
-  //         {personPublicInfo[0].value.split(" ")[0]}
-  //       </div>
-  //     </Link>
-  //     {showDropDown && <Dropdown handleAction={handleAction} ref={ref} list={menuItems}/>}
-  //   </div>
-  // );
 };
 
 export default MenuLogin;

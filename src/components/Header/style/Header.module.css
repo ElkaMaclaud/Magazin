@@ -18,10 +18,10 @@
     display: flex;
     width: 700px;
     padding: 1px;
-    background-color: blueviolet;
+    background-color: #005bff;
     display: flex;
     align-items: center;
-    border-color: 2px  blueviolet;
+    border-color: 2px  #005bff;
     border-radius: 15px;
 }
 .searchBar button {

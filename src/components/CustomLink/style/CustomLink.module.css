@@ -1,7 +1,7 @@
 .button {
   width: 120px;
   height: 40px;
-  background-color: blueviolet;
+  background-color: #005bff;
   border-radius: 10px;
   cursor: pointer;
   border-color: none;
@@ -15,7 +15,7 @@
   transition: .2s linear;
 }
 .button:hover {
-  background-color: rgb(101, 33, 165);
+  background-color: #0000dd;
 }
 .btnActive {
   width: 120px;

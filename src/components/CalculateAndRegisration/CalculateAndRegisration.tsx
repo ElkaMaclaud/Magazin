@@ -18,7 +18,7 @@ const CalculateAndRegisration: FC<{
   if (sum === 0) {
     return (
       <SmallCard>
-        <Button disabled={true} styles={stylesForButton} title={title}></Button>
+        <Button disabled styles={stylesForButton} title={title}></Button>
         <InfoCard>
           <div className={classes.textWrapper}>
             <div className={classes.round}></div>

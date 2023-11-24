@@ -20,12 +20,15 @@ const DeliveryDate = () => {
   const { registered } = useAppSelector((state) => state.page.data.user);
   const [showModal, setShowModal] = useState(false);
   const [showDropDown, setShowDropDown] = useState(false);
-  const dispatch =  useAppDispatch();
+  const dispatch = useAppDispatch();
   const ref = useRef<HTMLDivElement>(null);
   const refShowDropDown = useRef<HTMLDivElement>(null);
   const [tooltipPosition, setTooltipPosition] = useState("bottom");
   let style: CSSProperties = getСoordinates();
-  const MemoSlider = useMemo(() => <Slider list={registered.map((item) => item.image[0])} />, [registered])
+  const MemoSlider = useMemo(
+    () => <Slider list={registered.map((item) => item.image[0])} />,
+    [registered]
+  );
   useEffect(() => {
     const handleScroll = debounce(() => {
       if (ref.current) {
@@ -36,10 +39,10 @@ const DeliveryDate = () => {
           setTooltipPosition("bottom");
         }
       }
-    }, 50); 
-  
+    }, 50);
+
     window.addEventListener("scroll", handleScroll);
-  
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -48,8 +51,10 @@ const DeliveryDate = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     style = getСoordinates();
   }, [tooltipPosition]);
-  const canselPurchase = () => {
-    dispatch(CANSEL_PURCHASE())
+  const canselPurchase = (remove = true) => {
+    if(remove) {
+      dispatch(CANSEL_PURCHASE());
+    }
     setShowDropDown(false);
     setShowModal(false);
   };
@@ -111,9 +116,8 @@ const DeliveryDate = () => {
 
 export default DeliveryDate;
 
-
 // let animationFrameId: number;
-  
+
 //     const handleScroll = () => {
 //       animationFrameId = requestAnimationFrame(() => {
 //         if (ref.current) {

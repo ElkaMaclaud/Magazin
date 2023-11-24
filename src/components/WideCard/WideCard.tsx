@@ -129,7 +129,7 @@ export const WideCard: FC<{
         id={good.id}
       />
     ) : (
-      <ElementRender card={good} simple={true} />
+      <ElementRender card={good} simple />
     ),
   };
   const { firstChild, sedondChild, treeChild, icon } = props;

@@ -11,23 +11,18 @@ const styles = {
   height: "50px",
   color: "#fff",
   width: "100%",
-  backgroundColor: "#005bff",
-  borderRadius: "10px",
   transition: ".3s linear",
 };
 const stylesHover = {
   height: "50px",
   color: "#fff",
   width: "100%",
-  backgroundColor: "#0000dd",
-  borderRadius: "10px",
 };
 const stylesDisabled = {
   height: "50px",
   color: "#ccc",
   width: "100%",
   backgroundColor: "#eee",
-  borderRadius: "10px",
 };
 const PlacingAnOrderPage = () => {
   const { registered } = useAppSelector((state) => state.page.data.user);

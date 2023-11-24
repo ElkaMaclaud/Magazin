@@ -14,8 +14,8 @@
     cursor: pointer;
 }
 .round {
-    width: 112px;
-    height: 112px;
+    min-width: 112px;
+    min-height: 112px;
     border-radius: 50%;
     background-color: rgb(138 180 248);
     display: flex;

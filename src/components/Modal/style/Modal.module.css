@@ -4,8 +4,9 @@
   width: 600px;
   position: absolute;
   left: 40%;
-  background-color: #fff;
+  background-color: hsl(0, 0%, 100%);
   border-radius: 50px;
+  z-index: 1;
 }
 .modalFalse {
   display: none;

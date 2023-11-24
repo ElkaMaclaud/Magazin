@@ -1,10 +1,11 @@
 import React, { FC, useState } from "react";
-import { delivery, personPrivateInfoP } from "../../MockupData/personInfoData";
+import { delivery } from "../../MockupData/personInfoData";
 import { Account, Location, SmallArrow } from "../../UI_Component/Icons";
 import classes from "./style/MethodOfObtaining.module.css";
 import { CardForInfo, Input } from "../../UI_Component";
 import { Modal } from "../Modal/Modal";
 import PhoneInput from "../PhoneComponent";
+import { useAppSelector } from "../../store/reduxHooks";
 interface IButton {
   curier: boolean;
   pickup: boolean;
@@ -14,7 +15,7 @@ interface IShowModal {
   delivery: boolean;
 }
 const MethodOfObtaining: FC = () => {
-  //const navigate = useNavigate();
+  const {user} = useAppSelector(state => state.page.data)
   const [showModal, setShowModal] = useState<IShowModal>({
     accontEdit: false,
     delivery: false,
@@ -24,8 +25,8 @@ const MethodOfObtaining: FC = () => {
     pickup: true,
   });
   const [personInfo, setPersonInfo] = useState({
-    name: personPrivateInfoP.name,
-    phone: personPrivateInfoP.phone,
+    name: user.private.name,
+    phone: user.private.phone,
   });
   const getDeliveryPoint = () => {
     if (activeButton.curier) {
@@ -119,10 +120,10 @@ const MethodOfObtaining: FC = () => {
           <div className={classes.infoData}>
             <Account />
             <div className={classes.acountInfo}>
-              {Object.keys(personPrivateInfoP).map((key: string) => {
+              {Object.keys(user.private).map((key: string) => {
                 return (
-                  <div key={key as keyof typeof personPrivateInfoP}>
-                    {personPrivateInfoP[key as keyof typeof personPrivateInfoP]}
+                  <div key={key as keyof typeof user.private}>
+                    {user.private[key as keyof typeof user.private]?.toString()  || ""}
                   </div>
                 );
               })}
@@ -142,7 +143,7 @@ const MethodOfObtaining: FC = () => {
                 <div className={classes.inputWrapper}>
                   <PhoneInput
                     label="Телефон"
-                    objName="phone"
+                    name="phone"
                     value={personInfo.phone}
                     upDataInput={handleChange}
                   />

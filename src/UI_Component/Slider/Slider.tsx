@@ -109,7 +109,7 @@ export const Slider: FC<{list: Array<any>}> = ({list}) => {
         className={offset < 0 ? classes.arrow : classes.arrowHidden}
         onClick={handleLeftArrowClick}
       >
-        <Arrow left={true} />
+        <Arrow left />
       </button>
       <button
         style={{

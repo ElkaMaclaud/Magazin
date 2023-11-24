@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent } from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./style/BasketPage.module.css";
 import CalculateAndRegisration from "../../components/CalculateAndRegisration/CalculateAndRegisration";
 import { Link, useNavigate } from "react-router-dom";
@@ -14,7 +14,6 @@ const styles = {
   color: "#fff",
   width: "100%",
   backgroundColor: "#10c44c",
-  borderRadius: "10px",
   transition: ".3s linear",
 };
 const stylesDisabled = {
@@ -22,14 +21,12 @@ const stylesDisabled = {
   color: "#ccc",
   width: "100%",
   backgroundColor: "#eee",
-  borderRadius: "10px",
 };
 const stylesHover = {
   height: "50px",
   color: "#fff",
   width: "100%",
   backgroundColor: "#10a44c",
-  borderRadius: "10px",
 };
 const BasketPage = () => {
   const { basket } = useAppSelector((state) => state.page.data.user);
@@ -93,9 +90,9 @@ const BasketPage = () => {
       }, 0)
     );
   }, [basket]);
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChange = () => {
     setChecked(!checked);
-    dispatch(CHOICE_ALL_BASKET_OF_GOODS(e.target.checked))
+    dispatch(CHOICE_ALL_BASKET_OF_GOODS(!checked))
   };
   const removeChoiceGoods = () => {
     setShowModal(true);
@@ -126,7 +123,7 @@ const BasketPage = () => {
                 <СheckMark />
               </div>
             </label>
-            <p>Выбрать все </p>
+            <p onClick={onChange}>Выбрать все </p>
             <p onClick={removeChoiceGoods}>Удалить выбранные</p>
           </div>
           <div className={classes.basketHeaderWrapperchild}>
@@ -150,7 +147,7 @@ const BasketPage = () => {
               <СheckMark />
             </div>
           </label>
-          <p>Выбрать все </p>
+          <p onClick={onChange}>Выбрать все </p>
         </div>
       </div>
     );
