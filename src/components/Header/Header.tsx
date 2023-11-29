@@ -27,7 +27,7 @@ const Header = () => {
         <div className={classes.searchBar}>
           <InputSearch />
           <Button
-            title={<SearchIcon />}
+            children={<SearchIcon />}
             onClick={() => console.log("Basket")}
           />
         </div>

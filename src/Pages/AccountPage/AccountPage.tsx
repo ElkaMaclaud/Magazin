@@ -18,7 +18,7 @@ const AccountPage = () => {
             Чтобы делать покупки, отслеживать заказы и пользоваться
             персональными скидками и баллами.
           </p>
-          <Link to="/login"><ButtonRegistration title="Войти или зарегистрироваться"/></Link>
+          <Link to="/login"><ButtonRegistration children="Войти или зарегистрироваться"/></Link>
         </div>
       </CardForInfo>
     </CardPageFlex>

@@ -4,13 +4,13 @@ function checkProperty(prop: Array<any> | any): prop is Array<any> {
   return Array.isArray(prop)
 }
 export const Button: FC<{
-  title: ReactNode;
+  children: ReactNode;
   styles?: CSSProperties | CSSProperties[];
   onClick?: () => void;
   disabled?: boolean;
   props?: ButtonHTMLAttributes<HTMLButtonElement>;
 }> = ({
-  title,
+  children,
   styles,
   onClick,
   disabled,
@@ -27,7 +27,7 @@ export const Button: FC<{
       onMouseLeave={() => !disabled && checkProperty(styles) && setStyle(styles[0])}
       {...props}
     >
-      {title}
+      {children}
     </button>
   );
 };

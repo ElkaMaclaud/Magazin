@@ -1,15 +1,25 @@
 import React, { FC, ReactNode, useState } from "react";
 import classes from "./style/CounterButton.module.css";
+import { useAppDispatch } from "../../store/reduxHooks";
+import { ADD_BASKET_OF_GOODS, DECREMENT_BASKET_OF_GOODS } from "../../store/slice";
 
 export const CounterButton: FC<{
   text?: ReactNode;
   title?: string;
-  handleClick: (increment: number) => void;
+  id: string;
   counter: number;
-}> = ({ text, title, handleClick, counter }) => {
+}> = ({ text, title, id, counter }) => {
+  const dispatch = useAppDispatch()
   const [count, setCount] = useState(counter);
+  const addBasket = (increment: number) => {
+    if (increment > 0) {
+      dispatch(ADD_BASKET_OF_GOODS(id));
+    } else {
+      dispatch(DECREMENT_BASKET_OF_GOODS(id));
+    }
+  };
   const handler = (increment = 1) => {
-    handleClick(increment);
+    addBasket(increment)
     setCount((prev) => prev + increment);
   };
   const BaksetCount = () => {

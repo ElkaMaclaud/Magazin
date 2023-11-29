@@ -2,11 +2,11 @@ import React, { FC, ReactNode } from "react";
 import { Button } from "../../UI_Component";
 
 const ButtonRegistration: FC<{
-  title: ReactNode;
+  children: ReactNode;
   backgroundColor?: string;
   backgroundColorHover?: string;
   handler?: (...args: any) => any;
-}> = ({ title, backgroundColor, backgroundColorHover, handler }) => {
+}> = ({ children, backgroundColor, backgroundColorHover, handler }) => {
   const styles = {
     height: "50px",
     color: "#fff",
@@ -21,7 +21,7 @@ const ButtonRegistration: FC<{
     backgroundColor: `${backgroundColorHover}`,
   };
   return (
-    <Button onClick={handler} title={title} styles={[styles, stylesHover]}></Button>
+    <Button onClick={handler}styles={[styles, stylesHover]}>{children}</Button>
   );
 };
 

@@ -25,16 +25,16 @@ const stylesDisabled = {
   backgroundColor: "#eee",
 };
 const PlacingAnOrderPage = () => {
-  const { registered } = useAppSelector((state) => state.page.data.user);
+  const { user } = useAppSelector((state) => state.page.data);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const sum = registered.reduce((prev, current) => {
+  const sum = user.registered.reduce((prev, current) => {
     if (current.count) {
       return prev + current.count * current.price;
     }
     return prev;
   }, 0);
-  const len = registered.reduce((prev, current) => {
+  const len = user.registered.reduce((prev, current) => {
     if (current.choice && current.count) {
       return prev + current.count;
     }
@@ -69,7 +69,7 @@ const PlacingAnOrderPage = () => {
   ];
   const obj = [basket, pay];
   const handlePurchase = () => {
-    dispatch(PAY_GOODS())
+    dispatch(PAY_GOODS(user.delivery))
     navigate("../orderPaidPage")
   }
   return (

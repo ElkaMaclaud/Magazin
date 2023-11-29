@@ -15,6 +15,7 @@ import RequireAuth from "./hoc/RequireAuth";
 import NotfoundPage from "./Pages/NotfoundPage/NotfoundPage";
 import LoginPage from "./Pages/LoginPage/LoginPage";
 import Profile from "./Pages/PfofilePage/ProfilePage";
+import SettingsPage from "./Pages/SettingsPage/SettingsPage";
 
 function App() {
   const page = useAppSelector((state) => state.page.loading);
@@ -34,6 +35,7 @@ function App() {
       favorites: <FavoritesPage />,
       basket: <BasketPage />,
       profile: <Profile />,
+      settings: <SettingsPage />,
       placingAnOrderPage: <PlacingAnOrderPage />,
       orderPaidPage: <OrderPaidPage />,
       orderListPage: <OrderListPage />,

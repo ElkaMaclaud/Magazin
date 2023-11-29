@@ -1,0 +1,20 @@
+.contentWrapper {
+    max-width: 1400px;
+    margin: auto;
+    margin-top: 30px;
+    display: flex;
+
+}
+.sideBar {
+    text-align: center;
+    width: fit-content;
+}
+.profileWrapper {
+    max-width: 900px;
+    text-align: left;
+}
+.text {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 1.5rem;
+}

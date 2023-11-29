@@ -25,10 +25,12 @@
   background-color: blue;
   color: #fff;
 }
-
 .infoPersonal:not(:last-child) {
   padding-bottom: 20px;
   border-bottom: 1px solid #ddd;
+}
+.infoPersonal:not(:last-child) .infoData {
+  min-height: 104px;
 }
 .infoPersonal svg {
   fill: #888;

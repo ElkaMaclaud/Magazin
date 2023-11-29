@@ -1,0 +1,12 @@
+.wrapper {
+    display: flex;
+    gap: 20px;
+}
+.sidebar {
+    width: 15%;
+}
+.orderCardWrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}

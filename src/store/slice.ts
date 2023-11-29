@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { IData } from "../type/dataType";
 import { goods } from "../MockupData/goods";
 import { IGoods } from "../type/goodsType";
+import { IDelivery, IPurchased } from "../type/userType";
 type IAuthorization = {
   name: string;
   phone?: string;
@@ -11,7 +12,7 @@ type IAuthorization = {
 };
 type ReturnAction = { goods: IGoods[]; basket: IGoods[]; favorite: IGoods[] };
 type ExtendedReturnAction = ReturnAction & {
-  purchased: IGoods[];
+  purchased: IPurchased[];
 };
 export interface IInitialState {
   success: boolean;
@@ -40,6 +41,10 @@ const state: IInitialState = {
       basket: [],
       registered: [],
       purchased: [],
+      delivery: {
+        pickUpPoin: "Республика Татарстан, Казань, Беломорская 17",
+        choice: "pickUpPoin",
+      },
     },
   },
 };
@@ -54,13 +59,62 @@ export const AUT_USER = createAsyncThunk<
         //const success = Math.random() < 0.9;
         const success = true;
         if (success) {
-          resolve({ email: value.email, name: value.name, dateOfBirt: value.dateOfBirt, phone: value.phone });
+          resolve({
+            email: value.email,
+            name: value.name,
+            dateOfBirt: value.dateOfBirt,
+            phone: value.phone,
+          });
         } else {
           throw new Error("Authorization failed");
         }
       }, 2000)
     );
     return response as IAuthorization;
+  } catch (error) {
+    return rejectWithValue(`${error}`);
+  }
+});
+export const CHANGE_DELIVERY = createAsyncThunk<
+  IDelivery,
+  IDelivery,
+  { rejectValue: string }
+>("page/CHANGE_DELIVERY", async (value, { rejectWithValue }) => {
+  try {
+    const response = await new Promise((resolve) =>
+      setTimeout(() => {
+        //const success = Math.random() < 0.9;
+        const success = true;
+        if (success) {
+          resolve(value);
+        } else {
+          throw new Error("Authorization failed");
+        }
+      }, 10)
+    );
+    return response as IDelivery;
+  } catch (error) {
+    return rejectWithValue(`${error}`);
+  }
+});
+export const CHANGE_ACCOUNT_INFO = createAsyncThunk<
+  { name: string; phone?: string },
+  { name: string; phone?: string },
+  { rejectValue: string }
+>("page/CHANGE_ACCOUNT_INFO", async (value, { rejectWithValue }) => {
+  try {
+    const response = await new Promise((resolve) =>
+      setTimeout(() => {
+        //const success = Math.random() < 0.9;
+        const success = true;
+        if (success) {
+          resolve(value);
+        } else {
+          throw new Error("Authorization failed");
+        }
+      }, 10)
+    );
+    return response as { name: string; phone?: string };
   } catch (error) {
     return rejectWithValue(`${error}`);
   }
@@ -183,44 +237,49 @@ export const CANSEL_PURCHASE = createAsyncThunk<
 
 export const PAY_GOODS = createAsyncThunk<
   ExtendedReturnAction,
-  undefined,
+  IDelivery,
   { rejectValue: string }
->("page/PAY_GOODS", async (_, { rejectWithValue, getState }: any) => {
-  try {
-    const response = await new Promise((resolve) =>
-      setTimeout(() => {
-        const success = true;
-        if (success) {
-          resolve({
-            goods: getState().page.data.goods.map((good: IGoods) => {
-              if (good.choice) {
-                return { ...good, count: 0, choice: false };
-              }
-              return good;
-            }),
-            basket: getState().page.data.user.basket.filter(
-              (good: IGoods) => !good.choice
-            ),
-            favorite: getState().page.data.user.favorite.map((good: IGoods) => {
-              if (good.choice) {
-                return { ...good, count: 0 };
-              }
-              return good;
-            }),
-            purchased: getState().page.data.user.basket.filter(
-              (good: IGoods) => good.choice
-            ),
-          });
-        } else {
-          throw new Error("Authorization failed");
-        }
-      }, 0)
-    );
-    return response as ExtendedReturnAction;
-  } catch (error) {
-    return rejectWithValue(`${error}`);
+>(
+  "page/PAY_GOODS",
+  async (deliveryOrder, { rejectWithValue, getState }: any) => {
+    try {
+      const response = await new Promise((resolve) =>
+        setTimeout(() => {
+          const success = true;
+          if (success) {
+            resolve({
+              goods: getState().page.data.goods.map((good: IGoods) => {
+                if (good.choice) {
+                  return { ...good, count: 0, choice: false };
+                }
+                return good;
+              }),
+              basket: getState().page.data.user.basket.filter(
+                (good: IGoods) => !good.choice
+              ),
+              favorite: getState().page.data.user.favorite.map(
+                (good: IGoods) => {
+                  if (good.choice) {
+                    return { ...good, count: 0 };
+                  }
+                  return good;
+                }
+              ),
+              purchased: getState()
+                .page.data.user.basket.filter((good: IGoods) => good.choice)
+                .map((item: IGoods) => ({ ...item, delivery: deliveryOrder })),
+            });
+          } else {
+            throw new Error("Authorization failed");
+          }
+        }, 0)
+      );
+      return response as ExtendedReturnAction;
+    } catch (error) {
+      return rejectWithValue(`${error}`);
+    }
   }
-});
+);
 export const CHOICE_ALL_BASKET_OF_GOODS = createAsyncThunk<
   ReturnAction,
   boolean,
@@ -604,7 +663,43 @@ const slice = createSlice({
               },
             },
           },
-        }
+        };
+      }
+    });
+    builder.addCase(CHANGE_DELIVERY.fulfilled, (state, action) => {
+      if (action.payload) {
+        return {
+          ...state,
+          data: {
+            ...state.data,
+            user: {
+              ...state.data.user,
+              delivery: action.payload,
+            },
+          },
+        };
+      }
+    });
+    builder.addCase(CHANGE_ACCOUNT_INFO.fulfilled, (state, action) => {
+      if (action.payload) {
+        return {
+          ...state,
+          data: {
+            ...state.data,
+            user: {
+              ...state.data.user,
+              private: {
+                ...state.data.user.private,
+                name: action.payload.name,
+                phone: action.payload.phone,
+              },
+              publik: {
+                ...state.data.user.publik,
+                name: action.payload.name,
+              },
+            },
+          },
+        };
       }
     });
     builder.addCase(GET_GOODS.fulfilled, (state, action) => {

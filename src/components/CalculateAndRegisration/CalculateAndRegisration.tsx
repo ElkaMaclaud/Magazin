@@ -18,7 +18,9 @@ const CalculateAndRegisration: FC<{
   if (sum === 0) {
     return (
       <SmallCard>
-        <Button disabled styles={stylesForButton} title={title}></Button>
+        <Button disabled styles={stylesForButton}>
+          {title}
+        </Button>
         <InfoCard>
           <div className={classes.textWrapper}>
             <div className={classes.round}></div>
@@ -33,11 +35,9 @@ const CalculateAndRegisration: FC<{
   return (
     <div className={classes.wrapper}>
       <SmallCard>
-        <Button
-          onClick={handler}
-          styles={stylesForButton}
-          title={title}
-        ></Button>
+        <Button onClick={handler} styles={stylesForButton}>
+          {title}
+        </Button>
         <InfoCard>
           <p>
             Доступные способы и время доставки можно выбрать при оформлении

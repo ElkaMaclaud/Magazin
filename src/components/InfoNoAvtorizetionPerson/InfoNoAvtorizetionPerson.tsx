@@ -11,14 +11,12 @@ const InfoNoAvtorizetionPerson: FC<{handler: (...args: any) => any}> = ({handler
         юрлица.
       </p>
       <ButtonRegistration
-        title="Войти или зарегистрироваться"
         handler={handler}
-      />
+      >Войти или зарегистрироваться</ButtonRegistration>
       <ButtonRegistration
-        title="Личный кабинет"
         backgroundColor="rgba(12, 32, 49, 0.08)"
         backgroundColorHover="rgba(90, 126, 151, 0.08)"
-      />
+      >Личный кабинет</ButtonRegistration>
     </div>
   );
 };

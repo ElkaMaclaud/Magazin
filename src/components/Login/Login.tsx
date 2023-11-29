@@ -40,9 +40,8 @@ export const Login: FC<{fromPage?: string}> = ({fromPage}) => {
         <Input label name="password" handleChange={() => {}} value="" />
         <Input label name="dateOfBirt" handleChange={() => {}} value="" />
         <Button
-          title="Войти в магазин"
           styles={{ width: "100%", padding: "15px" }}
-        />
+        >Войти в магазин</Button>
       </form>
     </div>
   );

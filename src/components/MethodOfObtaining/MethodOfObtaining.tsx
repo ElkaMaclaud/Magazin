@@ -1,11 +1,11 @@
 import React, { FC, useState } from "react";
-import { delivery } from "../../MockupData/personInfoData";
 import { Account, Location, SmallArrow } from "../../UI_Component/Icons";
 import classes from "./style/MethodOfObtaining.module.css";
 import { CardForInfo, Input } from "../../UI_Component";
 import { Modal } from "../Modal/Modal";
 import PhoneInput from "../PhoneComponent";
-import { useAppSelector } from "../../store/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
+import { CHANGE_ACCOUNT_INFO, CHANGE_DELIVERY } from "../../store/slice";
 interface IButton {
   curier: boolean;
   pickup: boolean;
@@ -15,7 +15,9 @@ interface IShowModal {
   delivery: boolean;
 }
 const MethodOfObtaining: FC = () => {
-  const {user} = useAppSelector(state => state.page.data)
+  const { user } = useAppSelector((state) => state.page.data);
+  const dispatch = useAppDispatch();
+  const [personInfo, setPersonInfo] = useState({name: user.private.name, phone: user.private.phone})
   const [showModal, setShowModal] = useState<IShowModal>({
     accontEdit: false,
     delivery: false,
@@ -24,18 +26,39 @@ const MethodOfObtaining: FC = () => {
     curier: false,
     pickup: true,
   });
-  const [personInfo, setPersonInfo] = useState({
-    name: user.private.name,
-    phone: user.private.phone,
-  });
   const getDeliveryPoint = () => {
     if (activeButton.curier) {
-      return delivery.address;
+      return user.delivery.address;
     }
-    return delivery.pickUpPoin;
+    return user.delivery.pickUpPoin;
+  };
+  const changeDelivery = (pickup = false) => {
+    if (pickup) {
+      setActiveButton(() => ({
+        curier: false,
+        pickup: true,
+      }));
+      dispatch(
+        CHANGE_DELIVERY({
+          ...user.delivery,
+          choice: "pickUpPoin",
+        })
+      );
+    } else {
+      setActiveButton(() => ({
+        pickup: false,
+        curier: true,
+      }));
+      dispatch(
+        CHANGE_DELIVERY({
+          ...user.delivery,
+          choice: "address",
+        })
+      );
+    }
   };
   const saveNewValue = () => {
-    //Redux dispatch  ф-ия
+    dispatch(CHANGE_ACCOUNT_INFO(personInfo))
     setShowModal(() => ({ accontEdit: false, delivery: false }));
   };
   const handleChange = (key: string, value: string) => {
@@ -43,7 +66,7 @@ const MethodOfObtaining: FC = () => {
       ...prev,
       [key]: value,
     }));
-  }
+  };
   return (
     <>
       <CardForInfo>
@@ -56,12 +79,7 @@ const MethodOfObtaining: FC = () => {
                   ? classes.buttonObtainingActive
                   : classes.buttonObtaining
               }
-              onClick={() =>
-                setActiveButton((prev) => ({
-                  curier: false,
-                  pickup: true,
-                }))
-              }
+              onClick={() => changeDelivery(true)}
             >
               Самовывоз
             </button>
@@ -71,12 +89,7 @@ const MethodOfObtaining: FC = () => {
                   ? classes.buttonObtainingActive
                   : classes.buttonObtaining
               }
-              onClick={() =>
-                setActiveButton((prev) => ({
-                  pickup: false,
-                  curier: true,
-                }))
-              }
+              onClick={() => changeDelivery()}
             >
               Курьером
             </button>
@@ -120,10 +133,15 @@ const MethodOfObtaining: FC = () => {
           <div className={classes.infoData}>
             <Account />
             <div className={classes.acountInfo}>
-              {Object.keys(user.private).map((key: string) => {
+              {Object.keys({
+                name: user.private.name,
+                phone: user.private.phone,
+              }).map((key: string) => {
                 return (
                   <div key={key as keyof typeof user.private}>
-                    {user.private[key as keyof typeof user.private]?.toString()  || ""}
+                    {user.private[
+                      key as keyof typeof user.private
+                    ]?.toString() || ""}
                   </div>
                 );
               })}
@@ -138,7 +156,11 @@ const MethodOfObtaining: FC = () => {
               <div className={classes.acountInfoEdit}>
                 <div className={classes.inputWrapper}>
                   <label>Имя и фамилия </label>
-                  <Input name="name" value={personInfo.name} handleChange={handleChange} />
+                  <Input
+                    name="name"
+                    value={personInfo.name}
+                    handleChange={handleChange}
+                  />
                 </div>
                 <div className={classes.inputWrapper}>
                   <PhoneInput

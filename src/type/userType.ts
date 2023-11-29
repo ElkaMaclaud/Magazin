@@ -7,7 +7,8 @@ export interface IUser {
   favorite: IGoods[]; //string[];
   basket: IGoods[]; //Array<string>;
   registered: IGoods[];
-  purchased: IGoods[];
+  purchased: IPurchased[];
+  delivery: IDelivery;
 }
 export interface IInfoPublik {
   name: string;
@@ -21,7 +22,10 @@ export interface IInfoPrivate extends IInfoPublik {
   gender?: "Ж" | "М";
 }
 export interface IDelivery {
-  adress?: string;
-  pickUpPoin: boolean;
-  address: boolean;
+  address?: string;
+  pickUpPoin: string;
+  choice: "address" | "pickUpPoin"
+}
+export interface IPurchased extends IGoods {
+  delivery: IDelivery
 }

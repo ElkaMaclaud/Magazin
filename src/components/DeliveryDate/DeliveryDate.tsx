@@ -9,7 +9,6 @@ import React, {
 import { CardForInfo, Slider } from "../../UI_Component";
 import classes from "./style/DeliveryDate.module.css";
 import { BurgerMenu } from "../../UI_Component/Icons";
-import { deliveryChoice } from "../../MockupData/personInfoData";
 import Dropdown from "../Dropdown/Dropdown";
 import { Modal } from "../Modal/Modal";
 import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
@@ -17,7 +16,7 @@ import { CANSEL_PURCHASE } from "../../store/slice";
 import { debounce } from "../../utils/debounce";
 
 const DeliveryDate = () => {
-  const { registered } = useAppSelector((state) => state.page.data.user);
+  const { user } = useAppSelector((state) => state.page.data);
   const [showModal, setShowModal] = useState(false);
   const [showDropDown, setShowDropDown] = useState(false);
   const dispatch = useAppDispatch();
@@ -26,16 +25,16 @@ const DeliveryDate = () => {
   const [tooltipPosition, setTooltipPosition] = useState("bottom");
   let style: CSSProperties = getСoordinates();
   const MemoSlider = useMemo(
-    () => <Slider list={registered.map((item) => item.image[0])} />,
-    [registered]
+    () => <Slider list={user.registered.map((item) => item.image[0])} />,
+    [user.registered]
   );
   useEffect(() => {
     const handleScroll = debounce(() => {
       if (ref.current) {
         const tooltipRect = ref.current.getBoundingClientRect();
-        if (tooltipRect.bottom - 100 > window.innerHeight) {
+        if (tooltipRect.bottom > window.innerHeight - 100 ) {
           setTooltipPosition("top");
-        } else if (tooltipRect.bottom + 100 < window.innerHeight) {
+        } else if (tooltipRect.bottom - 200 < window.innerHeight) {
           setTooltipPosition("bottom");
         }
       }
@@ -85,11 +84,11 @@ const DeliveryDate = () => {
       {MemoSlider}
       <div className={classes.footer}>
         <p>
-          Доставка в
+          Доставка в{" "}
           {`${
-            deliveryChoice.pickUpPoin
+            user.delivery.choice === "pickUpPoin"
               ? "Пункт Magazin"
-              : `${deliveryChoice.address}`
+              : `${user.delivery.address}`
           }`}
         </p>
       </div>
