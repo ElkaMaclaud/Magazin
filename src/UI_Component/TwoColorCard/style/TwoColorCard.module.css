@@ -1,0 +1,67 @@
+.wrapperCard {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 233px;
+  margin-bottom: 24px;
+  box-shadow: 0 0 10px #999;
+  border-radius: 10px;
+  font-size: 19px;
+}
+.headerCard {
+  padding: 20px;
+  height: 33%;
+  background-color: rgba(221, 226, 235, 0.5);
+  display: flex;
+  justify-content: space-between;
+}
+.orderHeader {
+  max-height: 80px;
+}
+.orderHeader  h3 {
+  margin: 0;
+  line-height: .8;
+}
+.price {
+  display: flex;
+  align-items:first baseline;
+  gap: 10px;
+}
+.link {
+  text-decoration: none;
+  color: blue;
+  font-size: 15px;
+  line-height: .1;
+}
+.contentCard {
+  padding: 20px;
+  display: flex;
+  justify-content: start;
+}
+.textcontentCard {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.buttonOrderEval,
+.buttonOrderGood {
+  cursor: pointer;
+  background-color: rgba(0,150,255,.08);
+  padding: 10px;
+  border-radius: 10px;
+  color: blue;
+  transition: 0.2s ease-in-out;
+}
+.buttonOrderGood:hover {
+  background-color: rgba(0,150,255,.15);
+}
+.buttonOrderEval {
+  background-color: #005bff;
+  color: #fff;
+  margin-right: 10px;
+}
+.buttonOrderEval:hover {
+  background-color: #0000dd;
+}

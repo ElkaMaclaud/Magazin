@@ -22,7 +22,7 @@
 .image {
   width: 100px;
   height: 58px;
-  object-fit: contain;
+  object-fit: cover;
 }
 .imageWrapper:hover {
   border-color: blue;

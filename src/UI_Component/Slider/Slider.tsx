@@ -6,6 +6,7 @@ interface IPlace {
   right: number;
   top: number;
 }
+const WIDTH = 450;
 export const Slider: FC<{list: Array<any>}> = ({list}) => {
   const [offset, setOffset] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
@@ -32,7 +33,7 @@ export const Slider: FC<{list: Array<any>}> = ({list}) => {
         }
         return 0;
       }
-      return prev + 450;
+      return prev + WIDTH;
     });
   };
   const handleRightArrowClick = () => {
@@ -43,14 +44,14 @@ export const Slider: FC<{list: Array<any>}> = ({list}) => {
         }
         return prev - ultraRight();
       }
-      return prev - 450;
+      return prev - WIDTH;
     });
   };
   const ultraRight = () => {
     if (ref.current) {
       return maxWidth() + (offset - ref.current.clientWidth);
     }
-    return maxWidth() - 450;
+    return maxWidth() - WIDTH;
   };
   const showRightArrow = () => {
     if (ref.current) {
@@ -109,7 +110,7 @@ export const Slider: FC<{list: Array<any>}> = ({list}) => {
         className={offset < 0 ? classes.arrow : classes.arrowHidden}
         onClick={handleLeftArrowClick}
       >
-        <Arrow left={true} />
+        <Arrow left />
       </button>
       <button
         style={{

@@ -1,34 +1,40 @@
 import React from "react";
 import classes from "./style/PlacingAnOrderPage.module.css";
 import CalculateAndRegisration from "../../components/CalculateAndRegisration/CalculateAndRegisration";
-import { goods } from "../../MockupData/goods";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CardPageFlex } from "../../UI_Component";
 import PlacingAnOrder from "../../components/PlacingAnOrder/PlacingAnOrder";
+import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
+import { PAY_GOODS } from "../../store/slice";
 
 const styles = {
   height: "50px",
   color: "#fff",
   width: "100%",
-  backgroundColor: "#005bff",
-  borderRadius: "10px",
   transition: ".3s linear",
 };
 const stylesHover = {
   height: "50px",
   color: "#fff",
   width: "100%",
-  backgroundColor: "#0000dd",
-  borderRadius: "10px",
+};
+const stylesDisabled = {
+  height: "50px",
+  color: "#ccc",
+  width: "100%",
+  backgroundColor: "#eee",
 };
 const PlacingAnOrderPage = () => {
-  const sum = goods.reduce((prev, current) => {
-    if (current.choice && current.count) {
+  const { user } = useAppSelector((state) => state.page.data);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const sum = user.registered.reduce((prev, current) => {
+    if (current.count) {
       return prev + current.count * current.price;
     }
     return prev;
   }, 0);
-  const len = goods.reduce((prev, current) => {
+  const len = user.registered.reduce((prev, current) => {
     if (current.choice && current.count) {
       return prev + current.count;
     }
@@ -62,6 +68,10 @@ const PlacingAnOrderPage = () => {
     { name: <h2 className={classes.headerName}>Итого</h2>, value: `${sum} ₽` },
   ];
   const obj = [basket, pay];
+  const handlePurchase = () => {
+    dispatch(PAY_GOODS(user.delivery))
+    navigate("../orderPaidPage")
+  }
   return (
     <CardPageFlex
       // maxWidth={1200}
@@ -76,10 +86,11 @@ const PlacingAnOrderPage = () => {
           <PlacingAnOrder />
         </div>,
         <CalculateAndRegisration
+          handler={handlePurchase}
           sum={sum}
           title={"Оплатить"}
           obj={obj}
-          styles={[styles, stylesHover]}
+          stylesForButton={[styles, stylesHover, stylesDisabled]}
         />,
       ]}
     />

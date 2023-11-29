@@ -6,10 +6,14 @@
 }
 .userAvatarWrapper  > * {
     margin: 0;
-    max-width: 60%;
 }
-.userAvatarWrapper a{
-    font-size: .9rem;
+.userName {
+    max-width: 40%;
+}
+.link {
+    width: fit-content;
+    text-decoration: none;
+    font-size: 16px;
     color: blue;
     cursor: pointer;
 }

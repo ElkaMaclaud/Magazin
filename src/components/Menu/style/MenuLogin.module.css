@@ -12,7 +12,7 @@
     align-items: center;
     font-size: 16px;
 }
-.menuWrapper :hover {
+.menuWrapper :hover .linkWrapperText {
     color: blue;
 }
 .menuWrapper :hover svg {

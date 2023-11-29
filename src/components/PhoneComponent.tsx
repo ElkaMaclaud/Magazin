@@ -5,7 +5,7 @@ import {
 } from "../utils/formattedPhoneNumbers";
 interface PhoneInputProps {
   classname?: string;
-  objName?: string;
+  name?: string;
   label: string;
   value?: string;
   upDataInput?: (key: string, value: string) => void;
@@ -14,7 +14,7 @@ interface PhoneInputProps {
 
 const PhoneInput = ({
   classname,
-  objName,
+  name,
   label,
   value,
   upDataInput,
@@ -31,21 +31,27 @@ const PhoneInput = ({
     }
   }, [value]);
   // useEffect(() => {
+  //   return () => {
+  //     if (upDataInput && typeof upDataInput === "function" && name) {
+  //     upDataInput(name, formattedInputValue);
+  //     }}
+  // });
+  // useEffect(() => {
   //   if (inputRef.current?.input) {
   //     inputRef.current.input.setSelectionRange(cursor, cursor);
   //   }
   // }, [cursor]);
-  const validatePhone = () => {
-    if (
-      ["7", "8", "+"].indexOf(formattedInputValue[0]) > -1 &&
-      getInputNumbersValue(formattedInputValue).length < 11
-    ) {
-      return true;
-    } else if (getInputNumbersValue(formattedInputValue).length < 10) {
-      return true;
-    }
-    return false;
-  };
+  // const validatePhone = () => {
+  //   if (
+  //     ["7", "8", "+"].indexOf(formattedInputValue[0]) > -1 &&
+  //     getInputNumbersValue(formattedInputValue).length < 11
+  //   ) {
+  //     return true;
+  //   } else if (getInputNumbersValue(formattedInputValue).length < 10) {
+  //     return true;
+  //   }
+  //   return false;
+  // };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputNumbersValue = getInputNumbersValue(e.target.value);
@@ -68,18 +74,23 @@ const PhoneInput = ({
       }
       setFormattedInputValue(formatTempValue);
     }
-    // if (upDataInput && typeof upDataInput === "function") {
-    //   upDataInput(objName, formatInputValue(inputNumbersValue));
+    // if (upDataInput && typeof upDataInput === "function" && name) {
+    //   upDataInput(name, e.target.value);
     // }
     if (
       handlePhoneInput &&
       typeof handlePhoneInput === "function" &&
-      typeof objName === "string"
+      typeof name === "string"
     ) {
-      const setDataFun = { [objName]: formatInputValue(inputNumbersValue) };
+      const setDataFun = { [name]: formatInputValue(inputNumbersValue) };
       handlePhoneInput(setDataFun);
     }
   };
+  const onBlur = () => {
+    if (upDataInput && typeof upDataInput === "function" && name) {
+      upDataInput(name, formattedInputValue);
+    }
+  }
   const handlePhoneKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (cursor !== null) {
       if (e.key !== "Backspace" && (cursor === 12 || cursor === 15)) {
@@ -100,17 +111,18 @@ const PhoneInput = ({
       }
     }
   };
-  const validatePhoneCustomer = async (value: Object) => {
-    if (!value || validatePhone()) {
-      return Promise.reject("Номер должен содержать 11 цифр");
-    }
-    return Promise.resolve();
-  };
+  // const validatePhoneCustomer = async (value: Object) => {
+  //   if (!value || validatePhone()) {
+  //     return Promise.reject("Номер должен содержать 11 цифр");
+  //   }
+  //   return Promise.resolve();
+  // };
   return (
     <>
       <label>{label}</label>
       <input
-        name={objName}
+        type="text"
+        name={name}
         className={classname}
         // rules={[
         //   {
@@ -118,11 +130,12 @@ const PhoneInput = ({
         //   },
         // ]}
         ref={inputRef}
-        placeholder={"+7 (987) 467-45-67"}
+        placeholder={"+7 (977) 777-77-77"}
         maxLength={18}
         onChange={onChange}
         value={formattedInputValue}
         onKeyDown={handlePhoneKeyDown}
+        onBlur={onBlur}
       ></input>
     </>
   );

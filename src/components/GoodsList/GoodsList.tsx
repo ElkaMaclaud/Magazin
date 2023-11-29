@@ -4,14 +4,12 @@ import { WideCard } from "../WideCard/WideCard";
 
 const GoodsList: FC<{
   data: IGoods[];
-  setList?: React.Dispatch<React.SetStateAction<IGoods[]>>;
   icon?: ReactNode;
-}> = ({ data, icon, setList }) => {
- 
+}> = ({ data, icon }) => {
   return (
     <div>
       {data.map((item) => {
-        return <WideCard key={item.id} good={item} child={icon} setList={setList}/>;
+        return <WideCard key={item.id} good={item} child={icon} />;
       })}
     </div>
   );

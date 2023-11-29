@@ -40,7 +40,7 @@ export const CardPageFlex: FC<{
     }
   }
   return (
-    <div className={classes.wrapper}>
+    <div className={classes.wrapper} style={style}>
       <div className={classes.contentWrapperOne}>{children}</div>
     </div>
   );

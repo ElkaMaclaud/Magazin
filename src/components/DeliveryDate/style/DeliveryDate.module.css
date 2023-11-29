@@ -1,0 +1,25 @@
+.headerWrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: fit-content;
+  align-items: center;
+}
+.burgerRefWrapper {
+  display: flex;
+  gap: 10px;
+}
+.burgerWrapper {
+  z-index: 1;
+  width: 36px;
+  height: 39px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s ease-in-out;
+}
+.burgerWrapper:hover {
+  background-color: #ddd;
+}

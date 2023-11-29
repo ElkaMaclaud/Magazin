@@ -1,26 +1,28 @@
 import React, { FC, useState } from "react";
 import { Favorites } from "../../UI_Component/Icons";
 import classes from "./style/ChoiceIcon.module.css";
+import { CHANGE_FAVORITE_GOOD } from "../../store/slice";
+import { useAppDispatch } from "../../store/reduxHooks";
 
 const ChoiceIcon: FC<{
   favorite?: boolean;
-  onClick: (id: string) => void;
   id: string;
-}> = ({ favorite, onClick, id }) => {
+}> = ({ favorite, id}) => {
   const [like, setLike] = useState<boolean>(favorite || false);
-  const handleClick = (id: string) => {
+  const dispatch = useAppDispatch();
+  const handleClick = () => {
     setLike(!like);
-    onClick(id);
+      dispatch(CHANGE_FAVORITE_GOOD(id));
   };
   if (like) {
     return (
-      <div onClick={() => handleClick(id)} className={classes.favorites}>
-        <Favorites like={like} />
+      <div onClick={() => handleClick()} className={classes.favorites}>
+        <Favorites like />
       </div>
     );
   }
   return (
-    <div onClick={() => handleClick(id)} className={classes.favorites}>
+    <div onClick={() => handleClick()} className={classes.favorites}>
       <Favorites />
     </div>
   );
