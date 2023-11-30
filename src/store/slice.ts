@@ -140,19 +140,57 @@ export const GET_GOODS = createAsyncThunk<
     return rejectWithValue(`${error}`);
   }
 });
+// export const GET_GOOD = createAsyncThunk<
+//   IGoods,
+//   string,
+//   { rejectValue: string }
+// >("page/GET_GOODS", async (id, { rejectWithValue }) => {
+//   try {
+//     const response = await new Promise((resolve) =>
+//     setTimeout(() => {
+//       const success = true;
+//       if (success) {
+//         goods.find((item) => item.id === id);
+//       } else {
+//         throw new Error("Authorization failed");
+//       }
+//     }, 1000)
+//   );
+  
+//     return response as IGoods;
+//   } catch (error) {
+//     return rejectWithValue(`${error}`);
+//   }
+// });
+// export const GET_GOODS = createAsyncThunk<
+//   IGoods[],
+//   undefined,
+//   { rejectValue: string }
+// >("page/GET_GOODS", async (_, { rejectWithValue }) => {
+//   try {
+//     const response = await fetch("../MockupData/goods.ts").then(res => res.json());
+//         const success = true;
+//         if (success) {
+//           return response.data as IGoods[];
+//         } else {
+//           throw new Error("Authorization failed");
+//         }
+//   } catch (error) {
+//     return rejectWithValue(${error});
+//   }
+// }); 
 export const GET_FAVORITE_GOODS = createAsyncThunk<
   IGoods[],
   undefined,
   { rejectValue: string }
->("page/GET_FAVORITE_GOODS", async (_, { rejectWithValue, getState }: any) => {
+>("page/GET_FAVORITE_GOODS", async (_, { rejectWithValue }) => {
   try {
-    //const state: IInitialState = getState();
     const response = await new Promise((resolve) =>
       setTimeout(() => {
         const success = true;
         if (success) {
           resolve(
-            getState().page.data.goods.filter((good: IGoods) => good.favorite)
+            goods.filter((good: IGoods) => good.favorite) //getState().page.data.
           );
         } else {
           throw new Error("Authorization failed");
@@ -168,15 +206,14 @@ export const GET_BASKET_OF_GOODS = createAsyncThunk<
   IGoods[],
   undefined,
   { rejectValue: string }
->("page/GET_BASKET_OF_GOODS", async (_, { rejectWithValue, getState }: any) => {
+>("page/GET_BASKET_OF_GOODS", async (_, { rejectWithValue }) => {
   try {
-    //const state: IInitialState = getState();
     const response = await new Promise((resolve) =>
       setTimeout(() => {
         const success = true;
         if (success) {
           resolve(
-            getState().page.data.goods.filter((good: IGoods) => good.count)
+            goods.filter((good: IGoods) => good.count) //getState().page.data.
           );
         } else {
           throw new Error("Authorization failed");

@@ -16,6 +16,7 @@ import NotfoundPage from "./Pages/NotfoundPage/NotfoundPage";
 import LoginPage from "./Pages/LoginPage/LoginPage";
 import Profile from "./Pages/PfofilePage/ProfilePage";
 import SettingsPage from "./Pages/SettingsPage/SettingsPage";
+import GoodPage from "./Pages/GoodPage/GoodPage";
 
 function App() {
   const page = useAppSelector((state) => state.page.loading);
@@ -34,6 +35,7 @@ function App() {
       catalog: <Catalogs />,
       favorites: <FavoritesPage />,
       basket: <BasketPage />,
+      good: <GoodPage />,
       profile: <Profile />,
       settings: <SettingsPage />,
       placingAnOrderPage: <PlacingAnOrderPage />,
@@ -54,7 +56,9 @@ function App() {
                   {ROUTS_ELEMENT[route]} 
                 </RequireAuth>
               }/>) 
-            }  
+            } if (route === "good") {
+              return (<Route path={"good/:id"} element={<GoodPage />}/>) 
+            }   
             return <Route key={key} path={route} element={ROUTS_ELEMENT[route]} />;
           })}
         </Route>

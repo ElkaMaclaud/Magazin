@@ -28,9 +28,11 @@
 }
 .firstChild {
   width: 28%;
+  cursor: pointer;
 }
 .firstChildSmall {
   width: 20%;
+  cursor: pointer;
 }
 .inputWrapper {
   position: relative;
