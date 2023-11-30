@@ -1,0 +1,7 @@
+.wrapperGood {
+    display: flex;
+    gap: 20px;
+}
+.description {
+    flex: 1 1 0;
+}

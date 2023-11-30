@@ -18,6 +18,7 @@ import {
   CHOICE_BASKET_OF_GOODS,
   REMOVE_GOOD_BASKET_OF_GOODS,
 } from "../../store/slice";
+import { Link } from "react-router-dom";
 
 export const WideCard: FC<{
   good: IGoods;
@@ -81,15 +82,19 @@ export const WideCard: FC<{
   const MemoImage = useMemo(() => {
     if (child) {
       return (
-        <div className={classes[classesChoises[1]]}>
-          <ImageGood path={good.image} />
-        </div>
+        <Link to={`../good/${good.id}`}>
+          <div className={classes[classesChoises[1]]}>
+            <ImageGood path={good.image} />
+          </div>
+        </Link>
       );
     }
     return (
-      <div className={classes[classesChoises[1]]}>
-        <ImageWrapper />
-      </div>
+      <Link to={`../good/${good.id}`}>
+        <div className={classes[classesChoises[1]]}>
+          <ImageWrapper />
+        </div>
+      </Link>
     );
   }, [good.choice]);
   const MemoDescription = useMemo(() => {
