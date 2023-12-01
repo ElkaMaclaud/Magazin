@@ -1,12 +1,18 @@
 import React from "react";
 import classes from "./style/AccountPage.module.css";
 import { CardPageFlex } from "../../UI_Component";
+import { useNavigate } from "react-router-dom";
 
 const AccountPage = () => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    localStorage.removeItem("token");
+    navigate("/")
+  }
   return (
     <CardPageFlex>
       <div
-        onClick={() => localStorage.removeItem("token")}
+        onClick={handleClick}
         className={classes.accountWrapper}
       >
         Выйти из аккаунта
