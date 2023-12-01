@@ -27,7 +27,7 @@
   align-items: center;
 }
 .firstChild {
-  flex: 1 0 0;
+  flex: 0 1 0;
   cursor: pointer;
 }
 .firstChildSmall {
@@ -41,7 +41,7 @@
 }
 
 .inputWrapper .checkHover {
-  position: absolute;
+  position: absolute; 
   top: 0;
   left: 1px;
   width: 11px;
@@ -59,11 +59,11 @@
   border: 2px solid rgb(39, 126, 160);
 }
 .sedondChild {
-  width: 40%;
+  flex: 1 1 1;
   text-align: left;
 }
 .sedondChildSmall {
-  width: 35%;
+  flex: 1 1 1;
 }
 .descriptionBasket {
   min-height: 100%;
@@ -87,19 +87,21 @@
   background-color: #ccc;
 }
 .treeChild {
-  width: 25%;
+  flex: 1 1 1;
+  min-width: 25%;
   text-align: center;
 }
 .treeChildSmall {
   font-size: 20px;
-  width: 15%;
+  flex: 1 1 1;
+  min-width: 15%;
   text-align: center;
-}
+}s
 .like {
   width: 7%;
   text-align: right;
 }
 .fourthChild {
-  width: 20%;
+  flex: 1 1 0;
   text-align: right;
 }

@@ -16,13 +16,11 @@ type ExtendedReturnAction = ReturnAction & {
 };
 export interface IInitialState {
   success: boolean;
-  token: string;
   loading: "LOADING" | "COMPLICATED" | "LOGIN";
   data: IData;
 }
 const state: IInitialState = {
   success: false,
-  token: "",
   loading: "LOADING",
   data: {
     goods: [],
@@ -678,9 +676,10 @@ const slice = createSlice({
     });
     builder.addCase(AUT_USER.fulfilled, (state, action) => {
       if (action.payload) {
+        const token = Math.random().toString(36) + Math.random().toString(36);
+        localStorage.setItem("token", token);
         return {
           ...state,
-          token: Math.random().toString(36),
           loading: "COMPLICATED",
           data: {
             ...state.data,

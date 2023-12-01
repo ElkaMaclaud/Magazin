@@ -10,11 +10,11 @@ import { useAppSelector } from "../../store/reduxHooks";
 import { menuItems } from "../../MockupData/menuItems";
 const style: CSSProperties = { width: "300px", left: "59.5%" };
 const MenuLogin = () => {
-  const {token, data} = useAppSelector(state => state.page)
+  const {data} = useAppSelector(state => state.page)
   const [showModal, setShowModal] = useState(false);
   const [showDropDown, setShowDropDown] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-
+  const token = localStorage.getItem("token");
   const handleMouseOver = () => {
     setShowDropDown(true);
   };
@@ -49,7 +49,7 @@ const MenuLogin = () => {
       >
         <div className={classes.linkWrapperText}>
           <Account />
-          {data.user.publik.name.split(" ")[0]}
+          {data.user.publik.name.split(" ")[0] || "Noname"}
         </div>
       </Link>
       {showDropDown && <Dropdown handleAction={handleAction} ref={ref} list={menuItems}/>}

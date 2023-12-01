@@ -3,9 +3,9 @@ import classes from "./style/AccountPage.module.css";
 import { CardForInfo, CardPageFlex } from "../../UI_Component";
 import ButtonRegistration from "../../components/ButtonRegistration/ButtonRegistration";
 import { Link } from "react-router-dom";
-import { useAppSelector } from "../../store/reduxHooks";
+
 const AccountPage = () => {
-  const {token} = useAppSelector(state => state.page);
+  const token = localStorage.getItem("token");
   if (token) {
     return (<CardPageFlex><h1>Пока этой страницы не существует!!!</h1></CardPageFlex>)
   }
