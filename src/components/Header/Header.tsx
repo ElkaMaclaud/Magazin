@@ -18,7 +18,7 @@ const Header = () => {
   return (
     <div className={classes.headerWrapper}>
       <div className={classes.header}>
-        <CustomLink to="basket">Magazin</CustomLink>
+        <CustomLink to="catalog">Magazin</CustomLink>
         <ConstructorFoCustomLink
           firsChild={<Burger />}
           secondChild={<Cross />}
