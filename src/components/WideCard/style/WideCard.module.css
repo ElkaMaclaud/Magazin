@@ -27,11 +27,11 @@
   align-items: center;
 }
 .firstChild {
-  flex: 1 1 0;
+  flex: 1 0 0;
   cursor: pointer;
 }
 .firstChildSmall {
-  width: 100%;
+  flex: 0 1 0;
   cursor: pointer;
 }
 .inputWrapper {

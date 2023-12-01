@@ -51,13 +51,13 @@ function App() {
           {Object.keys(ROUTS_ELEMENT).map((route) => {
             const key = Math.random().toString(36);  
             if (route === "orderPaidPage") {
-              return (<Route path={route} element={
+              return (<Route key={key} path={route} element={
                 <RequireAuth>
                   {ROUTS_ELEMENT[route]} 
                 </RequireAuth>
               }/>) 
             } if (route === "good") {
-              return (<Route path={"good/:id"} element={<GoodPage />}/>) 
+              return (<Route key={key} path={"good/:id"} element={<GoodPage />}/>) 
             }   
             return <Route key={key} path={route} element={ROUTS_ELEMENT[route]} />;
           })}

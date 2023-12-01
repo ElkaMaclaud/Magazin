@@ -55,7 +55,9 @@ export const WideCard: FC<{
             <СheckMark />
           </div>
         </label>
-        <ImageGood path={good.image} size={150} />
+        <Link to={`../good/${good.id}`}>
+          <ImageGood path={good.image} size={150} />
+        </Link>
       </div>
     );
   };
@@ -90,11 +92,9 @@ export const WideCard: FC<{
       );
     }
     return (
-      <Link to={`../good/${good.id}`}>
-        <div className={classes[classesChoises[1]]}>
-          <ImageWrapper />
-        </div>
-      </Link>
+      <div className={classes[classesChoises[1]]}>
+        <ImageWrapper />
+      </div>
     );
   }, [good.choice]);
   const MemoDescription = useMemo(() => {
