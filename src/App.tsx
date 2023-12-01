@@ -8,15 +8,15 @@ import BasketPage from "./Pages/BasketPage/BasketPage";
 import PlacingAnOrderPage from "./Pages/PlacingAnOrderPage/PlacingAnOrderPage";
 import OrderPaidPage from "./Pages/OrderPaidPage/OrderPaidPage";
 import OrderListPage from "./Pages/OrderListPage/OrderListPage";
-import AccountPage from "./Pages/AccountPage/AccountPage";
 import LoadingPage from "./Pages/LoadingPage/LoadingPage";
 import { GET_BASKET_OF_GOODS, GET_FAVORITE_GOODS, GET_GOODS } from "./store/slice";
 import RequireAuth from "./hoc/RequireAuth";
 import NotfoundPage from "./Pages/NotfoundPage/NotfoundPage";
 import LoginPage from "./Pages/LoginPage/LoginPage";
-import Profile from "./Pages/PfofilePage/ProfilePage";
 import SettingsPage from "./Pages/SettingsPage/SettingsPage";
 import GoodPage from "./Pages/GoodPage/GoodPage";
+import PersonalPage from "./Pages/PersonalPage/PersonalPage";
+import AccountPage from "./Pages/AccountPage/AccountPage";
 
 function App() {
   const page = useAppSelector((state) => state.page.loading);
@@ -32,16 +32,16 @@ function App() {
 
   if (page === "COMPLICATED") {
     const ROUTS_ELEMENT: Elements = {
+      account: <AccountPage />,
       catalog: <Catalogs />,
       favorites: <FavoritesPage />,
       basket: <BasketPage />,
       good: <GoodPage />,
-      profile: <Profile />,
       settings: <SettingsPage />,
       placingAnOrderPage: <PlacingAnOrderPage />,
       orderPaidPage: <OrderPaidPage />,
       orderListPage: <OrderListPage />,
-      accountPage: <AccountPage />,
+      main: <PersonalPage />,
       login: <LoginPage />,
     };
     return (

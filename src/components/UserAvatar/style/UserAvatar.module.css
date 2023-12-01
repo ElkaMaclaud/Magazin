@@ -3,6 +3,10 @@
     flex-direction: column;
     flex-wrap: wrap;
     gap: 8px;
+    margin-bottom: 32px;
+}
+.userAvatarWrapper svg {
+    display: none;
 }
 .userAvatarWrapper  > * {
     margin: 0;
@@ -25,8 +29,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    cursor: pointer;
+    transition: .2s ease-in-out;
+}
+.round:hover {
+    background-color: #bbb;
+}
+.round:hover .roundInfo {
+    color: #ddd;
+}
+.round:hover svg {
+    display: block;
+    position: absolute;
+    left: 40%;
+    top: 40%;
 }
 .roundInfo {
     font-size: 45px;
     color: #fff;
+    overflow: hidden;
 }

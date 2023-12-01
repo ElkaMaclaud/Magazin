@@ -161,7 +161,7 @@ const BasketPage = () => {
           <div className={classes.basketEmpty}>
             <p>Воспользуйтесь поиском, чтобы найти всё, что нужно.</p> Если в
             корзине были товары –
-            <Link to="../profile" className={classes.link}>
+            <Link to="../main" className={classes.link}>
               войдите
             </Link>
             <p>, чтобы посмотреть список.</p>

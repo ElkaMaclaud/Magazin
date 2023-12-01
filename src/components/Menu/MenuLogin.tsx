@@ -43,7 +43,7 @@ const MenuLogin = () => {
      return (
     <div  className={classes.menuWrapper}>
       <Link
-        to={"accountPage"}
+        to={"main"}
         className={classes.link}
         onMouseOver={handleMouseOver}
       >
@@ -59,7 +59,7 @@ const MenuLogin = () => {
   return (
     <div className={classes.menuWrapper}>
       <Link
-        to={"accountPage"}
+        to={"main"}
         className={classes.link}
         onMouseOver={handleMouseOver}
       >

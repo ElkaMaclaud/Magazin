@@ -1,10 +1,4 @@
-.wrapperAccountNoAvtorizated {
-    max-width: 30%;
-}
-.wrapperAccountNoAvtorizated h1 {
-    margin-left: 15px;
-}
-.wrapperAccountNoAvtorizated > * {
-    margin: 15px;
-    padding: 0;
+.accountWrapper {
+    cursor: pointer;
+    max-height: 100vh;
 }

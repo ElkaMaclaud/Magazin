@@ -1,6 +1,6 @@
 .wrapper {
-  height: auto;
-  min-height: 100vh;
+  height: fit-content;
+  min-height: calc(100vh - 105px);
   background-color: #efefef;
   padding-bottom: 50px;
 }
