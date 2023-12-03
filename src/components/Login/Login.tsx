@@ -6,7 +6,7 @@ import { useAppDispatch } from "../../store/reduxHooks";
 import { useNavigate } from "react-router-dom";
 import { Button, Input } from "../../UI_Component";
 
-export const Login: FC<{fromPage?: string}> = ({fromPage}) => {
+export const Login: FC<{ fromPage?: string }> = ({ fromPage }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -34,14 +34,20 @@ export const Login: FC<{fromPage?: string}> = ({fromPage}) => {
     <div>
       <h1 style={{ textAlign: "center", marginTop: "10%" }}>Войти в профиль</h1>
       <form className={classes.form} onSubmit={handleSubmit} autoComplete="off">
-        <Input label name="name" handleChange={() => {}} value="" />
+        <Input label name="name" handleChange={() => {}} value="" required />
         <Input label name="email" handleChange={() => {}} value="" />
-        <PhoneInput label={"Ваш номер телефона"} name="phone" />
-        <Input label name="password" handleChange={() => {}} value="" />
+        <PhoneInput label={"Ваш номер телефона"} name="phone" required />
+        <Input
+          label
+          name="password"
+          handleChange={() => {}}
+          value=""
+          required
+        />
         <Input label name="dateOfBirt" handleChange={() => {}} value="" />
-        <Button
-          styles={{ width: "100%", padding: "15px" }}
-        >Войти в магазин</Button>
+        <Button styles={{ width: "100%", padding: "15px" }}>
+          Войти в магазин
+        </Button>
       </form>
     </div>
   );

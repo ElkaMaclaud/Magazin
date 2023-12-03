@@ -272,7 +272,7 @@ export const CANSEL_PURCHASE = createAsyncThunk<
 
 export const PAY_GOODS = createAsyncThunk<
   ExtendedReturnAction,
-  IDelivery,
+  IDelivery, // | null
   { rejectValue: string }
 >(
   "page/PAY_GOODS",
@@ -280,7 +280,7 @@ export const PAY_GOODS = createAsyncThunk<
     try {
       const response = await new Promise((resolve) =>
         setTimeout(() => {
-          const success = true;
+          const success = deliveryOrder === null ? false : true;
           if (success) {
             resolve({
               goods: getState().page.data.goods.map((good: IGoods) => {
@@ -306,6 +306,7 @@ export const PAY_GOODS = createAsyncThunk<
             });
           } else {
             throw new Error("Authorization failed");
+            //alert("Авторизуйтесь сначало!")
           }
         }, 0)
       );

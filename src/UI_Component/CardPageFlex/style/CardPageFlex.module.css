@@ -26,11 +26,14 @@
   display: flex;
 }
 .leftContent {
-  width: 64%;
+  height: fit-content;
+  width: 65%;
+  min-width: 65%;
+  flex: 1 1 1;
   border-radius: 4px;
 }
 .rightContent {
-  position: fixed;
-  left: 62%;
-  width: 25%;
+  /* position: fixed; Позднее сделать динамический left в зависимости от размера соседнего элемента*/ 
+  min-width: 25%;
+  flex: 1 0 1;
 }

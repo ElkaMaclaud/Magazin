@@ -26,6 +26,7 @@ const stylesDisabled = {
 };
 const PlacingAnOrderPage = () => {
   const { user } = useAppSelector((state) => state.page.data);
+  const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const sum = user.registered.reduce((prev, current) => {
@@ -69,9 +70,11 @@ const PlacingAnOrderPage = () => {
   ];
   const obj = [basket, pay];
   const handlePurchase = () => {
-    dispatch(PAY_GOODS(user.delivery))
-    navigate("../orderPaidPage")
-  }
+    navigate("../orderPaidPage");
+    if (token) {
+      dispatch(PAY_GOODS(user.delivery));
+    }
+  };
   return (
     <CardPageFlex
       // maxWidth={1200}

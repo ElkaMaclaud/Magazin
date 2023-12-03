@@ -10,6 +10,7 @@ interface PhoneInputProps {
   value?: string;
   upDataInput?: (key: string, value: string) => void;
   handlePhoneInput?: (value: { [key: string]: string }) => void;
+  required?: boolean;
 }
 
 const PhoneInput = ({
@@ -19,11 +20,13 @@ const PhoneInput = ({
   value,
   upDataInput,
   handlePhoneInput,
+  required,
 }: PhoneInputProps) => {
   const [formattedInputValue, setFormattedInputValue] = useState(
     (value && formatInputValue(value)) || ""
   );
   const inputRef = useRef<HTMLInputElement>(null);
+  const [error, setError] = useState("");
   const [cursor, setCursor] = useState<number | null>(null);
   useEffect(() => {
     if (value) {
@@ -87,10 +90,15 @@ const PhoneInput = ({
     }
   };
   const onBlur = () => {
+    if (required && formattedInputValue.trim() === "") {
+      setError("Заполните поле");
+    } else {
+      setError("");
+    }
     if (upDataInput && typeof upDataInput === "function" && name) {
       upDataInput(name, formattedInputValue);
     }
-  }
+  };
   const handlePhoneKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (cursor !== null) {
       if (e.key !== "Backspace" && (cursor === 12 || cursor === 15)) {
@@ -121,6 +129,7 @@ const PhoneInput = ({
     <>
       <label>{label}</label>
       <input
+        required={required}
         type="text"
         name={name}
         className={classname}
@@ -137,6 +146,11 @@ const PhoneInput = ({
         onKeyDown={handlePhoneKeyDown}
         onBlur={onBlur}
       ></input>
+      {error && (
+        <span style={{ color: "red", marginTop: "-15px", border: "none"  }}>
+          {error}
+        </span>
+      )}
     </>
   );
 };
