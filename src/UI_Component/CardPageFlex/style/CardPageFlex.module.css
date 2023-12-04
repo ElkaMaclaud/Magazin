@@ -19,21 +19,19 @@
   padding: 20px;
 }
 .content, .contentOne {
-  gap: 1rem;
   height: fit-content;
 }
 .content {
   display: flex;
+  gap: 30px;
 }
 .leftContent {
   height: fit-content;
   width: 65%;
-  min-width: 65%;
   flex: 1 1 1;
   border-radius: 4px;
 }
 .rightContent {
-  /* position: fixed; Позднее сделать динамический left в зависимости от размера соседнего элемента*/ 
-  min-width: 25%;
-  flex: 1 0 1;
+  position: fixed;
+  flex: 1 0 0;
 }
