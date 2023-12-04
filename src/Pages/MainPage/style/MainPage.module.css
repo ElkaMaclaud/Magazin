@@ -5,3 +5,8 @@
 .content {
     margin: auto;
 }
+.scrollUp {
+    position: fixed;
+    bottom: 50px;
+    right: 60px;
+}

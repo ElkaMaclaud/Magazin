@@ -12,3 +12,4 @@ export { TitleInfo } from "./TitleInfo/TitleInfo";
 export { InfoCard } from "./InfoCard/InfoCard";
 export { SmallCard } from "./SmallCard/SmallCard";
 export { TwoColorCard } from "./TwoColorCard/TwoColorCard";
+export { Up } from "./Up/Up"
