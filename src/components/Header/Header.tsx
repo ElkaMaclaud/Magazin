@@ -3,27 +3,20 @@ import classes from "./style/Header.module.css";
 import { Link } from "react-router-dom";
 import {
   Basket,
-  Burger,
-  Cross,
   Favorites,
   Orders,
   SearchIcon,
 } from "../../UI_Component/Icons";
 import { Button, InputSearch } from "../../UI_Component";
 import CustomLink from "../CustomLink/CustomLink";
-import ConstructorFoCustomLink from "../ConstructorFoCustomLink/ConstructorFoCustomLink";
 import MenuLogin from "../Menu/MenuLogin";
-
+import CatalogButton from "../CatalogButton/CatalogButton";
 const Header = () => {
   return (
     <div className={classes.headerWrapper}>
       <div className={classes.header}>
-        <CustomLink to="catalog">Magazin</CustomLink>
-        <ConstructorFoCustomLink
-          firsChild={<Burger />}
-          secondChild={<Cross />}
-          text={"Каталог"}
-        />
+        <CustomLink to="magazin">Magazin</CustomLink>
+        <CatalogButton text={"Каталог"}  />  
         <div className={classes.searchBar}>
           <InputSearch />
           <Button

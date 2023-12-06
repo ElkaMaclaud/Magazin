@@ -16,14 +16,17 @@ type ExtendedReturnAction = ReturnAction & {
 };
 export interface IInitialState {
   success: boolean;
+  pagePostion: "CHOICE_CATEGORY" | "MAIN";
   loading: "LOADING" | "COMPLICATED" | "LOGIN";
   data: IData;
 }
 const state: IInitialState = {
   success: false,
+  pagePostion: "MAIN",
   loading: "LOADING",
   data: {
     goods: [],
+    sale: [],
     user: {
       publik: {
         name: "",
@@ -117,17 +120,17 @@ export const CHANGE_ACCOUNT_INFO = createAsyncThunk<
     return rejectWithValue(`${error}`);
   }
 });
-export const GET_GOODS = createAsyncThunk<
+export const GET_GOODS_BY_CATEGORY = createAsyncThunk<
   IGoods[],
-  undefined,
+  string,
   { rejectValue: string }
->("page/GET_GOODS", async (_, { rejectWithValue }) => {
+>("page/GET_GOODS_BY_CATEGORY", async (categoty, { rejectWithValue }) => {
   try {
     const response = await new Promise((resolve) =>
       setTimeout(() => {
         const success = true;
         if (success) {
-          resolve(goods);
+          resolve(goods.filter((item) => item.category === categoty));
         } else {
           throw new Error("Authorization failed");
         }
@@ -138,11 +141,32 @@ export const GET_GOODS = createAsyncThunk<
     return rejectWithValue(`${error}`);
   }
 });
+export const GET_SALE_GOODS = createAsyncThunk<
+  IGoods[],
+  undefined,
+  { rejectValue: string }
+>("page/GET_SALE_GOODS", async (_, { rejectWithValue }) => {
+  try {
+    const response = await new Promise((resolve) =>
+      setTimeout(() => {
+        const success = true;
+        if (success) {
+          resolve(goods.filter((item) => item.sale));
+        } else {
+          throw new Error("Authorization failed");
+        }
+      }, 0)
+    );
+    return response as IGoods[];
+  } catch (error) {
+    return rejectWithValue(`${error}`);
+  }
+});
 // export const GET_GOOD = createAsyncThunk<
 //   IGoods,
 //   string,
 //   { rejectValue: string }
-// >("page/GET_GOODS", async (id, { rejectWithValue }) => {
+// >("page/GET_SALE_GOODS", async (id, { rejectWithValue }) => {
 //   try {
 //     const response = await new Promise((resolve) =>
 //     setTimeout(() => {
@@ -160,11 +184,11 @@ export const GET_GOODS = createAsyncThunk<
 //     return rejectWithValue(`${error}`);
 //   }
 // });
-// export const GET_GOODS = createAsyncThunk<
+// export const GET_SALE_GOODS = createAsyncThunk<
 //   IGoods[],
 //   undefined,
 //   { rejectValue: string }
-// >("page/GET_GOODS", async (_, { rejectWithValue }) => {
+// >("page/GET_SALE_GOODS", async (_, { rejectWithValue }) => {
 //   try {
 //     const response = await fetch("../MockupData/goods.ts").then(res => res.json());
 //         const success = true;
@@ -667,6 +691,9 @@ const slice = createSlice({
     LOADING_PAGE: (state, action) => {
       state.loading = action.payload;
     },
+    PAGE_POSITION: (state, action) => {
+      state.pagePostion = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(AUT_USER.pending, (state) => {
@@ -739,7 +766,13 @@ const slice = createSlice({
         };
       }
     });
-    builder.addCase(GET_GOODS.fulfilled, (state, action) => {
+    builder.addCase(GET_GOODS_BY_CATEGORY.pending, (state) => {
+        return {
+          ...state,
+          loading: "LOADING",
+        };
+    });
+    builder.addCase(GET_GOODS_BY_CATEGORY.fulfilled, (state, action) => {
       if (action.payload) {
         return {
           ...state,
@@ -752,10 +785,24 @@ const slice = createSlice({
         };
       }
     });
+    builder.addCase(GET_SALE_GOODS.fulfilled, (state, action) => {
+      if (action.payload) {
+        return {
+          ...state,
+          success: true,
+          loading: "COMPLICATED",
+          data: {
+            ...state.data,
+            sale: action.payload,
+          },
+        };
+      }
+    });
     builder.addCase(GET_FAVORITE_GOODS.fulfilled, (state, action) => {
       if (action.payload) {
         return {
           ...state,
+          loading: "COMPLICATED",
           data: {
             ...state.data,
             user: { ...state.data.user, favorite: action.payload },
@@ -767,6 +814,7 @@ const slice = createSlice({
       if (action.payload) {
         return {
           ...state,
+          loading: "COMPLICATED",
           data: {
             ...state.data,
             user: {
@@ -945,4 +993,4 @@ const slice = createSlice({
 });
 
 export default slice.reducer;
-export const { LOADING_PAGE } = slice.actions;
+export const { LOADING_PAGE, PAGE_POSITION } = slice.actions;

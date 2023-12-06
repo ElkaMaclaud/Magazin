@@ -1,18 +1,18 @@
 import React from "react";
 import SideBar from "../../components/SideBar/SideBar";
-import classes from "./style/Catalogs.module.css";
+import classes from "./style/ProductsCategoryPage.module.css";
 import { ListItem } from "../../UI_Component/ListItem/ListItem";
-import { categories } from "../../MockupData/categoryFilter";
 import GoodsList from "../../components/GoodsList/GoodsList";
 import { useAppSelector } from "../../store/reduxHooks";
+import { filterCategories } from "../../MockupData/filterCategories";
 
-const Catalogs = () => {
+const ProductsCategoryPage = () => {
   const { goods } = useAppSelector((state) => state.page.data);
   return (
     <div className={classes.contentWrapper}>
       <div className={classes.sideBar}>
         <SideBar>
-          <ListItem list={categories} />
+          <ListItem list={filterCategories || []} />
         </SideBar>
       </div>
       <div className={classes.content}>
@@ -22,4 +22,4 @@ const Catalogs = () => {
   );
 };
 
-export default Catalogs;
+export default ProductsCategoryPage;

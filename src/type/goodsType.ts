@@ -9,6 +9,7 @@ export interface IGoods {
     favorite?: boolean;
     count?: number;
     choice?: boolean;
+    sale?: boolean;
 }
 
 

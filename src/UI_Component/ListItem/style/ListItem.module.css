@@ -1,66 +1,74 @@
 .wrapperList {
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
-    max-height: calc(100vh - 102px);
-    overflow-y: auto;
-    font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: calc(100vh - 102px);
+  overflow-y: auto;
+  font-size: 20px;
 }
 .wrapperListSmall {
-    display: flex;
-    flex-direction: column;
-    gap: .09rem;
-    font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.09rem;
+  font-size: 16px;
 }
 .item {
-    width: 95%;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    align-items: center;
-    transition: .1s linear;
+  width: 95%;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  align-items: center;
+  transition: 0.1s linear;
+}
+.item svg {
+  fill: #999;
 }
 .itemSmall {
-    margin-left: 0;
-    cursor: pointer;
-    transition: .1s linear;
+  margin-left: 0;
+  cursor: pointer;
+  transition: 0.1s linear;
 }
 .arrow {
-    border: solid blue;
-    border-width: 0 2px 2px 0;
-    display: inline-block;
-    padding: 6px;
-    transform: rotate(-45deg);
-    transition: .1s linear;
-    opacity: 0;
+  border: solid blue;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 6px;
+  transform: rotate(-45deg);
+  transition: 0.1s linear;
+  opacity: 0;
 }
-.itemInfo  {
-    display: flex;
-    gap: 10px;
+.itemInfo {
+  display: flex;
+  gap: 10px;
 }
-.itemInfo a, h3, h2, div {
-    text-decoration: none;
-    color: black;
+.itemInfo a,
+h3,
+h2,
+div {
+  text-decoration: none;
+  color: black;
 }
 .item:hover {
-    border-radius: 20px;
-    background-color: #eef;
-    color: rgb(27, 103, 216)
+  border-radius: 20px;
+  background-color: #eef;
+}
+.item:hover .itemInfo {
+  color: blue;
 }
 .itemInfo:hover a {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 .item:hover svg {
-    fill: blue;
+  fill: blue;
 }
 .item:hover .arrow {
-    opacity: 1;
+  opacity: 1;
 }
 .wrapperList::-webkit-scrollbar {
-    width: 7px;
-    height: 0;
-  }
+  width: 7px;
+  height: 0;
+}
 .wrapperList::-webkit-scrollbar-track {
   -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.2) inset;
   background-color: #f9f9fd;
@@ -68,5 +76,5 @@
 }
 .wrapperList::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background: linear-gradient(180deg, #CCC, #BBB);
+  background: linear-gradient(180deg, #ccc, #bbb);
 }

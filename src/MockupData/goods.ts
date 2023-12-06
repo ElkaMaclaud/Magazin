@@ -21,8 +21,9 @@ export const goods: IGoods[] = [
       Емкость аккумулятора, мАч: 5000
       Процессор: Helio G96 (8 ядер), 2.05 ГГц
       Основной материал корпуса: Пластик, Стекло`,
-    category: "Electronics",
+    category: "electronika",
     characteristics: "blablabla",
+    sale: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -44,8 +45,9 @@ export const goods: IGoods[] = [
       Емкость аккумулятора, мАч: 5000
       Процессор: Helio G96 (8 ядер), 2.05 ГГц
       Основной материал корпуса: Пластик, Стекло`,
-    category: "Electronics",
+    category: "electronika",
     characteristics: "blablabla",
+    sale: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -65,8 +67,9 @@ export const goods: IGoods[] = [
       Емкость аккумулятора, мАч: 5000
       Процессор: Helio G96 (8 ядер), 2.05 ГГц
       Основной материал корпуса: Пластик, Стекло`,
-    category: "Electronics",
+    category: "electronika",
     characteristics: "blablabla",
+    sale: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -86,7 +89,7 @@ export const goods: IGoods[] = [
       Емкость аккумулятора, мАч: 5000
       Процессор: Helio G96 (8 ядер), 2.05 ГГц
       Основной материал корпуса: Пластик, Стекло`,
-    category: "Electronics",
+    category: "electronika",
     characteristics: "blablabla",
   },
 
@@ -109,7 +112,7 @@ export const goods: IGoods[] = [
       Емкость аккумулятора, мАч: 5000
       Процессор: Helio G96 (8 ядер), 2.05 ГГц
       Основной материал корпуса: Пластик, Стекло`,
-    category: "Electronics",
+    category: "electronika",
     characteristics: "blablabla",
   },
   {
@@ -131,7 +134,7 @@ export const goods: IGoods[] = [
       Емкость аккумулятора, мАч: 5000
       Процессор: Helio G96 (8 ядер), 2.05 ГГц
       Основной материал корпуса: Пластик, Стекло`,
-    category: "Electronics",
+    category: "electronika",
     characteristics: "blablabla",
   },
   {
@@ -154,7 +157,7 @@ export const goods: IGoods[] = [
       Емкость аккумулятора, мАч: 5000
       Процессор: Helio G96 (8 ядер), 2.05 ГГц
       Основной материал корпуса: Пластик, Стекло`,
-    category: "Electronics",
+    category: "electronika",
     characteristics: "blablabla",
   },
 
@@ -177,7 +180,7 @@ export const goods: IGoods[] = [
       Емкость аккумулятора, мАч: 5000
       Процессор: Helio G96 (8 ядер), 2.05 ГГц
       Основной материал корпуса: Пластик, Стекло`,
-    category: "Electronics",
+    category: "electronika",
     characteristics: "blablabla",
   },
   {
@@ -199,7 +202,8 @@ export const goods: IGoods[] = [
       Емкость аккумулятора, мАч: 5000
       Процессор: Helio G96 (8 ядер), 2.05 ГГц
       Основной материал корпуса: Пластик, Стекло`,
-    category: "Electronics",
+    category: "electronika",
     characteristics: "blablabla",
+    sale: true,
   },
 ];

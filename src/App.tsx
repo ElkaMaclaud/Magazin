@@ -1,79 +1,40 @@
-import React, { ReactElement, useEffect } from "react";
-import MainPage from "./Pages/MainPage/MainPage";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "./store/reduxHooks";
-import Catalogs from "./Pages/Catalogs/Catalogs";
-import FavoritesPage from "./Pages/FavoritesPage/FavoritesPage";
-import BasketPage from "./Pages/BasketPage/BasketPage";
-import PlacingAnOrderPage from "./Pages/PlacingAnOrderPage/PlacingAnOrderPage";
-import OrderPaidPage from "./Pages/OrderPaidPage/OrderPaidPage";
-import OrderListPage from "./Pages/OrderListPage/OrderListPage";
 import LoadingPage from "./Pages/LoadingPage/LoadingPage";
-import { GET_BASKET_OF_GOODS, GET_FAVORITE_GOODS, GET_GOODS } from "./store/slice";
-import RequireAuth from "./hoc/RequireAuth";
-import NotfoundPage from "./Pages/NotfoundPage/NotfoundPage";
-import LoginPage from "./Pages/LoginPage/LoginPage";
-import SettingsPage from "./Pages/SettingsPage/SettingsPage";
-import GoodPage from "./Pages/GoodPage/GoodPage";
-import PersonalPage from "./Pages/PersonalPage/PersonalPage";
-import AccountPage from "./Pages/AccountPage/AccountPage";
+import {
+  GET_BASKET_OF_GOODS,
+  GET_FAVORITE_GOODS,
+  GET_SALE_GOODS,
+} from "./store/slice";
+import RoutesComponent from "./RoutesComponent";
+import MagazinPage from "./Pages/MagazinPage/MagazinPage";
 
 function App() {
   const page = useAppSelector((state) => state.page.loading);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(GET_GOODS())
-    dispatch(GET_BASKET_OF_GOODS())
-    dispatch(GET_FAVORITE_GOODS())
-  }, [dispatch])
-  interface Elements {
-    [key: string]: ReactElement;
-  }
+    dispatch(GET_SALE_GOODS());
+    dispatch(GET_BASKET_OF_GOODS());
+    dispatch(GET_FAVORITE_GOODS());
+  }, [dispatch]);
 
   if (page === "COMPLICATED") {
-    const ROUTS_ELEMENT: Elements = {
-      account: <AccountPage />,
-      catalog: <Catalogs />,
-      favorites: <FavoritesPage />,
-      basket: <BasketPage />,
-      good: <GoodPage />,
-      settings: <SettingsPage />,
-      placingAnOrderPage: <PlacingAnOrderPage />,
-      orderPaidPage: <OrderPaidPage />,
-      orderListPage: <OrderListPage />,
-      main: <PersonalPage />,
-      login: <LoginPage />,
-    };
-    return (
-      <Routes>
-        <Route path={"/"} element={<MainPage />}>
-          <Route key={Math.random().toString(36)} path={"/"} element={<Catalogs />} />
-          {Object.keys(ROUTS_ELEMENT).map((route) => {
-            const key = Math.random().toString(36);  
-            if (route === "orderPaidPage") {
-              return (<Route key={key} path={route} element={
-                <RequireAuth>
-                  {ROUTS_ELEMENT[route]} 
-                </RequireAuth>
-              }/>) 
-            } if (route === "good") {
-              return (<Route key={key} path={"good/:id"} element={<GoodPage />}/>) 
-            }   
-            return <Route key={key} path={route} element={ROUTS_ELEMENT[route]} />;
-          })}
-        </Route>
-        <Route path="*" element={<NotfoundPage />} />
-      </Routes>
-    );
+    return <RoutesComponent />;
   }
   if (page === "LOADING") {
     return <LoadingPage />;
   }
   return (
     <Routes>
-      <Route key={Math.random().toString(36)} path={"/"} element={<Catalogs />} />;
+      <Route
+        key={Math.random().toString(36)}
+        path={"/"}
+        element={<MagazinPage />}
+      />
+      ;
     </Routes>
-  )
+  );
 }
 
 export default App;
