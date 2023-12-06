@@ -24,6 +24,7 @@ export const WideCard: FC<{
   good: IGoods;
   child?: ReactNode;
 }> = memo(({ good, child }) => {
+  const SIZE_BASKET = 150;
   const [showModal, setShowModal] = useState(false);
   const dispatch = useAppDispatch();
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -56,15 +57,15 @@ export const WideCard: FC<{
           </div>
         </label>
         <Link to={`../good/${good.id}`}>
-          <ImageGood path={good.image} size={150} />
+          <ImageGood path={good.image} size={SIZE_BASKET} />
         </Link>
       </div>
     );
   };
   const GoodDescription = () => {
     return (
-      <div className={classes.descriptionBasket}>
-        <div>{good.description}</div>
+      <div className={classes.descriptionBasket} style={{height: `${SIZE_BASKET}`}}>
+        <div className={classes.descriptionText}>{good.description}</div>
         <div className={classes.iconBG} onClick={() => setShowModal(true)}>
           <Trash />
         </div>

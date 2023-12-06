@@ -17,8 +17,8 @@ export const ListItem: FC<{ list: IListCategory[]; small?: boolean }> = ({ list,
       {list.map((item) => {
         const key = Math.random().toString(36).substring(2, 15);
         return (
-          <div key={key} className={small ? classes.itemSmall : classes.item}>
-            <div className={classes.itemInfo} onClick={() => handleClick(item.link as string)}>
+          <div key={key} className={small ? classes.itemSmall : classes.item} onClick={() => handleClick(item.link as string)}>
+            <div className={classes.itemInfo}>
               <div>{item.icon}</div>
               {item.name}
             </div>
