@@ -59,17 +59,27 @@
   border: 2px solid rgb(39, 126, 160);
 }
 .sedondChild {
-  flex: 1 1 1;
+  flex: 1 1 0;
   text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .sedondChildSmall {
-  flex: 1 1 1;
+  flex: 1 1 0;
 }
 .descriptionBasket {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 10px;
   padding-bottom: 1rem;
+}
+.descriptionText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
 }
 .iconBG {
   cursor: pointer;

@@ -5,9 +5,9 @@ import ButtonRegistration from "../../components/ButtonRegistration/ButtonRegist
 import { Link } from "react-router-dom";
 import SideBar from "../../components/SideBar/SideBar";
 import UserAvatar from "../../components/UserAvatar/UserAvatar";
-import { ListItem } from "../../UI_Component/ListItem/ListItem";
 import { accountList } from "../../MockupData/categoryFilter";
 import { useAppSelector } from "../../store/reduxHooks";
+import ListItem from "../../components/ListItem/ListItem";
 
 const PersonalPage = () => {
   const token = localStorage.getItem("token");

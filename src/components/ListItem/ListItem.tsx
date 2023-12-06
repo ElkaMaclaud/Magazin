@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../store/reduxHooks";
 import { GET_GOODS_BY_CATEGORY } from "../../store/slice";
 
-export const ListItem: FC<{ list: IListCategory[]; small?: boolean }> = ({ list, small }) => {
+const ListItem: FC<{ list: IListCategory[]; small?: boolean }> = ({ list, small }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const handleClick = (link: string) => {
@@ -29,3 +29,4 @@ export const ListItem: FC<{ list: IListCategory[]; small?: boolean }> = ({ list,
     </div>
   );
 };
+export default ListItem;

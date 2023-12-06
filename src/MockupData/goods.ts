@@ -1529,7 +1529,6 @@ export const goods: IGoods[] = [
   {
     id: Math.random().toString(36).substring(2, 15),
     image: [
-      "https://www.findleasing.nu/media/listing_images/158177/wiznf83rtkcb9i5bon.jpg",
       "https://img-c.drive.ru/models.large.main.images/0000/000/000/001/b5a/48d975ea52b85703-main.jpg",
       "https://img-c.drive.ru/models.large.main.images/0000/000/000/000/388/48d123ccc5c42e9d-main.jpg",
       "https://www.mini.ru/ru_RU/home/range/mini-5-door-hatch/_jcr_content/main/par/stage/motion.narrow.768w.j_1616765107738.jpg",

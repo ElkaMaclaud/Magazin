@@ -24,6 +24,7 @@ export const WideCard: FC<{
   good: IGoods;
   child?: ReactNode;
 }> = memo(({ good, child }) => {
+  const SIZE = 270;
   const SIZE_BASKET = 150;
   const [showModal, setShowModal] = useState(false);
   const dispatch = useAppDispatch();
@@ -64,7 +65,7 @@ export const WideCard: FC<{
   };
   const GoodDescription = () => {
     return (
-      <div className={classes.descriptionBasket} style={{height: `${SIZE_BASKET}`}}>
+      <div className={classes.descriptionBasket} style={{height: `${SIZE_BASKET}px`, maxHeight: `${SIZE_BASKET}px`}}>
         <div className={classes.descriptionText}>{good.description}</div>
         <div className={classes.iconBG} onClick={() => setShowModal(true)}>
           <Trash />
@@ -101,7 +102,7 @@ export const WideCard: FC<{
   const MemoDescription = useMemo(() => {
     if (child) {
       return (
-        <div className={classes[classesChoises[2]]}>{good.description}</div>
+        <div  style={{height: `${SIZE}px`, maxHeight: `${SIZE}px`}} className={classes[classesChoises[2]]}>{good.description}</div>
       );
     }
     return (

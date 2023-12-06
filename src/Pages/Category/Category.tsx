@@ -2,7 +2,7 @@ import React from "react";
 import SideBar from "../../components/SideBar/SideBar";
 import classes from "./style/Category.module.css";
 import { categories } from "../../MockupData/categoryFilter";
-import { ListItem } from "../../UI_Component/ListItem/ListItem";
+import ListItem from "../../components/ListItem/ListItem";
 
 
 const Category = () => {
