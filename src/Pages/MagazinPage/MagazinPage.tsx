@@ -13,7 +13,8 @@ const MagazinPage = () => {
       </div>
       <div className={classes.saleStand}>
         <strong>Здесь могла быть ваша реклама</strong>
-      </div>
+      </div>{" "}
+      <h1>Специальные предложения!</h1>
       <div className={classes.saleWrapper}>
         {sale?.map((item) => {
           const key = Math.random().toString(36).substring(2, 15);

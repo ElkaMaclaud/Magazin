@@ -1,6 +1,17 @@
 .wrapper {
   max-width: 1400px;
   margin: auto;
+  background-color: rgba(226, 226, 243, 0.3);
+  border-radius: 20px;
+}
+.saleWrapper {
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 20px;
+  margin: 20px;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 .saleHappyNew,
 .saleStand {
@@ -15,6 +26,7 @@
   border-radius: 20px;
   cursor: pointer;
 }
+
 .saleHappyNew {
   background: linear-gradient(
       rgba(255, 255, 255, 0.5),
@@ -32,10 +44,4 @@
     rgba(0, 128, 0, 0.5),
     rgba(138, 43, 226, 0.5)
   );
-}
-.saleWrapper {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
 }
