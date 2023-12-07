@@ -178,7 +178,7 @@ export const GET_SALE_GOODS = createAsyncThunk<
 //       }
 //     }, 1000)
 //   );
-  
+
 //     return response as IGoods;
 //   } catch (error) {
 //     return rejectWithValue(`${error}`);
@@ -200,7 +200,7 @@ export const GET_SALE_GOODS = createAsyncThunk<
 //   } catch (error) {
 //     return rejectWithValue(${error});
 //   }
-// }); 
+// });
 export const GET_FAVORITE_GOODS = createAsyncThunk<
   IGoods[],
   undefined,
@@ -509,13 +509,13 @@ export const ADD_BASKET_OF_GOODS = createAsyncThunk<
                     return good;
                   })
                 : [
-                    ...getState().page.data.user.basket,
                     {
                       ...getState().page.data.goods.find(
                         (good: IGoods) => good.id === good_id
                       ),
                       count: 1,
                     },
+                    ...getState().page.data.user.basket,
                   ],
               favorite: getState()
                 .page.data.goods.map((good: IGoods) => {
@@ -767,10 +767,10 @@ const slice = createSlice({
       }
     });
     builder.addCase(GET_GOODS_BY_CATEGORY.pending, (state) => {
-        return {
-          ...state,
-          loading: "LOADING",
-        };
+      return {
+        ...state,
+        loading: "LOADING",
+      };
     });
     builder.addCase(GET_GOODS_BY_CATEGORY.fulfilled, (state, action) => {
       if (action.payload) {
