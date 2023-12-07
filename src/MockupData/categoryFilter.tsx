@@ -33,5 +33,4 @@ export const accountList: IListCategory[] = [
     {name: <Link to="">Избранное</Link>},
     {name: <h3>Настройки аккаунта</h3>},
     {name: <Link to="../account">Моя учетная запись</Link>},
-
 ]

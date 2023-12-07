@@ -65,7 +65,7 @@ export const WideCard: FC<{
   };
   const GoodDescription = () => {
     return (
-      <div className={classes.descriptionBasket} style={{height: `${SIZE_BASKET}px`, maxHeight: `${SIZE_BASKET}px`}}>
+      <div className={classes.descriptionBasket}>
         <div className={classes.descriptionText}>{good.description}</div>
         <div className={classes.iconBG} onClick={() => setShowModal(true)}>
           <Trash />
@@ -102,7 +102,7 @@ export const WideCard: FC<{
   const MemoDescription = useMemo(() => {
     if (child) {
       return (
-        <div  style={{height: `${SIZE}px`, maxHeight: `${SIZE}px`}} className={classes[classesChoises[2]]}>{good.description}</div>
+        <div className={classes[classesChoises[2]]}>{good.description}</div>
       );
     }
     return (
@@ -141,7 +141,7 @@ export const WideCard: FC<{
   );
   if (child) {
     return (
-      <div className={classes[classesChoises[0]]}>
+      <div className={classes[classesChoises[0]]} style={{height: `${SIZE + 30}px`, maxHeight: `${SIZE + 30}px`}} >
         {MemoImage}
         {MemoDescription}
         {MemoCounterButton}
@@ -150,7 +150,7 @@ export const WideCard: FC<{
     );
   }
   return (
-    <div className={classes[classesChoises[0]]}>
+    <div className={classes[classesChoises[0]]} style={{height: `${SIZE_BASKET + 20}px`, maxHeight: `${SIZE_BASKET + 20}px`}} >
       {showModal && (
         <Modal
           title={"Удалить товар"}

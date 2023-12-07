@@ -2,6 +2,7 @@ export { Button } from "./Button/Button";
 export { Card } from "./Card/Card";
 export { Slider } from "./Slider/Slider";
 export { SliderMouseMove } from "./SliderMouseMove/SliderMouseMove";
+export { ToggleSwitch } from "./ToggleSwitch/ToggleSwitch";
 export { CardForInfo } from "./CardForInfo/CardForInfo";
 export { CardPageFlex } from "./CardPageFlex/CardPageFlex";
 export { CounterButton } from "./CounterButton/CounterButton";
@@ -12,4 +13,4 @@ export { TitleInfo } from "./TitleInfo/TitleInfo";
 export { InfoCard } from "./InfoCard/InfoCard";
 export { SmallCard } from "./SmallCard/SmallCard";
 export { TwoColorCard } from "./TwoColorCard/TwoColorCard";
-export { Up } from "./Up/Up"
+export { Up } from "./Up/Up";
