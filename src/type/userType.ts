@@ -9,6 +9,7 @@ export interface IUser {
   registered: IGoods[];
   purchased: IPurchased[];
   delivery: IDelivery;
+  choiceAll: boolean;
 }
 export interface IInfoPublik {
   name: string;

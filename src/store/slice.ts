@@ -10,7 +10,12 @@ type IAuthorization = {
   dateOfBirt?: Date;
   password: string;
 };
-type ReturnAction = { goods: IGoods[]; basket: IGoods[]; favorite: IGoods[] };
+type ReturnAction = {
+  goods: IGoods[];
+  basket: IGoods[];
+  favorite: IGoods[];
+  choiceAll?: boolean;
+};
 type ExtendedReturnAction = ReturnAction & {
   purchased: IPurchased[];
 };
@@ -38,6 +43,7 @@ const state: IInitialState = {
         city: "",
         email: "",
       },
+      choiceAll: false,
       favorite: [],
       basket: [],
       registered: [],
@@ -124,23 +130,47 @@ export const GET_GOODS_BY_CATEGORY = createAsyncThunk<
   IGoods[],
   string,
   { rejectValue: string }
->("page/GET_GOODS_BY_CATEGORY", async (categoty, { rejectWithValue }) => {
-  try {
-    const response = await new Promise((resolve) =>
-      setTimeout(() => {
-        const success = true;
-        if (success) {
-          resolve(goods.filter((item) => item.category === categoty));
-        } else {
-          throw new Error("Authorization failed");
-        }
-      }, 1000)
-    );
-    return response as IGoods[];
-  } catch (error) {
-    return rejectWithValue(`${error}`);
+>(
+  "page/GET_GOODS_BY_CATEGORY",
+  async (categoty, { rejectWithValue, getState }: any) => {
+    try {
+      const response = await new Promise((resolve) =>
+        setTimeout(() => {
+          const success = true;
+          const basket = getState().page.data.user.basket;
+          const favorite = getState().page.data.user.favorite;
+          if (success) {
+            resolve(
+              goods
+                .filter((item) => item.category === categoty)
+                .map((good: IGoods) => {
+                  const findGood = basket.find(
+                    (goodFind: IGoods) => goodFind.id === good.id
+                  );
+                  const favoriteGood = favorite.find((likeGood: IGoods) => likeGood.id === good.id
+                  );
+                  if (findGood || favoriteGood) {
+                    return {
+                      ...good,
+                      count: findGood?.count || 0,
+                      choice: findGood?.choice || false,
+                      favorite: favorite?.favorite || false,
+                    };
+                  } 
+                  return { ...good };
+                })
+            );
+          } else {
+            throw new Error("Authorization failed");
+          }
+        }, 1000)
+      );
+      return response as IGoods[];
+    } catch (error) {
+      return rejectWithValue(`${error}`);
+    }
   }
-});
+);
 export const GET_SALE_GOODS = createAsyncThunk<
   IGoods[],
   undefined,
@@ -348,25 +378,26 @@ export const CHOICE_ALL_BASKET_OF_GOODS = createAsyncThunk<
   "page/CHOICE_ALL_BASKET_OF_GOODS",
   async (checked, { rejectWithValue, getState }: any) => {
     try {
+      //const dispatch = useAppDispatch();
       const response = await new Promise((resolve) =>
         setTimeout(() => {
           const success = true;
           if (success) {
-            resolve(
-              resolve({
-                goods: getState().page.data.goods.map((good: IGoods) => {
+            //dispatch(SET_CHOICE_ALL(checked));
+            resolve({
+              goods: getState().page.data.goods.map((good: IGoods) => {
+                return { ...good, choice: checked };
+              }),
+              basket: getState().page.data.user.basket.map((good: IGoods) => {
+                return { ...good, choice: checked };
+              }),
+              favorite: getState().page.data.user.favorite.map(
+                (good: IGoods) => {
                   return { ...good, choice: checked };
-                }),
-                basket: getState().page.data.user.basket.map((good: IGoods) => {
-                  return { ...good, choice: checked };
-                }),
-                favorite: getState().page.data.user.favorite.map(
-                  (good: IGoods) => {
-                    return { ...good, choice: checked };
-                  }
-                ),
-              })
-            );
+                }
+              ),
+              choiceAll: checked,
+            });
           } else {
             throw new Error("Authorization failed");
           }
@@ -456,13 +487,13 @@ export const CHANGE_FAVORITE_GOOD = createAsyncThunk<
                     (good: IGoods) => good.id !== good_id
                   )
                 : [
-                    ...getState().page.data.user.favorite,
                     {
                       ...getState().page.data.goods.find(
                         (good: IGoods) => good.id === good_id
                       ),
                       favorite: true,
                     },
+                    ...getState().page.data.user.favorite,
                   ],
             });
           } else {
@@ -487,6 +518,7 @@ export const ADD_BASKET_OF_GOODS = createAsyncThunk<
       //const state: IInitialState = getState();
       const response = await new Promise((resolve) =>
         setTimeout(() => {
+          const choiceAll = getState().page.data.user.choiceAll;
           const success = true;
           if (success) {
             resolve({
@@ -514,17 +546,17 @@ export const ADD_BASKET_OF_GOODS = createAsyncThunk<
                         (good: IGoods) => good.id === good_id
                       ),
                       count: 1,
+                      choice: choiceAll,
                     },
                     ...getState().page.data.user.basket,
                   ],
               favorite: getState()
-                .page.data.goods.map((good: IGoods) => {
+                .page.data.user.favorite.map((good: IGoods) => {
                   if (good.id === good_id) {
                     return { ...good, count: good.count ? good.count + 1 : 1 };
                   }
                   return good;
-                })
-                .filter((item: IGoods) => item.favorite),
+                }),
             });
           } else {
             throw new Error("Authorization failed");
@@ -694,6 +726,9 @@ const slice = createSlice({
     PAGE_POSITION: (state, action) => {
       state.pagePostion = action.payload;
     },
+    // SET_CHOICE_ALL: (state, action) => {
+    //   state.data.user.choiceAll = action.payload;
+    // },
   },
   extraReducers: (builder) => {
     builder.addCase(AUT_USER.pending, (state) => {
@@ -853,6 +888,10 @@ const slice = createSlice({
             goods: action.payload.goods,
             user: {
               ...state.data.user,
+              choiceAll:
+                action.payload.choiceAll !== undefined
+                  ? action.payload.choiceAll
+                  : false,
               basket: action.payload.basket,
               favorite: action.payload.favorite,
             },

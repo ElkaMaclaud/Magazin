@@ -6,7 +6,12 @@ import { Share, СheckMark } from "../../UI_Component/Icons";
 import { Modal } from "../../components/Modal/Modal";
 import { CardPageFlex } from "../../UI_Component";
 import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
-import { CHOICE_ALL_BASKET_OF_GOODS, CLEARANCE_OF_GOODS, REMOVE_CHOICES_BASKET_OF_GOODS } from "../../store/slice";
+import {
+  CHOICE_ALL_BASKET_OF_GOODS,
+  CLEARANCE_OF_GOODS,
+  GET_BASKET_OF_GOODS,
+  REMOVE_CHOICES_BASKET_OF_GOODS,
+} from "../../store/slice";
 import GoodsList from "../../components/GoodsList/GoodsList";
 
 const styles = {
@@ -35,6 +40,12 @@ const BasketPage = () => {
   const [sum, setSum] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
+  useEffect(() => {
+    if (!basket.length) {
+      dispatch(GET_BASKET_OF_GOODS());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const basketOfGoods = [
     { name: <h2 className={classes.headerName}>Ваша корзина</h2>, value: "" },
     {
@@ -92,21 +103,21 @@ const BasketPage = () => {
   }, [basket]);
   const onChange = () => {
     setChecked(!checked);
-    dispatch(CHOICE_ALL_BASKET_OF_GOODS(!checked))
+    dispatch(CHOICE_ALL_BASKET_OF_GOODS(!checked));
   };
   const removeChoiceGoods = () => {
     setShowModal(true);
   };
   const removeBasket = (remove = true) => {
     if (remove) {
-      dispatch(REMOVE_CHOICES_BASKET_OF_GOODS())
+      dispatch(REMOVE_CHOICES_BASKET_OF_GOODS());
     }
     setShowModal(false);
   };
   const handleCalculateGoods = () => {
-    dispatch(CLEARANCE_OF_GOODS())
-    navigate("../placingAnOrderPage")
-  }
+    dispatch(CLEARANCE_OF_GOODS());
+    navigate("../placingAnOrderPage");
+  };
   const BasketHeader = () => {
     if (basket.filter((item) => item.choice).length) {
       return (

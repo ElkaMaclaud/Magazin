@@ -37,6 +37,7 @@ export const WideCard: FC<{
     }
     setShowModal(false);
   };
+  
   const checkProperty = (card: IGoods) => {
     if ("count" in card) {
       return card.count;
