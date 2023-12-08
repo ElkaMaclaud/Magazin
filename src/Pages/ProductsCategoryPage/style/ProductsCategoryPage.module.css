@@ -1,14 +1,28 @@
 .contentWrapper {
-    max-width: 1400px;
-    margin: auto;
-    margin-top: 30px;
-    display: flex;
-
+  max-width: 1400px;
+  margin: auto;
+  margin-top: 30px;
+  display: flex;
 }
 .sideBar {
-    padding-top: 1rem;
-    width: 25%;
+  padding-top: 1rem;
+  width: 25%;
 }
 .content {
-    width: 75%;
+  width: 75%;
+}
+select {
+  width: 230px;
+  height: 32px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+select option div {
+    padding-bottom: 30px;
+}
+select:focus {
+  outline: none;
+  border: 2px solid rgb(36, 80, 202);
 }
