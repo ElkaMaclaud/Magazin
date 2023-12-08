@@ -59,7 +59,7 @@ const state: IInitialState = {
 export const AUT_USER = createAsyncThunk<
   IAuthorization,
   IAuthorization,
-   { rejectValue: string }
+  { rejectValue: string }
 >("page/AUT_USER", async (value, { rejectWithValue }) => {
   try {
     const response = await new Promise((resolve) =>
@@ -86,7 +86,7 @@ export const AUT_USER = createAsyncThunk<
 export const CHANGE_DELIVERY = createAsyncThunk<
   IDelivery,
   IDelivery,
-   { rejectValue: string }
+  { rejectValue: string }
 >("page/CHANGE_DELIVERY", async (value, { rejectWithValue }) => {
   try {
     const response = await new Promise((resolve) =>
@@ -108,7 +108,7 @@ export const CHANGE_DELIVERY = createAsyncThunk<
 export const CHANGE_ACCOUNT_INFO = createAsyncThunk<
   { name: string; phone?: string },
   { name: string; phone?: string },
-   { rejectValue: string }
+  { rejectValue: string }
 >("page/CHANGE_ACCOUNT_INFO", async (value, { rejectWithValue }) => {
   try {
     const response = await new Promise((resolve) =>
@@ -130,8 +130,7 @@ export const CHANGE_ACCOUNT_INFO = createAsyncThunk<
 export const GET_GOODS_BY_CATEGORY = createAsyncThunk<
   IGoods[],
   string,
-  { rejectValue: string;
-  state: RootState }
+  { rejectValue: string; state: RootState }
 >(
   "page/GET_GOODS_BY_CATEGORY",
   async (categoty, { rejectWithValue, getState }) => {
@@ -149,7 +148,8 @@ export const GET_GOODS_BY_CATEGORY = createAsyncThunk<
                   const findGood = basket.find(
                     (goodFind: IGoods) => goodFind.id === good.id
                   );
-                  const favoriteGood = favorite.find((likeGood: IGoods) => likeGood.id === good.id
+                  const favoriteGood = favorite.find(
+                    (likeGood: IGoods) => likeGood.id === good.id
                   );
                   if (findGood || favoriteGood) {
                     return {
@@ -158,7 +158,7 @@ export const GET_GOODS_BY_CATEGORY = createAsyncThunk<
                       choice: findGood?.choice || false,
                       favorite: favoriteGood?.favorite || false,
                     };
-                  } 
+                  }
                   return { ...good };
                 })
             );
@@ -176,7 +176,7 @@ export const GET_GOODS_BY_CATEGORY = createAsyncThunk<
 export const GET_SALE_GOODS = createAsyncThunk<
   IGoods[],
   undefined,
-   { rejectValue: string }
+  { rejectValue: string }
 >("page/GET_SALE_GOODS", async (_, { rejectWithValue }) => {
   try {
     const response = await new Promise((resolve) =>
@@ -236,7 +236,7 @@ export const GET_SALE_GOODS = createAsyncThunk<
 export const GET_FAVORITE_GOODS = createAsyncThunk<
   IGoods[],
   undefined,
-   { rejectValue: string }
+  { rejectValue: string }
 >("page/GET_FAVORITE_GOODS", async (_, { rejectWithValue }) => {
   try {
     const response = await new Promise((resolve) =>
@@ -259,7 +259,7 @@ export const GET_FAVORITE_GOODS = createAsyncThunk<
 export const GET_BASKET_OF_GOODS = createAsyncThunk<
   IGoods[],
   undefined,
-   { rejectValue: string }
+  { rejectValue: string }
 >("page/GET_BASKET_OF_GOODS", async (_, { rejectWithValue }) => {
   try {
     const response = await new Promise((resolve) =>
@@ -282,8 +282,7 @@ export const GET_BASKET_OF_GOODS = createAsyncThunk<
 export const CLEARANCE_OF_GOODS = createAsyncThunk<
   IGoods[],
   undefined,
-  { rejectValue: string;
-    state: RootState }
+  { rejectValue: string; state: RootState }
 >("page/CLEARANCE_OF_GOODS", async (_, { rejectWithValue, getState }) => {
   try {
     const response = await new Promise((resolve) =>
@@ -308,8 +307,7 @@ export const CLEARANCE_OF_GOODS = createAsyncThunk<
 export const CANSEL_PURCHASE = createAsyncThunk<
   IGoods[],
   undefined,
-  { rejectValue: string;
-    state: RootState }
+  { rejectValue: string; state: RootState }
 >("page/CANSEL_PURCHASE", async (_, { rejectWithValue, getState }) => {
   try {
     const response = await new Promise((resolve) =>
@@ -331,55 +329,48 @@ export const CANSEL_PURCHASE = createAsyncThunk<
 export const PAY_GOODS = createAsyncThunk<
   ExtendedReturnAction,
   IDelivery, // | null
-   { rejectValue: string;
-  state: RootState }
->(
-  "page/PAY_GOODS",
-  async (deliveryOrder, { rejectWithValue, getState }) => {
-    try {
-      const response = await new Promise((resolve) =>
-        setTimeout(() => {
-          const success = deliveryOrder === null ? false : true;
-          if (success) {
-            resolve({
-              goods: getState().page.data.goods.map((good: IGoods) => {
-                if (good.choice) {
-                  return { ...good, count: 0, choice: false };
-                }
-                return good;
-              }),
-              basket: getState().page.data.user.basket.filter(
-                (good: IGoods) => !good.choice
-              ),
-              favorite: getState().page.data.user.favorite.map(
-                (good: IGoods) => {
-                  if (good.choice) {
-                    return { ...good, count: 0 };
-                  }
-                  return good;
-                }
-              ),
-              purchased: getState()
-                .page.data.user.basket.filter((good: IGoods) => good.choice)
-                .map((item: IGoods) => ({ ...item, delivery: deliveryOrder })),
-            });
-          } else {
-            throw new Error("Authorization failed");
-            //alert("Авторизуйтесь сначало!")
-          }
-        }, 0)
-      );
-      return response as ExtendedReturnAction;
-    } catch (error) {
-      return rejectWithValue(`${error}`);
-    }
+  { rejectValue: string; state: RootState }
+>("page/PAY_GOODS", async (deliveryOrder, { rejectWithValue, getState }) => {
+  try {
+    const response = await new Promise((resolve) =>
+      setTimeout(() => {
+        const success = deliveryOrder === null ? false : true;
+        if (success) {
+          resolve({
+            goods: getState().page.data.goods.map((good: IGoods) => {
+              if (good.choice) {
+                return { ...good, count: 0, choice: false };
+              }
+              return good;
+            }),
+            basket: getState().page.data.user.basket.filter(
+              (good: IGoods) => !good.choice
+            ),
+            favorite: getState().page.data.user.favorite.map((good: IGoods) => {
+              if (good.choice) {
+                return { ...good, count: 0 };
+              }
+              return good;
+            }),
+            purchased: getState()
+              .page.data.user.basket.filter((good: IGoods) => good.choice)
+              .map((item: IGoods) => ({ ...item, delivery: deliveryOrder })),
+          });
+        } else {
+          throw new Error("Authorization failed");
+          //alert("Авторизуйтесь сначало!")
+        }
+      }, 0)
+    );
+    return response as ExtendedReturnAction;
+  } catch (error) {
+    return rejectWithValue(`${error}`);
   }
-);
+});
 export const CHOICE_ALL_BASKET_OF_GOODS = createAsyncThunk<
   ReturnAction,
   boolean,
-   { rejectValue: string;
-  state: RootState }
+  { rejectValue: string; state: RootState }
 >(
   "page/CHOICE_ALL_BASKET_OF_GOODS",
   async (checked, { rejectWithValue, getState }) => {
@@ -418,8 +409,7 @@ export const CHOICE_ALL_BASKET_OF_GOODS = createAsyncThunk<
 export const REMOVE_CHOICES_BASKET_OF_GOODS = createAsyncThunk<
   ReturnAction,
   undefined,
-   { rejectValue: string;
-  state: RootState }
+  { rejectValue: string; state: RootState }
 >(
   "page/REMOVE_CHOICES_BASKET_OF_GOODS",
   async (_, { rejectWithValue, getState }) => {
@@ -458,8 +448,7 @@ export const REMOVE_CHOICES_BASKET_OF_GOODS = createAsyncThunk<
 export const CHANGE_FAVORITE_GOOD = createAsyncThunk<
   ReturnAction,
   string,
-   { rejectValue: string;
-  state: RootState }
+  { rejectValue: string; state: RootState }
 >(
   "page/CHANGE_FAVORITE_GOOD",
   async (good_id, { rejectWithValue, getState }) => {
@@ -518,8 +507,7 @@ export const CHANGE_FAVORITE_GOOD = createAsyncThunk<
 export const ADD_BASKET_OF_GOODS = createAsyncThunk<
   ReturnAction,
   string,
-   { rejectValue: string;
-  state: RootState }
+  { rejectValue: string; state: RootState }
 >(
   "page/ADD_BASKET_OF_GOODS",
   async (good_id, { rejectWithValue, getState }) => {
@@ -528,6 +516,9 @@ export const ADD_BASKET_OF_GOODS = createAsyncThunk<
       const response = await new Promise((resolve) =>
         setTimeout(() => {
           const choiceAll = getState().page.data.user.choiceAll;
+          const findInGoods = getState().page.data.goods.find(
+            (good: IGoods) => good.id === good_id
+          );
           const success = true;
           if (success) {
             resolve({
@@ -550,22 +541,31 @@ export const ADD_BASKET_OF_GOODS = createAsyncThunk<
                     return good;
                   })
                 : [
-                    {
-                      ...getState().page.data.goods.find(
-                        (good: IGoods) => good.id === good_id
-                      ),
-                      count: 1,
-                      choice: choiceAll,
-                    },
+                    findInGoods
+                      ? {
+                          ...getState().page.data.goods.find(
+                            (good: IGoods) => good.id === good_id
+                          ),
+                          count: 1,
+                          choice: choiceAll,
+                        }
+                      : {
+                          ...getState().page.data.user.favorite.find(
+                            (good: IGoods) => good.id === good_id
+                          ),
+                          count: 1,
+                          choice: choiceAll,
+                        },
                     ...getState().page.data.user.basket,
                   ],
-              favorite: getState()
-                .page.data.user.favorite.map((good: IGoods) => {
+              favorite: getState().page.data.user.favorite.map(
+                (good: IGoods) => {
                   if (good.id === good_id) {
                     return { ...good, count: good.count ? good.count + 1 : 1 };
                   }
                   return good;
-                }),
+                }
+              ),
             });
           } else {
             throw new Error("Authorization failed");
@@ -581,8 +581,7 @@ export const ADD_BASKET_OF_GOODS = createAsyncThunk<
 export const DECREMENT_BASKET_OF_GOODS = createAsyncThunk<
   ReturnAction,
   string,
-   { rejectValue: string;
-  state: RootState }
+  { rejectValue: string; state: RootState }
 >(
   "page/DECREMENT_BASKET_OF_GOODS",
   async (good_id, { rejectWithValue, getState }) => {
@@ -603,7 +602,8 @@ export const DECREMENT_BASKET_OF_GOODS = createAsyncThunk<
                 }
                 return good;
               }),
-              basket: getState().page.data.user.basket.find(
+              basket:
+                getState().page.data.user.basket.find(
                   (good: IGoods) => good.id === good_id
                 )!.count === 1
                   ? getState().page.data.user.basket.filter(
@@ -638,8 +638,7 @@ export const DECREMENT_BASKET_OF_GOODS = createAsyncThunk<
 export const REMOVE_GOOD_BASKET_OF_GOODS = createAsyncThunk<
   ReturnAction,
   string,
-   { rejectValue: string;
-  state: RootState }
+  { rejectValue: string; state: RootState }
 >(
   "page/REMOVE_GOOD_BASKET_OF_GOODS",
   async (good_id, { rejectWithValue, getState }) => {
@@ -682,8 +681,7 @@ export const REMOVE_GOOD_BASKET_OF_GOODS = createAsyncThunk<
 export const CHOICE_BASKET_OF_GOODS = createAsyncThunk<
   ReturnAction,
   string,
-   { rejectValue: string;
-  state: RootState }
+  { rejectValue: string; state: RootState }
 >(
   "page/CHOICE_BASKET_OF_GOODS",
   async (good_id, { rejectWithValue, getState }) => {
