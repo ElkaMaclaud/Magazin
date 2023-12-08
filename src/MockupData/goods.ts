@@ -213,7 +213,7 @@ export const goods: IGoods[] = [
       "https://incity.ru/upload/iblock/3c0/ntwmvqj9mz5mocb3l3arghzbcg23rzjw.jpg",
       "https://www.mcbuy.ru/upload/iblock/947/c4gszxdasm2eyvho7shqrc3c5511xiee.jpg",
     ],
-    price: 12000,
+    price: 10000,
     name: "Пальто",
     description: `Женская одежда в официальном интернет-магазине одежды TOM TAILOR с доставкой по России`,
     category: "cloth",
@@ -235,7 +235,6 @@ export const goods: IGoods[] = [
     description: `Женская одежда в официальном интернет-магазине одежды TOM TAILOR с доставкой по России`,
     category: "cloth",
     characteristics: "blablabla",
-    sale: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -251,7 +250,6 @@ export const goods: IGoods[] = [
     description: `Женская одежда в официальном интернет-магазине одежды TOM TAILOR с доставкой по России`,
     category: "cloth",
     characteristics: "blablabla",
-    sale: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -284,7 +282,6 @@ export const goods: IGoods[] = [
     description: `Женская одежда в официальном интернет-магазине одежды TOM TAILOR с доставкой по России`,
     category: "cloth",
     characteristics: "blablabla",
-    sale: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -301,7 +298,6 @@ export const goods: IGoods[] = [
     description: `Женская одежда в официальном интернет-магазине одежды TOM TAILOR с доставкой по России`,
     category: "cloth",
     characteristics: "blablabla",
-    sale: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -317,7 +313,6 @@ export const goods: IGoods[] = [
     description: `Какую обувь носить осенью и зимой: 6 советов от BRANDO - Афиша Красноярска`,
     category: "shoes",
     characteristics: "blablabla",
-    sale: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -333,7 +328,6 @@ export const goods: IGoods[] = [
     description: `Какую обувь носить осенью и зимой: 6 советов от BRANDO - Афиша Красноярска`,
     category: "shoes",
     characteristics: "blablabla",
-    sale: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -365,7 +359,6 @@ export const goods: IGoods[] = [
     description: `Какую обувь носить осенью и зимой: 6 советов от BRANDO - Афиша Красноярска`,
     category: "shoes",
     characteristics: "blablabla",
-    sale: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -381,7 +374,6 @@ export const goods: IGoods[] = [
     description: `Какую обувь носить осенью и зимой: 6 советов от BRANDO - Афиша Красноярска`,
     category: "shoes",
     characteristics: "blablabla",
-    sale: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -429,7 +421,6 @@ export const goods: IGoods[] = [
     description: `Товары для дома и сада купить в интернет-магазине Beloris.ru`,
     category: "houseAndGarden",
     characteristics: "blablabla",
-    sale: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -445,7 +436,6 @@ export const goods: IGoods[] = [
     description: `Товары для дома и сада купить в интернет-магазине Beloris.ru`,
     category: "houseAndGarden",
     characteristics: "blablabla",
-    sale: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -846,6 +836,7 @@ export const goods: IGoods[] = [
     description: `купить STINGER Велосипед RELOAD PRO 29' в магазине Диана спорт - товары для спорта и отдыха`,
     category: "sportsAndRecreation",
     characteristics: "Велосипеды",
+    sale: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -943,6 +934,7 @@ export const goods: IGoods[] = [
     description: `Рыбалка на озере, природная серия, удочка, туризм | Премиум Фото`,
     category: "TourismFishingHunting",
     characteristics: "Все для рыбалки",
+    sale: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -1061,6 +1053,7 @@ export const goods: IGoods[] = [
     description: `Рыбалка на озере, природная серия, удочка, туризм | Премиум Фото`,
     category: "TourismFishingHunting",
     characteristics: "Все для рыбалки",
+    sale: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -1110,6 +1103,7 @@ export const goods: IGoods[] = [
         Корм сухой для кошек Курица, 650 г с бесплатной доставкой на дом из «ВкусВилл» | Вологда`,
     category: "GoodsForPets",
     characteristics: "Все ддля вашего питомца",
+    sale: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -1180,6 +1174,7 @@ export const goods: IGoods[] = [
     description: `Лучшие влажные корма для кошек — обзор качественных кошачьих консервов: виды и бренды`,
     category: "GoodsForPets",
     characteristics: "Все ддля вашего питомца",
+    sale: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -1248,6 +1243,7 @@ export const goods: IGoods[] = [
     description: `Оптом автотовары, мототовары, запчасти купить от поставщиков и  производителей Оптом автотовары, мототовары, запчасти купить от поставщиков и производителей`,
     category: "automotiveProducts",
     characteristics: "Все для вашего автомобиля",
+    sale: true,
   },
 
   {
@@ -1347,6 +1343,7 @@ export const goods: IGoods[] = [
      Бытовая химия — купить оптом и в розницу в Москве в интернет-магазине Сима-ленд`,
     category: "householdChemicalsAndHygiene",
     characteristics: "Все для чистоты вашего дома",
+    sale: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -1378,6 +1375,7 @@ export const goods: IGoods[] = [
      Бытовая химия — купить оптом и в розницу в Москве в интернет-магазине Сима-ленд`,
     category: "householdChemicalsAndHygiene",
     characteristics: "Все для чистоты вашего дома",
+    sale: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -1568,6 +1566,7 @@ export const goods: IGoods[] = [
     Изящный интерьер, соответствующий футуристичному облику автомобиля`,
     category: "cars",
     characteristics: "Автомобиль",
+    sale: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
