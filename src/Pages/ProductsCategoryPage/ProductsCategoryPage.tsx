@@ -32,6 +32,10 @@ const ProductsCategoryPage = () => {
       name: "Распродажа",
       icon: <ToggleSwitch check={checked} setCheck={setChecked} />,
     },
+    {
+      name: "Распродажа",
+      icon: <ToggleSwitch check={checked} setCheck={setChecked} />,
+    },
   ];
   useEffect(() => {
     if (checked) {

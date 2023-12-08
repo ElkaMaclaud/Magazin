@@ -5,7 +5,7 @@ export interface IGoods {
     name: string;
     category: string;
     description: string;
-    characteristics: any;
+    characteristics: string;
     favorite?: boolean;
     count?: number;
     choice?: boolean;
