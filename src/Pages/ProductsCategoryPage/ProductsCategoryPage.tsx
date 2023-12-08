@@ -79,39 +79,39 @@ const ProductsCategoryPage = () => {
         />
       ),
     },
-    {
-      name: "Рассрочка",
-      icon: (
-        <ToggleSwitch
-          key={Math.random().toString(36)}
-          keyState={"installmentPlan"}
-          check={checked.installmentPlan}
-          setCheck={setFilters}
-        />
-      ),
-    },
-    {
-      name: "Оплата наличными",
-      icon: (
-        <ToggleSwitch
-          key={Math.random().toString(36)}
-          keyState={"cash"}
-          check={checked.cash}
-          setCheck={setFilters}
-        />
-      ),
-    },
-    {
-      name: "Баллы за отзыв",
-      icon: (
-        <ToggleSwitch
-          key={Math.random().toString(36)}
-          keyState={"pointsForRev"}
-          check={checked.pointsForRev}
-          setCheck={setFilters}
-        />
-      ),
-    },
+    // {
+    //   name: "Рассрочка",
+    //   icon: (
+    //     <ToggleSwitch
+    //       key={Math.random().toString(36)}
+    //       keyState={"installmentPlan"}
+    //       check={checked.installmentPlan}
+    //       setCheck={setFilters}
+    //     />
+    //   ),
+    // },
+    // {
+    //   name: "Оплата наличными",
+    //   icon: (
+    //     <ToggleSwitch
+    //       key={Math.random().toString(36)}
+    //       keyState={"cash"}
+    //       check={checked.cash}
+    //       setCheck={setFilters}
+    //     />
+    //   ),
+    // },
+    // {
+    //   name: "Баллы за отзыв",
+    //   icon: (
+    //     <ToggleSwitch
+    //       key={Math.random().toString(36)}
+    //       keyState={"pointsForRev"}
+    //       check={checked.pointsForRev}
+    //       setCheck={setFilters}
+    //     />
+    //   ),
+    // },
   ];
   useEffect(() => {
     if (checked.sale) {
