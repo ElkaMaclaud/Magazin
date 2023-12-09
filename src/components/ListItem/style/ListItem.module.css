@@ -20,6 +20,7 @@
   padding: 10px;
   align-items: center;
   transition: 0.1s linear;
+  border-radius: 20px;
 }
 .item svg {
   fill: #999;
@@ -50,7 +51,6 @@ div {
   color: black;
 }
 .item:hover {
-  border-radius: 20px;
   background-color: #eef;
 }
 .item:hover .itemInfo {

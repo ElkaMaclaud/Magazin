@@ -1,4 +1,4 @@
-.container, .containerAfter {
+.container, .containerAfter, .containerNotBefore {
   position: absolute;
   cursor: pointer;
   box-shadow: 0px 0px 50px rgba(56, 49, 49, 0.5);

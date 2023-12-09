@@ -12,5 +12,6 @@ export { InputSearch } from "./InputSearch/InputSearch";
 export { TitleInfo } from "./TitleInfo/TitleInfo";
 export { InfoCard } from "./InfoCard/InfoCard";
 export { SmallCard } from "./SmallCard/SmallCard";
+export { OptionCard } from "./OptionCard/OptionCard";
 export { TwoColorCard } from "./TwoColorCard/TwoColorCard";
 export { Up } from "./Up/Up";

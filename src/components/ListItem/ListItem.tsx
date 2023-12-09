@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import classes from "./style/ListItem.module.css";
 import { IListCategory } from "../../type/categoryType";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,7 @@ const ListItem: FC<{ list: IListCategory[]; small?: boolean }> = ({
 }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [hover, setHover] = useState(list[0])
   const handleClick = (link: string) => {
     if (link) {
       dispatch(GET_GOODS_BY_CATEGORY(link));
@@ -23,6 +24,10 @@ const ListItem: FC<{ list: IListCategory[]; small?: boolean }> = ({
         const key = Math.random().toString(36).substring(2, 15);
         return (
           <div
+            onMouseOver={() => setHover(item)}
+            style={
+              hover === item ? { backgroundColor: "rgba(0, 91, 255, .1)" } : {}
+            }
             key={key}
             className={small ? classes.itemSmall : classes.item}
             onClick={() => handleClick(item.link as string)}

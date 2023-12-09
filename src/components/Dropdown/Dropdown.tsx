@@ -4,17 +4,26 @@ import { IMenuItems } from "../../MockupData/menuItems";
 import { Link } from "react-router-dom";
 
 interface DropdownProps {
-  handleAction: () => void;
+  handleAction?: (...args: any) => void;
   list?: IMenuItems[] | string[];
   style?: CSSProperties;
   after?: boolean;
   children?: ReactNode;
+  notPseudoElement?: boolean;
 }
 
 const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
-  ({ handleAction, list,  style, after, children }, ref) => {
+  ({ handleAction, list,  style, after, children, notPseudoElement }, ref) => {
+    // useLayoutEffect(() => {
+    //   if (notPseudoElement && ref && 'current' in ref) {
+    //     const element = ref.current;
+    //     if (element) {
+    //       element.style.removeProperty('display');
+    //     }
+    //   }
+    // }, [notPseudoElement, ref]);
     const handleClick = () => {
-      handleAction();
+      handleAction && handleAction();
     };
     const checkPropsType = (prop: string | IMenuItems): prop is string => {
       return typeof prop === "string";
@@ -37,7 +46,7 @@ const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     };
     if (children) {
       return (
-        <div ref={ref} className={classes.container} style={style}>
+        <div ref={ref} className={notPseudoElement ? classes.containerNotBefore : classes.container} style={style}>
           {children}
         </div>
       );
@@ -45,7 +54,7 @@ const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     return (
       <div
         ref={ref}
-        className={after ? classes.containerAfter : classes.container}
+        className={notPseudoElement ? classes.containerNotBefore : after ? classes.containerAfter : classes.container}
         style={style}
       >
         <div className={classes.listContainer}>

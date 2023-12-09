@@ -11,18 +11,31 @@
 .content {
   width: 75%;
 }
-select {
+.select {
+  cursor: pointer;
+  padding: 10px;
   width: 230px;
   height: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-size: 16px;
   border: 2px solid #ccc;
   border-radius: 5px;
   margin-bottom: 10px;
 }
-select option div {
-    padding-bottom: 30px;
+.select input{
+  width: 80%;
+  outline: none;
 }
-select:focus {
+.select svg {
+  margin-top: 4px;
+  transition: .3s ease-in;
+}
+.optionACtive svg {
+  transform: rotate(180deg);
+}
+.select:hover {
   outline: none;
   border: 2px solid rgb(36, 80, 202);
 }

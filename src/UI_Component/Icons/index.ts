@@ -1,5 +1,6 @@
 export { Account } from "./Account/Account";
 export { Arrow } from "./Arrow/Arrow";
+export { ArrowSmall } from "./ArrowSmall/ArrowSmall";
 export { Basket } from "./Basket/Basket";
 export { Book } from "./Book/Book";
 export { Burger } from "./Burger/Burger";
