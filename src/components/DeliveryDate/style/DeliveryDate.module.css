@@ -1,7 +1,7 @@
 .headerWrapper {
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  max-width: 100%;
   height: fit-content;
   align-items: center;
 }

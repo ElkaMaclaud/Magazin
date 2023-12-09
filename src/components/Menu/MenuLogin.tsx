@@ -8,6 +8,7 @@ import { Modal } from "../Modal/Modal";
 import { Login } from "../Login/Login";
 import { useAppSelector } from "../../store/reduxHooks";
 import { menuItems } from "../../MockupData/menuItems";
+import MenuItem from "../MenuItem/MenuItem";
 const style: CSSProperties = { width: "300px", left: "59.5%" };
 const MenuLogin = () => {
   const {data} = useAppSelector(state => state.page)
@@ -52,7 +53,7 @@ const MenuLogin = () => {
           {data.user.publik.name.split(" ")[0] || "Noname"}
         </div>
       </Link>
-      {showDropDown && <Dropdown handleAction={handleAction} ref={ref} list={menuItems}/>}
+      {showDropDown && <Dropdown ref={ref}><MenuItem handleAction={handleAction}  list={menuItems}/></Dropdown>}
     </div>
   );
   }
@@ -69,7 +70,7 @@ const MenuLogin = () => {
         </div>
       </Link>
       {showDropDown && (
-        <Dropdown handleAction={handleActionNoAvtorization} ref={ref} style={style}>
+        <Dropdown ref={ref} style={style}>
           <InfoNoAvtorizetionPerson handler={handleActionNoAvtorization}/>
         </Dropdown>
       )}

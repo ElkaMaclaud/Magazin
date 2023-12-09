@@ -14,6 +14,7 @@ import { Modal } from "../Modal/Modal";
 import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
 import { CANSEL_PURCHASE } from "../../store/slice";
 import { debounce } from "../../utils/debounce";
+import MenuItem from "../MenuItem/MenuItem";
 
 const DeliveryDate = () => {
   const { user } = useAppSelector((state) => state.page.data);
@@ -32,7 +33,7 @@ const DeliveryDate = () => {
     const handleScroll = debounce(() => {
       if (ref.current) {
         const tooltipRect = ref.current.getBoundingClientRect();
-        if (tooltipRect.bottom > window.innerHeight - 100 ) {
+        if (tooltipRect.bottom > window.innerHeight - 100) {
           setTooltipPosition("top");
         } else if (tooltipRect.bottom - 200 < window.innerHeight) {
           setTooltipPosition("bottom");
@@ -51,7 +52,7 @@ const DeliveryDate = () => {
     style = getСoordinates();
   }, [tooltipPosition]);
   const canselPurchase = (remove = true) => {
-    if(remove) {
+    if (remove) {
       dispatch(CANSEL_PURCHASE());
     }
     setShowDropDown(false);
@@ -95,11 +96,14 @@ const DeliveryDate = () => {
       {showDropDown && (
         <Dropdown
           ref={ref}
-          list={["Переместить в корзину"]}
-          handleAction={handleDropDownClick}
           style={style}
           after={tooltipPosition === "top" && true}
-        />
+        >
+          <MenuItem
+            list={["Переместить в корзину"]}
+            handleAction={handleDropDownClick}
+          ></MenuItem>
+        </Dropdown>
       )}
       {showModal && (
         <Modal
