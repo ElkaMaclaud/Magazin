@@ -11,7 +11,7 @@ const ListItem: FC<{ list: IListCategory[]; small?: boolean }> = ({
 }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [hover, setHover] = useState(list[0])
+  const [hover, setHover] = useState(list[0]);
   const handleClick = (link: string) => {
     if (link) {
       dispatch(GET_GOODS_BY_CATEGORY(link));
@@ -25,11 +25,14 @@ const ListItem: FC<{ list: IListCategory[]; small?: boolean }> = ({
         return (
           <div
             onMouseOver={() => setHover(item)}
-            style={
-              hover === item ? { backgroundColor: "rgba(0, 91, 255, .1)" } : {}
-            }
             key={key}
-            className={small ? classes.itemSmall : classes.item}
+            className={
+              small
+                ? classes.itemSmall
+                : hover === item
+                ? classes.hoverItem
+                : classes.item
+            }
             onClick={() => handleClick(item.link as string)}
           >
             <div className={classes.itemInfo}>

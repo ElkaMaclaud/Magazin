@@ -7,7 +7,7 @@ interface DropdownProps {
   after?: boolean;
   notPseudoElement?: boolean;
 }
-const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
+export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
   ({ children, style, after, notPseudoElement }, ref) => {
     return (
       <div
@@ -26,5 +26,3 @@ const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     );
   }
 );
-
-export default Dropdown;

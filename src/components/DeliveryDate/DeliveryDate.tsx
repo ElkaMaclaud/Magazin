@@ -6,10 +6,9 @@ import React, {
   useState,
   useMemo,
 } from "react";
-import { CardForInfo, Slider } from "../../UI_Component";
+import { CardForInfo, Dropdown, Slider } from "../../UI_Component";
 import classes from "./style/DeliveryDate.module.css";
 import { BurgerMenu } from "../../UI_Component/Icons";
-import Dropdown from "../Dropdown/Dropdown";
 import { Modal } from "../Modal/Modal";
 import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
 import { CANSEL_PURCHASE } from "../../store/slice";

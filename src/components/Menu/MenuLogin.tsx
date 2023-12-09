@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, CSSProperties } from "react";
 import { Account } from "../../UI_Component/Icons";
 import { Link } from "react-router-dom";
-import Dropdown from "../Dropdown/Dropdown";
 import classes from "./style/MenuLogin.module.css";
 import InfoNoAvtorizetionPerson from "../InfoNoAvtorizetionPerson/InfoNoAvtorizetionPerson";
 import { Modal } from "../Modal/Modal";
@@ -9,6 +8,7 @@ import { Login } from "../Login/Login";
 import { useAppSelector } from "../../store/reduxHooks";
 import { menuItems } from "../../MockupData/menuItems";
 import MenuItem from "../MenuItem/MenuItem";
+import { Dropdown } from "../../UI_Component";
 const style: CSSProperties = { width: "300px", left: "59.5%" };
 const MenuLogin = () => {
   const {data} = useAppSelector(state => state.page)

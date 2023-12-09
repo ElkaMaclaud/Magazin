@@ -1,4 +1,5 @@
 export { Button } from "./Button/Button";
+export { Dropdown } from "./Dropdown/Dropdown";
 export { Card } from "./Card/Card";
 export { Slider } from "./Slider/Slider";
 export { SliderMouseMove } from "./SliderMouseMove/SliderMouseMove";

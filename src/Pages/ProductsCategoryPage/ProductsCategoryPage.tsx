@@ -11,12 +11,11 @@ import GoodsList from "../../components/GoodsList/GoodsList";
 import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
 import ListItem from "../../components/ListItem/ListItem";
 import { categories } from "../../MockupData/categoryFilter";
-import { OptionCard, ToggleSwitch } from "../../UI_Component";
+import { Dropdown, OptionCard, ToggleSwitch } from "../../UI_Component";
 import { IGoods } from "../../type/goodsType";
 import { GET_GOODS_BY_CATEGORY } from "../../store/slice";
 import { useParams } from "react-router-dom";
 import { ArrowSmall } from "../../UI_Component/Icons";
-import Dropdown from "../../components/Dropdown/Dropdown";
 import { optionsSort } from "../../MockupData/menuItems";
 
 const ProductsCategoryPage = () => {
@@ -171,13 +170,3 @@ const ProductsCategoryPage = () => {
 };
 
 export default ProductsCategoryPage;
-
-/* <select
-value={selectSort}
-onChange={handleChange}
->
-<option value="popular">Популярные</option>
-<option value="cheap">Сначала дешёвые</option>
-<option value="expensive">Сначала дорогие</option>
-<option value="new">Новинки</option>
-</select> */

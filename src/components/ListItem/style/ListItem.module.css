@@ -12,7 +12,7 @@
   gap: 0.09rem;
   font-size: 16px;
 }
-.item {
+.item, .hoverItem {
   width: 95%;
   cursor: pointer;
   display: flex;
@@ -28,7 +28,18 @@
 .itemSmall {
   margin-left: 0;
   cursor: pointer;
-  transition: 0.1s linear;
+}
+.hoverItem {
+  background-color: #eef;
+}
+.hoverItem .itemInfo {
+  color: blue;
+}
+.hoverItem svg {
+  fill: blue;
+}
+.hoverItem .arrow {
+  opacity: 1;
 }
 .arrow {
   border: solid blue;
@@ -42,6 +53,7 @@
 .itemInfo {
   display: flex;
   gap: 10px;
+  transition: .1s ease-in-out;
 }
 .itemInfo a,
 h3,
@@ -50,20 +62,8 @@ div {
   text-decoration: none;
   color: black;
 }
-.item:hover {
-  background-color: #eef;
-}
-.item:hover .itemInfo {
-  color: blue;
-}
 .itemInfo:hover a {
   text-decoration: underline;
-}
-.item:hover svg {
-  fill: blue;
-}
-.item:hover .arrow {
-  opacity: 1;
 }
 .wrapperList::-webkit-scrollbar {
   width: 7px;
