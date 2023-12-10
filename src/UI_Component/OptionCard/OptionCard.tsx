@@ -1,6 +1,7 @@
 import React, { CSSProperties, FC, useState } from "react";
 import classes from "./style/OptionCard.module.css";
 import { СheckMark } from "../Icons";
+import { keyGenerate } from "../../utils/keyGenerate";
 export const OptionCard: FC<{
   value: string[];
   list: Array<Array<string>>;
@@ -11,7 +12,7 @@ export const OptionCard: FC<{
   return (
     <div className={classes.wrapper} style={style}>
       {list.map((item) => {
-        const key = Math.random().toString(36).substring(2, 15);
+        const key = keyGenerate();
         return (
           <div
             onMouseOver={() => setHover(item)}

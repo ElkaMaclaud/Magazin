@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import classes from "./style/Up.module.css";
+import { keyGenerate } from "../../utils/keyGenerate";
 
 export const Up = () => {
   const [showScrollUp, setShowScrollUp] = useState(false);
@@ -21,7 +22,7 @@ export const Up = () => {
     return (
       <div className={classes.arrowWrapper} onClick={handleClick}>
         {Array.from({ length: 2 }).map(() => {
-          const key = Math.random().toString(36).substring(2, 15);
+          const key = keyGenerate();
           return <span key={key}className={classes.arrow}></span>;
         })}
       </div>

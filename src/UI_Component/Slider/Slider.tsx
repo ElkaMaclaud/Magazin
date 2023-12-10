@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import classes from "./style/Slider.module.css";
 import { Arrow } from "../Icons";
+import { keyGenerate } from "../../utils/keyGenerate";
 interface IPlace {
   left: number;
   right: number;
@@ -94,7 +95,7 @@ export const Slider: FC<{list: Array<any>}> = ({list}) => {
         style={{ transform: `translateX(${offset}px)` }}
       >
         {list.map((item) => {
-          const key = Math.random().toString(36).substring(2, 15);
+          const key = keyGenerate();
           return (
             <div key={key} className={classes.imageWrapper}>
               <img src={item} className={classes.image} alt="" />

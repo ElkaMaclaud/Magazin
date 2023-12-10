@@ -4,6 +4,7 @@ import classes from "./style/MagazinPage.module.css";
 import { ImageGood } from "../../UI_Component";
 import { Link, useNavigate } from "react-router-dom";
 import { GET_SALE_GOODS } from "../../store/slice";
+import { keyGenerate } from "../../utils/keyGenerate";
 
 const MagazinPage = () => {
   const { discount } = useAppSelector((state) => state.page.data);
@@ -24,7 +25,7 @@ const MagazinPage = () => {
       <h1>Специальные предложения!</h1>
       <div className={classes.saleWrapper}>
         {discount?.map((item) => {
-          const key = Math.random().toString(36).substring(2, 15);
+          const key = keyGenerate();
           return (
             <Link to={`../good/${item.id}`} key={key}>
               <ImageGood path={item.image} size={window.innerWidth / 5 - 20} />

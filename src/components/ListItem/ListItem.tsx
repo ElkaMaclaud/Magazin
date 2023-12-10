@@ -1,13 +1,15 @@
-import React, { FC, useState } from "react";
+import React, { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import classes from "./style/ListItem.module.css";
 import { IListCategory } from "../../type/categoryType";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../store/reduxHooks";
 import { GET_GOODS_BY_CATEGORY } from "../../store/slice";
+import { keyGenerate } from "../../utils/keyGenerate";
 
-const ListItem: FC<{ list: IListCategory[]; small?: boolean }> = ({
+const ListItem: FC<{ list: IListCategory[]; small?: boolean; setFoo?: Dispatch<SetStateAction<any>> }> = ({
   list,
   small,
+  setFoo,
 }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -18,10 +20,14 @@ const ListItem: FC<{ list: IListCategory[]; small?: boolean }> = ({
       navigate(`../category/${link}`);
     }
   };
+  useEffect(() => {
+    setFoo && setFoo(hover)
+  }, [hover, setFoo])
+
   return (
     <ul className={small ? classes.wrapperListSmall : classes.wrapperList}>
       {list.map((item) => {
-        const key = Math.random().toString(36).substring(2, 15);
+        const key = keyGenerate();
         return (
           <li
             onMouseOver={() => setHover(item)}

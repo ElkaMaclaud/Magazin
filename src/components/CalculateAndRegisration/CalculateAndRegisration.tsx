@@ -1,6 +1,7 @@
 import React, { CSSProperties, FC, ReactNode } from "react";
 import { Button, Card, InfoCard, SmallCard } from "../../UI_Component";
 import classes from "./style/CalculateAndRegisration.module.css";
+import { keyGenerate } from "../../utils/keyGenerate";
 
 const infoStyle: CSSProperties = {
   width: "100%",
@@ -45,7 +46,7 @@ const CalculateAndRegisration: FC<{
           </p>
         </InfoCard>
         {obj.map((item) => {
-          const key = Math.random().toString(36).substring(2, 15);
+          const key = keyGenerate();
           return (
             <div key={key}>
               <div className={classes.line}></div>

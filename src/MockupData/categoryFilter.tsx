@@ -1,30 +1,107 @@
 import { Link } from "react-router-dom";
-import { Automotive, Book, Cars, Cloth, Food, Furniture, GoodsForPets, HouseAndGarden, HouseholdChemical, Pharmacy, Phone, Shoes, Sport, Tourism } from "../UI_Component/Icons";
+import {
+  Automotive,
+  Book,
+  Cars,
+  Cloth,
+  Food,
+  Furniture,
+  GoodsForPets,
+  HouseAndGarden,
+  HouseholdChemical,
+  Pharmacy,
+  Phone,
+  Shoes,
+  Sport,
+  Tourism,
+} from "../UI_Component/Icons";
 import { IListCategory } from "../type/categoryType";
 
 export const categories: IListCategory[] = [
-  { name: "Электроника", icon: <Phone />, link: "electronika" },
-  { name: "Одежда", icon: <Cloth />, link: "cloth" },
-  { name: "Обувь", icon: <Shoes />, link: "shoes" },
-  { name: "Дом и сад", icon: <HouseAndGarden />, link: "houseAndGarden" },
-  { name: "Аптека", icon: <Pharmacy />, link: "pharmacy" },
-  { name: "Продукты питания", icon: <Food />, link: "food" },
-  { name: "Книги", icon: <Book />, link: "books" },
-  { name: "Мебель", icon: <Furniture />, link: "furniture" },
-  { name: "Спорт и отдых", icon: <Sport />, link: "sportsAndRecreation" },
+  {
+    name: "Электроника",
+    icon: <Phone />,
+    link: "electronika",
+    listCategory: ["", "", "", "", "", "", ""],
+  },
+  {
+    name: "Одежда",
+    icon: <Cloth />,
+    link: "cloth",
+    listCategory: ["", "", "", "", "", "", ""],
+  },
+  {
+    name: "Обувь",
+    icon: <Shoes />,
+    link: "shoes",
+    listCategory: ["", "", "", "", "", "", ""],
+  },
+  {
+    name: "Дом и сад",
+    icon: <HouseAndGarden />,
+    link: "houseAndGarden",
+    listCategory: ["", "", "", "", "", "", ""],
+  },
+  {
+    name: "Аптека",
+    icon: <Pharmacy />,
+    link: "pharmacy",
+    listCategory: ["", "", "", "", "", "", ""],
+  },
+  {
+    name: "Продукты питания",
+    icon: <Food />,
+    link: "food",
+    listCategory: ["", "", "", "", "", "", ""],
+  },
+  {
+    name: "Книги",
+    icon: <Book />,
+    link: "books",
+    listCategory: ["", "", "", "", "", "", ""],
+  },
+  {
+    name: "Мебель",
+    icon: <Furniture />,
+    link: "furniture",
+    listCategory: ["", "", "", "", "", "", ""],
+  },
+  {
+    name: "Спорт и отдых",
+    icon: <Sport />,
+    link: "sportsAndRecreation",
+    listCategory: ["", "", "", "", "", "", ""],
+  },
   {
     name: "Туризм, рыбалка, охота",
     icon: <Tourism />,
     link: "TourismFishingHunting",
+    listCategory: ["", "", "", "", "", "", ""],
   },
-  { name: "Товары для животных", icon: <GoodsForPets />, link: "GoodsForPets" },
-  { name: "Автотовары", icon: <Automotive />, link: "automotiveProducts" },
+  {
+    name: "Товары для животных",
+    icon: <GoodsForPets />,
+    link: "GoodsForPets",
+    listCategory: ["", "", "", "", "", "", ""],
+  },
+  {
+    name: "Автотовары",
+    icon: <Automotive />,
+    link: "automotiveProducts",
+    listCategory: ["", "", "", "", "", "", ""],
+  },
   {
     name: "Бытовая химия и гигиена",
     icon: <HouseholdChemical />,
     link: "householdChemicalsAndHygiene",
+    listCategory: ["", "", "", "", "", "", ""],
   },
-  { name: "Автомобили", icon: <Cars />, link: "cars" },
+  {
+    name: "Автомобили",
+    icon: <Cars />,
+    link: "cars",
+    listCategory: ["", "", "", "", "", "", ""],
+  },
 ];
 
 export const accountList: IListCategory[] = [

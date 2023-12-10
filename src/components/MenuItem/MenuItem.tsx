@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import classes from "./style/MenuItem.module.css";
 import { Link } from "react-router-dom";
 import { IMenuItems } from "../../MockupData/menuItems";
+import { keyGenerate } from "../../utils/keyGenerate";
 
 const MenuItem: FC<{ handleAction: (...args: any) => void;
     list?: IMenuItems[] | string[];}> = ({handleAction, list}) => {
@@ -31,7 +32,7 @@ const MenuItem: FC<{ handleAction: (...args: any) => void;
       <ul className={classes.listContainer}>
         {list &&
           list.map((menu: string | IMenuItems) => {
-            const key = Math.random().toString(36).substring(2, 15);
+            const key = keyGenerate();
             const link = !checkPropsType(menu) ? menu.link : null;
             const name = !checkPropsType(menu) ? menu.name : null;
             return (
