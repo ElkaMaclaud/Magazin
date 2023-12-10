@@ -5,7 +5,6 @@ import AccountPage from "./Pages/AccountPage/AccountPage";
 import BasketPage from "./Pages/BasketPage/BasketPage";
 import FavoritesPage from "./Pages/FavoritesPage/FavoritesPage";
 import GoodPage from "./Pages/GoodPage/GoodPage";
-import LoginPage from "./Pages/LoginPage/LoginPage";
 import MainPage from "./Pages/MainPage/MainPage";
 import NotfoundPage from "./Pages/NotfoundPage/NotfoundPage";
 import OrderListPage from "./Pages/OrderListPage/OrderListPage";
@@ -43,7 +42,6 @@ const RoutesComponent = () => {
     orderPaidPage: <OrderPaidPage />,
     orderListPage: <OrderListPage />,
     main: <PersonalPage />,
-    login: <LoginPage />,
   };
   if (position === "MAIN") {
     return (
