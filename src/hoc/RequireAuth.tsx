@@ -14,7 +14,7 @@ const RequireAuth: FC<{children: ReactNode}> = ({children}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     if (!token) {
-        return <Navigate to='login' state={{from: location}}/>
+        return <Navigate to='../login' state={{from: location}}/>
     }
   return <>{children}</>;
 }

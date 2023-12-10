@@ -40,7 +40,7 @@ export const WideCard: FC<{
   
   const checkProperty = (card: IGoods) => {
     if ("count" in card) {
-      return card.count;
+      return card.count as number;
     }
     return 0;
   };
@@ -121,14 +121,14 @@ export const WideCard: FC<{
             id={good.id}
             text={good.price}
             title={"Добавить в корзину"}
-            counter={checkProperty(good) || 0}
+            counter={checkProperty(good)}
           />
         </div>
       );
     }
     return (
       <div className={classes[classesChoises[4]]}>
-        <CounterButton id={good.id} counter={checkProperty(good) || 0} />
+        <CounterButton id={good.id} counter={checkProperty(good)} />
       </div>
     );
   }, []);

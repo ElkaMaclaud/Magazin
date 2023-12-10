@@ -8,7 +8,7 @@ export const Complite = () => {
       height="32"
       fill="none"
     >
-      <g clip-path="url(#ic_l_multicolor_check_green--a)">
+      <g clipPath="url(#ic_l_multicolor_check_green--a)">
         <path
           fill="#10C44C"
           d="M16 32c8.837 0 16-7.163 16-16S24.837 0 16 0 0 7.163 0 16s7.163 16 16 16Z"

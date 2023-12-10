@@ -7,7 +7,6 @@ const style:CSSProperties = {width: "900px", margin: "auto", backgroundColor: "t
   const location = useLocation();
 
   const fromPage = location.state?.from?.pathname || "/";
-
   return (
     <CardPageFlex style={style}><Login fromPage={fromPage} /></CardPageFlex>
   );

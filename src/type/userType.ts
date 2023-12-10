@@ -10,6 +10,7 @@ export interface IUser {
   purchased: IPurchased[];
   delivery: IDelivery;
   choiceAll: boolean;
+  good?: IGoods;
 }
 export interface IInfoPublik {
   name: string;
