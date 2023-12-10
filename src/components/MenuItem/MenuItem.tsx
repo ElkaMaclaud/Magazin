@@ -28,19 +28,19 @@ const MenuItem: FC<{ handleAction: (...args: any) => void;
         return null;
       };
   return (
-      <div className={classes.listContainer}>
+      <ul className={classes.listContainer}>
         {list &&
           list.map((menu: string | IMenuItems) => {
             const key = Math.random().toString(36).substring(2, 15);
             const link = !checkPropsType(menu) ? menu.link : null;
             const name = !checkPropsType(menu) ? menu.name : null;
             return (
-              <div key={key} className={classes.list} onClick={handleClick}>
+              <li key={key} className={classes.list} onClick={handleClick}>
                 <ChilContent link={link} name={name} menu={menu} />
-              </div>
+              </li>
             );
           })}
-      </div>
+      </ul>
   );
 };
 

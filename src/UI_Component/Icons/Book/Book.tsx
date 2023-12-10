@@ -8,8 +8,8 @@ export const Book = () => {
       xmlns="http://www.w3.org/2000/svg"
       x="0px"
       y="0px"
-      width="30px"
-      height="30px"
+      width="24px"
+      height="24px"
       viewBox="0 0 512 512"
     >
       <g>

@@ -19,11 +19,11 @@ const ListItem: FC<{ list: IListCategory[]; small?: boolean }> = ({
     }
   };
   return (
-    <div className={small ? classes.wrapperListSmall : classes.wrapperList}>
+    <ul className={small ? classes.wrapperListSmall : classes.wrapperList}>
       {list.map((item) => {
         const key = Math.random().toString(36).substring(2, 15);
         return (
-          <div
+          <li
             onMouseOver={() => setHover(item)}
             key={key}
             className={
@@ -40,10 +40,10 @@ const ListItem: FC<{ list: IListCategory[]; small?: boolean }> = ({
               {item.name}
             </div>
             <span className={classes.arrow}></span>
-          </div>
+          </li>
         );
       })}
-    </div>
+    </ul>
   );
 };
 export default ListItem;

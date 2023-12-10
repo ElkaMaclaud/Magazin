@@ -1634,4 +1634,135 @@ export const goods: IGoods[] = [
     category: "cars",
     characteristics: "Автомобиль",
   },
+  {
+    id: Math.random().toString(36).substring(2, 15),
+    image: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9ypAVRoUs3pT6pQFUELTJgfrbi-92PwW8qH9aSY5tMsc3u8Yn5Q1O9DIHc225lT28Vb8&usqp=CAU",
+      "https://mafa-kzn.ru/upload/shop_3/1/1/5/item_11558/item_11558.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxM4_EEQ21GO2XVKmT54WKISN4MbPKpN4QjA&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWfFWLCse2KhHh0SfKQEzkIr9JOJsvqkSY6QyBIzc-bzBuL8CdNEXlPc-cV5pnzWeMTAc&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9QCbnrT_m1RJlNNZwobx3uMoMgofM6fSSPQLDVCiChdEfi4M8QDJjlsEgeg8fZQ2GR6Y&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReKm9WdlTlzll1DXuJblCVHWWcL8-AFWbtKLxINj0pIg3etgi1aPVjkoafFRGQRdDt9Ro&usqp=CAU"
+    ],
+    price: 200700,
+    name: "Furniture",
+    description: `Гостиная, купить мебель для гостиной в Киеве по лучшей цене | Магазин мебели Restof`,
+    category: "furniture",
+    characteristics: "Мебель",
+  },
+  {
+    id: Math.random().toString(36).substring(2, 15),
+    image: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTx8fKayzfh8xWvAn1YKk2jhEsswdHvQc2bnbBgPp3U5j2sKVVXBCgBidZv-WDhacRy-oY&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwqc9XzN4jPeXxenQXA3Uli1Mu9I5V3FhIENBWVUP5PSdvp8RUvYqtupVNYN0EIxkHB8w&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKs4-XhsNhln0EXUdmQZlvm4Xcu69ydq6w8yy0Jc0-PAbUw-yYBqbEaeiqtLblIWpWqpo&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRC8yxp-XxTDfvEXPnpjsifPV9Gm3KYcNGoQ7QCRENVPULWxtGwbrex_-foVt-noZnPch0&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQA_uFPe1gIY-rKPVOoox7lmubxF7Afn9ytfxZYB5B3IDwUTfvWvAdzvfD9Troqg44NAg&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTt0f1ZvfITBN72P9SQZWax1nRUT4rriJClb-RQkv9XhpTpitQ_mWExO1IMtoxoKH5BcPI&usqp=CAU"
+    ],
+    price: 190700,
+    name: "Furniture",
+    description: `Гостиная, купить мебель для гостиной в Киеве по лучшей цене | Магазин мебели Restof`,
+    category: "furniture",
+    characteristics: "Мебель",
+  },
+  {
+    id: Math.random().toString(36).substring(2, 15),
+    image: [
+      "https://kazan.pinskdrev.ru/web/files/imagick_cache/w460h460t2/web/catalogfiles/catalog/categories/12121.jpg",
+      "https://mafa-kzn.ru/upload/shop_3/1/1/5/item_11558/item_11558.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxM4_EEQ21GO2XVKmT54WKISN4MbPKpN4QjA&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWfFWLCse2KhHh0SfKQEzkIr9JOJsvqkSY6QyBIzc-bzBuL8CdNEXlPc-cV5pnzWeMTAc&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9QCbnrT_m1RJlNNZwobx3uMoMgofM6fSSPQLDVCiChdEfi4M8QDJjlsEgeg8fZQ2GR6Y&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReKm9WdlTlzll1DXuJblCVHWWcL8-AFWbtKLxINj0pIg3etgi1aPVjkoafFRGQRdDt9Ro&usqp=CAU"
+    ],
+    price: 45000,
+    name: "Furniture",
+    description: `Гостиная, купить мебель для гостиной в Киеве по лучшей цене | Магазин мебели Restof`,
+    category: "furniture",
+    characteristics: "Мебель",
+    sale: true,
+  },
+  {
+    id: Math.random().toString(36).substring(2, 15),
+    image: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc_mzOTMMeF8bsv9iiSTRRBhsTLXRhoN9p6BgM5zgr_NGHuX7MDQ0vRGavqtxW3c-SmDg&usqp=CAU",
+      "https://mafa-kzn.ru/upload/shop_3/1/1/5/item_11558/item_11558.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxM4_EEQ21GO2XVKmT54WKISN4MbPKpN4QjA&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWfFWLCse2KhHh0SfKQEzkIr9JOJsvqkSY6QyBIzc-bzBuL8CdNEXlPc-cV5pnzWeMTAc&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9QCbnrT_m1RJlNNZwobx3uMoMgofM6fSSPQLDVCiChdEfi4M8QDJjlsEgeg8fZQ2GR6Y&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReKm9WdlTlzll1DXuJblCVHWWcL8-AFWbtKLxINj0pIg3etgi1aPVjkoafFRGQRdDt9Ro&usqp=CAU"
+    ],
+    price: 450980,
+    name: "Furniture",
+    description: `Гостиная, купить мебель для гостиной в Киеве по лучшей цене | Магазин мебели Restof`,
+    category: "furniture",
+    characteristics: "Мебель",
+  },
+  {
+    id: Math.random().toString(36).substring(2, 15),
+    image: [
+      "https://italmaniya.ru/italyanskaya-myagkaya-mebel/myagkaya-mebel-Zanaboni-Ambra-300010-79221.jpg",
+      "https://mafa-kzn.ru/upload/shop_3/1/1/5/item_11558/item_11558.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxM4_EEQ21GO2XVKmT54WKISN4MbPKpN4QjA&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWfFWLCse2KhHh0SfKQEzkIr9JOJsvqkSY6QyBIzc-bzBuL8CdNEXlPc-cV5pnzWeMTAc&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9QCbnrT_m1RJlNNZwobx3uMoMgofM6fSSPQLDVCiChdEfi4M8QDJjlsEgeg8fZQ2GR6Y&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReKm9WdlTlzll1DXuJblCVHWWcL8-AFWbtKLxINj0pIg3etgi1aPVjkoafFRGQRdDt9Ro&usqp=CAU"
+    ],
+    price: 595070,
+    name: "Furniture",
+    description: `Гостиная, купить мебель для гостиной в Киеве по лучшей цене | Магазин мебели Restof`,
+    category: "furniture",
+    characteristics: "Мебель",
+  },
+
+  {
+    id: Math.random().toString(36).substring(2, 15),
+    image: [
+      "https://italmaniya.ru/italyanskaya-myagkaya-mebel/myagkaya-mebel-Sat-Hermes-300228-61479.jpg",
+      "https://mafa-kzn.ru/upload/shop_3/1/1/5/item_11558/item_11558.jpg",
+      "https://deco-mollis.ru/upload/iblock/b54/b540d588282fdd677509bc6e7c79093b.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWfFWLCse2KhHh0SfKQEzkIr9JOJsvqkSY6QyBIzc-bzBuL8CdNEXlPc-cV5pnzWeMTAc&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9QCbnrT_m1RJlNNZwobx3uMoMgofM6fSSPQLDVCiChdEfi4M8QDJjlsEgeg8fZQ2GR6Y&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReKm9WdlTlzll1DXuJblCVHWWcL8-AFWbtKLxINj0pIg3etgi1aPVjkoafFRGQRdDt9Ro&usqp=CAU"
+    ],
+    price: 680090,
+    name: "Furniture",
+    description: `Гостиная, купить мебель для гостиной в Киеве по лучшей цене | Магазин мебели Restof`,
+    category: "furniture",
+    characteristics: "Мебель",
+  },
+  {
+    id: Math.random().toString(36).substring(2, 15),
+    image: [
+      "https://italmaniya.ru/italyanskaya-myagkaya-mebel/myagkaya-mebel-300488-84909.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiNVRK_vT6M6zVXkqqwQ5g227FK73gAWHbRuoOKqTY5SFdOxJdo5nt0Jk2BwOSl1rjRBg&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxM4_EEQ21GO2XVKmT54WKISN4MbPKpN4QjA&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWfFWLCse2KhHh0SfKQEzkIr9JOJsvqkSY6QyBIzc-bzBuL8CdNEXlPc-cV5pnzWeMTAc&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9QCbnrT_m1RJlNNZwobx3uMoMgofM6fSSPQLDVCiChdEfi4M8QDJjlsEgeg8fZQ2GR6Y&usqp=CAU",
+      "https://inart-studio.ru/sites/default/files/products/signorini_coco_daytona_classico_divany_italia_forever.jpg"
+    ],
+    price: 300330,
+    name: "Furniture",
+    description: `Гостиная, купить мебель для гостиной в Киеве по лучшей цене | Магазин мебели Restof`,
+    category: "furniture",
+    characteristics: "Мебель",
+  },
+  {
+    id: Math.random().toString(36).substring(2, 15),
+    image: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4lLNwG4tp5eol2ot0O3ThyhfZECZkyKiZSZudJmsMIGrVYUaA5AthvqYPO3s5hUeFXUY&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWaRnfxxw81f6mgy0T2x-U-MxB2hcWI7XCeuCQUJSgRpReK3W_GnaVEleNjH4LQqya-7o&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3acBVouTYslu7pvsTcKKnCVqD3gtbh3JatizXZneYyI95xGanbSqfr5-n9ogl-LRbMd4&usqp=CAU",
+      "https://mebelmart-kazan.ru/photos/cd9cd7a33385fedfa6d5a2d9fb77bfa8.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDv8ZXxD61RZKgIjHao3PlmcqJAJ9a69fTylKNfstsN0XJEwUbVDUPgF1lxG8ojj86-jA&usqp=CAU",
+      "https://mebelmart-kazan.ru/photos/0d625f547ec477def52406f60d7b62dd.jpg"
+    ],
+    price: 68040,
+    name: "Furniture",
+    description: `Гостиная, купить мебель для гостиной в Киеве по лучшей цене | Магазин мебели Restof`,
+    category: "furniture",
+    characteristics: "Мебель",
+    sale: true,
+  },
 ];
