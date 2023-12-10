@@ -10,6 +10,7 @@ export interface IGoods {
     count?: number;
     choice?: boolean;
     sale?: boolean;
+    discount?: boolean;
 }
 
 

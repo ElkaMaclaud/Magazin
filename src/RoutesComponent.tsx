@@ -18,6 +18,7 @@ import RequireAuth from "./hoc/RequireAuth";
 import { useAppDispatch, useAppSelector } from "./store/reduxHooks";
 import { PAGE_POSITION } from "./store/slice";
 import Category from "./Pages/Category/Category";
+import SalePage from "./Pages/SalePage/SalePage";
 
 const RoutesComponent = () => {
   const position = useAppSelector((state) => state.page.pagePostion);
@@ -36,6 +37,7 @@ const RoutesComponent = () => {
     favorites: <FavoritesPage />,
     basket: <BasketPage />,
     good: <GoodPage />,
+    sale: <SalePage />,
     settings: <SettingsPage />,
     placingAnOrderPage: <PlacingAnOrderPage />,
     orderPaidPage: <OrderPaidPage />,

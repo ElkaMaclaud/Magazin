@@ -33,6 +33,7 @@ const state: IInitialState = {
   data: {
     goods: [],
     sale: [],
+    discount: [],
     user: {
       publik: {
         name: "",
@@ -184,6 +185,27 @@ export const GET_SALE_GOODS = createAsyncThunk<
         const success = true;
         if (success) {
           resolve(goods.filter((item) => item.sale));
+        } else {
+          throw new Error("Authorization failed");
+        }
+      }, 0)
+    );
+    return response as IGoods[];
+  } catch (error) {
+    return rejectWithValue(`${error}`);
+  }
+});
+export const GET_DISCOUNT_GOODS = createAsyncThunk<
+  IGoods[],
+  undefined,
+  { rejectValue: string }
+>("page/GET_DISCOUNT_GOODS", async (_, { rejectWithValue }) => {
+  try {
+    const response = await new Promise((resolve) =>
+      setTimeout(() => {
+        const success = true;
+        if (success) {
+          resolve(goods.filter((item) => item.discount));
         } else {
           throw new Error("Authorization failed");
         }
@@ -838,6 +860,19 @@ const slice = createSlice({
           data: {
             ...state.data,
             sale: action.payload,
+          },
+        };
+      }
+    });
+    builder.addCase(GET_DISCOUNT_GOODS.fulfilled, (state, action) => {
+      if (action.payload) {
+        return {
+          ...state,
+          success: true,
+          loading: "COMPLICATED",
+          data: {
+            ...state.data,
+            discount: action.payload,
           },
         };
       }

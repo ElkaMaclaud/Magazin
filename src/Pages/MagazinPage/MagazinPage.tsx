@@ -1,22 +1,29 @@
 import React from "react";
-import { useAppSelector } from "../../store/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
 import classes from "./style/MagazinPage.module.css";
 import { ImageGood } from "../../UI_Component";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { GET_SALE_GOODS } from "../../store/slice";
 
 const MagazinPage = () => {
-  const { sale } = useAppSelector((state) => state.page.data);
+  const { discount } = useAppSelector((state) => state.page.data);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const getSale = () => {
+    dispatch(GET_SALE_GOODS());
+    navigate("../sale")
+  }
   return (
     <div className={classes.wrapper}>
-      <div className={classes.saleHappyNew}>
+      <div onClick={getSale} className={classes.saleHappyNew}>
         <strong>Новогодняя распродажа</strong>
       </div>
       <div className={classes.saleStand}>
-        <strong>Здесь могла быть ваша реклама</strong>
+        <strong>Здесь могла бы быть ваша реклама</strong>
       </div>{" "}
       <h1>Специальные предложения!</h1>
       <div className={classes.saleWrapper}>
-        {sale?.map((item) => {
+        {discount?.map((item) => {
           const key = Math.random().toString(36).substring(2, 15);
           return (
             <Link to={`../good/${item.id}`} key={key}>

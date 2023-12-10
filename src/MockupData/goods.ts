@@ -47,6 +47,7 @@ export const goods: IGoods[] = [
     category: "electronika",
     characteristics: "blablabla",
     sale: true,
+    discount: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -68,6 +69,7 @@ export const goods: IGoods[] = [
       Основной материал корпуса: Пластик, Стекло`,
     category: "electronika",
     characteristics: "blablabla",
+    discount: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -313,6 +315,7 @@ export const goods: IGoods[] = [
     description: `Какую обувь носить осенью и зимой: 6 советов от BRANDO - Афиша Красноярска`,
     category: "shoes",
     characteristics: "blablabla",
+    discount: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -344,6 +347,7 @@ export const goods: IGoods[] = [
     category: "shoes",
     characteristics: "blablabla",
     sale: true,
+    discount: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -406,6 +410,7 @@ export const goods: IGoods[] = [
     category: "houseAndGarden",
     characteristics: "blablabla",
     sale: true,
+    discount: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -421,6 +426,7 @@ export const goods: IGoods[] = [
     description: `Товары для дома и сада купить в интернет-магазине Beloris.ru`,
     category: "houseAndGarden",
     characteristics: "blablabla",
+    discount: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -502,6 +508,7 @@ export const goods: IGoods[] = [
     description: `Аптечные товары`,
     category: "pharmacy",
     characteristics: "blablabla",
+    discount: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -589,6 +596,7 @@ export const goods: IGoods[] = [
     description: `Овсяное печенье, рецепты с фото на RussianFood.com: 170 рецептов овсяного печенья`,
     category: "food",
     characteristics: "Cooki",
+    discount: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -672,6 +680,7 @@ export const goods: IGoods[] = [
     description: `Их прославила еда. Блюда, названные в честь людей | Кухни мира | Кухня | Аргументы и Факты`,
     category: "food",
     characteristics: "Вкусняшки",
+    discount: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -739,6 +748,7 @@ export const goods: IGoods[] = [
     description: `Как и зачем читать книги эффективно — Work.ua`,
     category: "books",
     characteristics: "Книги в твердом переплете",
+    discount: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -772,6 +782,7 @@ export const goods: IGoods[] = [
     description: `Как и зачем читать книги эффективно — Work.ua`,
     category: "books",
     characteristics: "Книги в твердом переплете",
+    discount: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
@@ -852,6 +863,7 @@ export const goods: IGoods[] = [
     description: `Товары для спорта, отдыха, туризма ОПТОМ!! - обсуждение на форуме e1.ru`,
     category: "sportsAndRecreation",
     characteristics: "Товары для активного отдыха",
+    discount: true,
   },
   {
     id: Math.random().toString(36).substring(2, 15),
