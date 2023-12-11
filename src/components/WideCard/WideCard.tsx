@@ -138,7 +138,7 @@ export const WideCard: FC<{
         <GoodDescription />
       </div>
     );
-  }, []);
+  }, [good.description]);
 
   const MemoCounterButton = useMemo(() => {
     if (child) {
@@ -158,14 +158,14 @@ export const WideCard: FC<{
         <CounterButton id={good.id} counter={checkProperty(good)} />
       </div>
     );
-  }, []);
+  }, [good.count]);
   const MemoChoiceIcon = useMemo(
     () => (
       <div className={classes[classesChoises[4]]}>
         <ChoiceIcon favorite={good.favorite} id={good.id} />
       </div>
     ),
-    []
+    [good.favorite]
   );
   if (child) {
     return (

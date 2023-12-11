@@ -241,9 +241,9 @@ export const GET_SALE_GOODS = createAsyncThunk<
             );
             return {
               ...good,
-              count: findGood ? findGood.count : 0,
-              choice: findGood ? findGood.choice : false,
-              favorite: favoriteGood ? favoriteGood.favorite : false,
+              count: findGood?.count || 0,
+              choice: findGood?.choice || false,
+              favorite: favoriteGood?.favorite || false,
             };
           });
 
@@ -292,9 +292,9 @@ export const GET_DISCOUNT_GOODS = createAsyncThunk<
             );
             return {
               ...good,
-              count: findGood ? findGood.count : 0,
-              choice: findGood ? findGood.choice : false,
-              favorite: favoriteGood ? favoriteGood.favorite : false,
+              count: findGood?.count || 0,
+              choice: findGood?.choice || false,
+              favorite: favoriteGood?.favorite || false,
             };
           });
 
