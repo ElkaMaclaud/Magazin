@@ -6,6 +6,7 @@ import { CardPageFlex, ImageGood } from "../../UI_Component";
 import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
 import { GET_GOOD } from "../../store/slice";
 import { CounterButton } from "../../components/CounterButton/CounterButton";
+import ChoiceIcon from "../../components/ChoiceIcon/ChoiceIcon";
 
 const GoodPage = () => {
   const { id } = useParams();
@@ -26,13 +27,14 @@ const GoodPage = () => {
       <div className={classes.wrapperGood}>
         <ImageGood path={good.image} size={500} />
         <div className={classes.description}>{good.description}</div>
-        <div>
-          <CounterButton
+        <div className={classes.countLikeWrapper}>
+          <div className={classes.favorite}><ChoiceIcon favorite={good.favorite} id={good.id} /></div>
+          <div><CounterButton
             id={good.id}
             text={good.price}
             title={"Добавить в корзину"}
             counter={checkProperty(good)}
-          />
+          /></div>
         </div>
       </div>
     </CardPageFlex>

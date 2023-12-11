@@ -1,7 +1,13 @@
 .wrapperGood {
-    display: flex;
-    gap: 20px;
+  display: flex;
+  gap: 20px;
 }
 .description {
-    flex: 1 1 0;
+  flex: 1 1 0;
+}
+.countLikeWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  align-items: center;
 }
