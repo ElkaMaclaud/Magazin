@@ -6,7 +6,6 @@ export { SliderMouseMove } from "./SliderMouseMove/SliderMouseMove";
 export { ToggleSwitch } from "./ToggleSwitch/ToggleSwitch";
 export { CardForInfo } from "./CardForInfo/CardForInfo";
 export { CardPageFlex } from "./CardPageFlex/CardPageFlex";
-export { CounterButton } from "./CounterButton/CounterButton";
 export { ImageGood } from "./ImageGood/ImageGood";
 export { Input } from "./Input/Input";
 export { InputSearch } from "./InputSearch/InputSearch";

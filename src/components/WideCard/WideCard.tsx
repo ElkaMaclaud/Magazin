@@ -9,7 +9,7 @@ import React, {
 } from "react";
 import classes from "./style/WideCard.module.css";
 import { IGoods } from "../../type/goodsType";
-import { CounterButton, ImageGood } from "../../UI_Component";
+import { ImageGood } from "../../UI_Component";
 import ChoiceIcon from "../ChoiceIcon/ChoiceIcon";
 import { Trash, СheckMark } from "../../UI_Component/Icons";
 import { Modal } from "../Modal/Modal";
@@ -19,6 +19,7 @@ import {
   REMOVE_GOOD_BASKET_OF_GOODS,
 } from "../../store/slice";
 import { Link } from "react-router-dom";
+import { CounterButton } from "../CounterButton/CounterButton";
 
 export const WideCard: FC<{
   good: IGoods;

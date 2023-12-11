@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { IGoods } from "../../type/goodsType";
 import classes from "./style/GoodPage.module.css";
-import { CardPageFlex, CounterButton, ImageGood } from "../../UI_Component";
+import { CardPageFlex, ImageGood } from "../../UI_Component";
 import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
 import { GET_GOOD } from "../../store/slice";
+import { CounterButton } from "../../components/CounterButton/CounterButton";
 
 const GoodPage = () => {
   const { id } = useParams();
