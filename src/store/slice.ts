@@ -97,7 +97,7 @@ export const CHANGE_DELIVERY = createAsyncThunk<
         if (success) {
           resolve(value);
         } else {
-          throw new Error("Authorization failed");
+          throw new Error("CHANGE_DELIVERY failed");
         }
       }, 10)
     );
@@ -119,7 +119,7 @@ export const CHANGE_ACCOUNT_INFO = createAsyncThunk<
         if (success) {
           resolve(value);
         } else {
-          throw new Error("Authorization failed");
+          throw new Error("CHANGE_ACCOUNT_INFO failed");
         }
       }, 10)
     );
@@ -164,7 +164,7 @@ export const GET_GOODS_BY_CATEGORY = createAsyncThunk<
                 })
             );
           } else {
-            throw new Error("Authorization failed");
+            throw new Error("GET_GOODS_BY_CATEGORY failed");
           }
         }, 1000)
       );
@@ -180,16 +180,26 @@ export const GET_GOOD = createAsyncThunk<
   { rejectValue: string; state: RootState }
 >("page/GET_GOOD", async (id, { rejectWithValue, getState }) => {
   try {
-    const response = await new Promise((resolve) =>
+    const response = await new Promise((resolve, reject) => {
       setTimeout(() => {
-        const success = true;
-        if (success) {
-          resolve(goods.find((item) => item.id === id));
+      const foundGood = goods.find((good) => good.id === id);
+      if (foundGood) {
+        const findGood = getState().page.data.user.basket.find((goodFind) => goodFind.id === id);
+        const favoriteGood = getState().page.data.user.favorite.find((likeGood) => likeGood.id === id);
+        if (findGood || favoriteGood) {
+          resolve({
+            ...foundGood,
+            count: findGood ? findGood.count : 0,
+            choice: findGood ? findGood.choice : false,
+            favorite: favoriteGood ? favoriteGood.favorite : false,
+          });
         } else {
-          throw new Error("Authorization failed");
+          resolve({ ...foundGood });
         }
-      }, 0)
-    );
+      } else {
+        throw new Error("GET_GOOD failed");
+      }  }, 0)
+    });
     return response as IGoods;
   } catch (error) {
     return rejectWithValue(`${error}`);
@@ -229,7 +239,7 @@ export const GET_SALE_GOODS = createAsyncThunk<
               })
           );
         } else {
-          throw new Error("Authorization failed");
+          throw new Error("GET_SALE_GOODS failed");
         }
       }, 0)
     );
@@ -272,7 +282,7 @@ export const GET_DISCOUNT_GOODS = createAsyncThunk<
               })
           );
         } else {
-          throw new Error("Authorization failed");
+          throw new Error("GET_DISCOUNT_GOODS failed");
         }
       }, 0)
     );
@@ -334,7 +344,7 @@ export const GET_FAVORITE_GOODS = createAsyncThunk<
             goods.filter((good: IGoods) => good.favorite) //getState().page.data.
           );
         } else {
-          throw new Error("Authorization failed");
+          throw new Error("GET_FAVORITE_GOODS failed");
         }
       }, 0)
     );
@@ -357,7 +367,7 @@ export const GET_BASKET_OF_GOODS = createAsyncThunk<
             goods.filter((good: IGoods) => good.count) //getState().page.data.
           );
         } else {
-          throw new Error("Authorization failed");
+          throw new Error("GET_BASKET_OF_GOODS failed");
         }
       }, 0)
     );
@@ -382,7 +392,7 @@ export const CLEARANCE_OF_GOODS = createAsyncThunk<
             )
           );
         } else {
-          throw new Error("Authorization failed");
+          throw new Error("CLEARANCE_OF_GOODS failed");
         }
       }, 0)
     );
@@ -403,7 +413,7 @@ export const CANSEL_PURCHASE = createAsyncThunk<
         if (success) {
           resolve(getState().page.data.user.basket);
         } else {
-          throw new Error("Authorization failed");
+          throw new Error("CANSEL_PURCHASE failed");
         }
       }, 0)
     );
@@ -444,7 +454,7 @@ export const PAY_GOODS = createAsyncThunk<
               .map((item: IGoods) => ({ ...item, delivery: deliveryOrder })),
           });
         } else {
-          throw new Error("Authorization failed");
+          throw new Error("PAY_GOODS failed");
           //alert("Авторизуйтесь сначало!")
         }
       }, 0)
@@ -483,7 +493,7 @@ export const CHOICE_ALL_BASKET_OF_GOODS = createAsyncThunk<
               choiceAll: checked,
             });
           } else {
-            throw new Error("Authorization failed");
+            throw new Error("CHOICE_ALL_BASKET_OF_GOODS failed");
           }
         }, 0)
       );
@@ -522,7 +532,7 @@ export const REMOVE_CHOICES_BASKET_OF_GOODS = createAsyncThunk<
               ),
             });
           } else {
-            throw new Error("Authorization failed");
+            throw new Error("REMOVE_CHOICES_BASKET_OF_GOODS failed");
           }
         }, 0)
       );
@@ -581,7 +591,7 @@ export const CHANGE_FAVORITE_GOOD = createAsyncThunk<
                   ],
             });
           } else {
-            throw new Error("Authorization failed");
+            throw new Error("CHANGE_FAVORITE_GOOD failed");
           }
         }, 0)
       );
@@ -642,7 +652,7 @@ export const ADD_BASKET_OF_GOODS = createAsyncThunk<
               ),
             });
           } else {
-            throw new Error("Authorization failed");
+            throw new Error("ADD_BASKET_OF_GOODS failed");
           }
         }, 10)
       );
@@ -699,7 +709,7 @@ export const DECREMENT_BASKET_OF_GOODS = createAsyncThunk<
               ),
             });
           } else {
-            throw new Error("Authorization failed");
+            throw new Error("DECREMENT_BASKET_OF_GOODS failed");
           }
         }, 0)
       );
@@ -742,7 +752,7 @@ export const REMOVE_GOOD_BASKET_OF_GOODS = createAsyncThunk<
               ),
             });
           } else {
-            throw new Error("Authorization failed");
+            throw new Error("REMOVE_GOOD_BASKET_OF_GOODS failed");
           }
         }, 0)
       );
@@ -788,7 +798,7 @@ export const CHOICE_BASKET_OF_GOODS = createAsyncThunk<
               ),
             });
           } else {
-            throw new Error("Authorization failed");
+            throw new Error("CHOICE_BASKET_OF_GOODS failed");
           }
         }, 0)
       );
