@@ -4,7 +4,13 @@
   min-width: 100%;
   padding: 20px 0;
   justify-content: space-between;
-  font-size: 20px
+  font-size: 20px;
+}
+.wrapperColumn {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  overflow: hidden;
 }
 .card {
   gap: 1rem;
@@ -41,7 +47,7 @@
 }
 
 .inputWrapper .checkHover {
-  position: absolute; 
+  position: absolute;
   top: 0;
   left: 1px;
   width: 11px;
@@ -66,6 +72,12 @@
 }
 .sedondChildSmall {
   flex: 1 1 0;
+}
+.miniDescription {
+  height: 20px;
+  max-height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .descriptionBasket {
   display: flex;
@@ -105,8 +117,8 @@
   flex: 1 1 1;
   min-width: 15%;
   text-align: center;
-}s
-.like {
+}
+s .like {
   width: 7%;
   text-align: right;
 }

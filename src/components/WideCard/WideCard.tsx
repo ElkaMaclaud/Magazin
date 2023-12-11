@@ -2,10 +2,10 @@
 import React, {
   FC,
   ReactNode,
-  memo,
   useState,
   ChangeEvent,
   useMemo,
+  CSSProperties,
 } from "react";
 import classes from "./style/WideCard.module.css";
 import { IGoods } from "../../type/goodsType";
@@ -24,7 +24,8 @@ import { CounterButton } from "../CounterButton/CounterButton";
 export const WideCard: FC<{
   good: IGoods;
   child?: ReactNode;
-}> = memo(({ good, child }) => {
+  orientationVertical?: boolean;
+}> = ({ good, child, orientationVertical }) => {
   const SIZE = 270;
   const SIZE_BASKET = 150;
   const [showModal, setShowModal] = useState(false);
@@ -38,12 +39,23 @@ export const WideCard: FC<{
     }
     setShowModal(false);
   };
-  
+
   const checkProperty = (card: IGoods) => {
     if ("count" in card) {
       return card.count as number;
     }
     return 0;
+  };
+  const setSize = (height: number): CSSProperties => {
+    if (orientationVertical) {
+      return {
+        width: `${height + 30}px`,
+        maxWidth: `${height + 30}px`,
+        height: `${height + height / 2}px`,
+        maxHeight: `${height + height / 2}px`,
+      };
+    }
+    return { height: `${height}px`, maxHeight: `${height}px` };
   };
   const ImageWrapper = () => {
     return (
@@ -104,11 +116,25 @@ export const WideCard: FC<{
   const MemoDescription = useMemo(() => {
     if (child) {
       return (
-        <div className={classes[classesChoises[2]]}>{good.description}</div>
+        <div
+          className={
+            orientationVertical
+              ? classes.miniDescription
+              : classes[classesChoises[2]]
+          }
+        >
+          {good.description}
+        </div>
       );
     }
     return (
-      <div className={classes[classesChoises[2]]}>
+      <div
+        className={
+          orientationVertical
+            ? classes.miniDescription
+            : classes[classesChoises[2]]
+        }
+      >
         <GoodDescription />
       </div>
     );
@@ -143,7 +169,14 @@ export const WideCard: FC<{
   );
   if (child) {
     return (
-      <div className={classes[classesChoises[0]]} style={{height: `${SIZE + 30}px`, maxHeight: `${SIZE + 30}px`}} >
+      <div
+        className={
+          orientationVertical
+            ? classes.wrapperColumn
+            : classes[classesChoises[0]]
+        }
+        style={setSize(SIZE + 30)}
+      >
         {MemoImage}
         {MemoDescription}
         {MemoCounterButton}
@@ -152,7 +185,12 @@ export const WideCard: FC<{
     );
   }
   return (
-    <div className={classes[classesChoises[0]]} style={{height: `${SIZE_BASKET + 20}px`, maxHeight: `${SIZE_BASKET + 20}px`}} >
+    <div
+      className={
+        orientationVertical ? classes.wrapperColumn : classes[classesChoises[0]]
+      }
+      style={setSize(SIZE_BASKET + 20)}
+    >
       {showModal && (
         <Modal
           title={"Удалить товар"}
@@ -169,4 +207,4 @@ export const WideCard: FC<{
       {MemoCounterButton}
     </div>
   );
-});
+}

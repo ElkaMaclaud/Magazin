@@ -182,115 +182,138 @@ export const GET_GOOD = createAsyncThunk<
   try {
     const response = await new Promise((resolve, reject) => {
       setTimeout(() => {
-      const foundGood = goods.find((good) => good.id === id);
-      if (foundGood) {
-        const findGood = getState().page.data.user.basket.find((goodFind) => goodFind.id === id);
-        const favoriteGood = getState().page.data.user.favorite.find((likeGood) => likeGood.id === id);
-        if (findGood || favoriteGood) {
-          resolve({
-            ...foundGood,
-            count: findGood ? findGood.count : 0,
-            choice: findGood ? findGood.choice : false,
-            favorite: favoriteGood ? favoriteGood.favorite : false,
-          });
+        const foundGood = goods.find((good) => good.id === id);
+        if (foundGood) {
+          const findGood = getState().page.data.user.basket.find(
+            (goodFind) => goodFind.id === id
+          );
+          const favoriteGood = getState().page.data.user.favorite.find(
+            (likeGood) => likeGood.id === id
+          );
+          const success = true;
+          if (success) {
+            if (findGood || favoriteGood) {
+              resolve({
+                ...foundGood,
+                count: findGood ? findGood.count : 0,
+                choice: findGood ? findGood.choice : false,
+                favorite: favoriteGood ? favoriteGood.favorite : false,
+              });
+            } else {
+              resolve({ ...foundGood });
+            }
+          }
         } else {
-          resolve({ ...foundGood });
+          throw new Error("GET_GOOD failed");
         }
-      } else {
-        throw new Error("GET_GOOD failed");
-      }  }, 0)
+      }, 0);
     });
     return response as IGoods;
   } catch (error) {
     return rejectWithValue(`${error}`);
   }
 });
+
 export const GET_SALE_GOODS = createAsyncThunk<
   IGoods[],
   undefined,
   { rejectValue: string; state: RootState }
->("page/GET_SALE_GOODS", async (_, { rejectWithValue, getState }) => {
-  try {
-    const response = await new Promise((resolve) =>
-      setTimeout(() => {
-        const success = true;
-        const basket = getState().page.data.user.basket;
-        const favorite = getState().page.data.user.favorite;
-        if (success) {
-          resolve(
-            goods
-            .filter((item) => item.sale)
-              .map((good: IGoods) => {
-                const findGood = basket.find(
-                  (goodFind: IGoods) => goodFind.id === good.id
-                );
-                const favoriteGood = favorite.find(
-                  (likeGood: IGoods) => likeGood.id === good.id
-                );
-                if (findGood || favoriteGood) {
-                  return {
-                    ...good,
-                    count: findGood?.count || 0,
-                    choice: findGood?.choice || false,
-                    favorite: favoriteGood?.favorite || false,
-                  };
-                }
-                return { ...good };
-              })
-          );
-        } else {
-          throw new Error("GET_SALE_GOODS failed");
-        }
-      }, 0)
-    );
-    return response as IGoods[];
-  } catch (error) {
-    return rejectWithValue(`${error}`);
+>(
+  "page/GET_SALE_GOODS",
+  async (_, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const {
+        data: {
+          user: { basket, favorite },
+        },
+      } = state.page;
+      const success = true;
+      if (success) {
+        const goodsWithDetails = goods
+          .filter((item) => item.sale)
+          .map((good: IGoods) => {
+            const findGood = basket.find(
+              (goodFind: IGoods) => goodFind.id === good.id
+            );
+            const favoriteGood = favorite.find(
+              (likeGood: IGoods) => likeGood.id === good.id
+            );
+            return {
+              ...good,
+              count: findGood ? findGood.count : 0,
+              choice: findGood ? findGood.choice : false,
+              favorite: favoriteGood ? favoriteGood.favorite : false,
+            };
+          });
+
+        // Simulate async operation with setTimeout
+        const response = await new Promise<IGoods[]>((resolve) => {
+          setTimeout(() => {
+            resolve(goodsWithDetails);
+          }, 0);
+        });
+        return response;
+      } else {
+        throw new Error("GET_SALE_GOODS failed");
+      }
+    } catch (error) {
+      return rejectWithValue(`${error}`);
+    }
   }
-});
+);
+
+
 export const GET_DISCOUNT_GOODS = createAsyncThunk<
   IGoods[],
   undefined,
   { rejectValue: string; state: RootState }
->("page/GET_DISCOUNT_GOODS", async (_, { rejectWithValue, getState }) => {
-  try {
-    const response = await new Promise((resolve) =>
-      setTimeout(() => {
-        const success = true;
-        const basket = getState().page.data.user.basket;
-        const favorite = getState().page.data.user.favorite;
-        if (success) {
-          resolve(
-            goods
-            .filter((item) => item.discount)
-              .map((good: IGoods) => {
-                const findGood = basket.find(
-                  (goodFind: IGoods) => goodFind.id === good.id
-                );
-                const favoriteGood = favorite.find(
-                  (likeGood: IGoods) => likeGood.id === good.id
-                );
-                if (findGood || favoriteGood) {
-                  return {
-                    ...good,
-                    count: findGood?.count || 0,
-                    choice: findGood?.choice || false,
-                    favorite: favoriteGood?.favorite || false,
-                  };
-                }
-                return { ...good };
-              })
-          );
-        } else {
-          throw new Error("GET_DISCOUNT_GOODS failed");
-        }
-      }, 0)
-    );
-    return response as IGoods[];
-  } catch (error) {
-    return rejectWithValue(`${error}`);
+>(
+  "page/GET_DISCOUNT_GOODS",
+  async (_, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const {
+        data: {
+          user: { basket, favorite },
+        },
+      } = state.page;
+      const success = true;
+
+      if (success) {
+        const goodsWithDetails = goods
+          .filter((item) => item.sale)
+          .map((good: IGoods) => {
+            const findGood = basket.find(
+              (goodFind: IGoods) => goodFind.id === good.id
+            );
+            const favoriteGood = favorite.find(
+              (likeGood: IGoods) => likeGood.id === good.id
+            );
+            return {
+              ...good,
+              count: findGood ? findGood.count : 0,
+              choice: findGood ? findGood.choice : false,
+              favorite: favoriteGood ? favoriteGood.favorite : false,
+            };
+          });
+
+        // Simulate async operation with setTimeout
+        const response = await new Promise<IGoods[]>((resolve) => {
+          setTimeout(() => {
+            resolve(goodsWithDetails);
+          }, 0);
+        });
+        return response;
+      } else {
+        throw new Error("GET_DISCOUNT_GOODS failed");
+      }
+    } catch (error) {
+      return rejectWithValue(`${error}`);
+    }
   }
-});
+);
+
 // export const GET_GOOD = createAsyncThunk<
 //   IGoods,
 //   string,
@@ -582,9 +605,7 @@ export const CHANGE_FAVORITE_GOOD = createAsyncThunk<
                   )
                 : [
                     {
-                     ...goods.find(
-                        (good: IGoods) => good.id === good_id
-                      ),
+                      ...goods.find((good: IGoods) => good.id === good_id),
                       favorite: true,
                     },
                     ...getState().page.data.user.favorite,
@@ -634,12 +655,12 @@ export const ADD_BASKET_OF_GOODS = createAsyncThunk<
                     }
                     return good;
                   })
-                : [ {...goods.find(
-                            (good: IGoods) => good.id === good_id
-                          ),
-                          count: 1,
-                          choice: choiceAll,
-                        },
+                : [
+                    {
+                      ...goods.find((good: IGoods) => good.id === good_id),
+                      count: 1,
+                      choice: choiceAll,
+                    },
                     ...getState().page.data.user.basket,
                   ],
               favorite: getState().page.data.user.favorite.map(

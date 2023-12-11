@@ -4,12 +4,3 @@
     background-color: rgba(226, 226, 243, 0.3);
     border-radius: 20px;
 }
-.saleWrapper {
-    display: flex;
-    justify-content: space-between;
-    background-color: #fff;
-    padding: 20px;
-    margin: 20px;
-    gap: 20px;
-    flex-wrap: wrap;
-  }

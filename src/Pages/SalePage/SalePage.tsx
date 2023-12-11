@@ -1,27 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classes from "./style/SalePage.module.css";
-import { useAppSelector } from "../../store/reduxHooks";
-import { Link } from "react-router-dom";
-import { ImageGood } from "../../UI_Component";
-import { keyGenerate } from "../../utils/keyGenerate";
+import GoodsList from "../../components/GoodsList/GoodsList";
+import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
+import { GET_SALE_GOODS } from "../../store/slice";
 
 const SalePage = () => {
   const { sale } = useAppSelector((state) => state.page.data);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(GET_SALE_GOODS());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   return (
     <div className={classes.wrapper}>
       <h1>Успей приобрести товары по выгодной новогодней скидке!</h1>
-      <div className={classes.saleWrapper}>
-        {sale?.map((item) => {
-          const key = keyGenerate();
-          return (
-            <Link to={`../good/${item.id}`} key={key}>
-              <ImageGood path={item.image} size={window.innerWidth / 5 - 20} />
-            </Link>
-          );
-        })}
-      </div>
+        <GoodsList
+          orientationVertical
+          data={sale}
+          icon="like"
+        />
     </div>
   );
 };
 
 export default SalePage;
+
+
