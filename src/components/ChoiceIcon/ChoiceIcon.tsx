@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Favorites } from "../../UI_Component/Icons";
 import classes from "./style/ChoiceIcon.module.css";
 import { CHANGE_FAVORITE_GOOD } from "../../store/slice";
@@ -9,6 +9,9 @@ const ChoiceIcon: FC<{
   id: string;
 }> = ({ favorite, id}) => {
   const [like, setLike] = useState<boolean>(favorite || false);
+  useEffect(() => {
+    setLike(favorite || false)
+  }, [favorite])
   const dispatch = useAppDispatch();
   const handleClick = () => {
     setLike(!like);

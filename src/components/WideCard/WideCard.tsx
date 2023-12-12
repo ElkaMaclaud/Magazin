@@ -6,6 +6,7 @@ import React, {
   ChangeEvent,
   useMemo,
   CSSProperties,
+  memo,
 } from "react";
 import classes from "./style/WideCard.module.css";
 import { IGoods } from "../../type/goodsType";
@@ -25,7 +26,7 @@ export const WideCard: FC<{
   good: IGoods;
   child?: ReactNode;
   orientationVertical?: boolean;
-}> = ({ good, child, orientationVertical }) => {
+}> = memo(({ good, child, orientationVertical }) => {
   const SIZE = 270;
   const SIZE_BASKET = 150;
   const [showModal, setShowModal] = useState(false);
@@ -207,4 +208,4 @@ export const WideCard: FC<{
       {MemoCounterButton}
     </div>
   );
-}
+})
