@@ -162,7 +162,7 @@
     animation-delay: -1.83333s;
 }
 .pl__text {
-    font-size: 0.75em;
+    font-size: .75em;
     max-width: 5rem;
     position: relative;
     text-shadow: 0 0 0.1em var(--fg-t);

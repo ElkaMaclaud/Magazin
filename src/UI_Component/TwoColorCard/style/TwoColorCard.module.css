@@ -6,7 +6,7 @@
   margin-bottom: 24px;
   box-shadow: 0 0 10px #999;
   border-radius: 10px;
-  font-size: 19px;
+  font-size: .95rem;
 }
 .headerCard {
   padding: 20px;
@@ -30,7 +30,7 @@
 .link {
   text-decoration: none;
   color: blue;
-  font-size: 15px;
+  font-size: .65rem;
   line-height: .1;
 }
 .contentCard {

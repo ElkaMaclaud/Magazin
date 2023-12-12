@@ -1,7 +1,7 @@
 .wrapper {
   width: 100%;
   max-width: 100%;
-  font-size: 18px;
+  font-size: .9rem;
 }
 .option,
 .optionActive {

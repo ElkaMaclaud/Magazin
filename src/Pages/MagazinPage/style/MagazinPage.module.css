@@ -15,7 +15,7 @@
 }
 .saleHappyNew,
 .saleStand {
-  font-size: 75px;
+  font-size: 3.3rem;
   color: rgba(138, 43, 226);
   display: flex;
   justify-content: center;
@@ -30,19 +30,20 @@
 
 .saleHappyNew {
   background: linear-gradient(
-      rgba(255, 255, 255, 0.5),
-      rgba(255, 255, 255, 0.5)
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.1)
     ),
-    url("https://i.ytimg.com/vi/ceECC2GyzGg/maxresdefault.jpg");
+    url("https://avatars.mds.yandex.net/i?id=3d85da26bda579f91aaa51b1d8ae91acc9829285-9228005-images-thumbs&n=13");
   background-size: cover;
 }
 .saleStand {
-  background-image: linear-gradient(
+  background-color: rgba(0, 0, 255,.1);
+  /* background-image: linear-gradient(
     to right,
     rgba(255, 0, 0, 0.5),
     rgba(0, 0, 255, 0.5),
     rgba(255, 255, 0, 0.5),
     rgba(0, 128, 0, 0.5),
     rgba(138, 43, 226, 0.5)
-  );
+  ); */
 }

@@ -5,8 +5,8 @@
 .textWrapper {
   display: flex;
   align-items: start;
-  margin: 10px 0;
-  padding: 10px 12px;
+  margin: .5rem 0;
+  padding: .5rem .6rem;
   width: 100%;
   height: fit-content;
   background-color: #eee;
@@ -25,10 +25,10 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  font-size: 12px;
+  font-size: .6rem;
 }
 .text {
-  margin: 0.1rem 0.5rem;
+  margin: .1rem .5rem;
 }
 .line {
   margin: 1rem;

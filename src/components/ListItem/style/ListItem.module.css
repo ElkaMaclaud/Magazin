@@ -4,23 +4,23 @@
   gap: 0.5rem;
   max-height: calc(100vh - 102px - 50px);
   overflow-y: auto;
-  font-size: 20px;
+  font-size: 1rem;
 }
 .wrapperListSmall {
   display: flex;
   flex-direction: column;
   gap: 0.09rem;
-  font-size: 16px;
+  font-size: .8rem;
 }
 .item, .hoverItem {
   width: 95%;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: .5rem;
   align-items: center;
-  transition: 0.1s linear;
-  border-radius: 20px;
+  transition: .1s linear;
+  border-radius: 1rem;
 }
 .item svg {
   fill: #999;
