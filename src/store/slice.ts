@@ -134,7 +134,7 @@ export const GET_GOODS_BY_CATEGORY = createAsyncThunk<
   { rejectValue: string; state: RootState }
 >(
   "page/GET_GOODS_BY_CATEGORY",
-  async (categoty, { rejectWithValue, getState }) => {
+  async (category, { rejectWithValue, getState }) => {
     try {
       const response = await new Promise<IGoods[]>((resolve) =>
         setTimeout(() => {
@@ -144,7 +144,7 @@ export const GET_GOODS_BY_CATEGORY = createAsyncThunk<
           if (success) {
             resolve(
               goods
-                .filter((item) => item.category === categoty)
+                .filter((item) => item.category === category)
                 .map((good: IGoods) => {
                   const findGood = basket.find(
                     (goodFind: IGoods) => goodFind.id === good.id
@@ -246,8 +246,6 @@ export const GET_SALE_GOODS = createAsyncThunk<
               favorite: favoriteGood?.favorite || false,
             };
           });
-
-        // Simulate async operation with setTimeout
         const response = await new Promise<IGoods[]>((resolve) => {
           setTimeout(() => {
             resolve(goodsWithDetails);
@@ -297,8 +295,6 @@ export const GET_DISCOUNT_GOODS = createAsyncThunk<
               favorite: favoriteGood?.favorite || false,
             };
           });
-
-        // Simulate async operation with setTimeout
         const response = await new Promise<IGoods[]>((resolve) => {
           setTimeout(() => {
             resolve(goodsWithDetails);

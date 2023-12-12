@@ -9,10 +9,9 @@ const GoodsList: FC<{
 }> = ({ data, icon, orientationVertical }) => {
   const style: CSSProperties = orientationVertical ? {
     display: "flex",
-    justifyContent: "space-between",
     backgroundColor: "#fff",
-    padding: "20px",
-    margin:"20px",
+    justifyContent: "center",
+    marginTop: "20px",
     gap: "20px",
     flexWrap: "wrap",
   } : {}

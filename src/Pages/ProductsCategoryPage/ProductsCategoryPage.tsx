@@ -48,13 +48,13 @@ const ProductsCategoryPage = () => {
   });
   useLayoutEffect(() => {
     if (goods.length && goods[0].category !== categoryName) {
-      dispatch(GET_GOODS_BY_CATEGORY(categoryName ? categoryName : ""));
+      dispatch(GET_GOODS_BY_CATEGORY(categoryName || ""));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryName]);
   useLayoutEffect(() => {
     if (!goods.length) {
-      dispatch(GET_GOODS_BY_CATEGORY(categoryName ? categoryName : ""));
+      dispatch(GET_GOODS_BY_CATEGORY(categoryName || ""));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
