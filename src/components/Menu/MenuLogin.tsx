@@ -9,17 +9,19 @@ import { useAppSelector } from "../../store/reduxHooks";
 import { menuItems } from "../../MockupData/menuItems";
 import MenuItem from "../MenuItem/MenuItem";
 import { Dropdown } from "../../UI_Component";
-const style: CSSProperties = { width: "300px", left: "59.5%" };
+
 const MenuLogin = () => {
-  const {data} = useAppSelector(state => state.page)
+  const { data } = useAppSelector((state) => state.page);
   const [showModal, setShowModal] = useState(false);
   const [showDropDown, setShowDropDown] = useState(false);
+  const parentRef = useRef<HTMLDivElement>(null);
   const ref = useRef<HTMLDivElement>(null);
   const token = localStorage.getItem("token");
   const handleMouseOver = () => {
-    setShowDropDown(true);
+    if (!showModal) {
+      setShowDropDown(true);
+    }
   };
-
   const handleMouseOut = (event: MouseEvent) => {
     if (!ref.current?.contains(event.relatedTarget as Node)) {
       // IE fromElement
@@ -40,43 +42,57 @@ const MenuLogin = () => {
     setShowModal(true);
     setShowDropDown(false);
   };
+  const setStyle = (width = 250): CSSProperties => {
+    const left = parentRef.current
+      ? parentRef.current?.offsetLeft + parentRef.current?.clientWidth
+      : null;
+    const sub = token ? 19 : 7;
+    return {
+      width: `${width}px`,
+      left: `${(left || 100) - width / 2 - sub}px`,
+    };
+  };
   if (token) {
-     return (
-    <div  className={classes.menuWrapper}>
-      <Link
-        to="main"
-        className={classes.link}
-        onMouseOver={handleMouseOver}
-      >
-        <div className={classes.linkWrapperText}>
-          <Account />
-          {data.user.publik.name.split(" ")[0] || "Noname"}
-        </div>
-      </Link>
-      {showDropDown && <Dropdown ref={ref}><MenuItem handleAction={handleAction}  list={menuItems}/></Dropdown>}
-    </div>
-  );
+    return (
+      <div ref={parentRef} className={classes.menuWrapper}>
+        <Link to="main" className={classes.link} onMouseOver={handleMouseOver}>
+          <div className={classes.linkWrapperText}>
+            <Account />
+            {data.user.publik.name.split(" ")[0] || "Noname"}
+          </div>
+        </Link>
+        {showDropDown && (
+          <Dropdown ref={ref} style={setStyle()}>
+            <MenuItem handleAction={handleAction} list={menuItems} />
+          </Dropdown>
+        )}
+      </div>
+    );
   }
   return (
-    <div className={classes.menuWrapper}>
-      <Link
-        to="main"
+    <div ref={parentRef} className={classes.menuWrapper}>
+      <div
         className={classes.link}
         onMouseOver={handleMouseOver}
+        onClick={handleActionNoAvtorization}
       >
         <div className={classes.linkWrapperText}>
           <Account />
           Войти
         </div>
-      </Link>
+      </div>
       {showDropDown && (
-        <Dropdown ref={ref} style={style}>
-          <InfoNoAvtorizetionPerson handler={handleActionNoAvtorization}/>
+        <Dropdown ref={ref} style={setStyle(300)}>
+          <InfoNoAvtorizetionPerson handler={handleActionNoAvtorization} />
         </Dropdown>
       )}
-      {showModal && <Modal  title="Magazin ID"
+      {showModal && (
+        <Modal
+          title="Magazin ID"
           content={<Login />}
-          handleAction={() => setShowModal(false)}/>}
+          handleAction={() => setShowModal(false)}
+        />
+      )}
     </div>
   );
 };

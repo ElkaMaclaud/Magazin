@@ -1,8 +1,11 @@
 import React, { FC } from "react";
 import ButtonRegistration from "../ButtonRegistration/ButtonRegistration";
 import classes from "./style/InfoNoAvtorizetionPerson.module.css";
+import { Link } from "react-router-dom";
 
-const InfoNoAvtorizetionPerson: FC<{handler: (...args: any) => any}> = ({handler}) => {
+const InfoNoAvtorizetionPerson: FC<{ handler: (...args: any) => any }> = ({
+  handler,
+}) => {
   return (
     <div className={classes.wrapperdropDown}>
       <p>
@@ -10,13 +13,15 @@ const InfoNoAvtorizetionPerson: FC<{handler: (...args: any) => any}> = ({handler
         персональными скидками и баллами. После входа вы сможете создать аккаунт
         юрлица.
       </p>
-      <ButtonRegistration
-        handler={handler}
-      >Войти или зарегистрироваться</ButtonRegistration>
+      <ButtonRegistration handler={handler}>
+        Войти или зарегистрироваться
+      </ButtonRegistration>
       <ButtonRegistration
         backgroundColor="rgba(12, 32, 49, 0.08)"
         backgroundColorHover="rgba(90, 126, 151, 0.08)"
-      >Личный кабинет</ButtonRegistration>
+      >
+        <Link to="main">Личный кабинет</Link>
+      </ButtonRegistration>
     </div>
   );
 };
