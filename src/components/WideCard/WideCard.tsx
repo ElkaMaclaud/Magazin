@@ -52,8 +52,8 @@ export const WideCard: FC<{
       return {
         width: `${height + 30}px`,
         maxWidth: `${height + 30}px`,
-        height: `${height + height / 2}px`,
-        maxHeight: `${height + height / 2}px`,
+        height: `${height * 1.3}px`,
+        maxHeight: `${height * 1.3}px`,
       };
     }
     return { height: `${height}px`, maxHeight: `${height}px` };
@@ -117,25 +117,11 @@ export const WideCard: FC<{
   const MemoDescription = useMemo(() => {
     if (child) {
       return (
-        <div
-          className={
-            orientationVertical
-              ? classes.miniDescription
-              : classes[classesChoises[2]]
-          }
-        >
-          {good.description}
-        </div>
+        <div className={classes[classesChoises[2]]}>{good.description}</div>
       );
     }
     return (
-      <div
-        className={
-          orientationVertical
-            ? classes.miniDescription
-            : classes[classesChoises[2]]
-        }
-      >
+      <div className={classes[classesChoises[2]]}>
         <GoodDescription />
       </div>
     );
@@ -150,6 +136,7 @@ export const WideCard: FC<{
             text={good.price}
             title={"Добавить в корзину"}
             counter={checkProperty(good)}
+            style={orientationVertical ? {paddingBottom: "0", gap: "10px"} : {}}
           />
         </div>
       );
@@ -168,16 +155,19 @@ export const WideCard: FC<{
     ),
     [good.favorite]
   );
+  if (orientationVertical) {
+    return (
+      <div className={classes.wrapperColumn} style={setSize(SIZE + 30)}>
+        <div>
+          {MemoImage} {MemoChoiceIcon}
+        </div>
+        {MemoCounterButton}
+      </div>
+    );
+  }
   if (child) {
     return (
-      <div
-        className={
-          orientationVertical
-            ? classes.wrapperColumn
-            : classes[classesChoises[0]]
-        }
-        style={setSize(SIZE + 30)}
-      >
+      <div className={classes[classesChoises[0]]} style={setSize(SIZE + 30)}>
         {MemoImage}
         {MemoDescription}
         {MemoCounterButton}
@@ -187,9 +177,7 @@ export const WideCard: FC<{
   }
   return (
     <div
-      className={
-        orientationVertical ? classes.wrapperColumn : classes[classesChoises[0]]
-      }
+      className={classes[classesChoises[0]]}
       style={setSize(SIZE_BASKET + 20)}
     >
       {showModal && (
@@ -208,4 +196,4 @@ export const WideCard: FC<{
       {MemoCounterButton}
     </div>
   );
-})
+});

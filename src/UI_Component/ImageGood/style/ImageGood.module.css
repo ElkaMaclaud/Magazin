@@ -1,10 +1,7 @@
 .imageWrapper {
     overflow: hidden;
 }
-
 .image {
-    width: 270px;
-    height: 270px;
     object-fit: contain;
     background-color: rgb(238, 247, 239);    
 }

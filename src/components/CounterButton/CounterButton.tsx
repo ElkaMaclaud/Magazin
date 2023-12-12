@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { CSSProperties, FC, useEffect, useState } from "react";
 import classes from "./style/CounterButton.module.css";
 import { useAppDispatch } from "../../store/reduxHooks";
 import { ADD_BASKET_OF_GOODS, DECREMENT_BASKET_OF_GOODS } from "../../store/slice";
@@ -8,7 +8,8 @@ export const CounterButton: FC<{
   title?: string;
   id: string;
   counter: number;
-}> = ({ text, title, id, counter }) => {
+  style?: CSSProperties,
+}> = ({ text, title, id, counter, style }) => {
   const dispatch = useAppDispatch()
   const [count, setCount] = useState(counter);
   const addBasket = (increment: number) => {
@@ -51,7 +52,7 @@ export const CounterButton: FC<{
   };
 
   return (
-    <div className={classes.wrapperCount}>
+    <div className={classes.wrapperCount} style={style}>
       {text && <div>{text * (count > 0 ? count : 1)}</div>}
       <BaksetCount />
     </div>
