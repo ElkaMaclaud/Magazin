@@ -834,7 +834,6 @@ export const goods: IGoods[] = [
   {
     id: "45",
     image: [
-      "https://velocube.ru/files/slides/Giant_1.jpg",
       "https://diana-sport.com/pictures/product/big/109319_big.jpg",
       "https://velocube.ru/files/products/stinger-reload-pro-27-2022-8.800x600.jpeg",
       "https://timetv.ru/upload/resize_cache/iblock/ead/250_250_2/eadaa32363e2e204b2135bfa81ab6d02.jpg",
@@ -868,12 +867,11 @@ export const goods: IGoods[] = [
   {
     id: "47",
     image: [
-      "https://velocube.ru/files/slides/Giant_1.jpg",
-      "https://diana-sport.com/pictures/product/big/109319_big.jpg",
+      "https://olcha.uz/image/220x220/products/g5HrsGK9SU8t1wHKTtKxTG8lVWV8NrACCsDuXTzCxUMXKsdObedoo1du8EO7.jpg",
       "https://velocube.ru/files/products/stinger-reload-pro-27-2022-8.800x600.jpeg",
+      "https://diana-sport.com/pictures/product/big/109319_big.jpg",
       "https://timetv.ru/upload/resize_cache/iblock/ead/250_250_2/eadaa32363e2e204b2135bfa81ab6d02.jpg",
       "https://velogo.ru/upload/iblock/780/7804e66657a7538184e7ad94274e50c3.png",
-      "https://olcha.uz/image/220x220/products/g5HrsGK9SU8t1wHKTtKxTG8lVWV8NrACCsDuXTzCxUMXKsdObedoo1du8EO7.jpg",
       "https://ireland.apollo.olxcdn.com/v1/files/5shshpixtyol2-UA/image;s=200x0;q=50",
     ],
     price: 7350,
@@ -951,7 +949,7 @@ export const goods: IGoods[] = [
   {
     id: "52",
     image: [
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ0y92FQlkgp1vTO4Uru9I2KcatrKorEbRzA&usqp=CAU",
+      "https://muzhskie-hobby.ru/wp-content/uploads/2023/03/ohota-3.jpg",
       "https://www.udmurthunting.ru/upload/iblock/657/657be6f9c523bf03deee04f1ae1c91e5.jpg",
       "https://ohotagazeta.ru/wp-content/uploads/2018/08/Gore-tex_8.jpg",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSh6YX1_Tk14qwVum0wpZk9uOitRhfvtNDtvQ&usqp=CAU",
@@ -984,7 +982,7 @@ export const goods: IGoods[] = [
   {
     id: "54",
     image: [
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ0y92FQlkgp1vTO4Uru9I2KcatrKorEbRzA&usqp=CAU",
+      "https://upload.wikimedia.org/wikipedia/ru/thumb/7/79/Jagten.jpg/211px-Jagten.jpg",
       "https://www.udmurthunting.ru/upload/iblock/657/657be6f9c523bf03deee04f1ae1c91e5.jpg",
       "https://ohotagazeta.ru/wp-content/uploads/2018/08/Gore-tex_8.jpg",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSh6YX1_Tk14qwVum0wpZk9uOitRhfvtNDtvQ&usqp=CAU",
@@ -1000,7 +998,7 @@ export const goods: IGoods[] = [
   {
     id: "55",
     image: [
-      "https://img.freepik.com/premium-photo/fishing-in-lake-nature-series-rod-fish-tackle-tourism_229518-9873.jpg",
+      "https://family-fishing.ru/upload/iblock/f49/r4s9i8h7xurgcw02vkbc1ak6xkz7daxh.jpg",
       "https://basket-02.wb.ru/vol287/part28731/28731310/images/big/3.webp",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYMfIE1O2Xj0WVoV9w8Xt8cRrT4g_6YwSt12PWBg-m39lhPHFG59tKt9B2lJWDXvcZu6w&usqp=CAU",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjwtmeLSndhenNZZeylSNPiGAAyy87I54pq4uDrH6Ol2Ae8gvRBf0gM9dbcrD37W4-7xI&usqp=CAU",
@@ -1018,7 +1016,7 @@ export const goods: IGoods[] = [
   {
     id: "56",
     image: [
-      "https://www.finam.ru/Images/u/newsonline/debriefing/202005/116.jpg",
+      "https://chemodanniy.ru/image/catalog/polar-1933/1121-nabor-p1933-polar-2184-min.jpg",
       "https://www.orenburg-uor.ru/assets/images/Turizm/turizm_logo.jpg",
       "https://www.mgpu.ru/wp-content/uploads/2018/02/kultura-i-turizm.jpg",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoDqbxRPJgOtGsUblYMuAdhPybUKfbG3lu9sGfiC6ZG2n2dQH81EjuuA5S3PudhPigbfs&usqp=CAU",
@@ -1051,7 +1049,7 @@ export const goods: IGoods[] = [
   {
     id: "58",
     image: [
-      "https://img.freepik.com/premium-photo/fishing-in-lake-nature-series-rod-fish-tackle-tourism_229518-9873.jpg",
+      "https://avatars.dzeninfra.ru/get-zen_doc/1926164/pub_60cb4a5f0ebe742938e40568_60cb4a86709cfa55d38ac563/scale_1200",
       "https://basket-02.wb.ru/vol287/part28731/28731310/images/big/3.webp",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYMfIE1O2Xj0WVoV9w8Xt8cRrT4g_6YwSt12PWBg-m39lhPHFG59tKt9B2lJWDXvcZu6w&usqp=CAU",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjwtmeLSndhenNZZeylSNPiGAAyy87I54pq4uDrH6Ol2Ae8gvRBf0gM9dbcrD37W4-7xI&usqp=CAU",
@@ -1070,7 +1068,6 @@ export const goods: IGoods[] = [
   {
     id: "59",
     image: [
-      "https://shop.miratorg.ru/upload/resize_cache/iblock/ca8/800_800_1/RN202494_Meat_sobaki_melkie_telyatina_500_front.jpg",
       "https://ros-test.info/images/article/61544310e0824.jpg",
       "https://img.vkusvill.ru/pim/images/site_LargeWebP/e8412daf-4721-47b4-b318-72c3de57891b.JPG?1647630823.9125",
       "https://store.aller-petfood.ru/upload/iblock/cf8/cf80195341b76d4424f91968abfd50af.jpg",
@@ -1568,7 +1565,7 @@ export const goods: IGoods[] = [
       "https://s0.rbk.ru/v6_top_pics/resized/1080xH/media/img/2/57/756476113481572.jpg",
       "https://www.tts.ru/upload/blog/top-otechestvennykh-avtomobiley-2022.jpg",
       "https://rg.ru/uploads/images/164/21/37/Expedition.jpg",
-      "https://www.avtovzglyad.ru/media/article/2020/12/27/2EAB.jpg.740x555_q85_box-0%2C0%2C1600%2C1200_crop_detail_upscale.jpg"
+      "https://www.avtovzglyad.ru/media/article/2020/12/27/2EAB.jpg.740x555_q85_box-0%2C0%2C1600%2C1200_crop_detail_upscale.jpg",
     ],
     price: 17500850,
     name: "Автомобиль",
@@ -1611,7 +1608,7 @@ export const goods: IGoods[] = [
       "https://espanarusa.com/files/autoupload/91/89/21/lozpdg5z377966.JPG",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3BHHwdgCaNndeom-upl6uMrq1PnZRwo9dow&usqp=CAU",
       "https://adsboard-static.spectrumdata.tech/files/blog_previews/4a90bb2b7d89ca9/v7c22e9.jpg",
-      "https://assets.gq.ru/photos/5fbe47ab5ee833de9fdb4af5/16:9/w_2560%2Cc_limit/0.jpg"
+      "https://assets.gq.ru/photos/5fbe47ab5ee833de9fdb4af5/16:9/w_2560%2Cc_limit/0.jpg",
     ],
     price: 17500850,
     name: "Автомобиль",
@@ -1654,7 +1651,7 @@ export const goods: IGoods[] = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxM4_EEQ21GO2XVKmT54WKISN4MbPKpN4QjA&usqp=CAU",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWfFWLCse2KhHh0SfKQEzkIr9JOJsvqkSY6QyBIzc-bzBuL8CdNEXlPc-cV5pnzWeMTAc&usqp=CAU",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9QCbnrT_m1RJlNNZwobx3uMoMgofM6fSSPQLDVCiChdEfi4M8QDJjlsEgeg8fZQ2GR6Y&usqp=CAU",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReKm9WdlTlzll1DXuJblCVHWWcL8-AFWbtKLxINj0pIg3etgi1aPVjkoafFRGQRdDt9Ro&usqp=CAU"
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReKm9WdlTlzll1DXuJblCVHWWcL8-AFWbtKLxINj0pIg3etgi1aPVjkoafFRGQRdDt9Ro&usqp=CAU",
     ],
     price: 200700,
     name: "Furniture",
@@ -1670,7 +1667,7 @@ export const goods: IGoods[] = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKs4-XhsNhln0EXUdmQZlvm4Xcu69ydq6w8yy0Jc0-PAbUw-yYBqbEaeiqtLblIWpWqpo&usqp=CAU",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRC8yxp-XxTDfvEXPnpjsifPV9Gm3KYcNGoQ7QCRENVPULWxtGwbrex_-foVt-noZnPch0&usqp=CAU",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQA_uFPe1gIY-rKPVOoox7lmubxF7Afn9ytfxZYB5B3IDwUTfvWvAdzvfD9Troqg44NAg&usqp=CAU",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTt0f1ZvfITBN72P9SQZWax1nRUT4rriJClb-RQkv9XhpTpitQ_mWExO1IMtoxoKH5BcPI&usqp=CAU"
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTt0f1ZvfITBN72P9SQZWax1nRUT4rriJClb-RQkv9XhpTpitQ_mWExO1IMtoxoKH5BcPI&usqp=CAU",
     ],
     price: 190700,
     name: "Furniture",
@@ -1686,7 +1683,7 @@ export const goods: IGoods[] = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxM4_EEQ21GO2XVKmT54WKISN4MbPKpN4QjA&usqp=CAU",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWfFWLCse2KhHh0SfKQEzkIr9JOJsvqkSY6QyBIzc-bzBuL8CdNEXlPc-cV5pnzWeMTAc&usqp=CAU",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9QCbnrT_m1RJlNNZwobx3uMoMgofM6fSSPQLDVCiChdEfi4M8QDJjlsEgeg8fZQ2GR6Y&usqp=CAU",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReKm9WdlTlzll1DXuJblCVHWWcL8-AFWbtKLxINj0pIg3etgi1aPVjkoafFRGQRdDt9Ro&usqp=CAU"
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReKm9WdlTlzll1DXuJblCVHWWcL8-AFWbtKLxINj0pIg3etgi1aPVjkoafFRGQRdDt9Ro&usqp=CAU",
     ],
     price: 45000,
     name: "Furniture",
@@ -1703,7 +1700,7 @@ export const goods: IGoods[] = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxM4_EEQ21GO2XVKmT54WKISN4MbPKpN4QjA&usqp=CAU",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWfFWLCse2KhHh0SfKQEzkIr9JOJsvqkSY6QyBIzc-bzBuL8CdNEXlPc-cV5pnzWeMTAc&usqp=CAU",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9QCbnrT_m1RJlNNZwobx3uMoMgofM6fSSPQLDVCiChdEfi4M8QDJjlsEgeg8fZQ2GR6Y&usqp=CAU",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReKm9WdlTlzll1DXuJblCVHWWcL8-AFWbtKLxINj0pIg3etgi1aPVjkoafFRGQRdDt9Ro&usqp=CAU"
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReKm9WdlTlzll1DXuJblCVHWWcL8-AFWbtKLxINj0pIg3etgi1aPVjkoafFRGQRdDt9Ro&usqp=CAU",
     ],
     price: 450980,
     name: "Furniture",
@@ -1719,7 +1716,7 @@ export const goods: IGoods[] = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxM4_EEQ21GO2XVKmT54WKISN4MbPKpN4QjA&usqp=CAU",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWfFWLCse2KhHh0SfKQEzkIr9JOJsvqkSY6QyBIzc-bzBuL8CdNEXlPc-cV5pnzWeMTAc&usqp=CAU",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9QCbnrT_m1RJlNNZwobx3uMoMgofM6fSSPQLDVCiChdEfi4M8QDJjlsEgeg8fZQ2GR6Y&usqp=CAU",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReKm9WdlTlzll1DXuJblCVHWWcL8-AFWbtKLxINj0pIg3etgi1aPVjkoafFRGQRdDt9Ro&usqp=CAU"
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReKm9WdlTlzll1DXuJblCVHWWcL8-AFWbtKLxINj0pIg3etgi1aPVjkoafFRGQRdDt9Ro&usqp=CAU",
     ],
     price: 595070,
     name: "Furniture",
@@ -1736,7 +1733,7 @@ export const goods: IGoods[] = [
       "https://deco-mollis.ru/upload/iblock/b54/b540d588282fdd677509bc6e7c79093b.jpg",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWfFWLCse2KhHh0SfKQEzkIr9JOJsvqkSY6QyBIzc-bzBuL8CdNEXlPc-cV5pnzWeMTAc&usqp=CAU",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9QCbnrT_m1RJlNNZwobx3uMoMgofM6fSSPQLDVCiChdEfi4M8QDJjlsEgeg8fZQ2GR6Y&usqp=CAU",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReKm9WdlTlzll1DXuJblCVHWWcL8-AFWbtKLxINj0pIg3etgi1aPVjkoafFRGQRdDt9Ro&usqp=CAU"
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReKm9WdlTlzll1DXuJblCVHWWcL8-AFWbtKLxINj0pIg3etgi1aPVjkoafFRGQRdDt9Ro&usqp=CAU",
     ],
     price: 680090,
     name: "Furniture",
@@ -1752,7 +1749,7 @@ export const goods: IGoods[] = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxM4_EEQ21GO2XVKmT54WKISN4MbPKpN4QjA&usqp=CAU",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWfFWLCse2KhHh0SfKQEzkIr9JOJsvqkSY6QyBIzc-bzBuL8CdNEXlPc-cV5pnzWeMTAc&usqp=CAU",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9QCbnrT_m1RJlNNZwobx3uMoMgofM6fSSPQLDVCiChdEfi4M8QDJjlsEgeg8fZQ2GR6Y&usqp=CAU",
-      "https://inart-studio.ru/sites/default/files/products/signorini_coco_daytona_classico_divany_italia_forever.jpg"
+      "https://inart-studio.ru/sites/default/files/products/signorini_coco_daytona_classico_divany_italia_forever.jpg",
     ],
     price: 300330,
     name: "Furniture",
@@ -1768,7 +1765,7 @@ export const goods: IGoods[] = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3acBVouTYslu7pvsTcKKnCVqD3gtbh3JatizXZneYyI95xGanbSqfr5-n9ogl-LRbMd4&usqp=CAU",
       "https://mebelmart-kazan.ru/photos/cd9cd7a33385fedfa6d5a2d9fb77bfa8.jpg",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDv8ZXxD61RZKgIjHao3PlmcqJAJ9a69fTylKNfstsN0XJEwUbVDUPgF1lxG8ojj86-jA&usqp=CAU",
-      "https://mebelmart-kazan.ru/photos/0d625f547ec477def52406f60d7b62dd.jpg"
+      "https://mebelmart-kazan.ru/photos/0d625f547ec477def52406f60d7b62dd.jpg",
     ],
     price: 68040,
     name: "Furniture",
