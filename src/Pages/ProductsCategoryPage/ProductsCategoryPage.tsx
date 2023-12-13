@@ -21,7 +21,7 @@ import { optionsSort } from "../../MockupData/menuItems";
 const ProductsCategoryPage = () => {
   const { goods } = useAppSelector((state) => state.page.data);
   const dispatch = useAppDispatch();
-   // const { pathname } = useLocation();
+  // const { pathname } = useLocation();
   // const category = pathname.split("/").pop();     или pathname.split("/")[pathname.split("/").length - 1]
   const { categoryName } = useParams();
   const [products, setProducts] = useState<IGoods[]>(goods);
@@ -46,22 +46,19 @@ const ProductsCategoryPage = () => {
     cash: false,
     pointsForRev: false,
   });
-  // useLayoutEffect(() => {
-  //   console.log("??????????????????", location.pathname, location.state?.from)
-  //   //dispatch(GET_GOODS_BY_CATEGORY(categoryName || ""));
-  // }, [location]);
-  useLayoutEffect(() => {
-    if (goods.length && goods[0].category !== categoryName) {
-      dispatch(GET_GOODS_BY_CATEGORY(categoryName || ""));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryName]);
   useLayoutEffect(() => {
     if (!goods.length) {
       dispatch(GET_GOODS_BY_CATEGORY(categoryName || ""));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useLayoutEffect(() => {
+    if (goods.length && goods[0].category !== categoryName) {
+      dispatch(GET_GOODS_BY_CATEGORY(categoryName || ""));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categoryName]);
+
   const setFilters = (key: string, value: boolean) => {
     setChecked((prev) => ({ ...prev, [key]: value }));
   };
