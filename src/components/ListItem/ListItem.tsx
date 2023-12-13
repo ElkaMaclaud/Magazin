@@ -1,9 +1,7 @@
 import React, { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import classes from "./style/ListItem.module.css";
 import { IListCategory } from "../../type/categoryType";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../store/reduxHooks";
-import { GET_GOODS_BY_CATEGORY } from "../../store/slice";
+import { Link } from "react-router-dom";
 import { keyGenerate } from "../../utils/keyGenerate";
 
 const ListItem: FC<{ list: IListCategory[]; small?: boolean; setFoo?: Dispatch<SetStateAction<any>> }> = ({
@@ -11,15 +9,7 @@ const ListItem: FC<{ list: IListCategory[]; small?: boolean; setFoo?: Dispatch<S
   small,
   setFoo,
 }) => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const [hover, setHover] = useState(list[0]);
-  const handleClick = (link: string) => {
-    if (link) {
-      dispatch(GET_GOODS_BY_CATEGORY(link));
-      navigate(`../category/${link}`);
-    }
-  };
   useEffect(() => {
     setFoo && setFoo(hover)
   }, [hover, setFoo])
@@ -29,7 +19,8 @@ const ListItem: FC<{ list: IListCategory[]; small?: boolean; setFoo?: Dispatch<S
       {list.map((item) => {
         const key = keyGenerate();
         return (
-          <li
+          <Link
+          to={`../category/${item.link}`}
             onMouseOver={() => setHover(item)}
             key={key}
             className={
@@ -39,14 +30,13 @@ const ListItem: FC<{ list: IListCategory[]; small?: boolean; setFoo?: Dispatch<S
                 ? classes.hoverItem
                 : classes.item
             }
-            onClick={() => handleClick(item.link as string)}
           >
             <div className={classes.itemInfo}>
               <div>{item.icon}</div>
               {item.name}
             </div>
             <span className={classes.arrow}></span>
-          </li>
+          </Link>
         );
       })}
     </ul>

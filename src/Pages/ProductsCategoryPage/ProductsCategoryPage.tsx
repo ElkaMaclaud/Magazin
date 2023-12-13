@@ -21,8 +21,8 @@ import { optionsSort } from "../../MockupData/menuItems";
 const ProductsCategoryPage = () => {
   const { goods } = useAppSelector((state) => state.page.data);
   const dispatch = useAppDispatch();
-  // const { pathname } = useLocation();
-  // const category = pathname.split("/").pop();     или pathname.split("/")[pathname.split("/").length - ];
+   // const { pathname } = useLocation();
+  // const category = pathname.split("/").pop();     или pathname.split("/")[pathname.split("/").length - 1]
   const { categoryName } = useParams();
   const [products, setProducts] = useState<IGoods[]>(goods);
   const [selectSort, setSelectSort] = useState(optionsSort[0]);
@@ -46,6 +46,10 @@ const ProductsCategoryPage = () => {
     cash: false,
     pointsForRev: false,
   });
+  // useLayoutEffect(() => {
+  //   console.log("??????????????????", location.pathname, location.state?.from)
+  //   //dispatch(GET_GOODS_BY_CATEGORY(categoryName || ""));
+  // }, [location]);
   useLayoutEffect(() => {
     if (goods.length && goods[0].category !== categoryName) {
       dispatch(GET_GOODS_BY_CATEGORY(categoryName || ""));
