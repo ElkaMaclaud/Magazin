@@ -20,7 +20,7 @@ const OrderListPage = () => {
         <h1>Заказы</h1>
         <div className={classes.wrapper}>
           <div className={classes.sidebar}><SideBar>
-            <UserAvatar name={user.private.name} />
+            <UserAvatar name={localStorage.getItem("name") || ""} />
           </SideBar></div>
           <div className={classes.orderCardWrapper}>
             {user.purchased.map((item) => {

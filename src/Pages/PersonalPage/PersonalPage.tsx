@@ -6,12 +6,11 @@ import { Link } from "react-router-dom";
 import SideBar from "../../components/SideBar/SideBar";
 import UserAvatar from "../../components/UserAvatar/UserAvatar";
 import { accountList } from "../../MockupData/categoryFilter";
-import { useAppSelector } from "../../store/reduxHooks";
 import ListItem from "../../components/ListItem/ListItem";
 
 const PersonalPage = () => {
   const token = localStorage.getItem("token");
-  const { user } = useAppSelector((state) => state.page.data);
+  const name = localStorage.getItem("name")
   if (token) {
     return (
       <CardPageFlex>
@@ -20,7 +19,7 @@ const PersonalPage = () => {
           <div className={classes.sideBar}>
             <SideBar>
               <>
-                <UserAvatar name={user.private.name} />
+                <UserAvatar name={name || ""} />
                 <ListItem list={accountList} small />
               </>
             </SideBar>

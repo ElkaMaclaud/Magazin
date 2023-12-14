@@ -17,7 +17,9 @@ interface IShowModal {
 const MethodOfObtaining: FC = () => {
   const { user } = useAppSelector((state) => state.page.data);
   const dispatch = useAppDispatch();
-  const [personInfo, setPersonInfo] = useState({name: user.private.name, phone: user.private.phone})
+  const name = localStorage.getItem("name") || "";
+  const phone = localStorage.getItem("phone") || "";
+  const [personInfo, setPersonInfo] = useState({name: name, phone: phone})
   const [showModal, setShowModal] = useState<IShowModal>({
     accontEdit: false,
     delivery: false,
@@ -134,8 +136,8 @@ const MethodOfObtaining: FC = () => {
             <Account />
             <div className={classes.acountInfo}>
               {Object.keys({
-                name: user.private.name,
-                phone: user.private.phone,
+                name: name,
+                phone: phone,
               }).map((key: string) => {
                 return (
                   <div key={key as keyof typeof user.private}>

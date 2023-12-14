@@ -942,6 +942,9 @@ const slice = createSlice({
       if (action.payload) {
         const token = Math.random().toString(36) + Math.random().toString(36);
         localStorage.setItem("token", token);
+        localStorage.setItem("name", action.payload.name);
+        localStorage.setItem("email", action.payload.email);
+        localStorage.setItem("phone", action.payload.phone || "");
         return {
           ...state,
           loading: "COMPLICATED",
