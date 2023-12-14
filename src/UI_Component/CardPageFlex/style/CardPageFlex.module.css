@@ -32,6 +32,6 @@
   border-radius: 4px;
 }
 .rightContent {
-  position: fixed;
   flex: 1 0 0;
+  width: 35%;
 }

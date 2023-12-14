@@ -31,13 +31,15 @@ export const CardPageFlex: FC<{
         30;
         const right = window.innerWidth - refParent.current?.clientWidth;
       setStyles(() => ({
+        position: "fixed",
         left: left,
         right: right,
         width: width,
         maxWidth: width,
       }));
     }
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ref.current, refParent.current]);
   if (Array.isArray(children)) {
     if (children.length === 3) {
       return (

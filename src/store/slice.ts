@@ -139,18 +139,26 @@ export const GET_GOODS_BY_CATEGORY = createAsyncThunk<
       const response = await new Promise<IGoods[]>((resolve) =>
         setTimeout(() => {
           const success = true;
-          const basket = getState().page.data.user.basket;
-          const favorite = getState().page.data.user.favorite;
+          const basketCount = getState().page.data.user.basket.length;
+          const favoriteCount = getState().page.data.user.favorite.length;
+          const basket = basketCount
+            ? getState().page.data.user.basket
+            : (JSON.parse(localStorage.getItem("basket") || "[]") as IGoods[]);
+          const favorite = favoriteCount
+            ? getState().page.data.user.favorite
+            : (JSON.parse(
+                localStorage.getItem("favorite") || "[]"
+              ) as IGoods[]);
           if (success) {
             resolve(
               goods
                 .filter((item) => item.category === category)
                 .map((good: IGoods) => {
                   const findGood = basket.find(
-                    (goodFind: IGoods) => goodFind.id === good.id
+                    (goodFind) => goodFind.id === good.id
                   );
                   const favoriteGood = favorite.find(
-                    (likeGood: IGoods) => likeGood.id === good.id
+                    (likeGood) => likeGood.id === good.id
                   );
                   if (findGood || favoriteGood) {
                     return {
@@ -182,14 +190,18 @@ export const GET_GOOD = createAsyncThunk<
   try {
     const response = await new Promise((resolve, reject) => {
       setTimeout(() => {
+        const basketCount = getState().page.data.user.basket.length;
+        const favoriteCount = getState().page.data.user.favorite.length;
+        const basket = basketCount
+          ? getState().page.data.user.basket
+          : (JSON.parse(localStorage.getItem("basket") || "[]") as IGoods[]);
+        const favorite = favoriteCount
+          ? getState().page.data.user.favorite
+          : (JSON.parse(localStorage.getItem("favorite") || "[]") as IGoods[]);
         const foundGood = goods.find((good) => good.id === id);
         if (foundGood) {
-          const findGood = getState().page.data.user.basket.find(
-            (goodFind) => goodFind.id === id
-          );
-          const favoriteGood = getState().page.data.user.favorite.find(
-            (likeGood) => likeGood.id === id
-          );
+          const findGood = basket.find((goodFind) => goodFind.id === id);
+          const favoriteGood = favorite.find((likeGood) => likeGood.id === id);
           const success = true;
           if (success) {
             if (findGood || favoriteGood) {
@@ -220,12 +232,14 @@ export const GET_SALE_GOODS = createAsyncThunk<
   { rejectValue: string; state: RootState }
 >("page/GET_SALE_GOODS", async (_, { rejectWithValue, getState }) => {
   try {
-    const state = getState();
-    const {
-      data: {
-        user: { basket, favorite },
-      },
-    } = state.page;
+    const basketCount = getState().page.data.user.basket.length;
+    const favoriteCount = getState().page.data.user.favorite.length;
+    const basket = basketCount
+      ? getState().page.data.user.basket
+      : (JSON.parse(localStorage.getItem("basket") || "[]") as IGoods[]);
+    const favorite = favoriteCount
+      ? getState().page.data.user.favorite
+      : (JSON.parse(localStorage.getItem("favorite") || "[]") as IGoods[]);
     const success = true;
     if (success) {
       const goodsWithDetails = goods
@@ -264,12 +278,14 @@ export const GET_DISCOUNT_GOODS = createAsyncThunk<
   { rejectValue: string; state: RootState }
 >("page/GET_DISCOUNT_GOODS", async (_, { rejectWithValue, getState }) => {
   try {
-    const state = getState();
-    const {
-      data: {
-        user: { basket, favorite },
-      },
-    } = state.page;
+    const basketCount = getState().page.data.user.basket.length;
+    const favoriteCount = getState().page.data.user.favorite.length;
+    const basket = basketCount
+      ? getState().page.data.user.basket
+      : (JSON.parse(localStorage.getItem("basket") || "[]") as IGoods[]);
+    const favorite = favoriteCount
+      ? getState().page.data.user.favorite
+      : (JSON.parse(localStorage.getItem("favorite") || "[]") as IGoods[]);
     const success = true;
 
     if (success) {
@@ -353,7 +369,7 @@ export const GET_FAVORITE_GOODS = createAsyncThunk<
         const success = true;
         if (success) {
           resolve(
-            goods.filter((good: IGoods) => good.favorite) //getState().page.data.
+            JSON.parse(localStorage.getItem("favorite") || "[]") as IGoods[] //getState().page.data.
           );
         } else {
           throw new Error("GET_FAVORITE_GOODS failed");
@@ -376,7 +392,7 @@ export const GET_BASKET_OF_GOODS = createAsyncThunk<
         const success = true;
         if (success) {
           resolve(
-            goods.filter((good: IGoods) => good.count) //getState().page.data.
+            JSON.parse(localStorage.getItem("basket") || "[]") as IGoods[] //getState().page.data.
           );
         } else {
           throw new Error("GET_BASKET_OF_GOODS failed");
@@ -388,6 +404,7 @@ export const GET_BASKET_OF_GOODS = createAsyncThunk<
     return rejectWithValue(`${error}`);
   }
 });
+
 export const CLEARANCE_OF_GOODS = createAsyncThunk<
   IGoods[],
   undefined,
@@ -396,13 +413,13 @@ export const CLEARANCE_OF_GOODS = createAsyncThunk<
   try {
     const response = await new Promise((resolve) =>
       setTimeout(() => {
+        const basketCount = getState().page.data.user.basket.length;
+        const basket = basketCount
+          ? getState().page.data.user.basket
+          : JSON.parse(localStorage.getItem("basket") || "[]");
         const success = true;
         if (success) {
-          resolve(
-            getState().page.data.user.basket.filter(
-              (good: IGoods) => good.choice
-            )
-          );
+          resolve(basket.filter((good: IGoods) => good.choice));
         } else {
           throw new Error("CLEARANCE_OF_GOODS failed");
         }
@@ -421,9 +438,13 @@ export const CANSEL_PURCHASE = createAsyncThunk<
   try {
     const response = await new Promise((resolve) =>
       setTimeout(() => {
+        const basketCount = getState().page.data.user.basket.length;
+        const basket = basketCount
+          ? getState().page.data.user.basket
+          : JSON.parse(localStorage.getItem("basket") || "[]");
         const success = true;
         if (success) {
-          resolve(getState().page.data.user.basket);
+          resolve(basket);
         } else {
           throw new Error("CANSEL_PURCHASE failed");
         }
@@ -434,7 +455,29 @@ export const CANSEL_PURCHASE = createAsyncThunk<
     return rejectWithValue(`${error}`);
   }
 });
-
+export const GET_PURCHASED_GOODS = createAsyncThunk<
+  IPurchased[],
+  undefined,
+  { rejectValue: string }
+>("page/GET_PURCHASED_GOODS", async (_, { rejectWithValue }) => {
+  try {
+    const response = await new Promise((resolve) =>
+      setTimeout(() => {
+        const success = true;
+        if (success) {
+          resolve(
+            JSON.parse(localStorage.getItem("purchased") || "[]") //getState().page.data.
+          );
+        } else {
+          throw new Error("GET_PURCHASED_GOODS failed");
+        }
+      }, 0)
+    );
+    return response as IPurchased[];
+  } catch (error) {
+    return rejectWithValue(`${error}`);
+  }
+});
 export const PAY_GOODS = createAsyncThunk<
   ExtendedReturnAction,
   IDelivery, // | null
@@ -443,6 +486,14 @@ export const PAY_GOODS = createAsyncThunk<
   try {
     const response = await new Promise((resolve) =>
       setTimeout(() => {
+        const basketCount = getState().page.data.user.basket.length;
+        const favoriteCount = getState().page.data.user.favorite.length;
+        const basket = basketCount
+          ? getState().page.data.user.basket
+          : (JSON.parse(localStorage.getItem("basket") || "[]") as IGoods[]);
+        const favorite = favoriteCount
+          ? getState().page.data.user.favorite
+          : (JSON.parse(localStorage.getItem("favorite") || "[]") as IGoods[]);
         const success = deliveryOrder === null ? false : true;
         if (success) {
           resolve({
@@ -452,10 +503,8 @@ export const PAY_GOODS = createAsyncThunk<
               }
               return good;
             }),
-            basket: getState().page.data.user.basket.filter(
-              (good: IGoods) => !good.choice
-            ),
-            favorite: getState().page.data.user.favorite.map((good: IGoods) => {
+            basket: basket.filter((good: IGoods) => !good.choice),
+            favorite: favorite.map((good: IGoods) => {
               if (good.choice) {
                 return { ...good, count: 0 };
               }
@@ -487,6 +536,16 @@ export const CHOICE_ALL_BASKET_OF_GOODS = createAsyncThunk<
       //const dispatch = useAppDispatch();
       const response = await new Promise((resolve) =>
         setTimeout(() => {
+          const basketCount = getState().page.data.user.basket.length;
+          const favoriteCount = getState().page.data.user.favorite.length;
+          const basket = basketCount
+            ? getState().page.data.user.basket
+            : (JSON.parse(localStorage.getItem("basket") || "[]") as IGoods[]);
+          const favorite = favoriteCount
+            ? getState().page.data.user.favorite
+            : (JSON.parse(
+                localStorage.getItem("favorite") || "[]"
+              ) as IGoods[]);
           const success = true;
           if (success) {
             //dispatch(SET_CHOICE_ALL(checked));
@@ -494,14 +553,12 @@ export const CHOICE_ALL_BASKET_OF_GOODS = createAsyncThunk<
               goods: getState().page.data.goods.map((good: IGoods) => {
                 return { ...good, choice: checked };
               }),
-              basket: getState().page.data.user.basket.map((good: IGoods) => {
+              basket: basket.map((good: IGoods) => {
                 return { ...good, choice: checked };
               }),
-              favorite: getState().page.data.user.favorite.map(
-                (good: IGoods) => {
-                  return { ...good, choice: checked };
-                }
-              ),
+              favorite: favorite.map((good: IGoods) => {
+                return { ...good, choice: checked };
+              }),
               choiceAll: checked,
             });
           } else {
@@ -526,6 +583,16 @@ export const REMOVE_CHOICES_BASKET_OF_GOODS = createAsyncThunk<
       //const state: IInitialState = getState();
       const response = await new Promise((resolve) =>
         setTimeout(() => {
+          const basketCount = getState().page.data.user.basket.length;
+          const favoriteCount = getState().page.data.user.favorite.length;
+          const basket = basketCount
+            ? getState().page.data.user.basket
+            : (JSON.parse(localStorage.getItem("basket") || "[]") as IGoods[]);
+          const favorite = favoriteCount
+            ? getState().page.data.user.favorite
+            : (JSON.parse(
+                localStorage.getItem("favorite") || "[]"
+              ) as IGoods[]);
           const success = true;
           if (success) {
             resolve({
@@ -533,15 +600,11 @@ export const REMOVE_CHOICES_BASKET_OF_GOODS = createAsyncThunk<
                 if (item.choice) return { ...item, choice: false, count: 0 };
                 return { item };
               }),
-              basket: getState().page.data.user.basket.filter(
-                (item: IGoods) => !item.choice
-              ),
-              favorite: getState().page.data.user.favorite.map(
-                (item: IGoods) => {
-                  if (item.choice) return { ...item, count: 0 };
-                  return { item };
-                }
-              ),
+              basket: basket.filter((item: IGoods) => !item.choice),
+              favorite: favorite.map((item: IGoods) => {
+                if (item.choice) return { ...item, count: 0 };
+                return { item };
+              }),
             });
           } else {
             throw new Error("REMOVE_CHOICES_BASKET_OF_GOODS failed");
@@ -565,6 +628,16 @@ export const CHANGE_FAVORITE_GOOD = createAsyncThunk<
       //const state: IInitialState = getState();
       const response = await new Promise((resolve) =>
         setTimeout(() => {
+          const basketCount = getState().page.data.user.basket.length;
+          const favoriteCount = getState().page.data.user.favorite.length;
+          const basket = basketCount
+            ? getState().page.data.user.basket
+            : (JSON.parse(localStorage.getItem("basket") || "[]") as IGoods[]);
+          const favorite = favoriteCount
+            ? getState().page.data.user.favorite
+            : (JSON.parse(
+                localStorage.getItem("favorite") || "[]"
+              ) as IGoods[]);
           const success = true;
           if (success) {
             resolve({
@@ -577,7 +650,7 @@ export const CHANGE_FAVORITE_GOOD = createAsyncThunk<
                 }
                 return good;
               }),
-              basket: getState().page.data.user.basket.map((good: IGoods) => {
+              basket: basket.map((good: IGoods) => {
                 if (good.id === good_id) {
                   return {
                     ...good,
@@ -586,27 +659,19 @@ export const CHANGE_FAVORITE_GOOD = createAsyncThunk<
                 }
                 return good;
               }),
-              favorite: getState().page.data.user.favorite.find(
-                (good: IGoods) => good.id === good_id
-              )
-                ? getState().page.data.user.favorite.filter(
-                    (good: IGoods) => good.id !== good_id
-                  )
+              favorite: favorite.find((good: IGoods) => good.id === good_id)
+                ? favorite.filter((good: IGoods) => good.id !== good_id)
                 : [
-                    getState().page.data.user.basket.find(
-                      (good: IGoods) => good.id === good_id
-                    )
+                    basket.find((good: IGoods) => good.id === good_id)
                       ? {
-                          ...getState().page.data.user.basket.find(
-                            (good: IGoods) => good.id === good_id
-                          ),
+                          ...basket.find((good: IGoods) => good.id === good_id),
                           favorite: true,
                         }
                       : {
                           ...goods.find((good: IGoods) => good.id === good_id),
                           favorite: true,
                         },
-                    ...getState().page.data.user.favorite,
+                    ...favorite,
                   ],
             });
           } else {
@@ -631,6 +696,16 @@ export const ADD_BASKET_OF_GOODS = createAsyncThunk<
       //const state: IInitialState = getState();
       const response = await new Promise((resolve) =>
         setTimeout(() => {
+          const basketCount = getState().page.data.user.basket.length;
+          const favoriteCount = getState().page.data.user.favorite.length;
+          const basket = basketCount
+            ? getState().page.data.user.basket
+            : (JSON.parse(localStorage.getItem("basket") || "[]") as IGoods[]);
+          const favorite = favoriteCount
+            ? getState().page.data.user.favorite
+            : (JSON.parse(
+                localStorage.getItem("favorite") || "[]"
+              ) as IGoods[]);
           const choiceAll = getState().page.data.user.choiceAll;
           const success = true;
           if (success) {
@@ -641,10 +716,8 @@ export const ADD_BASKET_OF_GOODS = createAsyncThunk<
                 }
                 return good;
               }),
-              basket: getState().page.data.user.basket.find(
-                (good: IGoods) => good.id === good_id
-              )
-                ? getState().page.data.user.basket.map((good: IGoods) => {
+              basket: basket.find((good: IGoods) => good.id === good_id)
+                ? basket.map((good: IGoods) => {
                     if (good.id === good_id) {
                       return {
                         ...good,
@@ -659,16 +732,14 @@ export const ADD_BASKET_OF_GOODS = createAsyncThunk<
                       count: 1,
                       choice: choiceAll,
                     },
-                    ...getState().page.data.user.basket,
+                    ...basket,
                   ],
-              favorite: getState().page.data.user.favorite.map(
-                (good: IGoods) => {
-                  if (good.id === good_id) {
-                    return { ...good, count: good.count ? good.count + 1 : 1 };
-                  }
-                  return good;
+              favorite: favorite.map((good: IGoods) => {
+                if (good.id === good_id) {
+                  return { ...good, count: good.count ? good.count + 1 : 1 };
                 }
-              ),
+                return good;
+              }),
             });
           } else {
             throw new Error("ADD_BASKET_OF_GOODS failed");
@@ -692,6 +763,16 @@ export const DECREMENT_BASKET_OF_GOODS = createAsyncThunk<
       //const state: IInitialState = getState();
       const response = await new Promise((resolve) =>
         setTimeout(() => {
+          const basketCount = getState().page.data.user.basket.length;
+          const favoriteCount = getState().page.data.user.favorite.length;
+          const basket = basketCount
+            ? getState().page.data.user.basket
+            : (JSON.parse(localStorage.getItem("basket") || "[]") as IGoods[]);
+          const favorite = favoriteCount
+            ? getState().page.data.user.favorite
+            : (JSON.parse(
+                localStorage.getItem("favorite") || "[]"
+              ) as IGoods[]);
           const success = true;
           if (success) {
             resolve({
@@ -706,26 +787,20 @@ export const DECREMENT_BASKET_OF_GOODS = createAsyncThunk<
                 return good;
               }),
               basket:
-                getState().page.data.user.basket.find(
-                  (good: IGoods) => good.id === good_id
-                )!.count === 1
-                  ? getState().page.data.user.basket.filter(
-                      (good: IGoods) => good.id !== good_id
-                    )
-                  : getState().page.data.user.basket.map((good: IGoods) => {
+                basket.find((good: IGoods) => good.id === good_id)!.count === 1
+                  ? basket.filter((good: IGoods) => good.id !== good_id)
+                  : basket.map((good: IGoods) => {
                       if (good.id === good_id) {
                         return { ...good, count: good.count && good.count - 1 };
                       }
                       return good;
                     }),
-              favorite: getState().page.data.user.favorite.map(
-                (good: IGoods) => {
-                  if (good.id === good_id) {
-                    return { ...good, count: good.count && good.count - 1 };
-                  }
-                  return good;
+              favorite: favorite.map((good: IGoods) => {
+                if (good.id === good_id) {
+                  return { ...good, count: good.count && good.count - 1 };
                 }
-              ),
+                return good;
+              }),
             });
           } else {
             throw new Error("DECREMENT_BASKET_OF_GOODS failed");
@@ -749,6 +824,16 @@ export const REMOVE_GOOD_BASKET_OF_GOODS = createAsyncThunk<
       //const state: IInitialState = getState();
       const response = await new Promise((resolve) =>
         setTimeout(() => {
+          const basketCount = getState().page.data.user.basket.length;
+          const favoriteCount = getState().page.data.user.favorite.length;
+          const basket = basketCount
+            ? getState().page.data.user.basket
+            : (JSON.parse(localStorage.getItem("basket") || "[]") as IGoods[]);
+          const favorite = favoriteCount
+            ? getState().page.data.user.favorite
+            : (JSON.parse(
+                localStorage.getItem("favorite") || "[]"
+              ) as IGoods[]);
           const success = true;
           if (success) {
             resolve({
@@ -758,17 +843,13 @@ export const REMOVE_GOOD_BASKET_OF_GOODS = createAsyncThunk<
                 }
                 return good;
               }),
-              basket: getState().page.data.user.basket.filter(
-                (good: IGoods) => good.id !== good_id
-              ),
-              favorite: getState().page.data.user.favorite.map(
-                (good: IGoods) => {
-                  if (good.id === good_id) {
-                    return { ...good, count: 0 };
-                  }
-                  return good;
+              basket: basket.filter((good: IGoods) => good.id !== good_id),
+              favorite: favorite.map((good: IGoods) => {
+                if (good.id === good_id) {
+                  return { ...good, count: 0 };
                 }
-              ),
+                return good;
+              }),
             });
           } else {
             throw new Error("REMOVE_GOOD_BASKET_OF_GOODS failed");
@@ -792,6 +873,16 @@ export const CHOICE_BASKET_OF_GOODS = createAsyncThunk<
       //const state: IInitialState = getState();
       const response = await new Promise((resolve) =>
         setTimeout(() => {
+          const basketCount = getState().page.data.user.basket.length;
+          const favoriteCount = getState().page.data.user.favorite.length;
+          const basket = basketCount
+            ? getState().page.data.user.basket
+            : (JSON.parse(localStorage.getItem("basket") || "[]") as IGoods[]);
+          const favorite = favoriteCount
+            ? getState().page.data.user.favorite
+            : (JSON.parse(
+                localStorage.getItem("favorite") || "[]"
+              ) as IGoods[]);
           const success = true;
           if (success) {
             resolve({
@@ -801,20 +892,18 @@ export const CHOICE_BASKET_OF_GOODS = createAsyncThunk<
                 }
                 return good;
               }),
-              basket: getState().page.data.user.basket.map((good: IGoods) => {
+              basket: basket.map((good: IGoods) => {
                 if (good.id === good_id) {
                   return { ...good, choice: good.choice ? false : true };
                 }
                 return good;
               }),
-              favorite: getState().page.data.user.favorite.map(
-                (good: IGoods) => {
-                  if (good.id === good_id) {
-                    return { ...good, choice: good.choice ? false : true };
-                  }
-                  return good;
+              favorite: favorite.map((good: IGoods) => {
+                if (good.id === good_id) {
+                  return { ...good, choice: good.choice ? false : true };
                 }
-              ),
+                return good;
+              }),
             });
           } else {
             throw new Error("CHOICE_BASKET_OF_GOODS failed");
@@ -999,10 +1088,27 @@ const slice = createSlice({
         };
       }
     });
+    builder.addCase(GET_PURCHASED_GOODS.fulfilled, (state, action) => {
+      if (action.payload) {
+        return {
+          ...state,
+          loading: "COMPLICATED",
+          data: {
+            ...state.data,
+            user: { ...state.data.user, purchased: action.payload },
+          },
+        };
+      }
+    });
     builder.addCase(
       REMOVE_CHOICES_BASKET_OF_GOODS.fulfilled,
       (state, action) => {
         if (action.payload) {
+          localStorage.setItem("basket", JSON.stringify(action.payload.basket));
+          localStorage.setItem(
+            "favorite",
+            JSON.stringify(action.payload.favorite)
+          );
           return {
             ...state,
             data: {
@@ -1020,6 +1126,11 @@ const slice = createSlice({
     );
     builder.addCase(CHOICE_ALL_BASKET_OF_GOODS.fulfilled, (state, action) => {
       if (action.payload) {
+        localStorage.setItem("basket", JSON.stringify(action.payload.basket));
+        localStorage.setItem(
+          "favorite",
+          JSON.stringify(action.payload.favorite)
+        );
         return {
           ...state,
           data: {
@@ -1040,6 +1151,11 @@ const slice = createSlice({
     });
     builder.addCase(CHANGE_FAVORITE_GOOD.fulfilled, (state, action) => {
       if (action.payload) {
+        localStorage.setItem("basket", JSON.stringify(action.payload.basket));
+        localStorage.setItem(
+          "favorite",
+          JSON.stringify(action.payload.favorite)
+        );
         return {
           ...state,
           data: {
@@ -1056,6 +1172,11 @@ const slice = createSlice({
     });
     builder.addCase(ADD_BASKET_OF_GOODS.fulfilled, (state, action) => {
       if (action.payload) {
+        localStorage.setItem("basket", JSON.stringify(action.payload.basket));
+        localStorage.setItem(
+          "favorite",
+          JSON.stringify(action.payload.favorite)
+        );
         return {
           ...state,
           data: {
@@ -1072,6 +1193,11 @@ const slice = createSlice({
     });
     builder.addCase(DECREMENT_BASKET_OF_GOODS.fulfilled, (state, action) => {
       if (action.payload) {
+        localStorage.setItem("basket", JSON.stringify(action.payload.basket));
+        localStorage.setItem(
+          "favorite",
+          JSON.stringify(action.payload.favorite)
+        );
         return {
           ...state,
           data: {
@@ -1088,6 +1214,11 @@ const slice = createSlice({
     });
     builder.addCase(REMOVE_GOOD_BASKET_OF_GOODS.fulfilled, (state, action) => {
       if (action.payload) {
+        localStorage.setItem("basket", JSON.stringify(action.payload.basket));
+        localStorage.setItem(
+          "favorite",
+          JSON.stringify(action.payload.favorite)
+        );
         return {
           ...state,
           data: {
@@ -1104,6 +1235,11 @@ const slice = createSlice({
     });
     builder.addCase(CHOICE_BASKET_OF_GOODS.fulfilled, (state, action) => {
       if (action.payload) {
+        localStorage.setItem("basket", JSON.stringify(action.payload.basket));
+        localStorage.setItem(
+          "favorite",
+          JSON.stringify(action.payload.favorite)
+        );
         return {
           ...state,
           data: {
@@ -1148,6 +1284,18 @@ const slice = createSlice({
     });
     builder.addCase(PAY_GOODS.fulfilled, (state, action) => {
       if (action.payload) {
+        localStorage.setItem("basket", JSON.stringify(action.payload.basket));
+        localStorage.setItem(
+          "favorite",
+          JSON.stringify(action.payload.favorite)
+        );
+        localStorage.setItem(
+          "purchased",
+          JSON.stringify([
+            ...state.data.user.purchased,
+            ...action.payload.purchased,
+          ])
+        );
         return {
           ...state,
           data: {
