@@ -20,12 +20,12 @@ import Category from "./Pages/Category/Category";
 import SalePage from "./Pages/SalePage/SalePage";
 
 const RoutesComponent = () => {
-  const position = useAppSelector((state) => state.page.pagePostion);
-  const dispatch = useAppDispatch();
-  const location = useLocation();
-  useEffect(() => {
-    dispatch(PAGE_POSITION("MAIN"));
-  }, [dispatch, location]);
+  // const position = useAppSelector((state) => state.page.pagePostion);
+  // const dispatch = useAppDispatch();
+  // const location = useLocation();
+  // useEffect(() => {
+  //   dispatch(PAGE_POSITION("MAIN"));
+  // }, [dispatch, location]);
   interface Elements {
     [key: string]: ReactElement;
   }
@@ -43,61 +43,57 @@ const RoutesComponent = () => {
     orderListPage: <OrderListPage />,
     main: <PersonalPage />,
   };
-  if (position === "MAIN") {
-    return (
-      <Routes>
-        <Route path={"/"} element={<MainPage />}>
-          <Route
-            key={Math.random().toString(36)}
-            path={"/"}
-            element={<MagazinPage />}
-          />
-          {Object.keys(ROUTS_ELEMENT).map((route) => {
-            const key = Math.random().toString(36);
-
-            if (route === "orderPaidPage") {
-              return (
-                <Route
-                  key={key}
-                  path={route}
-                  element={<RequireAuth>{ROUTS_ELEMENT[route]}</RequireAuth>}
-                />
-              );
-            }
-            if (route === "good") {
-              return (
-                <Route key={key} path={"good/:id"} element={<GoodPage />} />
-              );
-            }
-            if (route === "category") {
-              return (
-                <Route
-                  key={Math.random().toString(36)}
-                  path="category/:categoryName"
-                  element={<ProductsCategoryPage />}
-                />
-              );
-            }
-            return (
-              <Route key={key} path={route} element={ROUTS_ELEMENT[route]} />
-            );
-          })}
-        </Route>
-        <Route path="*" element={<NotfoundPage />} />
-      </Routes>
-    );
-  }
   return (
     <Routes>
       <Route path={"/"} element={<MainPage />}>
         <Route
           key={Math.random().toString(36)}
-          path={location.pathname}
-          element={<Category />}
+          path={"/"}
+          element={<MagazinPage />}
         />
+        {Object.keys(ROUTS_ELEMENT).map((route) => {
+          const key = Math.random().toString(36);
+
+          if (route === "orderPaidPage") {
+            return (
+              <Route
+                key={key}
+                path={route}
+                element={<RequireAuth>{ROUTS_ELEMENT[route]}</RequireAuth>}
+              />
+            );
+          }
+          if (route === "good") {
+            return <Route key={key} path={"good/:id"} element={<GoodPage />} />;
+          }
+          if (route === "category") {
+            return (
+              <Route
+                key={Math.random().toString(36)}
+                path="category/:categoryName"
+                element={<ProductsCategoryPage />}
+              />
+            );
+          }
+          return (
+            <Route key={key} path={route} element={ROUTS_ELEMENT[route]} />
+          );
+        })}
       </Route>
+      <Route path="*" element={<NotfoundPage />} />
     </Routes>
   );
 };
+// return (
+//   <Routes>
+//     <Route path={"/"} element={<MainPage />}>
+//       <Route
+//         key={Math.random().toString(36)}
+//         path={location.pathname}
+//         element={<Category />}
+//       />
+//     </Route>
+//   </Routes>
+// );
 
 export default RoutesComponent;
