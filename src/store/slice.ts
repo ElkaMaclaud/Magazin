@@ -128,6 +128,60 @@ export const CHANGE_ACCOUNT_INFO = createAsyncThunk<
     return rejectWithValue(`${error}`);
   }
 });
+// export const GET_GOODS_BY_CATEGORY = createAsyncThunk<
+//   IGoods[],
+//   string,
+//   { rejectValue: string; state: RootState }
+// >(
+//   "page/GET_GOODS_BY_CATEGORY",
+//   async (category, { rejectWithValue, getState }) => {
+//     try {
+//       const response = await new Promise<IGoods[]>((resolve) =>
+//         setTimeout(() => {
+//           const success = true;
+//           const basketCount = getState().page.data.user.basket.length;
+//           const favoriteCount = getState().page.data.user.favorite.length;
+//           const basket = basketCount
+//             ? getState().page.data.user.basket
+//             : (JSON.parse(localStorage.getItem("basket") || "[]") as IGoods[]);
+//           const favorite = favoriteCount
+//             ? getState().page.data.user.favorite
+//             : (JSON.parse(
+//                 localStorage.getItem("favorite") || "[]"
+//               ) as IGoods[]);
+//           if (success) {
+//             resolve(
+//               goods
+//                 .filter((item) => item.category === category)
+//                 .map((good: IGoods) => {
+//                   const findGood = basket.find(
+//                     (goodFind) => goodFind.id === good.id
+//                   );
+//                   const favoriteGood = favorite.find(
+//                     (likeGood) => likeGood.id === good.id
+//                   );
+//                   if (findGood || favoriteGood) {
+//                     return {
+//                       ...good,
+//                       count: findGood?.count || 0,
+//                       choice: findGood?.choice || false,
+//                       favorite: favoriteGood?.favorite || false,
+//                     };
+//                   }
+//                   return { ...good };
+//                 })
+//             );
+//           } else {
+//             throw new Error("GET_GOODS_BY_CATEGORY failed");
+//           }
+//         }, 1000)
+//       );
+//       return response as IGoods[];
+//     } catch (error) {
+//       return rejectWithValue(`${error}`);
+//     }
+//   }
+// );
 export const GET_GOODS_BY_CATEGORY = createAsyncThunk<
   IGoods[],
   string,
@@ -136,52 +190,25 @@ export const GET_GOODS_BY_CATEGORY = createAsyncThunk<
   "page/GET_GOODS_BY_CATEGORY",
   async (category, { rejectWithValue, getState }) => {
     try {
-      const response = await new Promise<IGoods[]>((resolve) =>
-        setTimeout(() => {
-          const success = true;
-          const basketCount = getState().page.data.user.basket.length;
-          const favoriteCount = getState().page.data.user.favorite.length;
-          const basket = basketCount
-            ? getState().page.data.user.basket
-            : (JSON.parse(localStorage.getItem("basket") || "[]") as IGoods[]);
-          const favorite = favoriteCount
-            ? getState().page.data.user.favorite
-            : (JSON.parse(
-                localStorage.getItem("favorite") || "[]"
-              ) as IGoods[]);
-          if (success) {
-            resolve(
-              goods
-                .filter((item) => item.category === category)
-                .map((good: IGoods) => {
-                  const findGood = basket.find(
-                    (goodFind) => goodFind.id === good.id
-                  );
-                  const favoriteGood = favorite.find(
-                    (likeGood) => likeGood.id === good.id
-                  );
-                  if (findGood || favoriteGood) {
-                    return {
-                      ...good,
-                      count: findGood?.count || 0,
-                      choice: findGood?.choice || false,
-                      favorite: favoriteGood?.favorite || false,
-                    };
-                  }
-                  return { ...good };
-                })
-            );
-          } else {
-            throw new Error("GET_GOODS_BY_CATEGORY failed");
-          }
-        }, 1000)
-      );
-      return response as IGoods[];
+      const response = await fetch(`http://localhost:3001/goods?category=${category}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (response.ok) {  
+        const data = await response.json();
+        // Process the data as needed
+        return data as IGoods[];
+      } else {
+        throw new Error('GET_GOODS_BY_CATEGORY failed');
+      }
     } catch (error) {
       return rejectWithValue(`${error}`);
     }
   }
 );
+
 export const GET_GOOD = createAsyncThunk<
   IGoods,
   string,
