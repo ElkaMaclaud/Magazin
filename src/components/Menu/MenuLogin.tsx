@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, CSSProperties } from "react";
+import React, { useEffect, useRef, CSSProperties } from "react";
 import { Account } from "../../UI_Component/Icons";
 import { Link } from "react-router-dom";
 import classes from "./style/MenuLogin.module.css";
@@ -9,38 +9,36 @@ import { useAppSelector } from "../../store/reduxHooks";
 import { menuItems } from "../../MockupData/menuItems";
 import MenuItem from "../MenuItem/MenuItem";
 import { Dropdown } from "../../UI_Component";
+import { useToggle } from "../../hooks/useToggle";
 
 const MenuLogin = () => {
   const { data } = useAppSelector((state) => state.page);
-  const [showModal, setShowModal] = useState(false);
-  const [showDropDown, setShowDropDown] = useState(false);
+  const [showModal, toggleShowModal] = useToggle(false);
+  const [showDropDown, toggleShowDropDown] = useToggle(false);
   const parentRef = useRef<HTMLDivElement>(null);
   const ref = useRef<HTMLDivElement>(null);
   const token = localStorage.getItem("token");
   const handleMouseOver = () => {
     if (!showModal) {
-      setShowDropDown(true);
+      toggleShowDropDown();
     }
   };
   const handleMouseOut = (event: MouseEvent) => {
     if (!ref.current?.contains(event.relatedTarget as Node)) {
       // IE fromElement
-      setShowDropDown(false);
+      toggleShowDropDown();
     }
   };
-
   useEffect(() => {
     document.addEventListener("mouseout", handleMouseOut);
     return () => {
       document.removeEventListener("mouseout", handleMouseOut);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const handleAction = () => {
-    setShowDropDown(false);
-  };
   const handleActionNoAvtorization = () => {
-    setShowModal(true);
-    setShowDropDown(false);
+    toggleShowModal();
+    toggleShowDropDown();
   };
   const setStyle = (width = 250): CSSProperties => {
     const left = parentRef.current
@@ -63,7 +61,7 @@ const MenuLogin = () => {
         </Link>
         {showDropDown && (
           <Dropdown ref={ref} style={setStyle()}>
-            <MenuItem handleAction={handleAction} list={menuItems} />
+            <MenuItem handleAction={toggleShowDropDown} list={menuItems} />
           </Dropdown>
         )}
       </div>
@@ -73,7 +71,7 @@ const MenuLogin = () => {
     <div ref={parentRef} className={classes.menuWrapper}>
       <div
         className={classes.link}
-        onMouseOver={handleMouseOver}
+        onMouseOver={toggleShowDropDown}
         onClick={handleActionNoAvtorization}
       >
         <div className={classes.linkWrapperText}>
@@ -90,7 +88,7 @@ const MenuLogin = () => {
         <Modal
           title="Magazin ID"
           content={<Login />}
-          handleAction={() => setShowModal(false)}
+          handleAction={toggleShowModal}
         />
       )}
     </div>

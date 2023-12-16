@@ -2,7 +2,6 @@
 import React, {
   FC,
   ReactNode,
-  useState,
   ChangeEvent,
   useMemo,
   CSSProperties,
@@ -21,6 +20,7 @@ import {
 } from "../../store/slice";
 import { Link } from "react-router-dom";
 import { CounterButton } from "../CounterButton/CounterButton";
+import { useToggle } from "../../hooks/useToggle";
 
 export const WideCard: FC<{
   good: IGoods;
@@ -29,7 +29,7 @@ export const WideCard: FC<{
 }> = memo(({ good, child, orientationVertical }) => {
   const SIZE = 270;
   const SIZE_BASKET = 150;
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, toggleShowModal] = useToggle(false);
   const dispatch = useAppDispatch();
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(CHOICE_BASKET_OF_GOODS(good.id));
@@ -38,7 +38,7 @@ export const WideCard: FC<{
     if (remove) {
       dispatch(REMOVE_GOOD_BASKET_OF_GOODS(good.id));
     }
-    setShowModal(false);
+    toggleShowModal();
   };
 
   const checkProperty = (card: IGoods) => {
@@ -82,7 +82,7 @@ export const WideCard: FC<{
     return (
       <div className={classes.descriptionBasket}>
         <div className={classes.descriptionText}>{good.description}</div>
-        <div className={classes.iconBG} onClick={() => setShowModal(true)}>
+        <div className={classes.iconBG} onClick={toggleShowModal}>
           <Trash />
         </div>
       </div>

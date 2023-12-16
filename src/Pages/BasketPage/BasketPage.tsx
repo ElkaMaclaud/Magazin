@@ -13,6 +13,7 @@ import {
   REMOVE_CHOICES_BASKET_OF_GOODS,
 } from "../../store/slice";
 import GoodsList from "../../components/GoodsList/GoodsList";
+import { useToggle } from "../../hooks/useToggle";
 
 const styles = {
   height: "50px",
@@ -38,7 +39,7 @@ const BasketPage = () => {
   const dispatch = useAppDispatch();
   const [checked, setChecked] = useState(false);
   const [sum, setSum] = useState(0);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, toggleShowModal] = useToggle(false);
   const navigate = useNavigate();
   useEffect(() => {
     if (!basket.length) {
@@ -106,13 +107,13 @@ const BasketPage = () => {
     dispatch(CHOICE_ALL_BASKET_OF_GOODS(!checked));
   };
   const removeChoiceGoods = () => {
-    setShowModal(true);
+    toggleShowModal();
   };
   const removeBasket = (remove = true) => {
     if (remove) {
       dispatch(REMOVE_CHOICES_BASKET_OF_GOODS());
     }
-    setShowModal(false);
+    toggleShowModal();
   };
   const handleCalculateGoods = () => {
     dispatch(CLEARANCE_OF_GOODS());

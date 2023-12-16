@@ -14,11 +14,12 @@ import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
 import { CANSEL_PURCHASE } from "../../store/slice";
 import { debounce } from "../../utils/debounce";
 import MenuItem from "../MenuItem/MenuItem";
+import { useToggle } from "../../hooks/useToggle";
 
 const DeliveryDate = () => {
   const { user } = useAppSelector((state) => state.page.data);
-  const [showModal, setShowModal] = useState(false);
-  const [showDropDown, setShowDropDown] = useState(false);
+  const [showModal, toggleShowModal] = useToggle(false);
+  const [showDropDown, toggleShowDropDown] = useToggle(false);
   const dispatch = useAppDispatch();
   const ref = useRef<HTMLDivElement>(null);
   const refShowDropDown = useRef<HTMLDivElement>(null);
@@ -54,12 +55,11 @@ const DeliveryDate = () => {
     if (remove) {
       dispatch(CANSEL_PURCHASE());
     }
-    setShowDropDown(false);
-    setShowModal(false);
+    toggleShowModal();
   };
   const handleDropDownClick = () => {
-    setShowDropDown(false);
-    setShowModal(true);
+    toggleShowDropDown();
+    toggleShowModal();
   };
   function getСoordinates(): CSSProperties {
     const top = refShowDropDown.current?.offsetTop;
@@ -75,7 +75,7 @@ const DeliveryDate = () => {
         <h3>Ожидаемая доставка: завтра {} бесплатно</h3>
         <div
           ref={refShowDropDown}
-          onClick={() => setShowDropDown(!showDropDown)}
+          onClick={toggleShowDropDown}
           className={classes.burgerWrapper}
         >
           <BurgerMenu />

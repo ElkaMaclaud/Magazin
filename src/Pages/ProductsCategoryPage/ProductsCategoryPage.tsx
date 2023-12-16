@@ -17,6 +17,7 @@ import { GET_GOODS_BY_CATEGORY } from "../../store/slice";
 import { useParams } from "react-router-dom";
 import { ArrowSmall } from "../../UI_Component/Icons";
 import { optionsSort } from "../../MockupData/menuItems";
+import { useToggle } from "../../hooks/useToggle";
 
 const ProductsCategoryPage = () => {
   const { goods } = useAppSelector((state) => state.page.data);
@@ -26,7 +27,7 @@ const ProductsCategoryPage = () => {
   const { categoryName } = useParams();
   const [products, setProducts] = useState<IGoods[]>(goods);
   const [selectSort, setSelectSort] = useState(optionsSort[0]);
-  const [showDropDown, setShowDropDown] = useState(false);
+  const [showDropDown, toggleShowDropDown] = useToggle(false);
   const ref = useRef<HTMLDivElement>(null);
   const refParent = useRef<HTMLDivElement>(null);
   let style: CSSProperties = {
@@ -119,7 +120,7 @@ const ProductsCategoryPage = () => {
       !ref.current?.contains(event.target) &&
       !refParent.current?.contains(event.target)
     ) {
-      setShowDropDown(false);
+      toggleShowDropDown();
     }
   }
   useEffect(() => {
@@ -131,6 +132,7 @@ const ProductsCategoryPage = () => {
     return () => {
       document.removeEventListener("click", handleClick);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showDropDown]);
   return (
     <div className={classes.contentWrapper}>
@@ -143,7 +145,7 @@ const ProductsCategoryPage = () => {
         <div
           className={classes.select}
           ref={refParent}
-          onClick={() => setShowDropDown(true)}
+          onClick={toggleShowDropDown}
         >
           <input readOnly={true} value={selectSort[1]} />
           <div className={showDropDown ? classes.optionACtive : classes.option}>

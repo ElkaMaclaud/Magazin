@@ -2,8 +2,9 @@ import React, { FC, MouseEvent, useState } from "react";
 import { CardForInfo } from "../../UI_Component";
 import classes from "./style/ChoiceBlock.module.css";
 import { Modal } from "../Modal/Modal";
+import { useToggle } from "../../hooks/useToggle";
 const ChoiceBlock: FC = () => {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, toggleShowModal] = useToggle(false);
   const [choice, setChoice] = useState("add");
   const handleClick = (event: MouseEvent<HTMLDivElement>) => {
     const value = event.currentTarget.getAttribute("data-value");
@@ -17,7 +18,7 @@ const ChoiceBlock: FC = () => {
         <h3>Баллы и бонусы</h3>
         <div
           className={classes.roundWrapper}
-          onClick={() => setShowModal(true)}
+          onClick={toggleShowModal}
         >
           <div className={classes.round}></div>
         </div>
@@ -54,7 +55,7 @@ const ChoiceBlock: FC = () => {
           content={`
             Эти бонусы вы сможете потратить на будущие покупки у этого же продавца и сэкономить до 25% стоимости заказа. Найти информацию о своем бонусном балансе вы можете в личном кабинете.
             За покупки товаров на Ozon больше не начисляются Premium-баллы. Все накопленные ранее баллы доступны на вашем балансе для оплаты заказов.`}
-          handleAction={() => setShowModal(false)}
+          handleAction={toggleShowModal}
           buttonText={"Понятно"}
         />
       )}
