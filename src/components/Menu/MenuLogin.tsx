@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, CSSProperties } from "react";
+import React, { useState, useEffect, useRef, CSSProperties } from "react";
 import { Account } from "../../UI_Component/Icons";
 import { Link } from "react-router-dom";
 import classes from "./style/MenuLogin.module.css";
@@ -9,36 +9,40 @@ import { useAppSelector } from "../../store/reduxHooks";
 import { menuItems } from "../../MockupData/menuItems";
 import MenuItem from "../MenuItem/MenuItem";
 import { Dropdown } from "../../UI_Component";
-import { useToggle } from "../../hooks/useToggle";
 
 const MenuLogin = () => {
   const { data } = useAppSelector((state) => state.page);
-  const [showModal, toggleShowModal] = useToggle(false);
-  const [showDropDown, toggleShowDropDown] = useToggle(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showDropDown, setShowDropDown] = useState(false);
   const parentRef = useRef<HTMLDivElement>(null);
   const ref = useRef<HTMLDivElement>(null);
   const token = localStorage.getItem("token");
   const handleMouseOver = () => {
     if (!showModal) {
-      toggleShowDropDown();
+      setShowDropDown(true);
     }
   };
   const handleMouseOut = (event: MouseEvent) => {
     if (!ref.current?.contains(event.relatedTarget as Node)) {
       // IE fromElement
-      toggleShowDropDown();
+      setShowDropDown(false);
     }
   };
+
   useEffect(() => {
-    document.addEventListener("mouseout", handleMouseOut);
+    if (showDropDown) {
+      document.addEventListener("mouseout", handleMouseOut);
+    }
     return () => {
       document.removeEventListener("mouseout", handleMouseOut);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [showDropDown]);
+  const handleAction = () => {
+    setShowDropDown(false);
+  };
   const handleActionNoAvtorization = () => {
-    toggleShowModal();
-    toggleShowDropDown();
+    setShowModal(true);
+    setShowDropDown(false);
   };
   const setStyle = (width = 250): CSSProperties => {
     const left = parentRef.current
@@ -61,7 +65,7 @@ const MenuLogin = () => {
         </Link>
         {showDropDown && (
           <Dropdown ref={ref} style={setStyle()}>
-            <MenuItem handleAction={toggleShowDropDown} list={menuItems} />
+            <MenuItem handleAction={handleAction} list={menuItems} />
           </Dropdown>
         )}
       </div>
@@ -71,7 +75,7 @@ const MenuLogin = () => {
     <div ref={parentRef} className={classes.menuWrapper}>
       <div
         className={classes.link}
-        onMouseOver={toggleShowDropDown}
+        onMouseOver={handleMouseOver}
         onClick={handleActionNoAvtorization}
       >
         <div className={classes.linkWrapperText}>
@@ -88,7 +92,7 @@ const MenuLogin = () => {
         <Modal
           title="Magazin ID"
           content={<Login />}
-          handleAction={toggleShowModal}
+          handleAction={() => setShowModal(false)}
         />
       )}
     </div>

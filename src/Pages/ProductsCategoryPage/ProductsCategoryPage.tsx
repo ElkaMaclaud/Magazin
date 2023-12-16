@@ -145,7 +145,7 @@ const ProductsCategoryPage = () => {
         <div
           className={classes.select}
           ref={refParent}
-          onClick={toggleShowDropDown}
+          onClick={!showDropDown ? toggleShowDropDown : () => {}}
         >
           <input readOnly={true} value={selectSort[1]} />
           <div className={showDropDown ? classes.optionACtive : classes.option}>
