@@ -133,9 +133,8 @@ const BasketPage = () => {
               />
               <div className={classes.checkHover}>
                 <СheckMark />
-              </div>
+              </div>{" "} Выбрать все 
             </label>
-            <p onClick={onChange}>Выбрать все </p>
             <p onClick={removeChoiceGoods}>Удалить выбранные</p>
           </div>
           <div className={classes.basketHeaderWrapperchild}>
@@ -157,9 +156,8 @@ const BasketPage = () => {
             />
             <div className={classes.checkHover}>
               <СheckMark />
-            </div>
+            </div>{" "} Выбрать все 
           </label>
-          <p onClick={onChange}>Выбрать все </p>
         </div>
       </div>
     );
