@@ -24,7 +24,7 @@
 .basketHeaderWrapperchild:nth-child(2) svg {
   margin-top: -2px;
 }
-.basketHeaderWrapperchild p:nth-child(3) {
+.basketHeaderWrapperchild:first-child p {
   color: red;
 }
 .basketEmpty {
