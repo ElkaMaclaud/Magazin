@@ -29,5 +29,5 @@ export interface IDelivery {
   choice: "address" | "pickUpPoin"
 }
 export interface IPurchased extends IGoods {
-  delivery: IDelivery
+  delivery?: IDelivery
 }

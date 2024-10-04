@@ -18,7 +18,7 @@ const GoodsList: FC<{
   return (
     <div style={style}>
       {data.map((item) => {
-        return <WideCard key={item.id} good={item} child={icon} orientationVertical={orientationVertical} />;
+        return <WideCard key={item._id} good={item} child={icon} orientationVertical={orientationVertical} />;
       })}
     </div>
   );

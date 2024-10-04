@@ -28,9 +28,9 @@ const GoodPage = () => {
         <ImageGood path={good.image} size={500} />
         <div className={classes.description}>{good.description}</div>
         <div className={classes.countLikeWrapper}>
-          <div className={classes.favorite}><ChoiceIcon favorite={good.favorite} id={good.id} /></div>
+          <div className={classes.favorite}><ChoiceIcon favorite={good.favorite} id={good._id} /></div>
           <div><CounterButton
-            id={good.id}
+            id={good._id}
             text={good.price}
             title={"Добавить в корзину"}
             counter={checkProperty(good)}

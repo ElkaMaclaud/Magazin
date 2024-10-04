@@ -32,11 +32,11 @@ export const WideCard: FC<{
   const [showModal, toggleShowModal] = useToggle(false);
   const dispatch = useAppDispatch();
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(CHOICE_BASKET_OF_GOODS(good.id));
+    dispatch(CHOICE_BASKET_OF_GOODS(good._id));
   };
   const removeBasket = (remove = true) => {
     if (remove) {
-      dispatch(REMOVE_GOOD_BASKET_OF_GOODS(good.id));
+      dispatch(REMOVE_GOOD_BASKET_OF_GOODS(good._id));
     }
     toggleShowModal();
   };
@@ -61,10 +61,10 @@ export const WideCard: FC<{
   const ImageWrapper = () => {
     return (
       <div className={classes.checkGood}>
-        <label htmlFor={`${good.id}`} className={classes.inputWrapper}>
+        <label htmlFor={`${good._id}`} className={classes.inputWrapper}>
           <input
             type="checkbox"
-            id={`${good.id}`}
+            id={`${good._id}`}
             onChange={onChange}
             checked={good.choice || false}
           />
@@ -72,7 +72,7 @@ export const WideCard: FC<{
             <СheckMark />
           </div>
         </label>
-        <Link to={`../good/${good.id}`}>
+        <Link to={`../good/${good._id}`}>
           <ImageGood path={good.image} size={SIZE_BASKET} />
         </Link>
       </div>
@@ -101,7 +101,7 @@ export const WideCard: FC<{
   const MemoImage = useMemo(() => {
     if (child) {
       return (
-        <Link to={`../good/${good.id}`}>
+        <Link to={`../good/${good._id}`}>
           <div className={classes[classesChoises[1]]}>
             <ImageGood path={good.image} />
           </div>
@@ -132,7 +132,7 @@ export const WideCard: FC<{
       return (
         <div className={classes[classesChoises[3]]}>
           <CounterButton
-            id={good.id}
+            id={good._id}
             text={good.price}
             title={"Добавить в корзину"}
             counter={checkProperty(good)}
@@ -143,14 +143,14 @@ export const WideCard: FC<{
     }
     return (
       <div className={classes[classesChoises[4]]}>
-        <CounterButton id={good.id} counter={checkProperty(good)} />
+        <CounterButton id={good._id} counter={checkProperty(good)} />
       </div>
     );
   }, [good.count]);
   const MemoChoiceIcon = useMemo(
     () => (
       <div className={classes[classesChoises[4]]}>
-        <ChoiceIcon favorite={good.favorite} id={good.id} />
+        <ChoiceIcon favorite={good.favorite} id={good._id} />
       </div>
     ),
     [good.favorite]

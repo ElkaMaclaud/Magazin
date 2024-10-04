@@ -4,14 +4,14 @@ import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
 import SideBar from "../../components/SideBar/SideBar";
 import UserAvatar from "../../components/UserAvatar/UserAvatar";
 import classes from "./style/OrderListPage.module.css";
-import { GET_PURCHASED_GOODS } from "../../store/slice";
+import { GET_OF_ORDERS } from "../../store/slice";
 
 const OrderListPage = () => {
   const { user } = useAppSelector((state) => state.page.data);
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (user.purchased)
-    dispatch(GET_PURCHASED_GOODS())
+    dispatch(GET_OF_ORDERS())
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   if (user.purchased.length) {
@@ -26,10 +26,10 @@ const OrderListPage = () => {
             {user.purchased.map((item) => {
               return (
                 <TwoColorCard
-                  id={item.id}
+                  id={item._id}
                   price={item.price}
                   image={item.image[0]}
-                  delivery={item.delivery}
+                  delivery={item.delivery || {pickUpPoin: "",  choice: "pickUpPoin"}}
                 />
               );
             })}

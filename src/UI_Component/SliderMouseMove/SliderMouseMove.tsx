@@ -21,7 +21,7 @@ export const SliderMouseMove: FC<{
       offset.value === 0 &&
       offset.begin === true &&
       ref.current &&
-      currentMouseX - ref.current?.offsetLeft >= (sizeImg / (images.length * 2))
+      currentMouseX - ref.current?.offsetLeft >= sizeImg / (images.length * 2)
     ) {
       setOffset(() => {
         const index =
@@ -83,7 +83,7 @@ export const SliderMouseMove: FC<{
           const key = Math.random().toString(16);
           return (
             <div key={key} className={classes.imageWrapper}>
-              <img src={img} alt="Фото техники" />
+              <img src={img} alt="Фото товара" />
             </div>
           );
         })}
@@ -125,7 +125,7 @@ export const SliderMouseMove: FC<{
 // return (
 //   <div className={classes.wrapper}>
 //     <div onMouseMove={handleMouseMove} ref={ref} className={classes.imageWrapper} style={style}>
-//       <img src={images[indexImg]} alt="Фото техники" />
+//       <img src={images[indexImg]} alt="" />
 //     </div>
 //   </div>
 // );
