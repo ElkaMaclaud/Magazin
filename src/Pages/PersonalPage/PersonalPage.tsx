@@ -9,7 +9,7 @@ import { accountList } from "../../MockupData/categoryFilter";
 import ListItem from "../../components/ListItem/ListItem";
 
 const PersonalPage = () => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("access_token");
   const name = localStorage.getItem("name")
   if (token) {
     return (

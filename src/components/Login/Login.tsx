@@ -1,7 +1,7 @@
 import React, { FC, FormEvent } from "react";
 import PhoneInput from "../PhoneComponent";
 import classes from "./style/Login.module.css";
-import { AUT_USER } from "../../store/slice";
+import { AUT_USER, REGISTER_USER } from "../../store/slice";
 import { useAppDispatch } from "../../store/reduxHooks";
 import { useNavigate } from "react-router-dom";
 import { Button, Input } from "../../UI_Component";
@@ -11,23 +11,29 @@ export const Login: FC<{ fromPage?: string }> = ({ fromPage }) => {
   const navigate = useNavigate();
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const submitEvent = event.nativeEvent as SubmitEvent;
+    const submitter = submitEvent.submitter as HTMLButtonElement;
     event.stopPropagation();
     event.preventDefault();
     const target = event.target as typeof event.target & {
       name: { value: string };
       phone: { value: string };
       email: { value: string };
-      dateOfBirt: { value: Date };
+      dateofBirth: { value: Date };
       password: { value: string };
     };
     const value = {
       name: target.name.value,
       phone: target.phone.value,
       email: target.email.value,
-      dateOfBirt: target.dateOfBirt.value,
+      dateofBirth: target.dateofBirth.value,
       password: target.password.value,
     };
-    dispatch(AUT_USER(value));
+    if(submitter.dataset.action === "auth") {
+      dispatch(AUT_USER(value));
+    } else {
+      dispatch(REGISTER_USER(value));
+    }
     fromPage && navigate(fromPage, { replace: true });
   };
   return (
@@ -36,7 +42,7 @@ export const Login: FC<{ fromPage?: string }> = ({ fromPage }) => {
       <form className={classes.form} onSubmit={handleSubmit} autoComplete="off">
         <Input label name="name" handleChange={() => {}} value="" required />
         <Input label name="email" handleChange={() => {}} value="" />
-        <PhoneInput label={"Ваш номер телефона"} name="phone" required />
+        <PhoneInput label={"Ваш номер телефона"} name="phone" />
         <Input
           label
           name="password"
@@ -44,8 +50,11 @@ export const Login: FC<{ fromPage?: string }> = ({ fromPage }) => {
           value=""
           required
         />
-        <Input label name="dateOfBirt" handleChange={() => {}} value="" />
-        <Button styles={{ width: "100%", padding: "15px" }}>
+        <Input label name="dateofBirth" handleChange={() => {}} value="" />
+        <Button data-action="register" styles={{ width: "100%", padding: "15px" }}>
+          Зарегистрироваться
+        </Button>
+        <Button data-action="auth" styles={{ width: "100%", padding: "15px" }}>
           Войти в магазин
         </Button>
       </form>

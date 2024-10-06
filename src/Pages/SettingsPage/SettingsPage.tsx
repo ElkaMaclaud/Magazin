@@ -28,8 +28,8 @@ const SettingsPage = () => {
   
   exampleUsage();
   const getFullYear = () => {
-    if (user.private.dateOfBirt) {
-      const diff = new Date().getTime() - new Date(user.private.dateOfBirt).getTime()
+    if (user.private.dateofBirth) {
+      const diff = new Date().getTime() - new Date(user.private.dateofBirth).getTime()
       const year = new Date (diff).getUTCFullYear() - 1970
       return year
     }
@@ -37,7 +37,7 @@ const SettingsPage = () => {
   const personPrivateInfo = [
     { name: "ФИО", value: `${user.private.name}` },
     { name: "Телефон", value: `${user.private.phone || ""}` },
-    { name: "Дата Рождения", value: `${getFormatDate(user.private.dateOfBirt) || ""}` },
+    { name: "Дата Рождения", value: `${getFormatDate(user.private.dateofBirth) || ""}` },
     { name: "Почта", value: `${user.private.email}` },
     { name: "Пол", value: `${user.private.gender || ""}` },
   ];

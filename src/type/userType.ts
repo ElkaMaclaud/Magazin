@@ -19,7 +19,7 @@ export interface IInfoPublik {
 }
 export interface IInfoPrivate extends IInfoPublik {
   phone?: string;
-  dateOfBirt?: Date;
+  dateofBirth?: Date;
   email: string;
   gender?: "Ж" | "М";
 }

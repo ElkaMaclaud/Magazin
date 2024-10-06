@@ -16,7 +16,7 @@ type IAuthorization = {
   name: string;
   phone?: string;
   email: string;
-  dateOfBirt?: Date;
+  dateofBirth?: Date;
   password: string;
 };
 type ReturnAction = {
@@ -74,7 +74,7 @@ export const REGISTER_USER = createAsyncThunk<
 >("page/REGISTER_USER", async (value, { rejectWithValue }) => {
   try {
     const response = await axios.post<{ success: boolean }>(
-      `${path}/auth/register`,
+      `${path}/user/auth/register`,
       value,
       { headers }
     );
@@ -85,13 +85,13 @@ export const REGISTER_USER = createAsyncThunk<
   }
 });
 export const AUT_USER = createAsyncThunk<
-  { token: string },
+  { access_token: string },
   IAuthorization,
   { rejectValue: string }
 >("page/AUT_USER", async (value, { rejectWithValue }) => {
   try {
-    const response = await axios.post<{ token: string }>(
-      `${path}/auth/login`,
+    const response = await axios.post<{ access_token: string }>(
+      `${path}/user/auth/login`,
       value,
       { headers }
     );
@@ -508,67 +508,18 @@ export const CHANGE_FAVORITE_GOOD = createAsyncThunk<
   }
 );
 export const ADD_BASKET_OF_GOODS = createAsyncThunk<
-  ReturnAction,
+  IGoods,
   string,
   { rejectValue: string; state: RootState }
 >(
   "page/ADD_BASKET_OF_GOODS",
   async (good_id, { rejectWithValue, getState }) => {
     try {
-      //const state: IInitialState = getState();
-      const response = await new Promise((resolve) =>
-        setTimeout(() => {
-          const basketCount = getState().page.data.user.basket.length;
-          const favoriteCount = getState().page.data.user.favorite.length;
-          const basket = basketCount
-            ? getState().page.data.user.basket
-            : (JSON.parse(localStorage.getItem("basket") || "[]") as IGoods[]);
-          const favorite = favoriteCount
-            ? getState().page.data.user.favorite
-            : (JSON.parse(
-                localStorage.getItem("favorite") || "[]"
-              ) as IGoods[]);
-          const choiceAll = getState().page.data.user.choiceAll;
-          const success = true;
-          if (success) {
-            resolve({
-              goods: getState().page.data.goods.map((good: IGoods) => {
-                if (good._id === good_id) {
-                  return { ...good, count: good.count ? good.count + 1 : 1 };
-                }
-                return good;
-              }),
-              basket: basket.find((good: IGoods) => good._id === good_id)
-                ? basket.map((good: IGoods) => {
-                    if (good._id === good_id) {
-                      return {
-                        ...good,
-                        count: good.count ? good.count + 1 : 1,
-                      };
-                    }
-                    return good;
-                  })
-                : [
-                    {
-                      ...goods.find((good: IGoods) => good._id === good_id),
-                      count: 1,
-                      choice: choiceAll,
-                    },
-                    ...basket,
-                  ],
-              favorite: favorite.map((good: IGoods) => {
-                if (good._id === good_id) {
-                  return { ...good, count: good.count ? good.count + 1 : 1 };
-                }
-                return good;
-              }),
-            });
-          } else {
-            throw new Error("ADD_BASKET_OF_GOODS failed");
-          }
-        }, 10)
+      const response = await axios.patch<IGoods>(
+        `${path}/good/goodsByCategory/${good_id}`,
+        { headers }
       );
-      return response as ReturnAction;
+      return response.data as IGoods;
     } catch (error) {
       return rejectWithValue(`${error}`);
     }
@@ -761,12 +712,28 @@ const slice = createSlice({
       };
     });
     builder.addCase(AUT_USER.fulfilled, (state, action) => {
+      const sentDate = action.meta.arg;
       if (action.payload) {
-        localStorage.setItem("token", action.payload.token);
+        localStorage.setItem("access_token", action.payload.access_token);
         return {
           ...state,
           loading: "COMPLICATED",
-          token: action.payload.token,
+          token: action.payload.access_token,
+          data: {
+            ...state.data,
+            user: {
+              ...state.data.user,
+              publik: {
+                ...state.data.user.publik,
+                name: sentDate.name,
+              },
+              private: {
+                ...state.data.user.private,
+                email: sentDate.email,
+                phone: sentDate.phone,
+              },
+            },
+          },
         };
       }
     });
@@ -976,20 +943,26 @@ const slice = createSlice({
     });
     builder.addCase(ADD_BASKET_OF_GOODS.fulfilled, (state, action) => {
       if (action.payload) {
-        localStorage.setItem("basket", JSON.stringify(action.payload.basket));
-        localStorage.setItem(
-          "favorite",
-          JSON.stringify(action.payload.favorite)
+        const findUpdatedGood = state.data.user.basket.find(
+          (good) => action.payload._id === good._id
         );
         return {
           ...state,
           data: {
             ...state.data,
-            goods: action.payload.goods,
             user: {
               ...state.data.user,
-              basket: action.payload.basket,
-              favorite: action.payload.favorite,
+              basket:
+                findUpdatedGood
+                  ? 
+                      state.data.user.basket.map((good) => {
+                        if (good._id === findUpdatedGood._id) {
+                          return  findUpdatedGood ;
+                        } 
+                          return  good ;
+                      })
+                  : [...state.data.user.basket,
+                    action.payload],
             },
           },
         };

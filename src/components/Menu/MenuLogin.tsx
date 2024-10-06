@@ -16,7 +16,7 @@ const MenuLogin = () => {
   const [showDropDown, setShowDropDown] = useState(false);
   const parentRef = useRef<HTMLDivElement>(null);
   const ref = useRef<HTMLDivElement>(null);
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("access_token");
   const handleMouseOver = () => {
     if (!showModal) {
       setShowDropDown(true);
