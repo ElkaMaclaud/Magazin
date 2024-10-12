@@ -35,16 +35,15 @@ const stylesHover = {
   backgroundColor: "#10a44c",
 };
 const BasketPage = () => {
-  const { basket } = useAppSelector((state) => state.page.data.user);
+  const { data, isloading } = useAppSelector((state) => state.page);
+  const {basket} = data.user
   const dispatch = useAppDispatch();
   const [checked, setChecked] = useState(false);
   const [sum, setSum] = useState(0);
   const [showModal, toggleShowModal] = useToggle(false);
   const navigate = useNavigate();
   useEffect(() => {
-    if (!basket.length) {
       dispatch(GET_BASKET_OF_GOODS());
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const basketOfGoods = [
@@ -163,7 +162,7 @@ const BasketPage = () => {
     );
   };
 
-  if (basket.length === 0) {
+  if (!isloading && basket.length === 0) {
     return (
       <CardPageFlex>
         <>

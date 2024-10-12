@@ -7,40 +7,44 @@ import classes from "./style/OrderListPage.module.css";
 import { GET_OF_ORDERS } from "../../store/slice";
 
 const OrderListPage = () => {
-  const { user } = useAppSelector((state) => state.page.data);
+  const { data, isloading } = useAppSelector((state) => state.page);
+  const { user } = data;
   const dispatch = useAppDispatch();
   useEffect(() => {
-    if (user.purchased)
-    dispatch(GET_OF_ORDERS())
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-  if (user.purchased.length) {
+    if (user.purchased) dispatch(GET_OF_ORDERS());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  if (!isloading && !user.purchased.length) {
     return (
       <CardPageFlex>
-        <h1>Заказы</h1>
-        <div className={classes.wrapper}>
-          <div className={classes.sidebar}><SideBar>
-            <UserAvatar name={localStorage.getItem("name") || ""} />
-          </SideBar></div>
-          <div className={classes.orderCardWrapper}>
-            {user.purchased.map((item) => {
-              return (
-                <TwoColorCard
-                  id={item._id}
-                  price={item.price}
-                  image={item.image[0]}
-                  delivery={item.delivery || {pickUpPoin: "",  choice: "pickUpPoin"}}
-                />
-              );
-            })}
-          </div>
-        </div>
+        <h1>У вас пока нет ни одной покупки!</h1>
       </CardPageFlex>
     );
   }
   return (
     <CardPageFlex>
-      <h1>У вас пока нет ни одной покупки!</h1>
+      <h1>Заказы</h1>
+      <div className={classes.wrapper}>
+        <div className={classes.sidebar}>
+          <SideBar>
+            <UserAvatar name={localStorage.getItem("name") || ""} />
+          </SideBar>
+        </div>
+        <div className={classes.orderCardWrapper}>
+          {user.purchased.map((item) => {
+            return (
+              <TwoColorCard
+                id={item._id}
+                price={item.price}
+                image={item.image[0]}
+                delivery={
+                  item.delivery || { pickUpPoin: "", choice: "pickUpPoin" }
+                }
+              />
+            );
+          })}
+        </div>
+      </div>
     </CardPageFlex>
   );
 };
