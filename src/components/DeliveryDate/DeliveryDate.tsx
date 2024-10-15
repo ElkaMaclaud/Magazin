@@ -11,7 +11,7 @@ import classes from "./style/DeliveryDate.module.css";
 import { BurgerMenu } from "../../UI_Component/Icons";
 import { Modal } from "../Modal/Modal";
 import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
-import { CANSEL_PURCHASE } from "../../store/slice";
+import { SET_REGISTRED } from "../../store/slice";
 import { debounce } from "../../utils/debounce";
 import MenuItem from "../MenuItem/MenuItem";
 import { useToggle } from "../../hooks/useToggle";
@@ -53,7 +53,7 @@ const DeliveryDate = () => {
   }, [tooltipPosition]);
   const canselPurchase = (remove = true) => {
     if (remove) {
-      dispatch(CANSEL_PURCHASE());
+      dispatch(SET_REGISTRED([]));
     }
     toggleShowModal();
   };
@@ -106,7 +106,7 @@ const DeliveryDate = () => {
       )}
       {showModal && (
         <Modal
-          title="Переметить в корзину"
+          title="Перемеcтить в корзину"
           content="Вы точно хотите убрать эти товары из заказа? Они будут доступны в корзине"
           buttonText="Переместить"
           handleAction={canselPurchase}

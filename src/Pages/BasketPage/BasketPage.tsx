@@ -8,7 +8,7 @@ import { CardPageFlex } from "../../UI_Component";
 import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
 import {
   CHOICE_ALL_BASKET_OF_GOODS,
-  CLEARANCE_OF_GOODS,
+  SET_REGISTRED,
   GET_BASKET_OF_GOODS,
   REMOVE_CHOICES_BASKET_OF_GOODS,
 } from "../../store/slice";
@@ -115,7 +115,7 @@ const BasketPage = () => {
     toggleShowModal();
   };
   const handleCalculateGoods = () => {
-    dispatch(CLEARANCE_OF_GOODS());
+    dispatch(SET_REGISTRED(basket.filter(item=> item.choice)));
     navigate("../placingAnOrderPage");
   };
   const BasketHeader = () => {

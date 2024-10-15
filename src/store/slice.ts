@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { IData } from "../type/dataType";
 import { IGoods } from "../type/goodsType";
-import { IDelivery, IPurchased } from "../type/userType";
+import { IDelivery } from "../type/userType";
 import { RootState } from "./Store";
 import axios, { AxiosHeaders } from "axios";
 const hostDomain = process.env.REACT_APP_API_URL;
@@ -17,15 +17,6 @@ type IAuthorization = {
   email: string;
   dateofBirth?: Date;
   password: string;
-};
-type ReturnAction = {
-  goods: IGoods[];
-  basket: IGoods[];
-  favorite: IGoods[];
-  choiceAll?: boolean;
-};
-type ExtendedReturnAction = ReturnAction & {
-  purchased: IPurchased[];
 };
 export interface IInitialState {
   success: boolean;
@@ -108,18 +99,13 @@ export const CHANGE_DELIVERY = createAsyncThunk<
   { rejectValue: string }
 >("page/CHANGE_DELIVERY", async (value, { rejectWithValue }) => {
   try {
-    const response = await new Promise((resolve) =>
-      setTimeout(() => {
-        //const success = Math.random() < 0.9;
-        const success = true;
-        if (success) {
-          resolve(value);
-        } else {
-          throw new Error("CHANGE_DELIVERY failed");
-        }
-      }, 10)
+    const response = await axios.patch<IDelivery>(
+      `${path}/user/changeDelivery`,
+      value,
+      { headers }
     );
-    return response as IDelivery;
+
+    return response.data as IDelivery;
   } catch (error) {
     return rejectWithValue(`${error}`);
   }
@@ -130,18 +116,12 @@ export const CHANGE_ACCOUNT_INFO = createAsyncThunk<
   { rejectValue: string }
 >("page/CHANGE_ACCOUNT_INFO", async (value, { rejectWithValue }) => {
   try {
-    const response = await new Promise((resolve) =>
-      setTimeout(() => {
-        //const success = Math.random() < 0.9;
-        const success = true;
-        if (success) {
-          resolve(value);
-        } else {
-          throw new Error("CHANGE_ACCOUNT_INFO failed");
-        }
-      }, 10)
+    const response = await axios.patch<{ name: string; phone?: string }>(
+      `${path}/user/updateUserData`,
+      value,
+      { headers }
     );
-    return response as { name: string; phone?: string };
+    return response.data as { name: string; phone?: string };
   } catch (error) {
     return rejectWithValue(`${error}`);
   }
@@ -168,7 +148,10 @@ export const GET_GOOD = createAsyncThunk<
   { rejectValue: string }
 >("page/GET_GOOD", async (id, { rejectWithValue }) => {
   try {
-    const response = await axios.get<IGoods>(`${path}/good/${id}`, { headers });
+    const response = await axios.get<IGoods>(
+      `http://localhost:3000/api/good/${id}`,
+      { headers }
+    );
     return response.data as IGoods;
   } catch (error) {
     return rejectWithValue(`${error}`);
@@ -248,100 +231,18 @@ export const GET_OF_ORDERS = createAsyncThunk<
   }
 });
 
-export const CLEARANCE_OF_GOODS = createAsyncThunk<
-  IGoods[],
-  undefined,
-  { rejectValue: string; state: RootState }
->("page/CLEARANCE_OF_GOODS", async (_, { rejectWithValue, getState }) => {
-  try {
-    const response = await new Promise((resolve) =>
-      setTimeout(() => {
-        const basketCount = getState().page.data.user.basket?.length || [];
-        const basket = basketCount
-          ? getState().page.data.user.basket
-          : JSON.parse(localStorage.getItem("basket") || "[]");
-        const success = true;
-        if (success) {
-          resolve(basket.filter((good: IGoods) => good.choice));
-        } else {
-          throw new Error("CLEARANCE_OF_GOODS failed");
-        }
-      }, 0)
-    );
-    return response as IGoods[];
-  } catch (error) {
-    return rejectWithValue(`${error}`);
-  }
-});
-export const CANSEL_PURCHASE = createAsyncThunk<
-  IGoods[],
-  undefined,
-  { rejectValue: string; state: RootState }
->("page/CANSEL_PURCHASE", async (_, { rejectWithValue, getState }) => {
-  try {
-    const response = await new Promise((resolve) =>
-      setTimeout(() => {
-        const basketCount = getState().page.data.user.basket?.length || [];
-        const basket = basketCount
-          ? getState().page.data.user.basket
-          : JSON.parse(localStorage.getItem("basket") || "[]");
-        const success = true;
-        if (success) {
-          resolve(basket);
-        } else {
-          throw new Error("CANSEL_PURCHASE failed");
-        }
-      }, 0)
-    );
-    return response as IGoods[];
-  } catch (error) {
-    return rejectWithValue(`${error}`);
-  }
-});
-
 export const PAY_GOODS = createAsyncThunk<
-  ExtendedReturnAction,
-  IDelivery, // | null
+  string[],
+  undefined,
   { rejectValue: string; state: RootState }
->("page/PAY_GOODS", async (deliveryOrder, { rejectWithValue, getState }) => {
+>("page/PAY_GOODS", async (_, { rejectWithValue, getState }) => {
   try {
-    const response = await new Promise((resolve) =>
-      setTimeout(() => {
-        const basketCount = getState().page.data.user.basket?.length || [];
-        const favoriteCount = getState().page.data.user.favorite?.length;
-        const basket = basketCount
-          ? getState().page.data.user.basket
-          : (JSON.parse(localStorage.getItem("basket") || "[]") as IGoods[]);
-        const favorite = favoriteCount
-          ? getState().page.data.user.favorite
-          : (JSON.parse(localStorage.getItem("favorite") || "[]") as IGoods[]);
-        const success = deliveryOrder === null ? false : true;
-        if (success) {
-          resolve({
-            goods: getState().page.data.goods.map((good: IGoods) => {
-              if (good.choice) {
-                return { ...good, count: 0, choice: false };
-              }
-              return good;
-            }),
-            basket: basket?.filter((good: IGoods) => !good.choice),
-            favorite: favorite?.map((good: IGoods) => {
-              if (good.choice) {
-                return { ...good, count: 0 };
-              }
-              return good;
-            }),
-            purchased: getState()
-              .page.data.user.basket?.filter((good: IGoods) => good.choice)
-              .map((item: IGoods) => ({ ...item, delivery: deliveryOrder })),
-          });
-        } else {
-          throw new Error("PAY_GOODS failed");
-          //alert("Авторизуйтесь сначало!")
-        }
-      }, 0)
+    const response = await axios.patch<string[]>(
+      `${path}/user/orders`,
+      { ids: getState().page.data.user.registered },
+      { headers }
     );
-    return response as ExtendedReturnAction;
+    return response.data as string[];
   } catch (error) {
     return rejectWithValue(`${error}`);
   }
@@ -354,7 +255,7 @@ export const CHOICE_ALL_BASKET_OF_GOODS = createAsyncThunk<
   try {
     const response = await axios.patch<IGoods[]>(
       `${path}/user/ChooseAll`,
-      {"on": choice},
+      { on: choice },
       { headers }
     );
     return response.data as IGoods[];
@@ -468,9 +369,9 @@ const slice = createSlice({
     PAGE_POSITION: (state, action) => {
       state.pagePostion = action.payload;
     },
-    // SET_SUCCESS: (state, action) => {
-    //   state.data.user.choiceAll = action.payload;
-    // },
+    SET_REGISTRED: (state, action) => {
+      state.data.user.registered = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(AUT_USER.pending, (state) => {
@@ -513,7 +414,7 @@ const slice = createSlice({
             ...state.data,
             user: {
               ...state.data.user,
-              delivery: action.payload,
+              delivery: {...state.data.user.delivery, ...action.payload},
             },
           },
         };
@@ -600,6 +501,12 @@ const slice = createSlice({
         };
       }
     });
+    builder.addCase(GET_FAVORITE_GOODS.pending, (state, action) => {
+      return {
+        ...state,
+        isloading: true,
+      };
+    });
     builder.addCase(GET_FAVORITE_GOODS.fulfilled, (state, action) => {
       if (action.payload) {
         return {
@@ -612,7 +519,7 @@ const slice = createSlice({
         };
       }
     });
-    builder.addCase(GET_BASKET_OF_GOODS.pending, (state, action) => {
+    builder.addCase(GET_BASKET_OF_GOODS.pending, (state) => {
       return {
         ...state,
         isloading: true,
@@ -632,6 +539,12 @@ const slice = createSlice({
           },
         };
       }
+    });
+    builder.addCase(GET_OF_ORDERS.pending, (state) => {
+      return {
+        ...state,
+        isloading: true,
+      };
     });
     builder.addCase(GET_OF_ORDERS.fulfilled, (state, action) => {
       if (action.payload) {
@@ -655,7 +568,9 @@ const slice = createSlice({
               ...state.data,
               user: {
                 ...state.data.user,
-                basket: action.payload,
+                basket: state.data.user.basket.filter(
+                  (good) => good.choice === false
+                ),
               },
             },
           };
@@ -663,6 +578,7 @@ const slice = createSlice({
       }
     );
     builder.addCase(CHOICE_ALL_BASKET_OF_GOODS.fulfilled, (state, action) => {
+      const on = action.meta.arg;
       if (action.payload) {
         return {
           ...state,
@@ -670,7 +586,9 @@ const slice = createSlice({
             ...state.data,
             user: {
               ...state.data.user,
-              basket: state.data.user.basket.map(good=>{return {...good, choice: true}}),
+              basket: state.data.user.basket.map((good) => {
+                return { ...good, choice: on };
+              }),
             },
           },
         };
@@ -782,62 +700,15 @@ const slice = createSlice({
         };
       }
     });
-    builder.addCase(CLEARANCE_OF_GOODS.fulfilled, (state, action) => {
-      if (action.payload) {
-        return {
-          ...state,
-          data: {
-            ...state.data,
-            user: {
-              ...state.data.user,
-              registered: action.payload,
-            },
-          },
-        };
-      }
-    });
-    builder.addCase(CANSEL_PURCHASE.fulfilled, (state, action) => {
-      if (action.payload) {
-        return {
-          ...state,
-          data: {
-            ...state.data,
-            user: {
-              ...state.data.user,
-              registered: [],
-            },
-          },
-        };
-      }
-    });
     builder.addCase(PAY_GOODS.fulfilled, (state, action) => {
       if (action.payload) {
-        localStorage.setItem("basket", JSON.stringify(action.payload.basket));
-        localStorage.setItem(
-          "favorite",
-          JSON.stringify(action.payload.favorite)
-        );
-        localStorage.setItem(
-          "purchased",
-          JSON.stringify([
-            ...state.data.user.purchased!,
-            ...action.payload.purchased,
-          ])
-        );
         return {
           ...state,
           data: {
             ...state.data,
-            goods: action.payload.goods,
             user: {
               ...state.data.user,
-              basket: action.payload.basket,
-              favorite: action.payload.favorite,
               registered: [],
-              purchased: [
-                ...state.data.user.purchased!,
-                ...action.payload.purchased,
-              ],
             },
           },
         };
@@ -847,4 +718,4 @@ const slice = createSlice({
 });
 
 export default slice.reducer;
-export const { LOADING_PAGE, PAGE_POSITION } = slice.actions;
+export const { LOADING_PAGE, PAGE_POSITION, SET_REGISTRED } = slice.actions;
