@@ -3,7 +3,7 @@ import { IGoods } from "./goodsType";
 export interface IUser {
   id?: string;
   publik: IInfoPublik;
-  private: IInfoPrivate;
+  privates: IInfoPrivate;
   favorite: IGoods[]; //string[];
   basket: IGoods[]; //Array<string>;
   registered: IGoods[];

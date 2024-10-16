@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { CSSProperties, FC, MouseEvent, useEffect, useRef, useState } from "react";
 import classes from "./style/Slider.module.css";
 import { Arrow } from "../Icons";
 import { keyGenerate } from "../../utils/keyGenerate";
@@ -8,7 +8,12 @@ interface IPlace {
   top: number;
 }
 const WIDTH = 450;
-export const Slider: FC<{list: Array<any>}> = ({list}) => {
+export const Slider: FC<{
+  list: Array<string>;
+  style?: CSSProperties;
+  width: number;
+  imageWrapperStyle?: CSSProperties;
+}> = ({ list, style, width, imageWrapperStyle }) => {
   const [offset, setOffset] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   const [placeArrow, setPlaceArrow] = useState<IPlace>({
@@ -24,7 +29,7 @@ export const Slider: FC<{list: Array<any>}> = ({list}) => {
     }));
   }, []);
   const maxWidth = () => {
-    return list.length * (109 + 7) + 13;
+    return list.length * (width + 7) + 13;
   };
   const handleLeftArrowClick = () => {
     setOffset((prev) => {
@@ -37,7 +42,8 @@ export const Slider: FC<{list: Array<any>}> = ({list}) => {
       return prev + WIDTH;
     });
   };
-  const handleRightArrowClick = () => {
+  const handleRightArrowClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation()
     setOffset((prev) => {
       if (ref.current) {
         if (ref.current.clientWidth < ultraRight()) {
@@ -56,9 +62,7 @@ export const Slider: FC<{list: Array<any>}> = ({list}) => {
   };
   const showRightArrow = () => {
     if (ref.current) {
-      return (
-        maxWidth() - 20 > Math.abs(offset - ref.current.clientWidth)
-      );
+      return maxWidth() - 20 > Math.abs(offset - ref.current.clientWidth);
     }
   };
   const getPlaceLeftArrow = () => {
@@ -89,7 +93,11 @@ export const Slider: FC<{list: Array<any>}> = ({list}) => {
     return "0 -20px 0 0";
   };
   return (
-    <div className={classes.cardWrapper} ref={ref}  style={{ margin: `${getMargin()}` }}>
+    <div
+      className={classes.cardWrapper}
+      ref={ref}
+      style={{ margin: `${getMargin()}` }}
+    >
       <div
         className={classes.imagesWrapper}
         style={{ transform: `translateX(${offset}px)` }}
@@ -97,8 +105,14 @@ export const Slider: FC<{list: Array<any>}> = ({list}) => {
         {list.map((item) => {
           const key = keyGenerate();
           return (
-            <div key={key} className={classes.imageWrapper}>
-              <img src={item} className={classes.image} alt="" />
+            <div
+              key={key}
+              className={classes.imageWrapper}
+              style={{
+                width: `${width}px`, ...imageWrapperStyle
+              }}
+            >
+              <img src={item} className={classes.image} alt="" style={style} />
             </div>
           );
         })}

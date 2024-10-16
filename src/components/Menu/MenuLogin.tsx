@@ -60,7 +60,7 @@ const MenuLogin = () => {
         <Link to="main" className={classes.link} onMouseOver={handleMouseOver}>
           <div className={classes.linkWrapperText}>
             <Account />
-            {data.user.publik.name.split(" ")[0] || "Noname"}
+            {data.user.publik.name.split(" ")[0].slice(0, 7) || "Noname"}
           </div>
         </Link>
         {showDropDown && (

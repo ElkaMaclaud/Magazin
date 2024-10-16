@@ -72,7 +72,7 @@ const PlacingAnOrderPage = () => {
   const handlePurchase = () => {
     navigate("../orderPaidPage");
     if (token) {
-      dispatch(PAY_GOODS(user.delivery));
+      dispatch(PAY_GOODS());
     }
   };
   return (

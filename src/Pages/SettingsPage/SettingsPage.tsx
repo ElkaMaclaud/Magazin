@@ -28,18 +28,18 @@ const SettingsPage = () => {
   
   exampleUsage();
   const getFullYear = () => {
-    if (user.private.dateofBirth) {
-      const diff = new Date().getTime() - new Date(user.private.dateofBirth).getTime()
+    if (user.privates.dateofBirth) {
+      const diff = new Date().getTime() - new Date(user.privates.dateofBirth).getTime()
       const year = new Date (diff).getUTCFullYear() - 1970
       return year
     }
   }
   const personPrivateInfo = [
-    { name: "ФИО", value: `${user.private.name}` },
-    { name: "Телефон", value: `${user.private.phone || ""}` },
-    { name: "Дата Рождения", value: `${getFormatDate(user.private.dateofBirth) || ""}` },
-    { name: "Почта", value: `${user.private.email}` },
-    { name: "Пол", value: `${user.private.gender || ""}` },
+    { name: "ФИО", value: `${user.privates.name}` },
+    { name: "Телефон", value: `${user.privates.phone || ""}` },
+    { name: "Дата Рождения", value: `${getFormatDate(user.privates.dateofBirth) || ""}` },
+    { name: "Почта", value: `${user.privates.email}` },
+    { name: "Пол", value: `${user.privates.gender || ""}` },
   ];
   const personPublicInfo = [
     { name: "ФИО", value: `${user.publik.name}` },
@@ -49,7 +49,7 @@ const SettingsPage = () => {
   return (
     <div className={classes.contentWrapper}> <div className={classes.sideBar}>
   <SideBar>
-    <UserAvatar name={user.private.name} />
+    <UserAvatar name={user.privates.name} />
   </SideBar>
 </div>
   <div className={classes.profileWrapper}>

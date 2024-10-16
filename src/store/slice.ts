@@ -1,9 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { IData } from "../type/dataType";
 import { IGoods } from "../type/goodsType";
-import { IDelivery } from "../type/userType";
+import { IDelivery, IUser } from "../type/userType";
 import { RootState } from "./Store";
 import axios, { AxiosHeaders } from "axios";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
 const hostDomain = process.env.REACT_APP_API_URL;
 const path = hostDomain + "/api";
 const headers = new AxiosHeaders({
@@ -41,7 +43,7 @@ const state: IInitialState = {
         name: "",
         city: "",
       },
-      private: {
+      privates: {
         phone: "",
         name: "",
         city: "",
@@ -65,12 +67,13 @@ export const REGISTER_USER = createAsyncThunk<
   { rejectValue: string }
 >("page/REGISTER_USER", async (value, { rejectWithValue }) => {
   try {
+    NProgress.start();
     const response = await axios.post<{ success: boolean }>(
       `${path}/user/auth/register`,
       value,
       { headers }
     );
-
+    NProgress.done();
     return response.data;
   } catch (error) {
     return rejectWithValue(`${error}`);
@@ -82,14 +85,34 @@ export const AUT_USER = createAsyncThunk<
   { rejectValue: string }
 >("page/AUT_USER", async (value, { rejectWithValue }) => {
   try {
+    NProgress.start();
     const response = await axios.post<{ access_token: string }>(
       `${path}/user/auth/login`,
       value,
       { headers }
     );
-
+    NProgress.done();
     return response.data;
   } catch (error) {
+    NProgress.done();
+    return rejectWithValue(`${error}`);
+  }
+});
+export const GET_USER_DATA = createAsyncThunk<
+  IUser,
+  undefined,
+  { rejectValue: string }
+>("page/GET_USER_DATA", async (_, { rejectWithValue }) => {
+  try {
+    NProgress.start();
+    const response = await axios.get<IUser>(
+      `${path}/user/userData`,
+      { headers }
+    );
+    NProgress.done();
+    return response.data as IUser;
+  } catch (error) {
+    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -99,14 +122,16 @@ export const CHANGE_DELIVERY = createAsyncThunk<
   { rejectValue: string }
 >("page/CHANGE_DELIVERY", async (value, { rejectWithValue }) => {
   try {
+    NProgress.start();
     const response = await axios.patch<IDelivery>(
       `${path}/user/changeDelivery`,
       value,
       { headers }
     );
-
+    NProgress.done();
     return response.data as IDelivery;
   } catch (error) {
+    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -116,13 +141,16 @@ export const CHANGE_ACCOUNT_INFO = createAsyncThunk<
   { rejectValue: string }
 >("page/CHANGE_ACCOUNT_INFO", async (value, { rejectWithValue }) => {
   try {
+    NProgress.start();
     const response = await axios.patch<{ name: string; phone?: string }>(
       `${path}/user/updateUserData`,
       value,
       { headers }
     );
+    NProgress.done();
     return response.data as { name: string; phone?: string };
   } catch (error) {
+    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -132,13 +160,16 @@ export const GET_GOODS_BY_CATEGORY = createAsyncThunk<
   { rejectValue: string }
 >("page/GET_GOODS_BY_CATEGORY", async (category, { rejectWithValue }) => {
   try {
+    NProgress.start();
     const response = await axios.post<IGoods[]>(
       `${path}/good/goodsByCategory`,
       { category },
       { headers }
     );
+    NProgress.done();
     return response.data as IGoods[];
   } catch (error) {
+    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -146,15 +177,19 @@ export const GET_GOOD = createAsyncThunk<
   IGoods,
   string,
   { rejectValue: string }
->("page/GET_GOOD", async (id, { rejectWithValue }) => {
+>("page/good/GET_GOOD", async (id, { rejectWithValue }) => {
   try {
+    NProgress.start();
     const response = await axios.get<IGoods>(
-      `http://localhost:3000/api/good/${id}`,
+      `${path}/good/${id}`,
       { headers }
     );
+    NProgress.done();
     return response.data as IGoods;
   } catch (error) {
+    NProgress.done();
     return rejectWithValue(`${error}`);
+    
   }
 });
 
@@ -164,11 +199,14 @@ export const GET_SALE_GOODS = createAsyncThunk<
   { rejectValue: string }
 >("page/GET_SALE_GOODS", async (_, { rejectWithValue }) => {
   try {
+    NProgress.start();
     const response = await axios.get<IGoods[]>(`${path}/good/goodsbySale`, {
       headers,
     });
+    NProgress.done();
     return response.data as IGoods[];
   } catch (error) {
+    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -179,11 +217,14 @@ export const GET_DISCOUNT_GOODS = createAsyncThunk<
   { rejectValue: string }
 >("page/GET_DISCOUNT_GOODS", async (_, { rejectWithValue, getState }) => {
   try {
+    NProgress.start();
     const response = await axios.get<IGoods[]>(`${path}/good/goodsbyDiscount`, {
       headers,
     });
+    NProgress.done();
     return response.data as IGoods[];
   } catch (error) {
+    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -194,11 +235,14 @@ export const GET_FAVORITE_GOODS = createAsyncThunk<
   { rejectValue: string }
 >("page/GET_FAVORITE_GOODS", async (_, { rejectWithValue }) => {
   try {
+    NProgress.start();
     const response = await axios.get<IGoods[]>(`${path}/user/favorites`, {
       headers,
     });
+    NProgress.done();
     return response.data as IGoods[];
   } catch (error) {
+    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -208,11 +252,14 @@ export const GET_BASKET_OF_GOODS = createAsyncThunk<
   { rejectValue: string }
 >("page/GET_BASKET_OF_GOODS", async (_, { rejectWithValue }) => {
   try {
+    NProgress.start();
     const response = await axios.get<IGoods[]>(`${path}/user/basket`, {
       headers,
     });
+    NProgress.done();
     return response.data as IGoods[];
   } catch (error) {
+    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -222,11 +269,14 @@ export const GET_OF_ORDERS = createAsyncThunk<
   { rejectValue: string }
 >("page/GET_OF_ORDERS", async (_, { rejectWithValue }) => {
   try {
+    NProgress.start();
     const response = await axios.get<IGoods[]>(`${path}/user/orders`, {
       headers,
     });
+    NProgress.done();
     return response.data as IGoods[];
   } catch (error) {
+    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -237,13 +287,16 @@ export const PAY_GOODS = createAsyncThunk<
   { rejectValue: string; state: RootState }
 >("page/PAY_GOODS", async (_, { rejectWithValue, getState }) => {
   try {
+    NProgress.start();
     const response = await axios.patch<string[]>(
       `${path}/user/orders`,
       { ids: getState().page.data.user.registered },
       { headers }
     );
+    NProgress.done();
     return response.data as string[];
   } catch (error) {
+    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -253,13 +306,16 @@ export const CHOICE_ALL_BASKET_OF_GOODS = createAsyncThunk<
   { rejectValue: string; state: RootState }
 >("page/CHOICE_ALL_BASKET_OF_GOODS", async (choice, { rejectWithValue }) => {
   try {
+    NProgress.start();
     const response = await axios.patch<IGoods[]>(
       `${path}/user/ChooseAll`,
       { on: choice },
       { headers }
     );
+    NProgress.done();
     return response.data as IGoods[];
   } catch (error) {
+    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -269,12 +325,15 @@ export const REMOVE_CHOICES_BASKET_OF_GOODS = createAsyncThunk<
   { rejectValue: string; state: RootState }
 >("page/REMOVE_CHOICES_BASKET_OF_GOODS", async (_, { rejectWithValue }) => {
   try {
+    NProgress.start();
     const response = await axios.delete<IGoods[]>(
       `${path}/user/deleteSelected`,
       { headers }
     );
+    NProgress.done();
     return response.data as IGoods[];
   } catch (error) {
+    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -284,13 +343,16 @@ export const CHANGE_FAVORITE_GOOD = createAsyncThunk<
   { rejectValue: string; state: RootState }
 >("page/CHANGE_FAVORITE_GOOD", async (id, { rejectWithValue }) => {
   try {
+    NProgress.start();
     const response = await axios.patch<IGoods | { id: string }>(
       `${path}/user/toggleFavorites`,
       { id },
       { headers }
     );
+    NProgress.done();
     return response.data as IGoods | { id: string };
   } catch (error) {
+    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -300,13 +362,16 @@ export const ADD_BASKET_OF_GOODS = createAsyncThunk<
   { rejectValue: string; state: RootState }
 >("page/ADD_BASKET_OF_GOODS", async (id, { rejectWithValue }) => {
   try {
+    NProgress.start();
     const response = await axios.patch<IGoods>(
       `${path}/user/addBasket`,
       { id },
       { headers }
     );
+    NProgress.done();
     return response.data as IGoods;
   } catch (error) {
+    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -316,13 +381,16 @@ export const DECREMENT_BASKET_OF_GOODS = createAsyncThunk<
   { rejectValue: string }
 >("page/DECREMENT_BASKET_OF_GOODS", async (id, { rejectWithValue }) => {
   try {
+    NProgress.start();
     const response = await axios.patch<IGoods>(
       `${path}/user/subBasket`,
       { id },
       { headers }
     );
+    NProgress.done();
     return response.data as IGoods;
   } catch (error) {
+    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -332,13 +400,16 @@ export const REMOVE_GOOD_BASKET_OF_GOODS = createAsyncThunk<
   { rejectValue: string }
 >("page/REMOVE_GOOD_BASKET_OF_GOODS", async (id, { rejectWithValue }) => {
   try {
+    NProgress.start();
     const response = await axios.patch<{ id: string }>(
       `${path}/user/deleteBasket`,
       { id },
       { headers }
     );
+    NProgress.done();
     return response.data as { id: string };
   } catch (error) {
+    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -348,13 +419,16 @@ export const CHOICE_BASKET_OF_GOODS = createAsyncThunk<
   { rejectValue: string }
 >("page/CHOICE_BASKET_OF_GOODS", async (id, { rejectWithValue }) => {
   try {
+    NProgress.start();
     const response = await axios.patch<{
       goodId: string;
       count: number;
       choice: boolean;
     }>(`${path}/user/toggleChoice`, { id }, { headers });
+    NProgress.done();
     return response.data as { goodId: string; count: number; choice: boolean };
   } catch (error) {
+    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -374,12 +448,6 @@ const slice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(AUT_USER.pending, (state) => {
-      return {
-        ...state,
-        loading: "LOADING",
-      };
-    });
     builder.addCase(AUT_USER.fulfilled, (state, action) => {
       const sentDate = action.meta.arg;
       if (action.payload) {
@@ -396,11 +464,28 @@ const slice = createSlice({
                 ...state.data.user.publik,
                 name: sentDate.name,
               },
-              private: {
-                ...state.data.user.private,
+              privates: {
+                ...state.data.user.privates,
                 email: sentDate.email,
                 phone: sentDate.phone,
               },
+            },
+          },
+        };
+      }
+    });
+    builder.addCase(GET_USER_DATA.fulfilled, (state, action) => {
+      if (action.payload) {
+        return {
+          ...state,
+          loading: "COMPLICATED",
+          data: {
+            ...state.data,
+            user: {
+              ...state.data.user,
+              publik: action.payload.publik,
+              privates:action.payload.privates,
+              delivery: action.payload.delivery,
             },
           },
         };
@@ -414,7 +499,7 @@ const slice = createSlice({
             ...state.data,
             user: {
               ...state.data.user,
-              delivery: {...state.data.user.delivery, ...action.payload},
+              delivery: action.payload,
             },
           },
         };
@@ -428,8 +513,8 @@ const slice = createSlice({
             ...state.data,
             user: {
               ...state.data.user,
-              private: {
-                ...state.data.user.private,
+              privates: {
+                ...state.data.user.privates,
                 name: action.payload.name,
                 phone: action.payload.phone,
               },
@@ -442,18 +527,11 @@ const slice = createSlice({
         };
       }
     });
-    builder.addCase(GET_GOODS_BY_CATEGORY.pending, (state) => {
-      return {
-        ...state,
-        loading: "LOADING",
-      };
-    });
     builder.addCase(GET_GOODS_BY_CATEGORY.fulfilled, (state, action) => {
       if (action.payload) {
         return {
           ...state,
           success: true,
-          loading: "COMPLICATED",
           data: {
             ...state.data,
             goods: action.payload,

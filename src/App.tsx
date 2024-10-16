@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "./store/reduxHooks";
 import LoadingPage from "./Pages/LoadingPage/LoadingPage";
 import RoutesComponent from "./RoutesComponent";
 import MagazinPage from "./Pages/MagazinPage/MagazinPage";
-import { GET_DISCOUNT_GOODS } from "./store/slice";
+import { GET_DISCOUNT_GOODS, GET_USER_DATA } from "./store/slice";
 import LoginPage from "./Pages/LoginPage/LoginPage";
 
 function App() {
@@ -12,8 +12,8 @@ function App() {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(GET_DISCOUNT_GOODS());
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    dispatch(GET_USER_DATA());
+  }, [dispatch])
   if (page === "COMPLICATED") {
     return <RoutesComponent />;
   }

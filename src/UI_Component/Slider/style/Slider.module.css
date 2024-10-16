@@ -11,9 +11,7 @@
 .imageWrapper {
   width: 109px;
   min-height: 62px;
-  border: 2px solid #ccc;
   padding: 4px;
-  border-radius: 4px;
   display: flex;
   justify-content: center;
   align-items: center;

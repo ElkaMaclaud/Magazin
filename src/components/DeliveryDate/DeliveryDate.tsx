@@ -24,9 +24,20 @@ const DeliveryDate = () => {
   const ref = useRef<HTMLDivElement>(null);
   const refShowDropDown = useRef<HTMLDivElement>(null);
   const [tooltipPosition, setTooltipPosition] = useState("bottom");
+  const imageWrapperStyle: CSSProperties = {
+    border: "2px solid #ccc",
+    borderRadius: "4px",
+  };
   let style: CSSProperties = getСoordinates();
   const MemoSlider = useMemo(
-    () => <Slider list={user.registered.map((item) => item.image[0])} />,
+    () => (
+      <Slider
+        list={user.registered.map((item) => item.image[0])}
+        width={109}
+        imageWrapperStyle={imageWrapperStyle}
+      />
+    ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [user.registered]
   );
   useEffect(() => {
