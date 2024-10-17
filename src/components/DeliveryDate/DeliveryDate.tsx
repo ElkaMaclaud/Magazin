@@ -16,6 +16,7 @@ import { debounce } from "../../utils/debounce";
 import MenuItem from "../MenuItem/MenuItem";
 import { useToggle } from "../../hooks/useToggle";
 
+const styles: CSSProperties = { width: "100px", objectFit: "cover"}
 const DeliveryDate = () => {
   const { user } = useAppSelector((state) => state.page.data);
   const [showModal, toggleShowModal] = useToggle(false);
@@ -27,13 +28,17 @@ const DeliveryDate = () => {
   const imageWrapperStyle: CSSProperties = {
     border: "2px solid #ccc",
     borderRadius: "4px",
+    padding: "4px"
   };
   let style: CSSProperties = getСoordinates();
+  
   const MemoSlider = useMemo(
     () => (
       <Slider
         list={user.registered.map((item) => item.image[0])}
+        style={styles} 
         width={109}
+        height={58} 
         imageWrapperStyle={imageWrapperStyle}
       />
     ),

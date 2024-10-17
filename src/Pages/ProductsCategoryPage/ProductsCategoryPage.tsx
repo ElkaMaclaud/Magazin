@@ -60,6 +60,9 @@ const ProductsCategoryPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryName]);
 
+  useEffect(() => {
+    setProducts(goods)
+  }, [goods])
   const setFilters = (key: string, value: boolean) => {
     setChecked((prev) => ({ ...prev, [key]: value }));
   };
@@ -109,7 +112,7 @@ const ProductsCategoryPage = () => {
     if (checked.sale) {
       selectSortChange(selectSort[0], true);
     } else {
-      setProducts(() => goods);
+      setProducts(goods);
       selectSortChange(selectSort[0]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

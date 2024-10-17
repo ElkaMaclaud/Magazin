@@ -6,14 +6,18 @@ import { Link } from "react-router-dom";
 import { GET_DISCOUNT_GOODS } from "../../store/slice";
 import { Slider } from "../../UI_Component";
 
-const style: CSSProperties={width: "1400px", height: "298px", objectFit: "fill",  borderRadius: "20px" } 
+const style: CSSProperties = {
+  width: "1400px",
+  objectFit: "fill",
+  borderRadius: "20px",
+};
 const MagazinPage = () => {
   const { discount } = useAppSelector((state) => state.page.data);
   const dispatch = useAppDispatch();
   const list = [
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMEivlPv2zTrLdZDZbnhezCFuzgeDCU9O56Q&s",
     "https://zapovednaya-polyana.ru/upload/iblock/02b/02b8338e4070e7982c58c04566973411.jpg",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEq7udET_AWKTWSje2Y2q80xUibt8Zq43M4Q&s"
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMEivlPv2zTrLdZDZbnhezCFuzgeDCU9O56Q&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEq7udET_AWKTWSje2Y2q80xUibt8Zq43M4Q&s",
   ];
   useEffect(() => {
     dispatch(GET_DISCOUNT_GOODS());
@@ -22,7 +26,7 @@ const MagazinPage = () => {
   return (
     <div className={classes.wrapper}>
       <Link to="../sale" className={classes.saleHappyNew}>
-        <Slider list={list} style={style} width={1400}/>
+        <Slider list={list} style={style} width={1400} height={298} noMargin />
         <strong className={classes.text}>Распроджа</strong>
       </Link>
       <div className={classes.saleStand}>

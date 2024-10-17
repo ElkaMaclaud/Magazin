@@ -1,4 +1,11 @@
-import React, { CSSProperties, FC, MouseEvent, useEffect, useRef, useState } from "react";
+import React, {
+  CSSProperties,
+  FC,
+  MouseEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import classes from "./style/Slider.module.css";
 import { Arrow } from "../Icons";
 import { keyGenerate } from "../../utils/keyGenerate";
@@ -10,10 +17,12 @@ interface IPlace {
 const WIDTH = 450;
 export const Slider: FC<{
   list: Array<string>;
-  style?: CSSProperties;
   width: number;
+  height: number;
+  style: CSSProperties;
   imageWrapperStyle?: CSSProperties;
-}> = ({ list, style, width, imageWrapperStyle }) => {
+  noMargin?: boolean;
+}> = ({ list, style, width, height, imageWrapperStyle, noMargin }) => {
   const [offset, setOffset] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   const [placeArrow, setPlaceArrow] = useState<IPlace>({
@@ -27,11 +36,16 @@ export const Slider: FC<{
       left: getPlaceLeftArrow(),
       right: getPlaceRightArrow(),
     }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const maxWidth = () => {
+    if (noMargin) {
+      return list.length * width;
+    }
     return list.length * (width + 7) + 13;
   };
-  const handleLeftArrowClick = () => {
+  const handleLeftArrowClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     setOffset((prev) => {
       if (ref.current) {
         if (Math.abs(prev) > ref.current.clientWidth) {
@@ -43,7 +57,7 @@ export const Slider: FC<{
     });
   };
   const handleRightArrowClick = (e: MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation()
+    e.preventDefault();
     setOffset((prev) => {
       if (ref.current) {
         if (ref.current.clientWidth < ultraRight()) {
@@ -67,7 +81,7 @@ export const Slider: FC<{
   };
   const getPlaceLeftArrow = () => {
     if (ref.current) {
-      return ref.current.offsetLeft - 50;
+      return ref.current.offsetLeft - (noMargin ? 30 : 50);
     }
     return 100;
   };
@@ -79,15 +93,20 @@ export const Slider: FC<{
   };
   const topPlaceArrow = () => {
     if (ref.current) {
-      return ref.current.offsetTop + 10;
+      if (noMargin) {
+        return ref.current.offsetTop + height / 3;
+      }
+      return ref.current.offsetTop + height / 6;
     }
+
     return 100;
   };
   const getMargin = () => {
-    if (showRightArrow() && offset < 0) {
+    if (noMargin) {
+      return "0";
+    } else if (showRightArrow() && offset < 0) {
       return "0 -20px 0 -20px";
-    }
-    if (offset < 0) {
+    } else if (offset < 0) {
       return "0 0 0 -20px";
     }
     return "0 -20px 0 0";
@@ -100,7 +119,10 @@ export const Slider: FC<{
     >
       <div
         className={classes.imagesWrapper}
-        style={{ transform: `translateX(${offset}px)` }}
+        style={{
+          transform: `translateX(${offset}px)`,
+          gap: `${noMargin ? "0" : "7px"}`,
+        }}
       >
         {list.map((item) => {
           const key = keyGenerate();
@@ -109,10 +131,15 @@ export const Slider: FC<{
               key={key}
               className={classes.imageWrapper}
               style={{
-                width: `${width}px`, ...imageWrapperStyle
+                width: `${width}px`,
+                ...imageWrapperStyle,
               }}
             >
-              <img src={item} className={classes.image} alt="" style={style} />
+              <img
+                src={item}
+                alt=""
+                style={{ height: `${height}px`, ...style }}
+              />
             </div>
           );
         })}
