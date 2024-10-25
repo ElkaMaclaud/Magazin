@@ -35,7 +35,7 @@ const SettingsPage = () => {
     }
   }
   const personPrivateInfo = [
-    { name: "ФИО", value: `${user.privates.name}` },
+    { name: "ФИО", value: `${user.publik.name}` },
     { name: "Телефон", value: `${user.privates.phone || ""}` },
     { name: "Дата Рождения", value: `${getFormatDate(user.privates.dateofBirth) || ""}` },
     { name: "Почта", value: `${user.privates.email}` },
@@ -49,7 +49,7 @@ const SettingsPage = () => {
   return (
     <div className={classes.contentWrapper}> <div className={classes.sideBar}>
   <SideBar>
-    <UserAvatar name={user.privates.name} />
+    <UserAvatar name={user.publik.name} />
   </SideBar>
 </div>
   <div className={classes.profileWrapper}>

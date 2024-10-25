@@ -17,7 +17,7 @@ export interface IInfoPublik {
   city: string;
   age?: number;
 }
-export interface IInfoPrivate extends IInfoPublik {
+export interface IInfoPrivate extends Omit<IInfoPublik, "name" >{
   phone?: string;
   dateofBirth?: Date;
   email: string;

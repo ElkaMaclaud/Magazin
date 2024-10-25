@@ -45,7 +45,6 @@ const state: IInitialState = {
       },
       privates: {
         phone: "",
-        name: "",
         city: "",
         email: "",
       },

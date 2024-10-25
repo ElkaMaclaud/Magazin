@@ -13,7 +13,7 @@ const GoodsList: FC<{
   icon?: ReactNode;
   orientationVertical?: boolean;
 }> = ({ data, icon, orientationVertical }) => {
-  const [index, setIndex] = useState(10);
+  const [index, setIndex] = useState(orientationVertical ? 8 : 5);
   const [goods, setGoods] = useState(data.slice(0, index));
   const [lastScroll, setLastScroll] = useState(0);
 

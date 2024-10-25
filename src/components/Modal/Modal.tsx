@@ -32,10 +32,12 @@ export function Modal({ title, content, handleAction, buttonText }: IModal) {
   }, []);
   useEffect(() => {
     if (active) {
-      document.body.style.overflowY = "hidden";
+      document.getElementsByTagName('html')[0].style.overflow = "hidden";
+      document.body.style.paddingRight = "17px";
     } 
     return () => {
-      document.body.style.overflowY = "visible";
+      document.getElementsByTagName('html')[0].style.overflow = "visible";
+      document.body.style.paddingRight = "0px";
     }
   }, [active]);
   useEffect(() => {

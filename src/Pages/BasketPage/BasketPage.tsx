@@ -114,6 +114,9 @@ const BasketPage = () => {
     }
     toggleShowModal();
   };
+  const shareShoppingartCart = () => {
+    toggleShowModal();
+  };
   const handleCalculateGoods = () => {
     dispatch(SET_REGISTRED(basket.filter(item=> item.choice)));
     navigate("../placingAnOrderPage");
@@ -136,7 +139,7 @@ const BasketPage = () => {
             </label>
             <p onClick={removeChoiceGoods}>Удалить выбранные</p>
           </div>
-          <div className={classes.basketHeaderWrapperchild}>
+          <div className={classes.basketHeaderWrapperchild} onClick={shareShoppingartCart}>
             <Share />
             <p>Поделиться</p>
           </div>
