@@ -4,6 +4,8 @@ import classes from "./style/FavoritesPage.module.css";
 import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
 import { Favorites } from "../../UI_Component/Icons";
 import { GET_FAVORITE_GOODS } from "../../store/slice";
+import { CardPageFlex } from "../../UI_Component";
+import Spinner from "../../components/Spinner/Spinner";
 
 const FavoritesPage = () => {
   const { data, isloading } = useAppSelector((state) => state.page);
@@ -13,7 +15,16 @@ const FavoritesPage = () => {
       dispatch(GET_FAVORITE_GOODS());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  if (!isloading && !favorite.length) {
+  if (isloading) {
+    return (
+      <CardPageFlex>
+        <>
+        <Spinner />
+        </>
+      </CardPageFlex>
+    );
+  }
+  if (!favorite.length) {
     return (
       <div className={classes.wrapper}>
         <div className={classes.infoWrapper}>

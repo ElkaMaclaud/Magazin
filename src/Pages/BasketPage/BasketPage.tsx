@@ -14,6 +14,7 @@ import {
 } from "../../store/slice";
 import GoodsList from "../../components/GoodsList/GoodsList";
 import { useToggle } from "../../hooks/useToggle";
+import Spinner from "../../components/Spinner/Spinner";
 
 const styles = {
   height: "50px",
@@ -35,15 +36,15 @@ const stylesHover = {
   backgroundColor: "#10a44c",
 };
 const BasketPage = () => {
-  const { data, isloading } = useAppSelector((state) => state.page);
-  const {basket} = data.user
+  const { data, isloading, token } = useAppSelector((state) => state.page);
+  const { basket } = data.user
   const dispatch = useAppDispatch();
   const [checked, setChecked] = useState(false);
   const [sum, setSum] = useState(0);
   const [showModal, toggleShowModal] = useToggle(false);
   const navigate = useNavigate();
   useEffect(() => {
-      dispatch(GET_BASKET_OF_GOODS());
+    dispatch(GET_BASKET_OF_GOODS());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const basketOfGoods = [
@@ -118,7 +119,7 @@ const BasketPage = () => {
     toggleShowModal();
   };
   const handleCalculateGoods = () => {
-    dispatch(SET_REGISTRED(basket.filter(item=> item.choice)));
+    dispatch(SET_REGISTRED(basket.filter(item => item.choice)));
     navigate("../placingAnOrderPage");
   };
   const BasketHeader = () => {
@@ -135,7 +136,7 @@ const BasketPage = () => {
               />
               <div className={classes.checkHover}>
                 <СheckMark />
-              </div>{" "} Выбрать все 
+              </div> Выбрать все
             </label>
             <p onClick={removeChoiceGoods}>Удалить выбранные</p>
           </div>
@@ -158,14 +159,22 @@ const BasketPage = () => {
             />
             <div className={classes.checkHover}>
               <СheckMark />
-            </div>{" "} Выбрать все 
+            </div> Выбрать все
           </label>
         </div>
       </div>
     );
   };
-
-  if (!isloading && basket.length === 0) {
+  if (isloading) {
+    return (
+      <CardPageFlex>
+        <>
+        <Spinner />
+        </>
+      </CardPageFlex>
+    );
+  } 
+  if (basket.length === 0) {
     return (
       <CardPageFlex>
         <>

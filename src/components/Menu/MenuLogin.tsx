@@ -54,7 +54,7 @@ const MenuLogin = () => {
       left: `${(left || 100) - width / 2 - sub}px`,
     };
   };
-  if (token) {
+  if (token && data.user.publik.name) {
     return (
       <div ref={parentRef} className={classes.menuWrapper}>
         <Link to="main" className={classes.link} onMouseOver={handleMouseOver}>

@@ -11,6 +11,7 @@ export interface IUser {
   delivery: IDelivery;
   choiceAll: boolean;
   good?: IGoods;
+  authorized: boolean,
 }
 export interface IInfoPublik {
   name: string;

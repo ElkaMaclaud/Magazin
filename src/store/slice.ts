@@ -57,6 +57,7 @@ const state: IInitialState = {
         pickUpPoin: "Республика Татарстан, Казань, Беломорская 17",
         choice: "pickUpPoin",
       },
+      authorized: false,
     },
   },
 };
@@ -188,7 +189,7 @@ export const GET_GOOD = createAsyncThunk<
   } catch (error) {
     NProgress.done();
     return rejectWithValue(`${error}`);
-    
+
   }
 });
 
@@ -355,6 +356,25 @@ export const CHANGE_FAVORITE_GOOD = createAsyncThunk<
     return rejectWithValue(`${error}`);
   }
 });
+export const CHANGE_FAVORITE_GOOD__NO_AUTO = createAsyncThunk<
+  { result: IGoods; token: string },
+  string,
+  { rejectValue: string; state: RootState }
+>("page/CHANGE_FAVORITE_GOOD__NO_AUTO", async (id, { rejectWithValue }) => {
+  try {
+    NProgress.start();
+    const response = await axios.patch<{ result: IGoods; token: string }>(
+      `${path}/user/toggleFavoritesGetAuto`,
+      { id },
+      { headers }
+    );
+    NProgress.done();
+    return response.data as { result: IGoods; token: string };
+  } catch (error) {
+    NProgress.done();
+    return rejectWithValue(`${error}`);
+  }
+});
 export const ADD_BASKET_OF_GOODS = createAsyncThunk<
   IGoods,
   string,
@@ -369,6 +389,25 @@ export const ADD_BASKET_OF_GOODS = createAsyncThunk<
     );
     NProgress.done();
     return response.data as IGoods;
+  } catch (error) {
+    NProgress.done();
+    return rejectWithValue(`${error}`);
+  }
+});
+export const ADD_BASKET_OF_GOODS__NO_AUTO = createAsyncThunk<
+  { result: IGoods; token: string },
+  string,
+  { rejectValue: string; state: RootState }
+>("page/ADD_BASKET_OF_GOODS__NO_AUTO", async (id, { rejectWithValue }) => {
+  try {
+    NProgress.start();
+    const response = await axios.patch<{ result: IGoods; token: string }>(
+      `${path}/user/addBasketGetAuto`,
+      { id },
+      { headers }
+    );
+    NProgress.done();
+    return response.data as { result: IGoods; token: string };
   } catch (error) {
     NProgress.done();
     return rejectWithValue(`${error}`);
@@ -468,6 +507,7 @@ const slice = createSlice({
                 email: sentDate.email,
                 phone: sentDate.phone,
               },
+              authorized: true,
             },
           },
         };
@@ -483,7 +523,7 @@ const slice = createSlice({
             user: {
               ...state.data.user,
               publik: action.payload.publik,
-              privates:action.payload.privates,
+              privates: action.payload.privates,
               delivery: action.payload.delivery,
             },
           },
@@ -596,6 +636,12 @@ const slice = createSlice({
         };
       }
     });
+    builder.addCase(GET_FAVORITE_GOODS.rejected, (state, action) => {
+      return {
+        ...state,
+        isloading: false,
+      };
+    });
     builder.addCase(GET_BASKET_OF_GOODS.pending, (state) => {
       return {
         ...state,
@@ -617,6 +663,12 @@ const slice = createSlice({
         };
       }
     });
+    builder.addCase(GET_BASKET_OF_GOODS.rejected, (state, action) => {
+      return {
+        ...state,
+        isloading: false,
+      };
+    });
     builder.addCase(GET_OF_ORDERS.pending, (state) => {
       return {
         ...state,
@@ -634,6 +686,12 @@ const slice = createSlice({
           },
         };
       }
+    });
+    builder.addCase(GET_OF_ORDERS.rejected, (state) => {
+      return {
+        ...state,
+        isloading: false,
+      };
     });
     builder.addCase(
       REMOVE_CHOICES_BASKET_OF_GOODS.fulfilled,
@@ -677,8 +735,8 @@ const slice = createSlice({
         const newFavoriteList = isGoodsType
           ? [action.payload as IGoods, ...state.data.user.favorite]
           : state.data.user.favorite.filter(
-              (good) => good._id !== (action.payload as { id: string }).id
-            );
+            (good) => good._id !== (action.payload as { id: string }).id
+          );
         return {
           ...state,
           data: {
@@ -686,6 +744,22 @@ const slice = createSlice({
             user: {
               ...state.data.user,
               favorite: newFavoriteList,
+            },
+          },
+        };
+      }
+    });
+    builder.addCase(CHANGE_FAVORITE_GOOD__NO_AUTO.fulfilled, (state, action) => {
+      if (action.payload) {
+        localStorage.setItem("access_token", action.payload.token);
+        return {
+          ...state,
+          token: action.payload.token,
+          data: {
+            ...state.data,
+            user: {
+              ...state.data.user,
+              favorite: [...state.data.user.favorite, action.payload.result],
             },
           },
         };
@@ -704,12 +778,28 @@ const slice = createSlice({
               ...state.data.user,
               basket: findUpdatedGood
                 ? state.data.user.basket.map((good) => {
-                    if (good._id === findUpdatedGood._id) {
-                      return { ...good, ...action.payload };
-                    }
-                    return good;
-                  })
+                  if (good._id === findUpdatedGood._id) {
+                    return { ...good, ...action.payload };
+                  }
+                  return good;
+                })
                 : [action.payload, ...state.data.user.basket],
+            },
+          },
+        };
+      }
+    });
+    builder.addCase(ADD_BASKET_OF_GOODS__NO_AUTO.fulfilled, (state, action) => {
+      if (action.payload) {
+        localStorage.setItem("access_token", action.payload.token);
+        return {
+          ...state,
+          token: action.payload.token,
+          data: {
+            ...state.data,
+            user: {
+              ...state.data.user,
+              basket: [...state.data.user.basket, action.payload.result]
             },
           },
         };
@@ -729,14 +819,14 @@ const slice = createSlice({
               basket:
                 findUpdatedGood!.count === 0
                   ? state.data.user.basket.filter(
-                      (good) => good._id === findUpdatedGood!._id
-                    )
+                    (good) => good._id === findUpdatedGood!._id
+                  )
                   : state.data.user.basket.map((good) => {
-                      if (good._id === findUpdatedGood!._id) {
-                        return { ...good, ...action.payload };
-                      }
-                      return good;
-                    }),
+                    if (good._id === findUpdatedGood!._id) {
+                      return { ...good, ...action.payload };
+                    }
+                    return good;
+                  }),
             },
           },
         };
