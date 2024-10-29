@@ -90,8 +90,7 @@ const MenuLogin = () => {
       {showModal && (
         <Modal
           title="Magazin ID"
-          content={<Login />}
-          handleAction={() => setShowModal(false)}
+          content={<Login handleAction={setShowModal} />}
         />
       )}
     </div>

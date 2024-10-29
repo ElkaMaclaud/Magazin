@@ -32,9 +32,8 @@ const ProductsCategoryPage = () => {
   const refParent = useRef<HTMLDivElement>(null);
   let style: CSSProperties = {
     ...getСoordinates(),
-    width: `${
-      refParent.current?.clientWidth && refParent.current?.clientWidth + 5
-    }px`,
+    width: `${refParent.current?.clientWidth && refParent.current?.clientWidth + 5
+      }px`,
     overflow: "hidden",
     padding: "0",
     zIndex: "1",
@@ -48,9 +47,7 @@ const ProductsCategoryPage = () => {
     pointsForRev: false,
   });
   useLayoutEffect(() => {
-    if (!goods.length) {
-      dispatch(GET_GOODS_BY_CATEGORY(categoryName || ""));
-    }
+    dispatch(GET_GOODS_BY_CATEGORY(categoryName || ""));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useLayoutEffect(() => {
@@ -135,8 +132,9 @@ const ProductsCategoryPage = () => {
     return () => {
       document.removeEventListener("click", handleClick);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showDropDown]);
+
   return (
     <div className={classes.contentWrapper}>
       <div className={classes.sideBar}>
@@ -148,7 +146,7 @@ const ProductsCategoryPage = () => {
         <div
           className={classes.select}
           ref={refParent}
-          onClick={!showDropDown ? toggleShowDropDown : () => {}}
+          onClick={!showDropDown ? toggleShowDropDown : () => { }}
         >
           <input readOnly={true} value={selectSort[1]} />
           <div className={showDropDown ? classes.optionACtive : classes.option}>

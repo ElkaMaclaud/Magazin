@@ -3,7 +3,6 @@ import { IData } from "../type/dataType";
 import { IGoods } from "../type/goodsType";
 import { IDelivery, IUser } from "../type/userType";
 import { RootState } from "./Store";
-import axios, { AxiosHeaders } from "axios";
 import { sendRequest } from "../API/api";
 
 type IAuthorization = {
@@ -21,6 +20,27 @@ export interface IInitialState {
   token: string | null;
   isloading: boolean;
 }
+const initialUserData:IUser = {
+  publik: {
+    name: "",
+    city: "",
+  },
+  privates: {
+    phone: "",
+    city: "",
+    email: "",
+  },
+  choiceAll: false,
+  favorite: [],
+  cart: [],
+  registered: [],
+  purchased: [],
+  delivery: {
+    pickUpPoin: "Республика Татарстан, Казань, Беломорская 17",
+    choice: "pickUpPoin",
+  },
+  authorized: false,
+}
 const state: IInitialState = {
   success: false,
   pagePostion: "MAIN",
@@ -31,27 +51,7 @@ const state: IInitialState = {
     goods: [],
     sale: [],
     discount: [],
-    user: {
-      publik: {
-        name: "",
-        city: "",
-      },
-      privates: {
-        phone: "",
-        city: "",
-        email: "",
-      },
-      choiceAll: false,
-      favorite: [],
-      cart: [],
-      registered: [],
-      purchased: [],
-      delivery: {
-        pickUpPoin: "Республика Татарстан, Казань, Беломорская 17",
-        choice: "pickUpPoin",
-      },
-      authorized: false,
-    },
+    user: initialUserData
   },
 };
 export const REGISTER_USER = createAsyncThunk<
@@ -378,6 +378,9 @@ const slice = createSlice({
     SET_REGISTRED: (state, action) => {
       state.data.user.registered = action.payload;
     },
+    SET_LOGOUT: (state) => {
+      state.data.user = initialUserData
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(AUT_USER.fulfilled, (state, action) => {
@@ -631,7 +634,7 @@ const slice = createSlice({
         const newFavoriteList = isGoodsType
           ? [action.payload as IGoods, ...state.data.user.favorite]
           : state.data.user.favorite.filter(
-            (good) => good._id !== (action.payload as { id: string }).id
+            (good) => good._id !== (action.meta.arg as string )
           );
         return {
           ...state,
@@ -781,4 +784,4 @@ const slice = createSlice({
 });
 
 export default slice.reducer;
-export const { LOADING_PAGE, PAGE_POSITION, SET_REGISTRED } = slice.actions;
+export const { LOADING_PAGE, PAGE_POSITION, SET_REGISTRED, SET_LOGOUT } = slice.actions;

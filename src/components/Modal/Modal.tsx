@@ -12,7 +12,7 @@ import { Cross } from "../../UI_Component/Icons";
 interface IModal {
   title: string;
   content: ReactNode;
-  handleAction: (remove?: boolean) => void;
+  handleAction?: (remove?: boolean) => void;
   buttonText?: ReactNode;
 }
 
@@ -22,7 +22,7 @@ export function Modal({ title, content, handleAction, buttonText }: IModal) {
   const [open, setOpen] = useState(false);
   const node = document.querySelector("#react_modal");
   const [modalTop, setModalTop] = useState(0);
-  
+
   useLayoutEffect(() => {
     if (ref.current) {
       setModalTop(
@@ -34,7 +34,7 @@ export function Modal({ title, content, handleAction, buttonText }: IModal) {
     if (active) {
       document.getElementsByTagName('html')[0].style.overflow = "hidden";
       document.body.style.paddingRight = "17px";
-    } 
+    }
     return () => {
       document.getElementsByTagName('html')[0].style.overflow = "visible";
       document.body.style.paddingRight = "0px";
@@ -47,7 +47,7 @@ export function Modal({ title, content, handleAction, buttonText }: IModal) {
         event.target instanceof Node &&
         !ref.current?.contains(event.target)
       ) {
-        if (open) {
+        if (open && handleAction) {
           handleAction(false);
           setActive(false);
         }
@@ -60,7 +60,7 @@ export function Modal({ title, content, handleAction, buttonText }: IModal) {
   }, [open, handleAction]);
   function onClick() {
     function handleClick(event: MouseEvent) {
-      if (event.target instanceof Node && ref.current?.contains(event.target)) {
+      if (event.target instanceof Node && ref.current?.contains(event.target) && handleAction) {
         handleAction();
         setActive(false);
       }
@@ -71,7 +71,7 @@ export function Modal({ title, content, handleAction, buttonText }: IModal) {
     };
   }
   const closeModal = () => {
-    handleAction(false);
+    handleAction && handleAction(false);
     setActive(false);
   };
   const checkPropsType = (prop: ReactNode = content): prop is string => {
