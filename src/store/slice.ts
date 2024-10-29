@@ -4,14 +4,7 @@ import { IGoods } from "../type/goodsType";
 import { IDelivery, IUser } from "../type/userType";
 import { RootState } from "./Store";
 import axios, { AxiosHeaders } from "axios";
-import NProgress from "nprogress";
-import "nprogress/nprogress.css";
-const hostDomain = process.env.REACT_APP_API_URL;
-const path = hostDomain + "/api";
-const headers = new AxiosHeaders({
-  "Content-Type": "application/json",
-  Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-});
+import { sendRequest } from "../API/api";
 
 type IAuthorization = {
   name: string;
@@ -67,13 +60,7 @@ export const REGISTER_USER = createAsyncThunk<
   { rejectValue: string }
 >("page/REGISTER_USER", async (value, { rejectWithValue }) => {
   try {
-    NProgress.start();
-    const response = await axios.post<{ success: boolean }>(
-      `${path}/user/auth/register`,
-      value,
-      { headers }
-    );
-    NProgress.done();
+    const response = await sendRequest("/user/auth/register", "POST",  value)
     return response.data;
   } catch (error) {
     return rejectWithValue(`${error}`);
@@ -85,16 +72,11 @@ export const AUT_USER = createAsyncThunk<
   { rejectValue: string }
 >("page/AUT_USER", async (value, { rejectWithValue }) => {
   try {
-    NProgress.start();
-    const response = await axios.post<{ access_token: string }>(
-      `${path}/user/auth/login`,
-      value,
-      { headers }
+    const response = await sendRequest("/user/auth/login", "POST",
+      value
     );
-    NProgress.done();
     return response.data;
   } catch (error) {
-    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -104,15 +86,11 @@ export const GET_USER_DATA = createAsyncThunk<
   { rejectValue: string }
 >("page/GET_USER_DATA", async (_, { rejectWithValue }) => {
   try {
-    NProgress.start();
-    const response = await axios.get<IUser>(
-      `${path}/user/userData`,
-      { headers }
+    const response = await sendRequest(
+      "user/userData"
     );
-    NProgress.done();
     return response.data as IUser;
   } catch (error) {
-    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -122,16 +100,12 @@ export const CHANGE_DELIVERY = createAsyncThunk<
   { rejectValue: string }
 >("page/CHANGE_DELIVERY", async (value, { rejectWithValue }) => {
   try {
-    NProgress.start();
-    const response = await axios.patch<IDelivery>(
-      `${path}/user/changeDelivery`,
-      value,
-      { headers }
+    const response = await sendRequest(
+      "/user/changeDelivery", "PATCH",
+      value
     );
-    NProgress.done();
     return response.data as IDelivery;
   } catch (error) {
-    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -141,16 +115,12 @@ export const CHANGE_ACCOUNT_INFO = createAsyncThunk<
   { rejectValue: string }
 >("page/CHANGE_ACCOUNT_INFO", async (value, { rejectWithValue }) => {
   try {
-    NProgress.start();
-    const response = await axios.patch<{ name: string; phone?: string }>(
-      `${path}/user/updateUserData`,
-      value,
-      { headers }
+    const response = await sendRequest(
+      "user/updateUserData", "PATCH",
+      value
     );
-    NProgress.done();
     return response.data as { name: string; phone?: string };
   } catch (error) {
-    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -160,16 +130,12 @@ export const GET_GOODS_BY_CATEGORY = createAsyncThunk<
   { rejectValue: string }
 >("page/GET_GOODS_BY_CATEGORY", async (category, { rejectWithValue }) => {
   try {
-    NProgress.start();
-    const response = await axios.post<IGoods[]>(
-      `${path}/good/goodsByCategory`,
-      { category },
-      { headers }
+    const response = await sendRequest(
+      "good/goodsByCategory", "POST",
+      { category }
     );
-    NProgress.done();
     return response.data as IGoods[];
   } catch (error) {
-    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -179,15 +145,11 @@ export const GET_GOOD = createAsyncThunk<
   { rejectValue: string }
 >("page/good/GET_GOOD", async (id, { rejectWithValue }) => {
   try {
-    NProgress.start();
-    const response = await axios.get<IGoods>(
-      `${path}/good/${id}`,
-      { headers }
+    const response = await sendRequest(
+      `good/${id}`
     );
-    NProgress.done();
     return response.data as IGoods;
   } catch (error) {
-    NProgress.done();
     return rejectWithValue(`${error}`);
 
   }
@@ -199,14 +161,9 @@ export const GET_SALE_GOODS = createAsyncThunk<
   { rejectValue: string }
 >("page/GET_SALE_GOODS", async (_, { rejectWithValue }) => {
   try {
-    NProgress.start();
-    const response = await axios.get<IGoods[]>(`${path}/good/goodsbySale`, {
-      headers,
-    });
-    NProgress.done();
+    const response = await sendRequest("/good/goodsbySale");
     return response.data as IGoods[];
   } catch (error) {
-    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -215,16 +172,11 @@ export const GET_DISCOUNT_GOODS = createAsyncThunk<
   IGoods[],
   undefined,
   { rejectValue: string }
->("page/GET_DISCOUNT_GOODS", async (_, { rejectWithValue, getState }) => {
+>("page/GET_DISCOUNT_GOODS", async (_, { rejectWithValue }) => {
   try {
-    NProgress.start();
-    const response = await axios.get<IGoods[]>(`${path}/good/goodsbyDiscount`, {
-      headers,
-    });
-    NProgress.done();
+    const response = await sendRequest("good/goodsbyDiscount");
     return response.data as IGoods[];
   } catch (error) {
-    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -235,14 +187,9 @@ export const GET_FAVORITE_GOODS = createAsyncThunk<
   { rejectValue: string }
 >("page/GET_FAVORITE_GOODS", async (_, { rejectWithValue }) => {
   try {
-    NProgress.start();
-    const response = await axios.get<IGoods[]>(`${path}/user/favorites`, {
-      headers,
-    });
-    NProgress.done();
+    const response = await sendRequest("user/favorites")
     return response.data as IGoods[];
   } catch (error) {
-    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -252,14 +199,9 @@ export const GET_CART_OF_GOODS = createAsyncThunk<
   { rejectValue: string }
 >("page/GET_CART_OF_GOODS", async (_, { rejectWithValue }) => {
   try {
-    NProgress.start();
-    const response = await axios.get<IGoods[]>(`${path}/user/cart`, {
-      headers,
-    });
-    NProgress.done();
+    const response = await sendRequest("user/cart");
     return response.data as IGoods[];
   } catch (error) {
-    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -269,14 +211,9 @@ export const GET_OF_ORDERS = createAsyncThunk<
   { rejectValue: string }
 >("page/GET_OF_ORDERS", async (_, { rejectWithValue }) => {
   try {
-    NProgress.start();
-    const response = await axios.get<IGoods[]>(`${path}/user/orders`, {
-      headers,
-    });
-    NProgress.done();
+    const response = await sendRequest("user/orders");
     return response.data as IGoods[];
   } catch (error) {
-    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -287,16 +224,12 @@ export const PAY_GOODS = createAsyncThunk<
   { rejectValue: string; state: RootState }
 >("page/PAY_GOODS", async (_, { rejectWithValue, getState }) => {
   try {
-    NProgress.start();
-    const response = await axios.patch<string[]>(
-      `${path}/user/orders`,
-      { ids: getState().page.data.user.registered },
-      { headers }
+    const response = await sendRequest(
+      "/user/orders", "PATCH",
+      { ids: getState().page.data.user.registered }
     );
-    NProgress.done();
     return response.data as string[];
   } catch (error) {
-    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -306,16 +239,12 @@ export const SELECT_ALL_ITEMS_IN_CART = createAsyncThunk<
   { rejectValue: string; state: RootState }
 >("page/SELECT_ALL_ITEMS_IN_CART", async (choice, { rejectWithValue }) => {
   try {
-    NProgress.start();
-    const response = await axios.patch<IGoods[]>(
-      `${path}/user/selectAll`,
-      { on: choice },
-      { headers }
+    const response = await sendRequest(
+      "user/selectAll", "PATCH",
+      { on: choice }
     );
-    NProgress.done();
     return response.data as IGoods[];
   } catch (error) {
-    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -325,15 +254,11 @@ export const REMOVE_SELECTED_ITEMS_FROM_CART = createAsyncThunk<
   { rejectValue: string; state: RootState }
 >("page/REMOVE_SELECTED_ITEMS_FROM_CART", async (_, { rejectWithValue }) => {
   try {
-    NProgress.start();
-    const response = await axios.delete<IGoods[]>(
-      `${path}/user/deleteSelected`,
-      { headers }
+    const response = await sendRequest(
+      "user/deleteSelected", "DELETE",
     );
-    NProgress.done();
     return response.data as IGoods[];
   } catch (error) {
-    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -343,16 +268,12 @@ export const CHANGE_FAVORITE_GOOD = createAsyncThunk<
   { rejectValue: string; state: RootState }
 >("page/CHANGE_FAVORITE_GOOD", async (id, { rejectWithValue }) => {
   try {
-    NProgress.start();
-    const response = await axios.patch<IGoods | { id: string }>(
-      `${path}/user/toggleFavorites`,
-      { id },
-      { headers }
+    const response = await sendRequest(
+      "/user/toggleFavorites", "PATCH",
+      { id }
     );
-    NProgress.done();
     return response.data as IGoods | { id: string };
   } catch (error) {
-    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -362,16 +283,12 @@ export const CHANGE_FAVORITE_GOOD__NO_AUTO = createAsyncThunk<
   { rejectValue: string; state: RootState }
 >("page/CHANGE_FAVORITE_GOOD__NO_AUTO", async (id, { rejectWithValue }) => {
   try {
-    NProgress.start();
-    const response = await axios.patch<{ result: IGoods; token: string }>(
-      `${path}/user/toggleFavoritesGetAuto`,
-      { id },
-      { headers }
+    const response = await sendRequest(
+      "user/toggleFavoritesGetAuto", "PATCH",
+      { id }
     );
-    NProgress.done();
     return response.data as { result: IGoods; token: string };
   } catch (error) {
-    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -381,16 +298,12 @@ export const ADD_TO_CARD_OF_GOODS = createAsyncThunk<
   { rejectValue: string; state: RootState }
 >("page/ADD_TO_CARD_OF_GOODS", async (id, { rejectWithValue }) => {
   try {
-    NProgress.start();
-    const response = await axios.patch<IGoods>(
-      `${path}/user/addToCart`,
-      { id },
-      { headers }
+    const response = await sendRequest(
+      "user/addToCart", "PATCH",
+      { id }
     );
-    NProgress.done();
     return response.data as IGoods;
   } catch (error) {
-    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -400,16 +313,12 @@ export const ADD_TO_CARD_OF_GOODS__NO_AUTO = createAsyncThunk<
   { rejectValue: string; state: RootState }
 >("page/ADD_TO_CARD_OF_GOODS__NO_AUTO", async (id, { rejectWithValue }) => {
   try {
-    NProgress.start();
-    const response = await axios.patch<{ result: IGoods; token: string }>(
-      `${path}/user/addToCartGetAuto`,
-      { id },
-      { headers }
+    const response = await sendRequest(
+      "user/addToCartGetAuto", "PATCH",
+      { id }
     );
-    NProgress.done();
     return response.data as { result: IGoods; token: string };
   } catch (error) {
-    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -419,16 +328,12 @@ export const SUBTRACT_FROM_CART = createAsyncThunk<
   { rejectValue: string }
 >("page/SUBTRACT_FROM_CART", async (id, { rejectWithValue }) => {
   try {
-    NProgress.start();
-    const response = await axios.patch<IGoods>(
-      `${path}/user/subFromCart`,
-      { id },
-      { headers }
+    const response = await sendRequest(
+      "user/subFromCart", "PATCH",
+      { id }
     );
-    NProgress.done();
     return response.data as IGoods;
   } catch (error) {
-    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -438,16 +343,12 @@ export const REMOVE_FROM_CART_OF_GOODS = createAsyncThunk<
   { rejectValue: string }
 >("page/REMOVE_FROM_CART_OF_GOODS", async (id, { rejectWithValue }) => {
   try {
-    NProgress.start();
-    const response = await axios.patch<{ id: string }>(
-      `${path}/user/removeFromCart`,
-      { id },
-      { headers }
+    const response = await sendRequest(
+      "/user/removeFromCart", "PATCH",
+      { id }
     );
-    NProgress.done();
     return response.data as { id: string };
   } catch (error) {
-    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -457,16 +358,9 @@ export const SELECTING_PRODUCTS_IN_THE_CART = createAsyncThunk<
   { rejectValue: string }
 >("page/SELECTING_PRODUCTS_IN_THE_CART", async (id, { rejectWithValue }) => {
   try {
-    NProgress.start();
-    const response = await axios.patch<{
-      goodId: string;
-      count: number;
-      choice: boolean;
-    }>(`${path}/user/toggleSelect`, { id }, { headers });
-    NProgress.done();
+    const response = await sendRequest("user/toggleSelect", "PATCH", { id });
     return response.data as { goodId: string; count: number; choice: boolean };
   } catch (error) {
-    NProgress.done();
     return rejectWithValue(`${error}`);
   }
 });
@@ -850,7 +744,7 @@ const slice = createSlice({
         };
       }
     });
-    builder.addCase(SELECTING_PRODUCTS_IN_THE_CART .fulfilled, (state, action) => {
+    builder.addCase(SELECTING_PRODUCTS_IN_THE_CART.fulfilled, (state, action) => {
       if (action.payload) {
         return {
           ...state,
