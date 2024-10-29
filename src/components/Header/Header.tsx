@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./style/Header.module.css";
 import { Link } from "react-router-dom";
 import {
-  Basket,
+  Cart,
   Favorites,
   Orders,
   SearchIcon,
@@ -21,7 +21,7 @@ const Header = () => {
           <InputSearch />
           <Button
             children={<SearchIcon />}
-            onClick={() => console.log("Basket")}
+            onClick={() => console.log("cart")}
           />
         </div>
         <div className={classes.buttonGroop}>
@@ -38,9 +38,9 @@ const Header = () => {
               Избранное
             </div>
           </Link>
-          <Link to="basket" className={classes.link}>
+          <Link to="cart" className={classes.link}>
             <div className={classes.linkWrapperText}>
-              <Basket />
+              <Cart />
               Корзина
             </div>
           </Link>

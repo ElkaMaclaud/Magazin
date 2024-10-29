@@ -50,7 +50,7 @@ const state: IInitialState = {
       },
       choiceAll: false,
       favorite: [],
-      basket: [],
+      cart: [],
       registered: [],
       purchased: [],
       delivery: {
@@ -246,14 +246,14 @@ export const GET_FAVORITE_GOODS = createAsyncThunk<
     return rejectWithValue(`${error}`);
   }
 });
-export const GET_BASKET_OF_GOODS = createAsyncThunk<
+export const GET_CART_OF_GOODS = createAsyncThunk<
   IGoods[],
   undefined,
   { rejectValue: string }
->("page/GET_BASKET_OF_GOODS", async (_, { rejectWithValue }) => {
+>("page/GET_CART_OF_GOODS", async (_, { rejectWithValue }) => {
   try {
     NProgress.start();
-    const response = await axios.get<IGoods[]>(`${path}/user/basket`, {
+    const response = await axios.get<IGoods[]>(`${path}/user/cart`, {
       headers,
     });
     NProgress.done();
@@ -300,15 +300,15 @@ export const PAY_GOODS = createAsyncThunk<
     return rejectWithValue(`${error}`);
   }
 });
-export const CHOICE_ALL_BASKET_OF_GOODS = createAsyncThunk<
+export const SELECT_ALL_ITEMS_IN_CART = createAsyncThunk<
   IGoods[],
   boolean,
   { rejectValue: string; state: RootState }
->("page/CHOICE_ALL_BASKET_OF_GOODS", async (choice, { rejectWithValue }) => {
+>("page/SELECT_ALL_ITEMS_IN_CART", async (choice, { rejectWithValue }) => {
   try {
     NProgress.start();
     const response = await axios.patch<IGoods[]>(
-      `${path}/user/ChooseAll`,
+      `${path}/user/selectAll`,
       { on: choice },
       { headers }
     );
@@ -319,11 +319,11 @@ export const CHOICE_ALL_BASKET_OF_GOODS = createAsyncThunk<
     return rejectWithValue(`${error}`);
   }
 });
-export const REMOVE_CHOICES_BASKET_OF_GOODS = createAsyncThunk<
+export const REMOVE_SELECTED_ITEMS_FROM_CART = createAsyncThunk<
   IGoods[],
   undefined,
   { rejectValue: string; state: RootState }
->("page/REMOVE_CHOICES_BASKET_OF_GOODS", async (_, { rejectWithValue }) => {
+>("page/REMOVE_SELECTED_ITEMS_FROM_CART", async (_, { rejectWithValue }) => {
   try {
     NProgress.start();
     const response = await axios.delete<IGoods[]>(
@@ -375,15 +375,15 @@ export const CHANGE_FAVORITE_GOOD__NO_AUTO = createAsyncThunk<
     return rejectWithValue(`${error}`);
   }
 });
-export const ADD_BASKET_OF_GOODS = createAsyncThunk<
+export const ADD_TO_CARD_OF_GOODS = createAsyncThunk<
   IGoods,
   string,
   { rejectValue: string; state: RootState }
->("page/ADD_BASKET_OF_GOODS", async (id, { rejectWithValue }) => {
+>("page/ADD_TO_CARD_OF_GOODS", async (id, { rejectWithValue }) => {
   try {
     NProgress.start();
     const response = await axios.patch<IGoods>(
-      `${path}/user/addBasket`,
+      `${path}/user/addToCart`,
       { id },
       { headers }
     );
@@ -394,15 +394,15 @@ export const ADD_BASKET_OF_GOODS = createAsyncThunk<
     return rejectWithValue(`${error}`);
   }
 });
-export const ADD_BASKET_OF_GOODS__NO_AUTO = createAsyncThunk<
+export const ADD_TO_CARD_OF_GOODS__NO_AUTO = createAsyncThunk<
   { result: IGoods; token: string },
   string,
   { rejectValue: string; state: RootState }
->("page/ADD_BASKET_OF_GOODS__NO_AUTO", async (id, { rejectWithValue }) => {
+>("page/ADD_TO_CARD_OF_GOODS__NO_AUTO", async (id, { rejectWithValue }) => {
   try {
     NProgress.start();
     const response = await axios.patch<{ result: IGoods; token: string }>(
-      `${path}/user/addBasketGetAuto`,
+      `${path}/user/addToCartGetAuto`,
       { id },
       { headers }
     );
@@ -413,15 +413,15 @@ export const ADD_BASKET_OF_GOODS__NO_AUTO = createAsyncThunk<
     return rejectWithValue(`${error}`);
   }
 });
-export const DECREMENT_BASKET_OF_GOODS = createAsyncThunk<
+export const SUBTRACT_FROM_CART = createAsyncThunk<
   IGoods,
   string,
   { rejectValue: string }
->("page/DECREMENT_BASKET_OF_GOODS", async (id, { rejectWithValue }) => {
+>("page/SUBTRACT_FROM_CART", async (id, { rejectWithValue }) => {
   try {
     NProgress.start();
     const response = await axios.patch<IGoods>(
-      `${path}/user/subBasket`,
+      `${path}/user/subFromCart`,
       { id },
       { headers }
     );
@@ -432,15 +432,15 @@ export const DECREMENT_BASKET_OF_GOODS = createAsyncThunk<
     return rejectWithValue(`${error}`);
   }
 });
-export const REMOVE_GOOD_BASKET_OF_GOODS = createAsyncThunk<
+export const REMOVE_FROM_CART_OF_GOODS = createAsyncThunk<
   { id: string },
   string,
   { rejectValue: string }
->("page/REMOVE_GOOD_BASKET_OF_GOODS", async (id, { rejectWithValue }) => {
+>("page/REMOVE_FROM_CART_OF_GOODS", async (id, { rejectWithValue }) => {
   try {
     NProgress.start();
     const response = await axios.patch<{ id: string }>(
-      `${path}/user/deleteBasket`,
+      `${path}/user/removeFromCart`,
       { id },
       { headers }
     );
@@ -451,18 +451,18 @@ export const REMOVE_GOOD_BASKET_OF_GOODS = createAsyncThunk<
     return rejectWithValue(`${error}`);
   }
 });
-export const CHOICE_BASKET_OF_GOODS = createAsyncThunk<
+export const SELECTING_PRODUCTS_IN_THE_CART = createAsyncThunk<
   { goodId: string; count: number; choice: boolean },
   string,
   { rejectValue: string }
->("page/CHOICE_BASKET_OF_GOODS", async (id, { rejectWithValue }) => {
+>("page/SELECTING_PRODUCTS_IN_THE_CART", async (id, { rejectWithValue }) => {
   try {
     NProgress.start();
     const response = await axios.patch<{
       goodId: string;
       count: number;
       choice: boolean;
-    }>(`${path}/user/toggleChoice`, { id }, { headers });
+    }>(`${path}/user/toggleSelect`, { id }, { headers });
     NProgress.done();
     return response.data as { goodId: string; count: number; choice: boolean };
   } catch (error) {
@@ -522,9 +522,11 @@ const slice = createSlice({
             ...state.data,
             user: {
               ...state.data.user,
+              _id: action.payload._id,
               publik: action.payload.publik,
               privates: action.payload.privates,
               delivery: action.payload.delivery,
+              registered: action.payload.registered
             },
           },
         };
@@ -642,13 +644,13 @@ const slice = createSlice({
         isloading: false,
       };
     });
-    builder.addCase(GET_BASKET_OF_GOODS.pending, (state) => {
+    builder.addCase(GET_CART_OF_GOODS.pending, (state) => {
       return {
         ...state,
         isloading: true,
       };
     });
-    builder.addCase(GET_BASKET_OF_GOODS.fulfilled, (state, action) => {
+    builder.addCase(GET_CART_OF_GOODS.fulfilled, (state, action) => {
       if (action.payload) {
         return {
           ...state,
@@ -657,13 +659,13 @@ const slice = createSlice({
             ...state.data,
             user: {
               ...state.data.user,
-              basket: action.payload,
+              cart: action.payload,
             },
           },
         };
       }
     });
-    builder.addCase(GET_BASKET_OF_GOODS.rejected, (state, action) => {
+    builder.addCase(GET_CART_OF_GOODS.rejected, (state, action) => {
       return {
         ...state,
         isloading: false,
@@ -694,7 +696,7 @@ const slice = createSlice({
       };
     });
     builder.addCase(
-      REMOVE_CHOICES_BASKET_OF_GOODS.fulfilled,
+      REMOVE_SELECTED_ITEMS_FROM_CART.fulfilled,
       (state, action) => {
         if (action.payload) {
           return {
@@ -703,7 +705,7 @@ const slice = createSlice({
               ...state.data,
               user: {
                 ...state.data.user,
-                basket: state.data.user.basket.filter(
+                cart: state.data.user.cart.filter(
                   (good) => good.choice === false
                 ),
               },
@@ -712,7 +714,7 @@ const slice = createSlice({
         }
       }
     );
-    builder.addCase(CHOICE_ALL_BASKET_OF_GOODS.fulfilled, (state, action) => {
+    builder.addCase(SELECT_ALL_ITEMS_IN_CART.fulfilled, (state, action) => {
       const on = action.meta.arg;
       if (action.payload) {
         return {
@@ -721,7 +723,7 @@ const slice = createSlice({
             ...state.data,
             user: {
               ...state.data.user,
-              basket: state.data.user.basket.map((good) => {
+              cart: state.data.user.cart.map((good) => {
                 return { ...good, choice: on };
               }),
             },
@@ -765,9 +767,9 @@ const slice = createSlice({
         };
       }
     });
-    builder.addCase(ADD_BASKET_OF_GOODS.fulfilled, (state, action) => {
+    builder.addCase(ADD_TO_CARD_OF_GOODS.fulfilled, (state, action) => {
       if (action.payload) {
-        const findUpdatedGood = state.data.user.basket.find(
+        const findUpdatedGood = state.data.user.cart.find(
           (good) => action.payload._id === good._id
         );
         return {
@@ -776,20 +778,20 @@ const slice = createSlice({
             ...state.data,
             user: {
               ...state.data.user,
-              basket: findUpdatedGood
-                ? state.data.user.basket.map((good) => {
+              cart: findUpdatedGood
+                ? state.data.user.cart.map((good) => {
                   if (good._id === findUpdatedGood._id) {
                     return { ...good, ...action.payload };
                   }
                   return good;
                 })
-                : [action.payload, ...state.data.user.basket],
+                : [action.payload, ...state.data.user.cart],
             },
           },
         };
       }
     });
-    builder.addCase(ADD_BASKET_OF_GOODS__NO_AUTO.fulfilled, (state, action) => {
+    builder.addCase(ADD_TO_CARD_OF_GOODS__NO_AUTO.fulfilled, (state, action) => {
       if (action.payload) {
         localStorage.setItem("access_token", action.payload.token);
         return {
@@ -799,15 +801,15 @@ const slice = createSlice({
             ...state.data,
             user: {
               ...state.data.user,
-              basket: [...state.data.user.basket, action.payload.result]
+              cart: [...state.data.user.cart, action.payload.result]
             },
           },
         };
       }
     });
-    builder.addCase(DECREMENT_BASKET_OF_GOODS.fulfilled, (state, action) => {
+    builder.addCase(SUBTRACT_FROM_CART.fulfilled, (state, action) => {
       if (action.payload) {
-        const findUpdatedGood = state.data.user.basket.find(
+        const findUpdatedGood = state.data.user.cart.find(
           (good) => action.payload._id === good._id
         );
         return {
@@ -816,12 +818,12 @@ const slice = createSlice({
             ...state.data,
             user: {
               ...state.data.user,
-              basket:
+              cart:
                 findUpdatedGood!.count === 0
-                  ? state.data.user.basket.filter(
+                  ? state.data.user.cart.filter(
                     (good) => good._id === findUpdatedGood!._id
                   )
-                  : state.data.user.basket.map((good) => {
+                  : state.data.user.cart.map((good) => {
                     if (good._id === findUpdatedGood!._id) {
                       return { ...good, ...action.payload };
                     }
@@ -832,7 +834,7 @@ const slice = createSlice({
         };
       }
     });
-    builder.addCase(REMOVE_GOOD_BASKET_OF_GOODS.fulfilled, (state, action) => {
+    builder.addCase(REMOVE_FROM_CART_OF_GOODS.fulfilled, (state, action) => {
       if (action.payload) {
         return {
           ...state,
@@ -840,7 +842,7 @@ const slice = createSlice({
             ...state.data,
             user: {
               ...state.data.user,
-              basket: state.data.user.basket.filter(
+              cart: state.data.user.cart.filter(
                 (good) => good._id !== action.payload.id
               ),
             },
@@ -848,7 +850,7 @@ const slice = createSlice({
         };
       }
     });
-    builder.addCase(CHOICE_BASKET_OF_GOODS.fulfilled, (state, action) => {
+    builder.addCase(SELECTING_PRODUCTS_IN_THE_CART .fulfilled, (state, action) => {
       if (action.payload) {
         return {
           ...state,
@@ -856,7 +858,7 @@ const slice = createSlice({
             ...state.data,
             user: {
               ...state.data.user,
-              basket: state.data.user.basket.map((good) => {
+              cart: state.data.user.cart.map((good) => {
                 if (good._id === action.payload.goodId) {
                   return { ...good, choice: action.payload.choice };
                 }

@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import MagazinPage from "./Pages/MagazinPage/MagazinPage";
 import AccountPage from "./Pages/AccountPage/AccountPage";
-import BasketPage from "./Pages/BasketPage/BasketPage";
+import CartPage from "./Pages/CartPage/CartPage";
 import FavoritesPage from "./Pages/FavoritesPage/FavoritesPage";
 import GoodPage from "./Pages/GoodPage/GoodPage";
 import MainPage from "./Pages/MainPage/MainPage";
@@ -34,7 +34,7 @@ const RoutesComponent = () => {
     category: <ProductsCategoryPage />,
     account: <AccountPage />,
     favorites: <FavoritesPage />,
-    basket: <BasketPage />,
+    cart: <CartPage />,
     good: <GoodPage />,
     sale: <SalePage />,
     settings: <SettingsPage />,

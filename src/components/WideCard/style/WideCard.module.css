@@ -80,7 +80,7 @@
 .sedondChildSmall {
   flex: 1 1 0;
 }
-.descriptionBasket {
+.descriptioncart {
   display: flex;
   flex-direction: column;
   justify-content: space-between;

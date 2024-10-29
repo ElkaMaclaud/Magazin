@@ -15,8 +15,8 @@ import { Trash, СheckMark } from "../../UI_Component/Icons";
 import { Modal } from "../Modal/Modal";
 import { useAppDispatch } from "../../store/reduxHooks";
 import {
-  CHOICE_BASKET_OF_GOODS,
-  REMOVE_GOOD_BASKET_OF_GOODS,
+  SELECTING_PRODUCTS_IN_THE_CART ,
+  REMOVE_FROM_CART_OF_GOODS ,
 } from "../../store/slice";
 import { Link } from "react-router-dom";
 import { CounterButton } from "../CounterButton/CounterButton";
@@ -28,15 +28,15 @@ export const WideCard: FC<{
   orientationVertical?: boolean;
 }> = memo(({ good, child, orientationVertical }) => {
   const SIZE = 270;
-  const SIZE_BASKET = 150;
+  const SIZE_cart = 150;
   const [showModal, toggleShowModal] = useToggle(false);
   const dispatch = useAppDispatch();
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(CHOICE_BASKET_OF_GOODS(good._id));
+    dispatch(SELECTING_PRODUCTS_IN_THE_CART (good._id));
   };
-  const removeBasket = (remove = true) => {
+  const removecart = (remove = true) => {
     if (remove) {
-      dispatch(REMOVE_GOOD_BASKET_OF_GOODS(good._id));
+      dispatch(REMOVE_FROM_CART_OF_GOODS (good._id));
     }
     toggleShowModal();
   };
@@ -73,14 +73,14 @@ export const WideCard: FC<{
           </div>
         </label>
         <Link to={`../good/${good._id}`}>
-          <ImageGood path={good.image} size={SIZE_BASKET} />
+          <ImageGood path={good.image} size={SIZE_cart} />
         </Link>
       </div>
     );
   };
   const GoodDescription = () => {
     return (
-      <div className={classes.descriptionBasket}>
+      <div className={classes.descriptioncart}>
         <div className={classes.descriptionText}>{good.description}</div>
         <div className={classes.iconBG} onClick={toggleShowModal}>
           <Trash />
@@ -178,14 +178,14 @@ export const WideCard: FC<{
   return (
     <div
       className={classes[classesChoises[0]]}
-      style={setSize(SIZE_BASKET + 20)}
+      style={setSize(SIZE_cart + 20)}
     >
       {showModal && (
         <Modal
           title={"Удалить товар"}
           content={`Вы точно хотите удалить выбранный товар? Отменить данное действие будет невозможно.`}
           buttonText="Удалить"
-          handleAction={removeBasket}
+          handleAction={removecart}
         />
       )}
       {MemoImage}

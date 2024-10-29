@@ -1,7 +1,7 @@
 import React, { CSSProperties, FC, useEffect, useState } from "react";
 import classes from "./style/CounterButton.module.css";
 import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
-import { ADD_BASKET_OF_GOODS, ADD_BASKET_OF_GOODS__NO_AUTO, DECREMENT_BASKET_OF_GOODS } from "../../store/slice";
+import { ADD_TO_CARD_OF_GOODS, ADD_TO_CARD_OF_GOODS__NO_AUTO, SUBTRACT_FROM_CART } from "../../store/slice";
 
 export const CounterButton: FC<{
   text?: number;
@@ -13,19 +13,19 @@ export const CounterButton: FC<{
   const { token } = useAppSelector(state => state.page)
   const dispatch = useAppDispatch()
   const [count, setCount] = useState(counter);
-  const addBasket = (increment: number) => {
+  const addcart = (increment: number) => {
     if (increment > 0) {
       if (token) {
-        dispatch(ADD_BASKET_OF_GOODS(id));   
+        dispatch(ADD_TO_CARD_OF_GOODS(id));   
       } else {
-        dispatch(ADD_BASKET_OF_GOODS__NO_AUTO(id)); 
+        dispatch(ADD_TO_CARD_OF_GOODS__NO_AUTO(id)); 
       }  
     } else {
-      dispatch(DECREMENT_BASKET_OF_GOODS(id));
+      dispatch(SUBTRACT_FROM_CART(id));
     }
   };
   const handler = (increment = 1) => {
-    addBasket(increment)
+    addcart(increment)
     setCount((prev) => prev + increment);
   };
   useEffect(() => {

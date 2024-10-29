@@ -26,7 +26,6 @@ const stylesDisabled = {
 };
 const PlacingAnOrderPage = () => {
   const { user } = useAppSelector((state) => state.page.data);
-  const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const sum = user.registered.reduce((prev, current) => {
@@ -41,7 +40,7 @@ const PlacingAnOrderPage = () => {
     }
     return prev;
   }, 0);
-  const basket = [
+  const cart = [
     {
       name: <h2 className={classes.headerName}>Ваш корзина</h2>,
       value: (
@@ -68,10 +67,10 @@ const PlacingAnOrderPage = () => {
   const pay = [
     { name: <h2 className={classes.headerName}>Итого</h2>, value: `${sum} ₽` },
   ];
-  const obj = [basket, pay];
+  const obj = [cart, pay];
   const handlePurchase = () => {
     navigate("../orderPaidPage");
-    if (token) {
+    if (user.registered) {
       dispatch(PAY_GOODS());
     }
   };
@@ -80,7 +79,7 @@ const PlacingAnOrderPage = () => {
       // maxWidth={1200}
       children={[
         <>
-          <Link to="../basket" className={classes.link}>
+          <Link to="../cart" className={classes.link}>
             Вернуться в корзину
           </Link>
           <h2 className={classes.headerPlacing}>Оформление заказа</h2>

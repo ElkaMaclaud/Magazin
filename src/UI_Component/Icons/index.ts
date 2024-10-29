@@ -2,7 +2,7 @@ export { Account } from "./Account/Account";
 export { Automotive } from "./Automotive/Automotive";
 export { Arrow } from "./Arrow/Arrow";
 export { ArrowSmall } from "./ArrowSmall/ArrowSmall";
-export { Basket } from "./Basket/Basket";
+export { Cart } from "./Cart/Cart";
 export { Book } from "./Book/Book";
 export { Burger } from "./Burger/Burger";
 export { BurgerMenu } from "./BurgerMenu/BurgerMenu";

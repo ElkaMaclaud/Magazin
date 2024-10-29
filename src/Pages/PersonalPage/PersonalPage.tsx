@@ -10,16 +10,15 @@ import ListItem from "../../components/ListItem/ListItem";
 import { useAppSelector } from "../../store/reduxHooks";
 
 const PersonalPage = () => {
-  const { token, data } = useAppSelector((state) => state.page);
-  if (token) {
+  const { user } = useAppSelector((state) => state.page.data);
+  if (user.registered) {
     return (
       <CardPageFlex>
-        {" "}
         <div className={classes.contentWrapper}>
           <div className={classes.sideBar}>
             <SideBar>
               <>
-                <UserAvatar name={data.user.publik.name || ""} />
+                <UserAvatar name={user.publik.name || ""} />
                 <ListItem list={accountList} small />
               </>
             </SideBar>

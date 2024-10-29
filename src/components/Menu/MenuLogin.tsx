@@ -16,7 +16,6 @@ const MenuLogin = () => {
   const [showDropDown, setShowDropDown] = useState(false);
   const parentRef = useRef<HTMLDivElement>(null);
   const ref = useRef<HTMLDivElement>(null);
-  const token = localStorage.getItem("access_token");
   const handleMouseOver = () => {
     if (!showModal) {
       setShowDropDown(true);
@@ -48,13 +47,13 @@ const MenuLogin = () => {
     const left = parentRef.current
       ? parentRef.current?.offsetLeft + parentRef.current?.clientWidth
       : null;
-    const sub = token ? 19 : 7;
+    const sub = data.user.registered ? 19 : 7;
     return {
       width: `${width}px`,
       left: `${(left || 100) - width / 2 - sub}px`,
     };
   };
-  if (token && data.user.publik.name) {
+  if (data.user.registered && data.user.publik.name) {
     return (
       <div ref={parentRef} className={classes.menuWrapper}>
         <Link to="main" className={classes.link} onMouseOver={handleMouseOver}>

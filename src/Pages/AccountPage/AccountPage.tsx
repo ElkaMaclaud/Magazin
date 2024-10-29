@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 const AccountPage = () => {
   const navigate = useNavigate();
   const handleClick = () => {
-    //localStorage.removeItem("token");
     localStorage.clear();
     navigate("/")
   }
