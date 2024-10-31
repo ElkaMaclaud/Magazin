@@ -15,8 +15,8 @@ import { Trash, СheckMark } from "../../UI_Component/Icons";
 import { Modal } from "../Modal/Modal";
 import { useAppDispatch } from "../../store/reduxHooks";
 import {
-  CHOICE_BASKET_OF_GOODS,
-  REMOVE_GOOD_BASKET_OF_GOODS,
+  SELECTING_PRODUCTS_IN_THE_CART ,
+  REMOVE_FROM_CART_OF_GOODS ,
 } from "../../store/slice";
 import { Link } from "react-router-dom";
 import { CounterButton } from "../CounterButton/CounterButton";
@@ -28,15 +28,15 @@ export const WideCard: FC<{
   orientationVertical?: boolean;
 }> = memo(({ good, child, orientationVertical }) => {
   const SIZE = 270;
-  const SIZE_BASKET = 150;
+  const SIZE_cart = 150;
   const [showModal, toggleShowModal] = useToggle(false);
   const dispatch = useAppDispatch();
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(CHOICE_BASKET_OF_GOODS(good.id));
+    dispatch(SELECTING_PRODUCTS_IN_THE_CART (good._id));
   };
-  const removeBasket = (remove = true) => {
+  const removecart = (remove = true) => {
     if (remove) {
-      dispatch(REMOVE_GOOD_BASKET_OF_GOODS(good.id));
+      dispatch(REMOVE_FROM_CART_OF_GOODS (good._id));
     }
     toggleShowModal();
   };
@@ -61,10 +61,10 @@ export const WideCard: FC<{
   const ImageWrapper = () => {
     return (
       <div className={classes.checkGood}>
-        <label htmlFor={`${good.id}`} className={classes.inputWrapper}>
+        <label htmlFor={`${good._id}`} className={classes.inputWrapper}>
           <input
             type="checkbox"
-            id={`${good.id}`}
+            id={`${good._id}`}
             onChange={onChange}
             checked={good.choice || false}
           />
@@ -72,15 +72,15 @@ export const WideCard: FC<{
             <СheckMark />
           </div>
         </label>
-        <Link to={`../good/${good.id}`}>
-          <ImageGood path={good.image} size={SIZE_BASKET} />
+        <Link to={`../good/${good._id}`}>
+          <ImageGood path={good.image} size={SIZE_cart} />
         </Link>
       </div>
     );
   };
   const GoodDescription = () => {
     return (
-      <div className={classes.descriptionBasket}>
+      <div className={classes.descriptioncart}>
         <div className={classes.descriptionText}>{good.description}</div>
         <div className={classes.iconBG} onClick={toggleShowModal}>
           <Trash />
@@ -101,7 +101,7 @@ export const WideCard: FC<{
   const MemoImage = useMemo(() => {
     if (child) {
       return (
-        <Link to={`../good/${good.id}`}>
+        <Link to={`../good/${good._id}`}>
           <div className={classes[classesChoises[1]]}>
             <ImageGood path={good.image} />
           </div>
@@ -132,7 +132,7 @@ export const WideCard: FC<{
       return (
         <div className={classes[classesChoises[3]]}>
           <CounterButton
-            id={good.id}
+            id={good._id}
             text={good.price}
             title={"Добавить в корзину"}
             counter={checkProperty(good)}
@@ -143,14 +143,14 @@ export const WideCard: FC<{
     }
     return (
       <div className={classes[classesChoises[4]]}>
-        <CounterButton id={good.id} counter={checkProperty(good)} />
+        <CounterButton id={good._id} counter={checkProperty(good)} />
       </div>
     );
   }, [good.count]);
   const MemoChoiceIcon = useMemo(
     () => (
       <div className={classes[classesChoises[4]]}>
-        <ChoiceIcon favorite={good.favorite} id={good.id} />
+        <ChoiceIcon favorite={good.favorite} id={good._id} />
       </div>
     ),
     [good.favorite]
@@ -178,14 +178,14 @@ export const WideCard: FC<{
   return (
     <div
       className={classes[classesChoises[0]]}
-      style={setSize(SIZE_BASKET + 20)}
+      style={setSize(SIZE_cart + 20)}
     >
       {showModal && (
         <Modal
           title={"Удалить товар"}
           content={`Вы точно хотите удалить выбранный товар? Отменить данное действие будет невозможно.`}
           buttonText="Удалить"
-          handleAction={removeBasket}
+          handleAction={removecart}
         />
       )}
       {MemoImage}

@@ -2,11 +2,14 @@ import React from "react";
 import classes from "./style/AccountPage.module.css";
 import { CardPageFlex } from "../../UI_Component";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../store/reduxHooks";
+import { SET_LOGOUT } from "../../store/slice";
 
 const AccountPage = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch()
   const handleClick = () => {
-    //localStorage.removeItem("token");
+    dispatch(SET_LOGOUT())
     localStorage.clear();
     navigate("/")
   }

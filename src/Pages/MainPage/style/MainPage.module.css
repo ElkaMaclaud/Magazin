@@ -1,11 +1,14 @@
 .wrapperPage {
-    height: calc(100vh - 102px);
-    margin: auto;
+    height: 100vh;
+    max-height: 100vh;
+    margin: 0 auto;
     position: relative;
-    margin-bottom: 30px;
 }
 .content {
-    margin: auto;
+    margin: 0 auto;
+    height: calc(100vh - 102px);
+    max-height: calc(100vh - 110px);
+
 }
 .scrollUp {
     position: fixed;

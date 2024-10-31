@@ -1,8 +1,7 @@
 .wrapper {
+  min-height: calc(100vh - 110px);
   height: fit-content;
-  min-height: calc(100vh - 105px);
   background-color: #efefef;
-  padding-bottom: 50px;
 }
 .wrapper h1, h2, h3, div, p {
   padding: 0;

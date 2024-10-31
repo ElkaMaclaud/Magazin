@@ -11,11 +11,12 @@ import classes from "./style/DeliveryDate.module.css";
 import { BurgerMenu } from "../../UI_Component/Icons";
 import { Modal } from "../Modal/Modal";
 import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
-import { CANSEL_PURCHASE } from "../../store/slice";
+import { SET_REGISTRED } from "../../store/slice";
 import { debounce } from "../../utils/debounce";
 import MenuItem from "../MenuItem/MenuItem";
 import { useToggle } from "../../hooks/useToggle";
 
+const styles: CSSProperties = { width: "100px", objectFit: "cover"}
 const DeliveryDate = () => {
   const { user } = useAppSelector((state) => state.page.data);
   const [showModal, toggleShowModal] = useToggle(false);
@@ -24,9 +25,24 @@ const DeliveryDate = () => {
   const ref = useRef<HTMLDivElement>(null);
   const refShowDropDown = useRef<HTMLDivElement>(null);
   const [tooltipPosition, setTooltipPosition] = useState("bottom");
+  const imageWrapperStyle: CSSProperties = {
+    border: "2px solid #ccc",
+    borderRadius: "4px",
+    padding: "4px"
+  };
   let style: CSSProperties = getСoordinates();
+  
   const MemoSlider = useMemo(
-    () => <Slider list={user.registered.map((item) => item.image[0])} />,
+    () => (
+      <Slider
+        list={user.registered.map((item) => item.image[0])}
+        style={styles} 
+        width={109}
+        height={58} 
+        imageWrapperStyle={imageWrapperStyle}
+      />
+    ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [user.registered]
   );
   useEffect(() => {
@@ -53,7 +69,7 @@ const DeliveryDate = () => {
   }, [tooltipPosition]);
   const canselPurchase = (remove = true) => {
     if (remove) {
-      dispatch(CANSEL_PURCHASE());
+      dispatch(SET_REGISTRED([]));
     }
     toggleShowModal();
   };
@@ -106,7 +122,7 @@ const DeliveryDate = () => {
       )}
       {showModal && (
         <Modal
-          title="Переметить в корзину"
+          title="Перемеcтить в корзину"
           content="Вы точно хотите убрать эти товары из заказа? Они будут доступны в корзине"
           buttonText="Переместить"
           handleAction={canselPurchase}

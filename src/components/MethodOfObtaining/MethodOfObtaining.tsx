@@ -140,9 +140,9 @@ const MethodOfObtaining: FC = () => {
                 phone: phone,
               }).map((key: string) => {
                 return (
-                  <div key={key as keyof typeof user.private}>
-                    {user.private[
-                      key as keyof typeof user.private
+                  <div key={key as keyof typeof user.privates}>
+                    {user.privates[
+                      key as keyof typeof user.privates
                     ]?.toString() || ""}
                   </div>
                 );

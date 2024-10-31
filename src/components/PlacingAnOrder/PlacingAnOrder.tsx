@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { CSSProperties, FC } from "react";
 import classes from "./style/PlacingAnOrder.module.css";
 import { Currency } from "../../UI_Component/Icons";
 import { banksList } from "../../MockupData/banks";
@@ -10,11 +10,17 @@ import DeliveryDate from "../DeliveryDate/DeliveryDate";
 interface BanksListProps {
   list: string[];
 }
+const imageWrapperStyle: CSSProperties = {
+  border: "2px solid #ccc",
+  borderRadius: "4px",
+  padding: "4px"
+};
+const style: CSSProperties = { width: "100px", objectFit: "cover"}
 const BanksList: FC<BanksListProps> = ({ list }) => {
   return (
     <CardForInfo>
       <div className={classes.headerWrapper}><h3>Способ оплаты</h3></div>
-      <Slider list={list} />
+      <Slider list={list} style={style} width={109} height={58} imageWrapperStyle={imageWrapperStyle} />
       <div className={classes.footer}>
         <Currency /> <p>Скидка 214 ₽ при оплате Ozon Картой</p>
       </div>

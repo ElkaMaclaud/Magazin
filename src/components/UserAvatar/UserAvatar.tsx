@@ -35,7 +35,7 @@ const UserAvatar: FC<{ name: string; style?: CSSProperties }> = ({
         </div>
       </div>
       <h3 className={classes.userName}>{name}</h3>
-      {location.pathname === "/settings" ? null : (
+      {location.pathname === "settings" ? null : (
         <Link to="../settings" className={classes.link}>
           Изменить профиль
         </Link>

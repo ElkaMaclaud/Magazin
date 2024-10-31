@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Basket = () => {
+export const Cart = () => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
       <path

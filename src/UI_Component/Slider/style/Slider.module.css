@@ -5,24 +5,13 @@
 .imagesWrapper {
   display: flex;
   justify-content: left;
-  gap: 7px;
   transition: transform .8s linear;
 }
 .imageWrapper {
-  width: 109px;
-  min-height: 62px;
-  border: 2px solid #ccc;
-  padding: 4px;
-  border-radius: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-}
-.image {
-  width: 100px;
-  height: 58px;
-  object-fit: cover;
 }
 .imageWrapper:hover {
   border-color: blue;

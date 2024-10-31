@@ -4,31 +4,41 @@ import classes from "./style/FavoritesPage.module.css";
 import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
 import { Favorites } from "../../UI_Component/Icons";
 import { GET_FAVORITE_GOODS } from "../../store/slice";
+import { CardPageFlex } from "../../UI_Component";
+import Spinner from "../../components/Spinner/Spinner";
 
 const FavoritesPage = () => {
-  const { favorite } = useAppSelector((state) => state.page.data.user);
+  const { data, isloading } = useAppSelector((state) => state.page);
+  const { favorite } = data.user;
   const dispatch = useAppDispatch();
   useEffect(() => {
-    if (!favorite.length) {
       dispatch(GET_FAVORITE_GOODS());
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  if (favorite.length) {
+  if (isloading) {
+    return (
+      <CardPageFlex>
+        <>
+        <Spinner />
+        </>
+      </CardPageFlex>
+    );
+  }
+  if (!favorite.length) {
     return (
       <div className={classes.wrapper}>
-        <GoodsList data={favorite} icon={"like"} />
+        <div className={classes.infoWrapper}>
+          <h3>В избранном пусто</h3>
+          <p>
+            Добавляйте товары с помощью <Favorites like />
+          </p>
+        </div>
       </div>
     );
   }
   return (
     <div className={classes.wrapper}>
-      <div className={classes.infoWrapper}>
-        <h3>В избранном пусто</h3>
-        <p>
-          Добавляйте товары с помощью <Favorites like />
-        </p>
-      </div>
+      <GoodsList data={favorite} icon={"like"} />
     </div>
   );
 };

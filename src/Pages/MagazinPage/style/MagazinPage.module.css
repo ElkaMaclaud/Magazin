@@ -3,6 +3,7 @@
   margin: auto;
   background-color: rgba(226, 226, 243, 0.3);
   border-radius: 20px;
+  position: relative;
 }
 .saleWrapper {
   display: flex;
@@ -12,6 +13,9 @@
   margin: 20px;
   gap: 20px;
   flex-wrap: wrap;
+}
+.text {
+  position: absolute;
 }
 .saleHappyNew,
 .saleStand {
@@ -32,9 +36,7 @@
   background: linear-gradient(
       rgba(255, 255, 255, 0.1),
       rgba(255, 255, 255, 0.1)
-    ),
-    url("https://avatars.mds.yandex.net/i?id=3d85da26bda579f91aaa51b1d8ae91acc9829285-9228005-images-thumbs&n=13");
-  background-size: cover;
+    )
 }
 .saleStand {
   background-color: rgba(0, 0, 255,.1);

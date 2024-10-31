@@ -14,7 +14,7 @@ export const Button: FC<{
   styles,
   onClick,
   disabled,
-  props,
+  ...props
 }) => {
   const [style, setStyle] = useState(checkProperty(styles) ?  disabled ? styles[2] : styles[0] : styles);
   return (

@@ -1,25 +1,26 @@
 import { IGoods } from "./goodsType";
 
 export interface IUser {
-  id?: string;
+  _id?: string;
   publik: IInfoPublik;
-  private: IInfoPrivate;
+  privates: IInfoPrivate;
   favorite: IGoods[]; //string[];
-  basket: IGoods[]; //Array<string>;
+  cart: IGoods[]; //Array<string>;
   registered: IGoods[];
   purchased: IPurchased[];
   delivery: IDelivery;
   choiceAll: boolean;
   good?: IGoods;
+  authorized: boolean,
 }
 export interface IInfoPublik {
   name: string;
   city: string;
   age?: number;
 }
-export interface IInfoPrivate extends IInfoPublik {
+export interface IInfoPrivate extends Omit<IInfoPublik, "name" >{
   phone?: string;
-  dateOfBirt?: Date;
+  dateofBirth?: Date;
   email: string;
   gender?: "Ж" | "М";
 }
@@ -29,5 +30,5 @@ export interface IDelivery {
   choice: "address" | "pickUpPoin"
 }
 export interface IPurchased extends IGoods {
-  delivery: IDelivery
+  delivery?: IDelivery
 }

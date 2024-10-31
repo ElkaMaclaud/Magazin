@@ -7,19 +7,18 @@ import SideBar from "../../components/SideBar/SideBar";
 import UserAvatar from "../../components/UserAvatar/UserAvatar";
 import { accountList } from "../../MockupData/categoryFilter";
 import ListItem from "../../components/ListItem/ListItem";
+import { useAppSelector } from "../../store/reduxHooks";
 
 const PersonalPage = () => {
-  const token = localStorage.getItem("token");
-  const name = localStorage.getItem("name")
-  if (token) {
+  const { user } = useAppSelector((state) => state.page.data);
+  if (user.registered) {
     return (
       <CardPageFlex>
-        {" "}
         <div className={classes.contentWrapper}>
           <div className={classes.sideBar}>
             <SideBar>
               <>
-                <UserAvatar name={name || ""} />
+                <UserAvatar name={user.publik.name || ""} />
                 <ListItem list={accountList} small />
               </>
             </SideBar>
