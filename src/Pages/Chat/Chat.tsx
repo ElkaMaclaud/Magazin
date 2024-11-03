@@ -25,10 +25,9 @@ const Chat: FC<{ chatid?: string }> = ({ chatid }) => {
     const location = useLocation();
     const { salesmant } = location.state as LocationState || {}; 
 
-    console.log("////////////////////", salesmant)
 
     useEffect(() => {
-        socketRef.current = io("http://localhost:3000", {
+        socketRef.current = io(process.env.REACT_APP_API_URL, {
             withCredentials: true,
             extraHeaders: {
                 Authorization: `Bearer ${token}`
