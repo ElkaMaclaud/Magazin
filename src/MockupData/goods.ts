@@ -1,6 +1,6 @@
 import { IGoods } from "../type/goodsType";
 
-export const goods: IGoods[] = [
+export const goods = [
   {
     _id: "1",
     image: [

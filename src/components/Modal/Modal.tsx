@@ -31,14 +31,18 @@ export function Modal({ title, content, handleAction, buttonText }: IModal) {
     }
   }, []);
   useEffect(() => {
-    if (active) {
-      document.getElementsByTagName('html')[0].style.overflow = "hidden";
-      document.body.style.paddingRight = "17px";
+    if (window.innerHeight < document.body.scrollHeight) {
+      if (active) {
+        document.getElementsByTagName('html')[0].style.overflow = "hidden";
+        document.body.style.paddingRight = "17px";
+      } 
+      
+      return () => {
+        document.getElementsByTagName('html')[0].style.overflow = "visible";
+        document.body.style.paddingRight = "0px";
+      }
     }
-    return () => {
-      document.getElementsByTagName('html')[0].style.overflow = "visible";
-      document.body.style.paddingRight = "0px";
-    }
+
   }, [active]);
   useEffect(() => {
     setOpen(true);

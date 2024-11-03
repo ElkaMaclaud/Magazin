@@ -8,7 +8,6 @@ import { CardPageFlex } from "../../UI_Component";
 import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
 import {
   SELECT_ALL_ITEMS_IN_CART,
-  SET_REGISTRED,
   GET_CART_OF_GOODS,
   REMOVE_SELECTED_ITEMS_FROM_CART,
 } from "../../store/slice";
@@ -119,7 +118,6 @@ const CartPage = () => {
     toggleShowModal();
   };
   const handleCalculateGoods = () => {
-    dispatch(SET_REGISTRED(cart.filter(item => item.choice)));
     navigate("../placingAnOrderPage");
   };
   const CartHeader = () => {

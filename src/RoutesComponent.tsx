@@ -18,6 +18,7 @@ import { useAppDispatch, useAppSelector } from "./store/reduxHooks";
 import { PAGE_POSITION } from "./store/slice";
 import Category from "./Pages/Category/Category";
 import SalePage from "./Pages/SalePage/SalePage";
+import Chat from "./Pages/Chat/Chat";
 
 const RoutesComponent = () => {
   const position = useAppSelector((state) => state.page.pagePostion);
@@ -31,6 +32,7 @@ const RoutesComponent = () => {
   }
   const ROUTS_ELEMENT: Elements = {
     magazin: <MagazinPage />,
+    chat: <Chat />,
     category: <ProductsCategoryPage />,
     account: <AccountPage />,
     favorites: <FavoritesPage />,
@@ -55,7 +57,7 @@ const RoutesComponent = () => {
           {Object.keys(ROUTS_ELEMENT).map((route) => {
             const key = Math.random().toString(36);
 
-            if (route === "orderPaidPage") {
+            if (route === "orderPaidPage" || route === "chat") {
               return (
                 <Route
                   key={key}

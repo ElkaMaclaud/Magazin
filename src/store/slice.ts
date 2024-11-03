@@ -30,16 +30,15 @@ const initialUserData:IUser = {
     city: "",
     email: "",
   },
-  choiceAll: false,
   favorite: [],
   cart: [],
-  registered: [],
   purchased: [],
   delivery: {
     pickUpPoin: "Республика Татарстан, Казань, Беломорская 17",
     choice: "pickUpPoin",
   },
-  authorized: false,
+  registered: false,
+  chats: []
 }
 const state: IInitialState = {
   success: false,
@@ -60,7 +59,7 @@ export const REGISTER_USER = createAsyncThunk<
   { rejectValue: string }
 >("page/REGISTER_USER", async (value, { rejectWithValue }) => {
   try {
-    const response = await sendRequest("/user/auth/register", "POST",  value)
+    const response = await sendRequest("user/auth/register", "POST",  value)
     return response.data;
   } catch (error) {
     return rejectWithValue(`${error}`);
@@ -72,7 +71,7 @@ export const AUT_USER = createAsyncThunk<
   { rejectValue: string }
 >("page/AUT_USER", async (value, { rejectWithValue }) => {
   try {
-    const response = await sendRequest("/user/auth/login", "POST",
+    const response = await sendRequest("user/auth/login", "POST",
       value
     );
     return response.data;
@@ -161,7 +160,7 @@ export const GET_SALE_GOODS = createAsyncThunk<
   { rejectValue: string }
 >("page/GET_SALE_GOODS", async (_, { rejectWithValue }) => {
   try {
-    const response = await sendRequest("/good/goodsbySale");
+    const response = await sendRequest("good/goodsbySale");
     return response.data as IGoods[];
   } catch (error) {
     return rejectWithValue(`${error}`);
@@ -218,21 +217,6 @@ export const GET_OF_ORDERS = createAsyncThunk<
   }
 });
 
-export const PAY_GOODS = createAsyncThunk<
-  string[],
-  undefined,
-  { rejectValue: string; state: RootState }
->("page/PAY_GOODS", async (_, { rejectWithValue, getState }) => {
-  try {
-    const response = await sendRequest(
-      "/user/orders", "PATCH",
-      { ids: getState().page.data.user.registered }
-    );
-    return response.data as string[];
-  } catch (error) {
-    return rejectWithValue(`${error}`);
-  }
-});
 export const SELECT_ALL_ITEMS_IN_CART = createAsyncThunk<
   IGoods[],
   boolean,
@@ -344,7 +328,7 @@ export const REMOVE_FROM_CART_OF_GOODS = createAsyncThunk<
 >("page/REMOVE_FROM_CART_OF_GOODS", async (id, { rejectWithValue }) => {
   try {
     const response = await sendRequest(
-      "/user/removeFromCart", "PATCH",
+      "user/removeFromCart", "PATCH",
       { id }
     );
     return response.data as { id: string };
@@ -375,9 +359,6 @@ const slice = createSlice({
     PAGE_POSITION: (state, action) => {
       state.pagePostion = action.payload;
     },
-    SET_REGISTRED: (state, action) => {
-      state.data.user.registered = action.payload;
-    },
     SET_LOGOUT: (state) => {
       state.data.user = initialUserData
     },
@@ -404,7 +385,7 @@ const slice = createSlice({
                 email: sentDate.email,
                 phone: sentDate.phone,
               },
-              authorized: true,
+              registered: true,
             },
           },
         };
@@ -423,7 +404,8 @@ const slice = createSlice({
               publik: action.payload.publik,
               privates: action.payload.privates,
               delivery: action.payload.delivery,
-              registered: action.payload.registered
+              registered: action.payload.registered,
+              chats:  action.payload.chats
             },
           },
         };
@@ -766,22 +748,8 @@ const slice = createSlice({
         };
       }
     });
-    builder.addCase(PAY_GOODS.fulfilled, (state, action) => {
-      if (action.payload) {
-        return {
-          ...state,
-          data: {
-            ...state.data,
-            user: {
-              ...state.data.user,
-              registered: [],
-            },
-          },
-        };
-      }
-    });
   },
 });
 
 export default slice.reducer;
-export const { LOADING_PAGE, PAGE_POSITION, SET_REGISTRED, SET_LOGOUT } = slice.actions;
+export const { LOADING_PAGE, PAGE_POSITION, SET_LOGOUT } = slice.actions;

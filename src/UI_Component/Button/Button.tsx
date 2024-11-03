@@ -8,6 +8,7 @@ export const Button: FC<{
   styles?: CSSProperties | CSSProperties[];
   onClick?: () => void;
   disabled?: boolean;
+  type?: "button" | "submit" | "reset";
   props?: ButtonHTMLAttributes<HTMLButtonElement>;
 }> = ({
   children,

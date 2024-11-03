@@ -12,7 +12,7 @@ const style: CSSProperties = {
   borderRadius: "20px",
 };
 const MagazinPage = () => {
-  const { discount } = useAppSelector((state) => state.page.data);
+  const { discount, user } = useAppSelector((state) => state.page.data);
   const dispatch = useAppDispatch();
   const list = [
     "https://zapovednaya-polyana.ru/upload/iblock/02b/02b8338e4070e7982c58c04566973411.jpg",

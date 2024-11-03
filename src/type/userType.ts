@@ -6,12 +6,11 @@ export interface IUser {
   privates: IInfoPrivate;
   favorite: IGoods[]; //string[];
   cart: IGoods[]; //Array<string>;
-  registered: IGoods[];
   purchased: IPurchased[];
   delivery: IDelivery;
-  choiceAll: boolean;
   good?: IGoods;
-  authorized: boolean,
+  registered: boolean,
+  chats: string[]  
 }
 export interface IInfoPublik {
   name: string;

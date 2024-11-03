@@ -11,6 +11,7 @@ export interface IGoods {
     choice?: boolean;
     sale?: boolean;
     discount?: boolean;
+    salesmanId: string
 }
 
 

@@ -11,3 +11,12 @@
   gap: 100px;
   align-items: center;
 }
+.salesmant {
+  cursor: pointer;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 20px;
+}

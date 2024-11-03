@@ -5,7 +5,7 @@ export type IMenuItems = {
 export const menuItems: IMenuItems[] = [
     {name: "Личный кабинет", link: "main"},
     {name: "Баллы и бонусы", link: "main"},
-    {name: "Сообщения", link: "main"},
+    {name: "Сообщения", link: "chat"},
 ]
 export const optionsSort = [
     ["popular", "Популярные"],

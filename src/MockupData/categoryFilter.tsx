@@ -114,7 +114,7 @@ export const accountList: IListCategory[] = [
   { name: <Link to="">Мои заказы</Link> },
   { name: <Link to="">Мои возвраты</Link> },
   { name: <Link to="">Купленные товары</Link> },
-  { name: <Link to="">Сообщения</Link> },
+  { name: <Link to="../chat">Сообщения</Link> },
   { name: <h3>Подписки</h3> },
   { name: <Link to="">Избранное</Link> },
   { name: <h3>Настройки аккаунта</h3> },

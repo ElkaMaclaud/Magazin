@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { IGoods } from "../../type/goodsType";
 import classes from "./style/GoodPage.module.css";
 import { CardPageFlex, ImageGood } from "../../UI_Component";
@@ -7,10 +7,10 @@ import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
 import { GET_GOOD } from "../../store/slice";
 import { CounterButton } from "../../components/CounterButton/CounterButton";
 import ChoiceIcon from "../../components/ChoiceIcon/ChoiceIcon";
-
 const GoodPage = () => {
   const { id } = useParams();
   const { good } = useAppSelector((state) => state.page.data.user);
+  const salesmant = good?.salesmanId
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (id) dispatch(GET_GOOD(id))
@@ -36,6 +36,14 @@ const GoodPage = () => {
             counter={checkProperty(good)}
           /></div>
         </div>
+      </div>
+      <div className={classes.salesmant}>
+        <Link to={{
+            pathname: "../chat",
+            state: { salesmant }
+            } as { pathname: string; state: { salesmant: string } }}>
+            Написать продавцу
+        </Link>
       </div>
     </CardPageFlex>
   );

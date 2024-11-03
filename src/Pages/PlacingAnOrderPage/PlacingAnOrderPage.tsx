@@ -5,7 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { CardPageFlex } from "../../UI_Component";
 import PlacingAnOrder from "../../components/PlacingAnOrder/PlacingAnOrder";
 import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
-import { PAY_GOODS } from "../../store/slice";
 
 const styles = {
   height: "50px",
@@ -28,13 +27,13 @@ const PlacingAnOrderPage = () => {
   const { user } = useAppSelector((state) => state.page.data);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const sum = user.registered.reduce((prev, current) => {
+  const sum = user.cart.filter(i=>i.choice).reduce((prev, current) => {
     if (current.count) {
       return prev + current.count * current.price;
     }
     return prev;
   }, 0);
-  const len = user.registered.reduce((prev, current) => {
+  const len = user.cart.filter(i=>i.choice).reduce((prev, current) => {
     if (current.choice && current.count) {
       return prev + current.count;
     }
@@ -70,8 +69,8 @@ const PlacingAnOrderPage = () => {
   const obj = [cart, pay];
   const handlePurchase = () => {
     navigate("../orderPaidPage");
-    if (user.registered) {
-      dispatch(PAY_GOODS());
+    if (user.cart.filter(i=>i.choice).length) {
+      // dispatch(PAY_GOODS());
     }
   };
   return (

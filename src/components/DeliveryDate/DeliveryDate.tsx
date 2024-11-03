@@ -11,7 +11,6 @@ import classes from "./style/DeliveryDate.module.css";
 import { BurgerMenu } from "../../UI_Component/Icons";
 import { Modal } from "../Modal/Modal";
 import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
-import { SET_REGISTRED } from "../../store/slice";
 import { debounce } from "../../utils/debounce";
 import MenuItem from "../MenuItem/MenuItem";
 import { useToggle } from "../../hooks/useToggle";
@@ -35,7 +34,7 @@ const DeliveryDate = () => {
   const MemoSlider = useMemo(
     () => (
       <Slider
-        list={user.registered.map((item) => item.image[0])}
+        list={user.cart.filter(i=>i.choice).map((item) => item.image[0])}
         style={styles} 
         width={109}
         height={58} 
@@ -43,7 +42,7 @@ const DeliveryDate = () => {
       />
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [user.registered]
+    [user.cart]
   );
   useEffect(() => {
     const handleScroll = debounce(() => {
@@ -68,9 +67,6 @@ const DeliveryDate = () => {
     style = getСoordinates();
   }, [tooltipPosition]);
   const canselPurchase = (remove = true) => {
-    if (remove) {
-      dispatch(SET_REGISTRED([]));
-    }
     toggleShowModal();
   };
   const handleDropDownClick = () => {
