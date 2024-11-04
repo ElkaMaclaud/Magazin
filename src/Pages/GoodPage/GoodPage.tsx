@@ -7,21 +7,22 @@ import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
 import { GET_GOOD } from "../../store/slice";
 import { CounterButton } from "../../components/CounterButton/CounterButton";
 import ChoiceIcon from "../../components/ChoiceIcon/ChoiceIcon";
+import Spinner from "../../components/Spinner/Spinner";
+import { ISeller } from "../../type/userType";
 const GoodPage = () => {
   const { id } = useParams();
-  const { good } = useAppSelector((state) => state.page.data.user);
-  const salesmant = good?.salesmanId
+  const { good } = useAppSelector((state) => state.page);
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (id) dispatch(GET_GOOD(id))
   }, [id, dispatch]);
-  const checkProperty = (card: IGoods) => {
+  const checkProperty = (card: IGoods & { seller: ISeller }) => {
     if ("count" in card) {
       return card.count as number;
     }
     return 0;
   };
-  if (!good) return null;
+  if (!good) return <Spinner />;
   return (
     <CardPageFlex>
       <div className={classes.wrapperGood}>
@@ -38,12 +39,13 @@ const GoodPage = () => {
         </div>
       </div>
       <div className={classes.salesmant}>
-        <Link to={{
-            pathname: "../chat",
-            state: { salesmant }
-            } as { pathname: string; state: { salesmant: string } }}>
+        <img src={good.seller.image} alt="" />
+        <div className={classes.salesmantInfoWrapper}>
+          <h2>{good.seller.name}</h2>
+          <Link to="../chat">
             Написать продавцу
-        </Link>
+          </Link>
+        </div>
       </div>
     </CardPageFlex>
   );

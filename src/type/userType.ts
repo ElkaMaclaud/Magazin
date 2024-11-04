@@ -8,7 +8,6 @@ export interface IUser {
   cart: IGoods[]; //Array<string>;
   purchased: IPurchased[];
   delivery: IDelivery;
-  good?: IGoods;
   registered: boolean,
   chats: string[]  
 }
@@ -30,4 +29,26 @@ export interface IDelivery {
 }
 export interface IPurchased extends IGoods {
   delivery?: IDelivery
+}
+
+export interface IReview {
+  text: string;
+  rating: number;
+  createdAt: Date;
+}
+
+export interface ISeller {
+  name: string;
+  email: string;
+  phone?: string;
+  address?: string;
+  rating: number;
+  reviews: IReview[];
+  createdAt: Date;
+  updatedAt: Date;
+  products: string[]; 
+  status: 'active' | 'suspended' | 'deleted';
+  socialMediaLinks: Map<string, string>;
+  image?: string;
+  chats: string[]; 
 }

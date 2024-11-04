@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { IData } from "../type/dataType";
 import { IGoods } from "../type/goodsType";
-import { IDelivery, IUser } from "../type/userType";
+import { IDelivery, ISeller, IUser } from "../type/userType";
 import { RootState } from "./Store";
 import { sendRequest } from "../API/api";
 
@@ -19,8 +19,9 @@ export interface IInitialState {
   data: IData;
   token: string | null;
   isloading: boolean;
+  good?: IGoods & { seller: ISeller };
 }
-const initialUserData:IUser = {
+const initialUserData: IUser = {
   publik: {
     name: "",
     city: "",
@@ -59,7 +60,7 @@ export const REGISTER_USER = createAsyncThunk<
   { rejectValue: string }
 >("page/REGISTER_USER", async (value, { rejectWithValue }) => {
   try {
-    const response = await sendRequest("user/auth/register", "POST",  value)
+    const response = await sendRequest("user/auth/register", "POST", value)
     return response.data;
   } catch (error) {
     return rejectWithValue(`${error}`);
@@ -139,7 +140,7 @@ export const GET_GOODS_BY_CATEGORY = createAsyncThunk<
   }
 });
 export const GET_GOOD = createAsyncThunk<
-  IGoods,
+  IGoods & { seller: ISeller },
   string,
   { rejectValue: string }
 >("page/good/GET_GOOD", async (id, { rejectWithValue }) => {
@@ -147,7 +148,7 @@ export const GET_GOOD = createAsyncThunk<
     const response = await sendRequest(
       `good/${id}`
     );
-    return response.data as IGoods;
+    return response.data as IGoods & { seller: ISeller };
   } catch (error) {
     return rejectWithValue(`${error}`);
 
@@ -405,7 +406,7 @@ const slice = createSlice({
               privates: action.payload.privates,
               delivery: action.payload.delivery,
               registered: action.payload.registered,
-              chats:  action.payload.chats
+              chats: action.payload.chats
             },
           },
         };
@@ -463,13 +464,7 @@ const slice = createSlice({
       if (action.payload) {
         return {
           ...state,
-          data: {
-            ...state.data,
-            user: {
-              ...state.data.user,
-              good: action.payload,
-            },
-          },
+          good: action.payload,
         };
       }
     });
@@ -616,7 +611,7 @@ const slice = createSlice({
         const newFavoriteList = isGoodsType
           ? [action.payload as IGoods, ...state.data.user.favorite]
           : state.data.user.favorite.filter(
-            (good) => good._id !== (action.meta.arg as string )
+            (good) => good._id !== (action.meta.arg as string)
           );
         return {
           ...state,

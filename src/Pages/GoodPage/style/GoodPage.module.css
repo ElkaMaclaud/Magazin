@@ -15,8 +15,22 @@
   cursor: pointer;
   height: 200px;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   background-color: #fff;
   border-radius: 20px;
+  text-align: left;
+}
+.salesmant img {
+  max-height: 100%;
+}
+.salesmantInfoWrapper {
+  padding: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20%;
+}
+.salesmantInfoWrapper a {
+  color: blue
 }
