@@ -61,8 +61,6 @@ export const Slider: FC<{
   };
 
   const handleWheelEvent = (e: React.WheelEvent<HTMLDivElement>) => {
-    e.preventDefault();
-
     const deltaY = e.deltaY;
     const direction = deltaY > 0 ? -1 : 1;
     setOffset((prev) => {
