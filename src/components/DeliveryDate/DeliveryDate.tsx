@@ -10,7 +10,7 @@ import { CardForInfo, Dropdown, Slider } from "../../UI_Component";
 import classes from "./style/DeliveryDate.module.css";
 import { BurgerMenu } from "../../UI_Component/Icons";
 import { Modal } from "../Modal/Modal";
-import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
+import { useAppSelector } from "../../store/reduxHooks";
 import { debounce } from "../../utils/debounce";
 import MenuItem from "../MenuItem/MenuItem";
 import { useToggle } from "../../hooks/useToggle";
@@ -20,29 +20,23 @@ const DeliveryDate = () => {
   const { user } = useAppSelector((state) => state.page.data);
   const [showModal, toggleShowModal] = useToggle(false);
   const [showDropDown, toggleShowDropDown] = useToggle(false);
-  const dispatch = useAppDispatch();
+  const [goodList, setGoodList] = useState(user.cart.filter(i=>i.choice).map((item) => item.image[0]))
   const ref = useRef<HTMLDivElement>(null);
   const refShowDropDown = useRef<HTMLDivElement>(null);
   const [tooltipPosition, setTooltipPosition] = useState("bottom");
-  const imageWrapperStyle: CSSProperties = {
-    border: "2px solid #ccc",
-    borderRadius: "4px",
-    padding: "4px"
-  };
   let style: CSSProperties = getСoordinates();
   
   const MemoSlider = useMemo(
     () => (
       <Slider
-        list={user.cart.filter(i=>i.choice).map((item) => item.image[0])}
+        list={goodList}
         style={styles} 
         width={109}
         height={58} 
-        imageWrapperStyle={imageWrapperStyle}
       />
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [user.cart]
+    [goodList]
   );
   useEffect(() => {
     const handleScroll = debounce(() => {
@@ -68,6 +62,7 @@ const DeliveryDate = () => {
   }, [tooltipPosition]);
   const canselPurchase = (remove = true) => {
     toggleShowModal();
+    setGoodList([])
   };
   const handleDropDownClick = () => {
     toggleShowDropDown();

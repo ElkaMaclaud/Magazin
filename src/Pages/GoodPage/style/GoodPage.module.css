@@ -1,15 +1,34 @@
+.wrapperPage {
+  width: 100%;
+  display: flex;
+  gap: 50px;
+}
+.wrapperImgGood {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  width: 75%;
+}
+.wrapperSliderGood {
+  display: flex;
+  gap: 50px;
+}
 .wrapperGood {
+  display: flex;
+  gap: 10px;
+}
+.characteristics {
   display: flex;
   gap: 20px;
 }
 .description {
   flex: 1 1 0;
+  line-height: 1.5;
+  padding: 30px;
+  font-size: 19px;
 }
-.countLikeWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 100px;
-  align-items: center;
+.description p {
+  margin: 20px 0;
 }
 .salesmant {
   cursor: pointer;
@@ -20,6 +39,7 @@
   background-color: #fff;
   border-radius: 20px;
   text-align: left;
+  overflow: hidden;
 }
 .salesmant img {
   max-height: 100%;
@@ -31,6 +51,40 @@
   flex-direction: column;
   gap: 20%;
 }
+.salesmantInfoWrapper p {
+  color: #999;
+}
 .salesmantInfoWrapper a {
   color: blue
+}
+.wrapperInfoGood {
+  width: 25%;
+}
+.contentInfoPrice {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.imgGood {
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 20px;
+}
+.favorite {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 150, 255, 0.08);
+  border-radius: 10px;
+  margin-top: auto;
+  transition: .3s ease;
+}
+.favorite svg {
+  margin-top: 6px;
+}
+.favorite:hover {
+  background-color: rgba(0, 150, 255, 0.2);
 }

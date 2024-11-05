@@ -2,19 +2,39 @@
   min-width: 100%;
   overflow: hidden;
 }
+.cardWrapperAlbum{
+  text-align: center;
+}
+.cardAlbum {
+  max-height: 250px;
+  height: 250px;  
+  text-align: center;
+  overflow: hidden;
+}
+
 .imagesWrapper {
   display: flex;
   justify-content: left;
   transition: transform .8s linear;
 }
-.imageWrapper {
+.imageWrapper, .imageWrapperNoBorder {
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
 }
+.imageWrapper {
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  padding: 4px;
+  transition: .2s ease;
+}
 .imageWrapper:hover {
   border-color: blue;
+} 
+.cardWrapperAlbum .imagesWrapper {
+  flex-direction: column;
+  align-items: center;
 }
 .arrow {
   cursor: pointer;
@@ -34,4 +54,22 @@
 }
 .arrow:hover {
   background-color: #005bff;
+}
+.buttonUp, .buttonDown {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  margin: 5px 0;
+  border-radius: 3px;
+  transition: .3s ease;
+}
+.buttonUp:hover, .buttonDown:hover {
+  background-color: #fff;
+}
+.buttonUp svg {
+  transform: rotate(-90deg);
+}
+.buttonDown svg {
+  transform: rotate(90deg);
 }

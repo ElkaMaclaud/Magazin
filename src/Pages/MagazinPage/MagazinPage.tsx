@@ -26,7 +26,7 @@ const MagazinPage = () => {
   return (
     <div className={classes.wrapper}>
       <Link to="../sale" className={classes.saleHappyNew}>
-        <Slider list={list} style={style} width={1400} height={298} noMargin />
+        <Slider list={list} style={style} width={1400} height={298} noMargin imageNoBorder />
         <strong className={classes.text}>Распроджа</strong>
       </Link>
       <div className={classes.saleStand}>

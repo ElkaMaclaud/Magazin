@@ -683,9 +683,6 @@ const slice = createSlice({
     });
     builder.addCase(SUBTRACT_FROM_CART.fulfilled, (state, action) => {
       if (action.payload) {
-        const findUpdatedGood = state.data.user.cart.find(
-          (good) => action.payload._id === good._id
-        );
         return {
           ...state,
           data: {
@@ -693,12 +690,12 @@ const slice = createSlice({
             user: {
               ...state.data.user,
               cart:
-                findUpdatedGood!.count === 0
+                !action.payload.hasOwnProperty("count") || action.payload?.count === 0
                   ? state.data.user.cart.filter(
-                    (good) => good._id === findUpdatedGood!._id
+                    (good) => good._id === action.payload._id
                   )
                   : state.data.user.cart.map((good) => {
-                    if (good._id === findUpdatedGood!._id) {
+                    if (good._id === action.payload._id) {
                       return { ...good, ...action.payload };
                     }
                     return good;

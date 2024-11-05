@@ -1,5 +1,6 @@
 import React, {
   CSSProperties,
+  Dispatch,
   FC,
   MouseEvent,
   useEffect,
@@ -7,7 +8,7 @@ import React, {
   useState,
 } from "react";
 import classes from "./style/Slider.module.css";
-import { Arrow } from "../Icons";
+import { Arrow, SmallArrow } from "../Icons";
 import { keyGenerate } from "../../utils/keyGenerate";
 interface IPlace {
   left: number;
@@ -19,10 +20,12 @@ export const Slider: FC<{
   list: Array<string>;
   width: number;
   height: number;
-  style: CSSProperties;
-  imageWrapperStyle?: CSSProperties;
+  style?: CSSProperties;
+  orientationAlbum?: boolean,
   noMargin?: boolean;
-}> = ({ list, style, width, height, imageWrapperStyle, noMargin }) => {
+  imageNoBorder?: boolean;
+  setState?: Dispatch<React.SetStateAction<string | undefined>>
+}> = ({ list, style, width, height, noMargin, orientationAlbum, imageNoBorder, setState }) => {
   const [offset, setOffset] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   const [placeArrow, setPlaceArrow] = useState<IPlace>({
@@ -68,8 +71,17 @@ export const Slider: FC<{
       return prev - WIDTH;
     });
   };
+  const handleClickImage = (item: string) => {
+    setState && setState(item)
+  }
   const ultraRight = () => {
     if (ref.current) {
+      if (orientationAlbum) {
+        if (ref.current) {
+          return maxWidth() + (offset - ref.current.clientHeight) + 20;
+        }
+        return maxWidth() - width + 20;
+      }
       return maxWidth() + (offset - ref.current.clientWidth);
     }
     return maxWidth() - WIDTH;
@@ -111,6 +123,49 @@ export const Slider: FC<{
     }
     return "0 -20px 0 0";
   };
+  if (orientationAlbum) {
+    return (
+      <div className={classes.cardWrapperAlbum}>
+        <button className={classes.buttonUp} onClick={handleLeftArrowClick}><SmallArrow /></button>
+        <div
+          className={classes.cardAlbum}
+          ref={ref}
+          style={{ width: `${width + 4}px`, maxWidth: `${width + 4}px` }}
+        >
+
+          <div
+            className={classes.imagesWrapper}
+            style={{
+              transform: `translateY(${offset}px)`,
+              gap: `${noMargin ? "0" : "7px"}`,
+            }}
+          >
+            {list.map((item) => {
+              const key = keyGenerate();
+              return (
+                <div
+                  key={key}
+                  className={imageNoBorder ? classes.imageWrapperNoBorder : classes.imageWrapper}
+                  style={{
+                    width: `${width + 4}px`,
+                    height: `${width + 4}px`,
+                  }}
+                  onClick={() => handleClickImage(item)}
+                >
+                  <img
+                    src={item}
+                    alt=""
+                    style={{ height: `${height}px`, borderRadius: "10px", width: `${width}px`, objectFit: "cover", ...style }}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <button className={classes.buttonDown} onClick={handleRightArrowClick}><SmallArrow /></button>
+      </div>
+    );
+  }
   return (
     <div
       className={classes.cardWrapper}
@@ -129,10 +184,9 @@ export const Slider: FC<{
           return (
             <div
               key={key}
-              className={classes.imageWrapper}
+              className={imageNoBorder ? classes.imageWrapperNoBorder : classes.imageWrapper}
               style={{
                 width: `${width}px`,
-                ...imageWrapperStyle,
               }}
             >
               <img
