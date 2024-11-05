@@ -78,7 +78,7 @@ const GoodPage = () => {
             <InfoCard>
               <div className={classes.textWrapper}>
                 <div className={classes.round}></div>
-                <p className={classes.text}>
+                <div className={classes.text}>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Doloremque, voluptatibus. Quidem sint facilis fuga, iusto
                   quod alias ea nulla corrupti.
@@ -94,7 +94,7 @@ const GoodPage = () => {
                     Doloremque, voluptatibus. Quidem sint facilis fuga, iusto
                     quod alias ea nulla corrupti.
                   </p>
-                </p>
+                </div>
               </div>
             </InfoCard>
           </SmallCard>

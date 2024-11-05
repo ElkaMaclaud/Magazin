@@ -15,7 +15,7 @@
 .imagesWrapper {
   display: flex;
   justify-content: left;
-  transition: transform .8s linear;
+  transition: transform .3s linear;
 }
 .imageWrapper, .imageWrapperNoBorder {
   display: flex;

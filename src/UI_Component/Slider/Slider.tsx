@@ -59,6 +59,23 @@ export const Slider: FC<{
       return prev + WIDTH;
     });
   };
+
+  const handleWheelEvent = (e: React.WheelEvent<HTMLDivElement>) => {
+    e.preventDefault();
+
+    const deltaY = e.deltaY;
+    const direction = deltaY > 0 ? -1 : 1;
+    setOffset((prev) => {
+      if (ref.current) {
+        const newOffset = prev + direction * width;
+        if (newOffset > 0) return 0;
+        if (Math.abs(newOffset) > ref.current.clientWidth) return -ref.current.clientWidth - width;
+        return newOffset;
+      }
+      return prev;
+    });
+  };
+
   const handleRightArrowClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setOffset((prev) => {
@@ -134,6 +151,7 @@ export const Slider: FC<{
         >
 
           <div
+            onWheel={handleWheelEvent}
             className={classes.imagesWrapper}
             style={{
               transform: `translateY(${offset}px)`,
@@ -174,6 +192,7 @@ export const Slider: FC<{
     >
       <div
         className={classes.imagesWrapper}
+        onWheel={handleWheelEvent}
         style={{
           transform: `translateX(${offset}px)`,
           gap: `${noMargin ? "0" : "7px"}`,
