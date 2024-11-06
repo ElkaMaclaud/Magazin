@@ -61,18 +61,28 @@ export const Slider: FC<{
   };
 
   const handleWheelEvent = (e: React.WheelEvent<HTMLDivElement>) => {
+    // e.preventDefault();
     const deltaY = e.deltaY;
     const direction = deltaY > 0 ? -1 : 1;
     setOffset((prev) => {
       if (ref.current) {
         const newOffset = prev + direction * width;
-        if (newOffset > 0) return 0;
-        if (Math.abs(newOffset) > ref.current.clientWidth) return -ref.current.clientWidth - width;
+
+        const contentHeight = ref.current.clientHeight;
+        const maxOffset = -(contentHeight - width);
+
+        if (newOffset > 0) {
+          return 0;
+        }
+        if (newOffset < maxOffset) {
+          return maxOffset;
+        }
         return newOffset;
       }
       return prev;
     });
   };
+
 
   const handleRightArrowClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -143,13 +153,13 @@ export const Slider: FC<{
       <div className={classes.cardWrapperAlbum}>
         <button className={classes.buttonUp} onClick={handleLeftArrowClick}><SmallArrow /></button>
         <div
+          onWheel={handleWheelEvent}
           className={classes.cardAlbum}
           ref={ref}
           style={{ width: `${width + 4}px`, maxWidth: `${width + 4}px` }}
         >
 
           <div
-            onWheel={handleWheelEvent}
             className={classes.imagesWrapper}
             style={{
               transform: `translateY(${offset}px)`,
@@ -185,12 +195,12 @@ export const Slider: FC<{
   return (
     <div
       className={classes.cardWrapper}
+      onWheel={handleWheelEvent}
       ref={ref}
       style={{ margin: `${getMargin()}` }}
     >
       <div
         className={classes.imagesWrapper}
-        onWheel={handleWheelEvent}
         style={{
           transform: `translateX(${offset}px)`,
           gap: `${noMargin ? "0" : "7px"}`,
