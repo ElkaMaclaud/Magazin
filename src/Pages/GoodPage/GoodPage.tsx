@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { IGoods } from "../../type/goodsType";
 import classes from "./style/GoodPage.module.css";
-import { CardPageFlex, ImageGood, InfoCard, Slider, SmallCard } from "../../UI_Component";
+import { CardPageFlex, InfoCard, Slider, SmallCard } from "../../UI_Component";
 import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
 import { CREATE_NEW_CHAT, GET_GOOD } from "../../store/slice";
 import { CounterButton } from "../../components/CounterButton/CounterButton";
 import ChoiceIcon from "../../components/ChoiceIcon/ChoiceIcon";
 import Spinner from "../../components/Spinner/Spinner";
 import { ISeller } from "../../type/userType";
+import { Location } from "../../UI_Component/Icons";
 
 const GoodPage = () => {
   const { id } = useParams();
@@ -24,20 +25,33 @@ const GoodPage = () => {
     if (id) dispatch(GET_GOOD(id))
   }, [id, dispatch]);
 
-  const goChat = () => {
-    const chat = findChatWithStore()
-    if(chat) {
+  const goChat = (supportСhat?: boolean) => {
+    let chat;
+    if (supportСhat) {
+      chat = findChatWithStore(process.env.REACT_APP_API_SUPPORT_CHAT!)
+    } else {
+      chat = findChatWithStore()
+    }
+    if (chat) {
       navigate("../chat", { state: { ...chat } })
-    } else if(good && !chat) {
-      dispatch(CREATE_NEW_CHAT({userId: data.user._id, id: good.seller._id, title: good.seller.name}))
-      navigate("../chat")
+    } else if (good && !chat) {
+      if (supportСhat) {
+        dispatch(CREATE_NEW_CHAT({
+          userId: data.user._id,
+          id: process.env.REACT_APP_API_SUPPORT_CHAT!,
+          title: "ElkaMaclaud"
+        }))
+        navigate("../chat")
+      } else {
+        dispatch(CREATE_NEW_CHAT({ userId: data.user._id, id: good.seller._id, title: good.seller.name }))
+        navigate("../chat")
+      }
     }
   }
-
-  const findChatWithStore = () => {
+  const findChatWithStore = (searchedСhatId?: string) => {
     let findChatId = null
-    if(good) {
-      findChatId = data.user?.chats.find((i) => i.participants.includes(good?.seller._id))
+    if (good) {
+      findChatId = data.user?.chats.find((i) => i.participants.includes(searchedСhatId || good?.seller._id))
     }
     return findChatId
   }
@@ -57,11 +71,14 @@ const GoodPage = () => {
               list={good.image}
               width={50}
               height={50}
-              orientationAlbum 
-              setState={setImage}/>
+              orientationAlbum
+              setState={setImage} />
             <div className={classes.wrapperGood}>
               <img className={classes.imgGood} src={image} />
               <div className={classes.description}>
+                <h3>{good.category}</h3>
+                <h3>{good.name}</h3>
+                <h4>{good.brand}</h4>
                 <p>{good.description}</p>
                 <div>{Array.isArray(good.characteristics) ?
                   good.characteristics.map(item =>
@@ -77,7 +94,7 @@ const GoodPage = () => {
             <div className={classes.salesmantInfoWrapper}>
               <p>Продавец</p>
               <h2>{good.seller.name}</h2>
-              <div onClick={goChat} className={classes.link}>
+              <div onClick={() => goChat()} className={classes.link}>
                 Написать продавцу
               </div>
             </div>
@@ -99,9 +116,10 @@ const GoodPage = () => {
               <div className={classes.textWrapper}>
                 <div className={classes.round}></div>
                 <div className={classes.text}>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Doloremque, voluptatibus. Quidem sint facilis fuga, iusto
-                  quod alias ea nulla corrupti.
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Doloremque, voluptatibus. Quidem sint facilis fuga, iusto
+                    quod alias ea nulla corrupti.
+                  </p>
                   <p>  Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Doloremque, voluptatibus. Quidem sint facilis fuga, iusto
                     quod alias ea nulla corrupti.
@@ -118,6 +136,12 @@ const GoodPage = () => {
               </div>
             </InfoCard>
           </SmallCard>
+          <div className={classes.deliveryInfoWrapper}>
+            <h3>Информация о доставке</h3>
+            <div className={classes.deliveryInfo}><Location /><p>{data.user.delivery.choice}</p></div>
+            <p>Со склада Magazin, Московская Область</p>
+            <div className={classes.link} onClick={() => goChat(true)}>Есть вопросы по товару или доставке? Напишите нам!</div>
+          </div>
         </div>
       </div>
     </CardPageFlex >

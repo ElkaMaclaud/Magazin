@@ -3,6 +3,7 @@ export interface IGoods {
     image: Array<string>;
     price: number;
     name: string;
+    brand: string;
     category: string;
     description: string;
     characteristics: string;

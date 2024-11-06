@@ -31,7 +31,6 @@
   margin: 20px 0;
 }
 .salesmant {
-  cursor: pointer;
   height: 200px;
   display: flex;
   justify-content: left;
@@ -55,6 +54,7 @@
   color: #999;
 }
 .link {
+  cursor: pointer;
   color: blue
 }
 .wrapperInfoGood {
@@ -87,4 +87,19 @@
 }
 .favorite:hover {
   background-color: rgba(0, 150, 255, 0.2);
+}
+.deliveryInfoWrapper {
+  margin: 10px;
+  padding: 10px;
+  font-size: 19px;
+}
+.deliveryInfoWrapper > p {
+  font-size: 14px;
+  color: #555;
+  border-bottom: 1px solid #ddd;
+}
+.deliveryInfo {
+  padding: 10px 0 5px 0;
+  display: flex;
+  gap: 20px;
 }
