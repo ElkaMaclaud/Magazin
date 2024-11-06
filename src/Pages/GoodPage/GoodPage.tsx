@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { IGoods } from "../../type/goodsType";
 import classes from "./style/GoodPage.module.css";
-import { Button, CardPageFlex, ImageGood, InfoCard, Slider, SmallCard } from "../../UI_Component";
+import { CardPageFlex, ImageGood, InfoCard, Slider, SmallCard } from "../../UI_Component";
 import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
-import { GET_GOOD } from "../../store/slice";
+import { CREATE_NEW_CHAT, GET_GOOD } from "../../store/slice";
 import { CounterButton } from "../../components/CounterButton/CounterButton";
 import ChoiceIcon from "../../components/ChoiceIcon/ChoiceIcon";
 import Spinner from "../../components/Spinner/Spinner";
@@ -12,15 +12,35 @@ import { ISeller } from "../../type/userType";
 
 const GoodPage = () => {
   const { id } = useParams();
-  const { good } = useAppSelector((state) => state.page);
+  const { good, data } = useAppSelector((state) => state.page);
   const [image, setImage] = useState(good?.image[0])
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate()
   useEffect(() => {
     setImage(good?.image[0])
   }, [good])
-  const dispatch = useAppDispatch();
+
   useEffect(() => {
     if (id) dispatch(GET_GOOD(id))
   }, [id, dispatch]);
+
+  const goChat = () => {
+    const chat = findChatWithStore()
+    if(chat) {
+      navigate("../chat", { state: { chat } })
+    } else if(good && !chat) {
+      dispatch(CREATE_NEW_CHAT({userId: data.user._id, id: good.seller._id, title: good.seller.name}))
+      navigate("../chat")
+    }
+  }
+
+  const findChatWithStore = () => {
+    let findChatId = null
+    if(good) {
+      findChatId = data.user?.chats.find((i) => i.participants.includes(good?.seller._id))
+    }
+    return findChatId
+  }
   const checkProperty = (card: IGoods & { seller: ISeller }) => {
     if ("count" in card) {
       return card.count as number;
@@ -57,9 +77,9 @@ const GoodPage = () => {
             <div className={classes.salesmantInfoWrapper}>
               <p>Продавец</p>
               <h2>{good.seller.name}</h2>
-              <Link to="../chat">
+              <div onClick={goChat} className={classes.link}>
                 Написать продавцу
-              </Link>
+              </div>
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { IData } from "../type/dataType";
 import { IGoods } from "../type/goodsType";
-import { IDelivery, ISeller, IUser } from "../type/userType";
+import { IChat, IDelivery, ISeller, IUser } from "../type/userType";
 import { RootState } from "./Store";
 import { sendRequest } from "../API/api";
 
@@ -22,6 +22,7 @@ export interface IInitialState {
   good?: IGoods & { seller: ISeller };
 }
 const initialUserData: IUser = {
+  _id: "",
   publik: {
     name: "",
     city: "",
@@ -349,6 +350,20 @@ export const SELECTING_PRODUCTS_IN_THE_CART = createAsyncThunk<
     return rejectWithValue(`${error}`);
   }
 });
+
+export const CREATE_NEW_CHAT = createAsyncThunk<
+  { chats: IChat[] },
+  { userId: string, id: string, title: string },
+  { rejectValue: string }
+>("page/CREATE_NEW_CHAT", async (dto, { rejectWithValue }) => {
+  try {
+    const response = await sendRequest("user/createNewChat", "POST", { ...dto });
+    return response.data as { chats: IChat[] };
+  } catch (error) {
+    return rejectWithValue(`${error}`);
+  }
+});
+
 
 const slice = createSlice({
   name: "Page",
@@ -735,6 +750,20 @@ const slice = createSlice({
                 }
                 return good;
               }),
+            },
+          },
+        };
+      }
+    });
+    builder.addCase(CREATE_NEW_CHAT.fulfilled, (state, action) => {
+      if (action.payload) {
+        return {
+          ...state,
+          data: {
+            ...state.data,
+            user: {
+              ...state.data.user,
+              chats: action.payload.chats
             },
           },
         };

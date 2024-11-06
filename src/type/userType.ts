@@ -1,7 +1,7 @@
 import { IGoods } from "./goodsType";
 
 export interface IUser {
-  _id?: string;
+  _id: string;
   publik: IInfoPublik;
   privates: IInfoPrivate;
   favorite: IGoods[]; //string[];
@@ -9,7 +9,7 @@ export interface IUser {
   purchased: IPurchased[];
   delivery: IDelivery;
   registered: boolean,
-  chats: string[]  
+  chats: IChat[];  
 }
 export interface IInfoPublik {
   name: string;
@@ -38,6 +38,7 @@ export interface IReview {
 }
 
 export interface ISeller {
+  _id: string;
   name: string;
   email: string;
   phone?: string;
@@ -50,5 +51,11 @@ export interface ISeller {
   status: 'active' | 'suspended' | 'deleted';
   socialMediaLinks: Map<string, string>;
   image?: string;
-  chats: string[]; 
+  chats: IChat[]; 
+}
+
+export interface IChat {
+  _id: string;
+  participants: string[];
+  title: string
 }

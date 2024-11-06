@@ -4,6 +4,7 @@ import style from "./style/Chat.module.css";
 import { Button, CardPageFlex } from '../../UI_Component';
 import { useAppSelector } from '../../store/reduxHooks';
 import { useLocation } from 'react-router-dom';
+import { IChat } from '../../type/userType';
 
 interface Message {
     _id: string;
@@ -11,20 +12,19 @@ interface Message {
     senderId: string;
     timestamp?: Date;
 }
-interface LocationState {
-    salesmant: string; 
-}
-
-const Chat: FC<{ chatid?: string }> = ({ chatid }) => {
+const Chat = () => {
+    const location = useLocation();
+    const chat = location.state as IChat;
     const { token, data } = useAppSelector(state => state.page);
-    const [chatId, setChatId] = useState(chatid || data.user.chats[0])
+    const [chatId, setChatId] = useState(chat?._id || data.user?.chats[0]?._id)
     const [messages, setMessages] = useState<(Message | string)[]>([]);
     const [inputValue, setInputValue] = useState('');
     const socketRef = useRef<Socket | null>(null);
     const messagesRef = useRef<HTMLDivElement | null>(null);
-    const location = useLocation();
-    const { salesmant } = location.state as LocationState || {}; 
-
+    
+    useEffect(() => {
+        setChatId(data.user?.chats[0]?._id)
+    }, [data.user.chats])
 
     useEffect(() => {
         socketRef.current = io(process.env.REACT_APP_API_URL, {
@@ -79,9 +79,9 @@ const Chat: FC<{ chatid?: string }> = ({ chatid }) => {
                     <div className={style.chatListWrapper}>
                         <ul className={style.chatList}>
                             {data.user.chats.map((chat) => {
-                                return (<li key={chat}
-                                    className={chat === chatId ? style.chatNameActive : style.chatName}
-                                    onClick={() => setChatId(chat)}>{chat}</li>)
+                                return (<li key={chat._id}
+                                    className={chat._id === chatId ? style.chatNameActive : style.chatName}
+                                    onClick={() => setChatId(chat._id)}>{chat.title}</li>)
                             })}
                         </ul>
                     </div>

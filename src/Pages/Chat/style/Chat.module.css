@@ -9,12 +9,14 @@
 }
 .chatListWrapper {
     width: 25%;
-    margin: 10px;
+    margin: 10px 0;
+    padding: 10px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
 }
 .chatList {
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
     gap: 20px;
 }
 .chatName, .chatNameActive {
@@ -43,20 +45,25 @@
     flex-grow: 1;
     overflow-y: auto;
     scroll-behavior: smooth;
+    border: 1px solid #ccc;
+    border-radius: 10px;
     margin: 10px 0;
 }
-.chatMessages::-webkit-scrollbar {
+.chatMessages::-webkit-scrollbar, 
+.chatListWrapper::-webkit-scrollbar {
 	width: 5px;
 	height: 5px;
 }
 
-.chatMessages::-webkit-scrollbar-track {
+.chatMessages::-webkit-scrollbar-track,
+.chatListWrapper::-webkit-scrollbar-track {
 	-webkit-box-shadow: 5px 5px 5px -5px rgba(6, 31, 99, 0.2) inset;
 	background-color: #fff;
 	border-radius: 4px;
 }
 
-.chatMessages::-webkit-scrollbar-thumb {
+.chatMessages::-webkit-scrollbar-thumb,
+.chatListWrapper::-webkit-scrollbar-thumb {
 	margin-top: -20px;
 	height: 20px;
 	border-radius: 4px;
