@@ -27,7 +27,7 @@ const GoodPage = () => {
   const goChat = () => {
     const chat = findChatWithStore()
     if(chat) {
-      navigate("../chat", { state: { chat } })
+      navigate("../chat", { state: { ...chat } })
     } else if(good && !chat) {
       dispatch(CREATE_NEW_CHAT({userId: data.user._id, id: good.seller._id, title: good.seller.name}))
       navigate("../chat")

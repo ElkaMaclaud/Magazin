@@ -19,12 +19,28 @@ const Chat = () => {
     const [chatId, setChatId] = useState(chat?._id || data.user?.chats[0]?._id)
     const [messages, setMessages] = useState<(Message | string)[]>([]);
     const [inputValue, setInputValue] = useState('');
+    const chatListRef = useRef<HTMLUListElement>(null);
     const socketRef = useRef<Socket | null>(null);
     const messagesRef = useRef<HTMLDivElement | null>(null);
-    
+
     useEffect(() => {
-        setChatId(data.user?.chats[0]?._id)
+        if(!chat) {
+          setChatId(data.user?.chats[0]?._id)  
+        }
     }, [data.user.chats])
+
+    useEffect(() => {
+        if (chatListRef.current) {
+            // const activeChatElement = chatListRef.current.querySelector(`li[data-chat-id="${chatId}"]`);
+            const listItems = chatListRef.current.children;
+            const activeChatElement = Array.from(listItems).find(
+                (item) => item.getAttribute('data-chat-id') === chatId
+            );
+            if (activeChatElement) {
+                activeChatElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+    }, [chatId]);
 
     useEffect(() => {
         socketRef.current = io(process.env.REACT_APP_API_URL, {
@@ -77,9 +93,10 @@ const Chat = () => {
             <CardPageFlex>
                 <div className={style.wrapper}>
                     <div className={style.chatListWrapper}>
-                        <ul className={style.chatList}>
+                        <ul className={style.chatList} ref={chatListRef}>
                             {data.user.chats.map((chat) => {
                                 return (<li key={chat._id}
+                                    data-chat-id={chat._id}
                                     className={chat._id === chatId ? style.chatNameActive : style.chatName}
                                     onClick={() => setChatId(chat._id)}>{chat.title}</li>)
                             })}
