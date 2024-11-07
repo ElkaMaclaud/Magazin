@@ -50,6 +50,7 @@ const Chat = () => {
         }
     }, [chatId]);
 
+
     useEffect(() => {
         socketRef.current = io(process.env.REACT_APP_API_URL, {
             transports: ['polling', 'websocket'],
@@ -58,6 +59,10 @@ const Chat = () => {
                 Authorization: `Bearer ${token}`
             },
             query: { chatId }
+        });
+
+        socketRef.current.on("connect_error", (err) => {
+            console.log("Ошибка подключения к сокету:", err);
         });
 
         const socket = socketRef.current;
