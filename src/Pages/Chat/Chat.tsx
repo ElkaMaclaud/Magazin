@@ -52,6 +52,7 @@ const Chat = () => {
 
     useEffect(() => {
         socketRef.current = io(process.env.REACT_APP_API_URL, {
+            transports: ['polling', 'websocket'],
             withCredentials: true,
             extraHeaders: {
                 Authorization: `Bearer ${token}`
