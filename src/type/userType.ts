@@ -56,6 +56,17 @@ export interface ISeller {
 
 export interface IChat {
   _id: string;
-  participants: string[];
+  participants: IParticipants[];
+}
+
+export interface IParticipants {
+  userId: string,
   title: string
+}
+
+export interface IArguments {
+  userId: string,
+  id: string,
+  userTitle: string,
+  titleId: string,
 }

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { IData } from "../type/dataType";
 import { IGoods } from "../type/goodsType";
-import { IChat, IDelivery, ISeller, IUser } from "../type/userType";
+import { IArguments, IChat, IDelivery, ISeller, IUser } from "../type/userType";
 import { RootState } from "./Store";
 import { sendRequest } from "../API/api";
 
@@ -351,9 +351,22 @@ export const SELECTING_PRODUCTS_IN_THE_CART = createAsyncThunk<
   }
 });
 
+export const GET_ALL_CHATS = createAsyncThunk<
+  { chats: IChat[] },
+  undefined,
+  { rejectValue: string }
+>("page/GET_ALL_CHATS", async (_, { rejectWithValue }) => {
+  try {
+    const response = await sendRequest("user/getAllChats");
+    return response.data as { chats: IChat[] };
+  } catch (error) {
+    return rejectWithValue(`${error}`);
+  }
+});
+
 export const CREATE_NEW_CHAT = createAsyncThunk<
   { chats: IChat[] },
-  { userId: string, id: string, title: string },
+  IArguments,
   { rejectValue: string }
 >("page/CREATE_NEW_CHAT", async (dto, { rejectWithValue }) => {
   try {
@@ -363,7 +376,6 @@ export const CREATE_NEW_CHAT = createAsyncThunk<
     return rejectWithValue(`${error}`);
   }
 });
-
 
 const slice = createSlice({
   name: "Page",
@@ -378,6 +390,9 @@ const slice = createSlice({
     SET_LOGOUT: (state) => {
       state.data.user = initialUserData
     },
+    UPDATE_CHATS: (state, action) => {
+      state.data.user.chats = [action.payload, ...state.data.user.chats]
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(AUT_USER.fulfilled, (state, action) => {
@@ -755,6 +770,20 @@ const slice = createSlice({
         };
       }
     });
+    builder.addCase(GET_ALL_CHATS.fulfilled, (state, action) => {
+      if (action.payload) {
+        return {
+          ...state,
+          data: {
+            ...state.data,
+            user: {
+              ...state.data.user,
+              chats: action.payload.chats
+            },
+          },
+        };
+      }
+    });
     builder.addCase(CREATE_NEW_CHAT.fulfilled, (state, action) => {
       if (action.payload) {
         return {
@@ -773,4 +802,4 @@ const slice = createSlice({
 });
 
 export default slice.reducer;
-export const { LOADING_PAGE, PAGE_POSITION, SET_LOGOUT } = slice.actions;
+export const { LOADING_PAGE, PAGE_POSITION, SET_LOGOUT, UPDATE_CHATS } = slice.actions;

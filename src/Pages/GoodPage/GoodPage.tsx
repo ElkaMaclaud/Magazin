@@ -39,19 +39,26 @@ const GoodPage = () => {
         dispatch(CREATE_NEW_CHAT({
           userId: data.user._id,
           id: process.env.REACT_APP_API_SUPPORT_CHAT!,
-          title: "ElkaMaclaud"
+          userTitle: process.env.REACT_APP_API_SUPPORT_CHAT_NAME!,
+          titleId: data.user.publik.name
         }))
         navigate("../chat")
       } else {
-        dispatch(CREATE_NEW_CHAT({ userId: data.user._id, id: good.seller._id, title: good.seller.name }))
+        dispatch(CREATE_NEW_CHAT({
+          userId: data.user._id,
+          userTitle: good.seller.name,
+          id: good.seller._id,
+          titleId: data.user.publik.name
+        }))
         navigate("../chat")
       }
     }
   }
   const findChatWithStore = (searchedСhatId?: string) => {
-    let findChatId = null
+    let findChatId;
     if (good) {
-      findChatId = data.user?.chats.find((i) => i.participants.includes(searchedСhatId || good?.seller._id))
+      findChatId = data.user?.chats.find((i) => 
+        i.participants.some((i) => i.userId === searchedСhatId || i.userId === good?.seller._id))
     }
     return findChatId
   }
