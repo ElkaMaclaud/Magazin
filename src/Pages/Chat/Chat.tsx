@@ -23,6 +23,7 @@ const Chat = () => {
     const [chats, setChats] = useState(data.user.chats)
     const [messages, setMessages] = useState<Message[]>([]);
     const [inputValue, setInputValue] = useState('');
+    const [activeChats, setActiveChats] = useState<{[key: string]: boolean}>({});
     const dispatch = useAppDispatch()
     const chatListRef = useRef<HTMLUListElement>(null);
     const socketRef = useRef<Socket | null>(null);
@@ -51,7 +52,13 @@ const Chat = () => {
             }
         }
     }, [chatId]);
+    const enterChat = (chatId: string) => {
+        setActiveChats((prev) => ({ ...prev, [chatId]: true }));
+    };
 
+    const leaveChat = (chatId: string) => {
+        setActiveChats((prev) => ({ ...prev, [chatId]: false }));
+    };
 
     useEffect(() => {
         socketRef.current = io(process.env.REACT_APP_API_URL, {
@@ -71,6 +78,7 @@ const Chat = () => {
 
         socket.on("connect", () => {
             console.log("Сокет подключен:", socket.id);
+            enterChat(chatId);
             socket.emit("join room", chatId);
             socket.emit("register", data.user._id);
         });
@@ -78,11 +86,29 @@ const Chat = () => {
         socket.on("previous messages", (previousMessages: Message[]) => {
             console.log("Получены предыдущие сообщения:", previousMessages);
             setMessages(previousMessages);
+
+            const lastUnreadIndex = previousMessages
+            .slice() 
+            .reverse() 
+            .findIndex(message => message.status === 'read');
+
+            if (lastUnreadIndex !== undefined) {
+                for (let i = previousMessages.length - lastUnreadIndex ; i < previousMessages.length; i++) {
+                    if (previousMessages[i].status !== 'read') {
+                        handleMessageRead(previousMessages[i]._id);
+                    }
+                }
+            }
         });
 
         socket.on("chat message", (msg: Message) => {
             console.log("Получено сообщение:", msg);
             setMessages((prevMessages) => [...prevMessages, msg]);
+
+            if (activeChats[chatId]  && msg.senderId !== data.user._id) {
+                handleMessageRead(msg._id);
+                socket.emit("message read", { messageId: msg._id, userId: data.user._id });
+            }
         });
 
         socket.on("new chat", (newChat: IChat) => {
@@ -100,6 +126,7 @@ const Chat = () => {
         });
 
         return () => {
+            leaveChat(chatId); 
             socket.disconnect();
         };
     }, [token, data, chatId]);
@@ -129,6 +156,7 @@ const Chat = () => {
             setInputValue('');
         }
     };
+
     useEffect(() => {
         const handleVisibilityChange = () => {
             if (!document.hidden) {
