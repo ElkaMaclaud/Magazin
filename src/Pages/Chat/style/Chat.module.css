@@ -52,6 +52,12 @@
     border-radius: 10px;
     margin: 10px 0;
 }
+/* Стили для Firefox */
+/* .chatMessages, .chatList {
+    scrollbar-width: thin; 
+    scrollbar-color: #aaa #fff; 
+} */
+
 .chatMessages::-webkit-scrollbar, 
 .chatList::-webkit-scrollbar {
 	width: 5px;
@@ -72,6 +78,7 @@
 	border-radius: 4px;
 	background: linear-gradient(180deg, #bbb, #aaa);
 }
+
 .chatForm {
     width: 100%;
     display: flex;
@@ -95,5 +102,13 @@
 
 .userMessage {
     margin-left: auto;
+    padding: 10px;
+    display: flex;
+    justify-content: right;
+    align-items:flex-end;
+    gap: 15px;
     background-color: #b0d3ef;
+}
+.userMessage svg {
+    margin-bottom: -10px;
 }

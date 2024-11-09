@@ -6,12 +6,14 @@ import { useAppDispatch, useAppSelector } from '../../store/reduxHooks';
 import { useLocation } from 'react-router-dom';
 import { IChat } from '../../type/userType';
 import { GET_ALL_CHATS, UPDATE_CHATS } from '../../store/slice';
+import { IconRead } from '../../UI_Component/Icons';
 
 interface Message {
     _id: string;
     content: string;
     senderId: string;
     timestamp?: Date;
+    status?: 'sent' | 'delivered' | 'read'
 }
 const Chat = () => {
     const location = useLocation();
@@ -70,6 +72,7 @@ const Chat = () => {
         socket.on("connect", () => {
             console.log("Сокет подключен:", socket.id);
             socket.emit("join room", chatId);
+            socket.emit("register", data.user._id);
         });
 
         socket.on("previous messages", (previousMessages: Message[]) => {
@@ -87,10 +90,25 @@ const Chat = () => {
             dispatch(UPDATE_CHATS(newChat))
         });
 
+        socket.on("message status updated", (data) => {
+            console.log(`Сообщение ${data.messageId} было прочитано пользователем ${data.userId}`);
+            setMessages((prevMessages) =>
+                prevMessages.map(message =>
+                    message._id === data.messageId ? { ...message, status: 'read' } : message
+                )
+            );
+        });
+
         return () => {
             socket.disconnect();
         };
     }, [token, data, chatId]);
+
+    const handleMessageRead = (messageId: string) => {
+        if (socketRef.current) {
+            socketRef.current.emit("message read", messageId);
+        }
+    };
 
     useEffect(() => {
         if (messagesRef.current) {
@@ -101,12 +119,33 @@ const Chat = () => {
 
     const sendMessage = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        // const message: Message = {
+        //     content: inputValue,
+        //     senderId: data.user._id
+        // };
+        // setMessages((prevMessages) => [...prevMessages, message]);
         if (inputValue.trim() && socketRef.current) {
             socketRef.current.emit("chat message", inputValue);
             setInputValue('');
         }
     };
+    useEffect(() => {
+        const handleVisibilityChange = () => {
+            if (!document.hidden) {
+                messages.forEach(message => {
+                    if (message.status !== 'read') {
+                        handleMessageRead(message._id);
+                    }
+                });
+            }
+        };
 
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+
+        return () => {
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+        };
+    }, [messages]);
     return (
         <div>
             <CardPageFlex>
@@ -128,9 +167,21 @@ const Chat = () => {
                         <div ref={messagesRef} className={style.chatMessages}>
                             <ul>
                                 {messages.map((msg) => {
+                                    if (msg.senderId === data.user._id) {
+                                        return (
+                                            <li key={msg._id}
+                                                className={style.userMessage}>
+                                                {msg.content}
+                                                {msg?.status === "sent" ?
+                                                    <IconRead />
+                                                    :
+                                                    <IconRead fill={"#005bff"} />}
+                                            </li>
+                                        )
+                                    }
                                     return (
                                         <li key={msg._id}
-                                            className={msg.senderId === data.user._id ? style.userMessage : style.message}>
+                                            className={style.message}>
                                             {msg.content}
                                         </li>
                                     );

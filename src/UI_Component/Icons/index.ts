@@ -26,6 +26,7 @@ export { Sport } from "./Sport/Sport";
 export { SearchIcon } from "./SearchIcon/SearchIcon";
 export { PublicInfo } from "./PublicInfo/PublicInfo";
 export { Location } from "./Location/Location";
+export { IconRead } from "./IconRead/IconRead";
 export { Share } from "./Share/Share";
 export { SmallArrow } from "./SmallArrow/SmallArrow";
 export { Trash } from "./Trash/Trash";
