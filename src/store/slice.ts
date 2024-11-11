@@ -68,7 +68,7 @@ export const REGISTER_USER = createAsyncThunk<
   }
 });
 export const AUT_USER = createAsyncThunk<
-  { access_token: string },
+  IUser & { access_token: string },
   IAuthorization,
   { rejectValue: string }
 >("page/AUT_USER", async (value, { rejectWithValue }) => {
@@ -76,7 +76,7 @@ export const AUT_USER = createAsyncThunk<
     const response = await sendRequest("user/auth/login", "POST",
       value
     );
-    return response.data;
+    return response.data as IUser & { access_token: string };
   } catch (error) {
     return rejectWithValue(`${error}`);
   }
@@ -396,7 +396,6 @@ const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(AUT_USER.fulfilled, (state, action) => {
-      const sentDate = action.meta.arg;
       if (action.payload) {
         localStorage.setItem("access_token", action.payload.access_token);
         return {
@@ -407,16 +406,11 @@ const slice = createSlice({
             ...state.data,
             user: {
               ...state.data.user,
-              publik: {
-                ...state.data.user.publik,
-                name: sentDate.name,
-              },
-              privates: {
-                ...state.data.user.privates,
-                email: sentDate.email,
-                phone: sentDate.phone,
-              },
-              registered: true,
+              _id: action.payload._id,
+              publik: action.payload.publik,
+              privates: action.payload.privates,
+              delivery: action.payload.delivery,
+              registered: action.payload.registered
             },
           },
         };
@@ -435,8 +429,7 @@ const slice = createSlice({
               publik: action.payload.publik,
               privates: action.payload.privates,
               delivery: action.payload.delivery,
-              registered: action.payload.registered,
-              chats: action.payload.chats
+              registered: action.payload.registered
             },
           },
         };
@@ -770,10 +763,17 @@ const slice = createSlice({
         };
       }
     });
+    builder.addCase(GET_ALL_CHATS.pending, (state, action) => {
+        return {
+          ...state,
+          isloading: true,
+        };
+    });
     builder.addCase(GET_ALL_CHATS.fulfilled, (state, action) => {
       if (action.payload) {
         return {
           ...state,
+          isloading: false,
           data: {
             ...state.data,
             user: {

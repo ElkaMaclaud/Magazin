@@ -7,6 +7,7 @@ import { useLocation } from 'react-router-dom';
 import { IChat } from '../../type/userType';
 import { GET_ALL_CHATS, UPDATE_CHATS } from '../../store/slice';
 import { IconRead, IconTick } from '../../UI_Component/Icons';
+import Spinner from '../../components/Spinner/Spinner';
 
 interface Message {
     _id: string;
@@ -18,8 +19,8 @@ interface Message {
 const Chat = () => {
     const location = useLocation();
     const chat = location.state as IChat;
-    const { token, data } = useAppSelector(state => state.page);
-    const [chatId, setChatId] = useState(chat?._id || data.user?.chats[0]?._id)
+    const { token, data, isloading } = useAppSelector(state => state.page);
+    const [chatId, setChatId] = useState(chat?._id || "")
     const [chats, setChats] = useState(data.user.chats)
     const [messages, setMessages] = useState<Message[]>([]);
     const [inputValue, setInputValue] = useState('');
@@ -33,11 +34,12 @@ const Chat = () => {
     }, [])
 
     useEffect(() => {
-        if (!chat) {
+        if (!chat && data.user.chats.length) {
             setChatId(data.user?.chats[0]?._id)
             setChats(data.user.chats)
         }
     }, [data.user.chats])
+
 
     useEffect(() => {
         if (chatListRef.current) {
@@ -100,7 +102,7 @@ const Chat = () => {
             } else {
                 setMessages((prevMessages) => [...prevMessages, msg]);
             }
-        
+
             if (msg.senderId !== data.user._id && !document.hidden) {
                 handleMessageRead(msg._id);
             }
@@ -141,16 +143,16 @@ const Chat = () => {
     const sendMessage = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         // setTimeout(() => {   // Искусственная задержка 
-            if (inputValue.trim() && socketRef.current) {
-                const message: Message = {
-                    _id: Math.random().toString(36).substring(2, 15),
-                    content: inputValue,
-                    senderId: data.user._id
-                };
-                setMessages((prevMessages) => [...prevMessages, message]);
-                socketRef.current.emit("chat message", inputValue);
-                setInputValue('');
-            }
+        if (inputValue.trim() && socketRef.current) {
+            const message: Message = {
+                _id: Math.random().toString(36).substring(2, 15),
+                content: inputValue,
+                senderId: data.user._id
+            };
+            setMessages((prevMessages) => [...prevMessages, message]);
+            socketRef.current.emit("chat message", inputValue);
+            setInputValue('');
+        }
         // }, 500)
 
     };
@@ -172,6 +174,16 @@ const Chat = () => {
             document.removeEventListener('visibilitychange', handleVisibilityChange);
         };
     }, [messages]);
+
+    if (isloading) {
+        return (
+            <CardPageFlex>
+                <div className={style.wrapper}>
+                    <Spinner />
+                </div>
+            </CardPageFlex>
+        )
+    }
     return (
         <div>
             <CardPageFlex>
@@ -191,6 +203,12 @@ const Chat = () => {
                     </div>
                     <div className={style.chatMessagesWrapper}>
                         <div ref={messagesRef} className={style.chatMessages}>
+                            {!chats.length 
+                                && 
+                                <div className={style.noMessages}>
+                                    <h2>У вас пока нет ни одного чата</h2><h3>Начните общение</h3>
+                                </div>
+                            }
                             <ul>
                                 {messages.map((msg) => {
                                     if (msg.senderId === data.user._id) {
