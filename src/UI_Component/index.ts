@@ -8,7 +8,6 @@ export { CardForInfo } from "./CardForInfo/CardForInfo";
 export { CardPageFlex } from "./CardPageFlex/CardPageFlex";
 export { ImageGood } from "./ImageGood/ImageGood";
 export { Input } from "./Input/Input";
-export { InputSearch } from "./InputSearch/InputSearch";
 export { TitleInfo } from "./TitleInfo/TitleInfo";
 export { InfoCard } from "./InfoCard/InfoCard";
 export { SmallCard } from "./SmallCard/SmallCard";

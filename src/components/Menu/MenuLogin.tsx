@@ -24,7 +24,7 @@ const MenuLogin = () => {
   const handleMouseOut = (event: MouseEvent) => {
     if (!ref.current?.contains(event.relatedTarget as Node)) {
       // IE fromElement
-      setShowDropDown(false);
+      setShowDropDown(false)
     }
   };
 
@@ -36,8 +36,11 @@ const MenuLogin = () => {
       document.removeEventListener("mouseout", handleMouseOut);
     };
   }, [showDropDown]);
+  const handleCloseModal = () => {
+    setShowModal(false)
+  };
   const handleAction = () => {
-    setShowDropDown(false);
+    setShowDropDown(false)
   };
   const handleActionNoAvtorization = () => {
     setShowModal(true);
@@ -47,7 +50,7 @@ const MenuLogin = () => {
     const left = parentRef.current
       ? parentRef.current?.offsetLeft + parentRef.current?.clientWidth
       : null;
-    const sub = data.user.registered ? 19 : 7;
+    const sub = data.user.registered ? 14 : 7;
     return {
       width: `${width}px`,
       left: `${(left || 100) - width / 2 - sub}px`,
@@ -90,6 +93,7 @@ const MenuLogin = () => {
       {showModal && (
         <Modal
           title="Magazin ID"
+          handleAction={handleCloseModal}
           content={<Login handleAction={setShowModal} />}
         />
       )}

@@ -471,10 +471,17 @@ const slice = createSlice({
         };
       }
     });
+    builder.addCase(GET_GOODS_BY_CATEGORY.pending, (state, action) => {
+        return {
+          ...state,
+          isloading: true,
+        };
+    });
     builder.addCase(GET_GOODS_BY_CATEGORY.fulfilled, (state, action) => {
       if (action.payload) {
         return {
           ...state,
+          isloading: false,
           success: true,
           data: {
             ...state.data,
