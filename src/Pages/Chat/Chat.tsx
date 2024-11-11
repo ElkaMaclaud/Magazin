@@ -203,12 +203,16 @@ const Chat = () => {
                     </div>
                     <div className={style.chatMessagesWrapper}>
                         <div ref={messagesRef} className={style.chatMessages}>
-                            {!chats.length 
-                                && 
+                            {!chats.length
+                                &&
                                 <div className={style.noMessages}>
                                     <h2>У вас пока нет ни одного чата</h2><h3>Начните общение</h3>
                                 </div>
                             }
+                            {chats.length && !messages.length &&
+                                <div className={style.noMessages}>
+                                    <h3>Идет загрузка чата...</h3>
+                                </div>}
                             <ul>
                                 {messages.map((msg) => {
                                     if (msg.senderId === data.user._id) {
