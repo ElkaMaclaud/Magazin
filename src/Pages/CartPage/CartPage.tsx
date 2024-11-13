@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import classes from "./style/CartPage.module.css";
 import CalculateAndRegisration from "../../components/CalculateAndRegisration/CalculateAndRegisration";
 import { Link, useNavigate } from "react-router-dom";
@@ -166,12 +166,10 @@ const CartPage = () => {
   if (isloading) {
     return (
       <CardPageFlex>
-        <>
         <Spinner />
-        </>
       </CardPageFlex>
     );
-  } 
+  }
   if (cart.length === 0) {
     return (
       <CardPageFlex>
@@ -192,7 +190,7 @@ const CartPage = () => {
   return (
     <CardPageFlex
       children={[
-        <div className={classes.headercart}>
+        <div className={classes.headercart} key="header">
           <h2>Корзина</h2>
           <p>{`(${cart.reduce((prev, current) => {
             if (current.count) {
@@ -201,9 +199,9 @@ const CartPage = () => {
             return prev;
           }, 0)})`}</p>
         </div>,
-        <>
+        <Fragment  key="cart">
           <CartHeader />
-          <div className={classes.line}></div>
+          <div className={classes.line}/>
           <GoodsList data={cart} />
           {showModal && (
             <Modal
@@ -213,8 +211,9 @@ const CartPage = () => {
               handleAction={removecart}
             />
           )}
-        </>,
+        </Fragment>,
         <CalculateAndRegisration
+          key="calculate"
           handler={handleCalculateGoods}
           sum={sum}
           obj={obj}

@@ -34,6 +34,7 @@ const RoutesComponent = () => {
     magazin: <MagazinPage />,
     chat: <Chat />,
     category: <ProductsCategoryPage />,
+    products: <ProductsCategoryPage />,
     account: <AccountPage />,
     favorites: <FavoritesPage />,
     cart: <CartPage />,
@@ -76,6 +77,15 @@ const RoutesComponent = () => {
                 <Route
                   key={Math.random().toString(36)}
                   path="category/:categoryName"
+                  element={<ProductsCategoryPage />}
+                />
+              );
+            }
+            if (route === "products") {
+              return (
+                <Route
+                  key={Math.random().toString(36)}
+                  path="products"
                   element={<ProductsCategoryPage />}
                 />
               );

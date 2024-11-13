@@ -1,5 +1,6 @@
 import React, { CSSProperties, FC, ReactNode } from "react";
 import classes from "./style/Card.module.css";
+import { keyGenerate } from "../../utils/keyGenerate";
 
 export const Card: FC<{
   obj: { name: ReactNode, value: ReactNode }[];
@@ -17,7 +18,7 @@ export const Card: FC<{
   return (
     <div style={styleCard} className={classes.cardWrappper}>
       {obj.map((item) => {
-        const key = Math.random().toString(36).substring(2, 10);
+        const key = keyGenerate();
         return (
           <div key={key} className={classes.infoWrapper} style={style}>
             <div>{item.name}</div>

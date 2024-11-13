@@ -6,6 +6,7 @@ import UserAvatar from "../../components/UserAvatar/UserAvatar";
 import classes from "./style/OrderListPage.module.css";
 import { GET_OF_ORDERS } from "../../store/slice";
 import Spinner from "../../components/Spinner/Spinner";
+import { keyGenerate } from "../../utils/keyGenerate";
 
 const OrderListPage = () => {
   const { data, isloading } = useAppSelector((state) => state.page);
@@ -42,8 +43,10 @@ const OrderListPage = () => {
         </div>
         <div className={classes.orderCardWrapper}>
           {user.purchased.map((item) => {
+            const key = keyGenerate();
             return (
               <TwoColorCard
+                key={key}
                 id={item._id}
                 price={item.price}
                 image={item.image[0]}

@@ -1,5 +1,6 @@
 import React, { FC, useState, useRef, MouseEvent, CSSProperties } from "react";
 import classes from "./style/SliderMouseMove.module.css";
+import { keyGenerate } from "../../utils/keyGenerate";
 interface IOffset {
   value: number;
   begin: boolean;
@@ -80,7 +81,7 @@ export const SliderMouseMove: FC<{
         style={{ transform: `translateX(${-offset.value}px)`, ...style }}
       >
         {images.map((img) => {
-          const key = Math.random().toString(16);
+          const key = keyGenerate();
           return (
             <div key={key} className={classes.imageWrapper}>
               <img src={img} alt="Фото товара" />
@@ -90,7 +91,7 @@ export const SliderMouseMove: FC<{
       </div>
       <div className={classes.dotWrapper}>
         {images.map((item, index) => {
-          const key = Math.random().toString(16);
+          const key = keyGenerate();
           return (
             <div
               style={styleDot}

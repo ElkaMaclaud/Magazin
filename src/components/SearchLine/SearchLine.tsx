@@ -3,7 +3,7 @@ import classes from './style/SearchLine.module.css';
 import { Button } from '../../UI_Component';
 import { SearchIcon } from '../../UI_Component/Icons';
 import { useAppDispatch } from '../../store/reduxHooks';
-import { GET_GOODS_BY_CATEGORY } from '../../store/slice';
+import { GET_GOODS_BY_KEYWORD } from '../../store/slice';
 import { useNavigate } from 'react-router-dom';
 
 const SearchLine = () => {
@@ -18,9 +18,9 @@ const SearchLine = () => {
     // form.reset();
     // formData.delete('inputName');
     // formData.set('inputName', '');
-    dispatch(GET_GOODS_BY_CATEGORY(value))
+    dispatch(GET_GOODS_BY_KEYWORD(value))
     setValue("")
-    navigate(`category/${value}`)
+    navigate(`products/?keyWord=${value}`)
   }
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);

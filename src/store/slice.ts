@@ -140,6 +140,20 @@ export const GET_GOODS_BY_CATEGORY = createAsyncThunk<
     return rejectWithValue(`${error}`);
   }
 });
+export const GET_GOODS_BY_KEYWORD = createAsyncThunk<
+  IGoods[],
+  string,
+  { rejectValue: string }
+>("page/GET_GOODS_BY_KEYWORD", async (keyWodrd, { rejectWithValue }) => {
+  try {
+    const response = await sendRequest(
+      `good/getGoodFindByKeyword?keyWord=${keyWodrd}`
+    );
+    return response.data as IGoods[];
+  } catch (error) {
+    return rejectWithValue(`${error}`);
+  }
+});
 export const GET_GOOD = createAsyncThunk<
   IGoods & { seller: ISeller },
   string,
@@ -490,6 +504,25 @@ const slice = createSlice({
         };
       }
     });
+    builder.addCase(GET_GOODS_BY_KEYWORD.pending, (state, action) => {
+      return {
+        ...state,
+        isloading: true,
+      };
+  });
+  builder.addCase(GET_GOODS_BY_KEYWORD.fulfilled, (state, action) => {
+    if (action.payload) {
+      return {
+        ...state,
+        isloading: false,
+        success: true,
+        data: {
+          ...state.data,
+          goods: action.payload,
+        },
+      };
+    }
+  });
     builder.addCase(GET_GOOD.fulfilled, (state, action) => {
       if (action.payload) {
         return {

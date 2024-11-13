@@ -1,7 +1,6 @@
 import React, {
   CSSProperties,
   useEffect,
-  useLayoutEffect,
   useRef,
   useState,
 } from "react";
@@ -13,8 +12,8 @@ import ListItem from "../../components/ListItem/ListItem";
 import { categories } from "../../MockupData/categoryFilter";
 import { Dropdown, OptionCard, ToggleSwitch } from "../../UI_Component";
 import { IGoods } from "../../type/goodsType";
-import { GET_GOODS_BY_CATEGORY } from "../../store/slice";
-import { useParams } from "react-router-dom";
+import { GET_GOODS_BY_CATEGORY, GET_GOODS_BY_KEYWORD } from "../../store/slice";
+import { useLocation, useParams } from "react-router-dom";
 import { ArrowSmall } from "../../UI_Component/Icons";
 import { optionsSort } from "../../MockupData/menuItems";
 import { useToggle } from "../../hooks/useToggle";
@@ -24,9 +23,10 @@ const ProductsCategoryPage = () => {
   const { data, isloading } = useAppSelector((state) => state.page);
   const { goods } = data
   const dispatch = useAppDispatch();
-  // const { pathname } = useLocation();
-  // const category = pathname.split("/").pop();     или pathname.split("/")[pathname.split("/").length - 1]
   const { categoryName } = useParams();
+  const location = useLocation(); 
+  const queryParams = new URLSearchParams(location.search); 
+  const queryWord = queryParams.get("keyWord");
   const [products, setProducts] = useState<IGoods[]>(goods);
   const [selectSort, setSelectSort] = useState(optionsSort[0]);
   const [showDropDown, toggleShowDropDown] = useToggle(false);
@@ -48,16 +48,13 @@ const ProductsCategoryPage = () => {
     cash: false,
     pointsForRev: false,
   });
-  useLayoutEffect(() => {
-    dispatch(GET_GOODS_BY_CATEGORY(categoryName || ""));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  useLayoutEffect(() => {
-    if (goods.length && goods[0].category !== categoryName) {
+  useEffect(() => {
+    if(!queryWord) {
       dispatch(GET_GOODS_BY_CATEGORY(categoryName || ""));
+    } else if (queryWord && !goods.length) {
+      dispatch(GET_GOODS_BY_KEYWORD(queryWord))
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryName]);
+  }, []);
 
   useEffect(() => {
     setProducts(goods)

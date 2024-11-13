@@ -10,6 +10,7 @@ import ChoiceIcon from "../../components/ChoiceIcon/ChoiceIcon";
 import Spinner from "../../components/Spinner/Spinner";
 import { ISeller } from "../../type/userType";
 import { Location } from "../../UI_Component/Icons";
+import { keyGenerate } from "../../utils/keyGenerate";
 
 const GoodPage = () => {
   const { id } = useParams();
@@ -57,7 +58,7 @@ const GoodPage = () => {
   const findChatWithStore = (searchedСhatId?: string) => {
     let findChatId;
     if (good) {
-      findChatId = data.user?.chats.find((i) => 
+      findChatId = data.user?.chats.find((i) =>
         i.participants.some((i) => i.userId === searchedСhatId || i.userId === good?.seller._id))
     }
     return findChatId
@@ -88,9 +89,12 @@ const GoodPage = () => {
                 <h4>{good.brand}</h4>
                 <p>{good.description}</p>
                 <div>{Array.isArray(good.characteristics) ?
-                  good.characteristics.map(item =>
-                    <div key={item.name} className={classes.characteristics}><p>{item.name}:</p>
-                      <p>{item.value}</p></div>) :
+                  good.characteristics.map(item => {
+                    const key = keyGenerate();
+                    return (
+                      <div key={item.name} className={classes.characteristics}><p>{item.name}:</p>
+                        <p>{item.value}</p></div>)
+                  }) :
                   good.characteristics}
                 </div>
               </div>
