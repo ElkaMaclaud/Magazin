@@ -140,7 +140,7 @@ const ProductsCategoryPage = () => {
       </div>
     )
   }
-  if (!isloading && !products.length) {
+  if (!isloading && !goods.length) {
     return (
       <div className={classes.contentWrapper}>
         <div className={classes.noProductsWrapper}>
