@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect } from "react";
+import React, { CSSProperties, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
 import classes from "./style/MagazinPage.module.css";
 import GoodsList from "../../components/GoodsList/GoodsList";
@@ -12,7 +12,8 @@ const style: CSSProperties = {
   borderRadius: "20px",
 };
 const MagazinPage = () => {
-  const { discount, user } = useAppSelector((state) => state.page.data);
+  const { discount } = useAppSelector((state) => state.page.data);
+  const [width, setWidth] = useState(1400)
   const dispatch = useAppDispatch();
   const list = [
     "https://zapovednaya-polyana.ru/upload/iblock/02b/02b8338e4070e7982c58c04566973411.jpg",
@@ -23,10 +24,14 @@ const MagazinPage = () => {
     dispatch(GET_DISCOUNT_GOODS());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    setWidth(window.innerWidth - 60)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div className={classes.wrapper}>
       <Link to="../sale" className={classes.saleHappyNew}>
-        <Slider list={list} style={style} width={1400} height={298} noMargin imageNoBorder />
+        <Slider list={list} style={style} width={width} height={298} noMargin imageNoBorder />
         <strong className={classes.text}>Распроджа</strong>
       </Link>
       <div className={classes.saleStand}>

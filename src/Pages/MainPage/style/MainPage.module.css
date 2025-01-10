@@ -1,4 +1,5 @@
 .wrapperPage {
+    max-width: calc(100% - 60px);
     height: 100vh;
     max-height: 100vh;
     margin: 0 auto;

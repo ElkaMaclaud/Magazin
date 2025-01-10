@@ -54,6 +54,7 @@ const ProductsCategoryPage = () => {
     } else if (queryWord && !goods.length) {
       dispatch(GET_GOODS_BY_KEYWORD(queryWord))
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

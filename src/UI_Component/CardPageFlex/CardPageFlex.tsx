@@ -28,7 +28,7 @@ export const CardPageFlex: FC<{
       const left =
         ref.current?.offsetLeft +            //.getBoundingClientRect().x
         ref.current?.clientWidth +
-        30;
+        60;
         const right = window.innerWidth - refParent.current?.clientWidth;
       setStyles(() => ({
         position: "fixed",
