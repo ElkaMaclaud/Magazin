@@ -27,6 +27,7 @@ export const Slider: FC<{
   setState?: Dispatch<React.SetStateAction<string | undefined>>
 }> = ({ list, style, width, height, noMargin, orientationAlbum, imageNoBorder, setState }) => {
   const [offset, setOffset] = useState(0);
+  const [clientWidth, setClientWidth] = useState(width);
   const ref = useRef<HTMLDivElement>(null);
   const [placeArrow, setPlaceArrow] = useState<IPlace>({
     left: 0,
@@ -41,9 +42,13 @@ export const Slider: FC<{
     }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    noMargin && setClientWidth(width)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [width]);
   const maxWidth = () => {
     if (noMargin) {
-      return list.length * width;
+      return list.length * clientWidth;
     }
     return list.length * (width + 7) + 13;
   };
@@ -56,7 +61,7 @@ export const Slider: FC<{
         }
         return 0;
       }
-      return prev + WIDTH;
+      return prev + (width || WIDTH);
     });
   };
 
@@ -67,7 +72,6 @@ export const Slider: FC<{
     setOffset((prev) => {
       if (ref.current) {
         const newOffset = prev + direction * width;
-
         const contentHeight = ref.current.clientHeight;
         const maxOffset = -(contentHeight - width);
 
@@ -82,8 +86,6 @@ export const Slider: FC<{
       return prev;
     });
   };
-
-
   const handleRightArrowClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setOffset((prev) => {
@@ -219,7 +221,7 @@ export const Slider: FC<{
               <img
                 src={item}
                 alt=""
-                style={{ height: `${height}px`, ...style }}
+                style={{ height: `${height}px`, ...style, width: `${clientWidth}px`,}}
               />
             </div>
           );

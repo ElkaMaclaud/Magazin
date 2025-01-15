@@ -15,7 +15,7 @@ import { debounce } from "../../utils/debounce";
 import MenuItem from "../MenuItem/MenuItem";
 import { useToggle } from "../../hooks/useToggle";
 
-const styles: CSSProperties = { width: "100px", objectFit: "cover"}
+const styles: CSSProperties = {objectFit: "cover"}
 const DeliveryDate = () => {
   const { user } = useAppSelector((state) => state.page.data);
   const [showModal, toggleShowModal] = useToggle(false);

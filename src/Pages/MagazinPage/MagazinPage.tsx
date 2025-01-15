@@ -7,13 +7,12 @@ import { GET_DISCOUNT_GOODS } from "../../store/slice";
 import { Slider } from "../../UI_Component";
 
 const style: CSSProperties = {
-  width: "1400px",
   objectFit: "fill",
   borderRadius: "20px",
 };
 const MagazinPage = () => {
   const { discount } = useAppSelector((state) => state.page.data);
-  const [width, setWidth] = useState(1400)
+  const [width] = useState(window.innerWidth - 60 > 1400 ? 1400 : window.innerWidth - 60)
   const dispatch = useAppDispatch();
   const list = [
     "https://zapovednaya-polyana.ru/upload/iblock/02b/02b8338e4070e7982c58c04566973411.jpg",
@@ -22,10 +21,6 @@ const MagazinPage = () => {
   ];
   useEffect(() => {
     dispatch(GET_DISCOUNT_GOODS());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  useEffect(() => {
-    setWidth(window.innerWidth - 60)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

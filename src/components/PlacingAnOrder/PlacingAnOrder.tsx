@@ -10,7 +10,7 @@ import DeliveryDate from "../DeliveryDate/DeliveryDate";
 interface BanksListProps {
   list: string[];
 }
-const style: CSSProperties = { width: "100px", objectFit: "cover"}
+const style: CSSProperties = {objectFit: "cover"}
 const BanksList: FC<BanksListProps> = ({ list }) => {
   return (
     <CardForInfo>
