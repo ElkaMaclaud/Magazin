@@ -55,7 +55,7 @@ const Chat = () => {
     }, [chatId]);
 
     useEffect(() => {
-        socketRef.current = io(process.env.REACT_APP_API_URL, {
+        socketRef.current = io(process.env.REACT_APP_API_URL_WITH_WS_SUPPORT, {
             transports: ['polling', 'websocket'],
             withCredentials: true,
             extraHeaders: {
