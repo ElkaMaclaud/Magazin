@@ -2,12 +2,14 @@ import axios, { InternalAxiosRequestConfig } from 'axios';
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 
+
 const primaryAxiosInstance = axios.create({
-    baseURL: process.env.REACT_APP_API_URL_WITH_WS_SUPPORT + "/api",
+    baseURL: process.env.REACT_APP_API_URL + "/api"
 });
 
+//Данный резервный сервер очень медленный(сначала требуется его разогнать немного) - НУЖЕН только для поддержки вебсокетов!
 const fallbackAxiosInstance = axios.create({
-    baseURL: process.env.REACT_APP_API_URL + "/api",
+    baseURL: process.env.REACT_APP_API_URL_WITH_WS_SUPPORT + "/api"
 });
 
 primaryAxiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
@@ -43,10 +45,10 @@ const sendRequest = async (
     queryParams?: Record<string, any>
 ): Promise<any> => {
     let response;
-    let attempt = 0;
 
     if (!initialRequestMade) {
-        while (attempt < 2) {
+        let attempt = 0;
+        while (attempt < 3) {
             try {
                 NProgress.start();
                 response = await primaryAxiosInstance({
@@ -67,8 +69,8 @@ const sendRequest = async (
         }
     }
 
-    let attemptsToBackupAddress = 0;
-    while (attemptsToBackupAddress < 2) {
+    let attempt = 0;
+    while (attempt < 2) {
         try {
             NProgress.start();
             response = await fallbackAxiosInstance({
@@ -81,8 +83,8 @@ const sendRequest = async (
             return response;
         } catch (error) {
             NProgress.done();
-            attemptsToBackupAddress++;
-            if(attemptsToBackupAddress === 2) {
+            attempt++;
+            if(attempt === 2) {
                 throw error;
             }
         }
@@ -90,54 +92,3 @@ const sendRequest = async (
 };
 
 export { sendRequest };
-
-
-
-
-// import axios, { InternalAxiosRequestConfig } from 'axios';
-// import NProgress from "nprogress";
-// import "nprogress/nprogress.css";
-
-// const axiosInstance = axios.create({
-//     baseURL: process.env.REACT_APP_API_URL + "/api",
-// });
-
-// //REACT_APP_API_URL_WITH_WS_SUPPORT
-
-// axiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-//     const token = localStorage.getItem("access_token");
-//     if(token) {
-//       config.headers['Authorization'] = `Bearer ${token}`;
-//     }
-//     config.headers['Content-Type'] = 'application/json';
-//     return config;
-// }, (error) => {
-//     return Promise.reject(error);
-// });
-
-
-// type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
-
-// const sendRequest = async (
-//     url: string,
-//     method: HttpMethod = 'GET',
-//     body?: Record<string, any>,
-//     queryParams?: Record<string, any>
-// ): Promise<any> => {
-//     try {
-//         NProgress.start();
-//         const response = await axiosInstance({
-//             method,
-//             url,
-//             data: body,
-//             params: queryParams,
-//         });
-//         NProgress.done();
-//         return response;
-//     } catch (error) {
-//         NProgress.done();
-//         throw error;
-//     }
-// };
-
-// export { sendRequest };

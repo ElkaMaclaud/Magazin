@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState, useRef, FC } from 'react';
+import React, { FormEvent, useEffect, useState, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 import style from "./style/Chat.module.css";
 import { Button, CardPageFlex } from '../../UI_Component';
@@ -31,6 +31,7 @@ const Chat = () => {
 
     useEffect(() => {
         dispatch(GET_ALL_CHATS())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
@@ -38,6 +39,7 @@ const Chat = () => {
             setChatId(data.user?.chats[0]?._id)
             setChats(data.user.chats)
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data.user.chats])
 
 
@@ -125,6 +127,7 @@ const Chat = () => {
         return () => {
             socket.disconnect();
         };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [token, data, chatId]);
 
     const handleMessageRead = (messageId: string) => {
@@ -173,6 +176,7 @@ const Chat = () => {
         return () => {
             document.removeEventListener('visibilitychange', handleVisibilityChange);
         };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [messages]);
 
     if (isloading) {
