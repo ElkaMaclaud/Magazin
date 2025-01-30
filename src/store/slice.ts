@@ -443,7 +443,8 @@ const slice = createSlice({
               publik: action.payload.publik,
               privates: action.payload.privates,
               delivery: action.payload.delivery,
-              registered: action.payload.registered
+              registered: action.payload.registered,
+              chats: action.payload.chats
             },
           },
         };

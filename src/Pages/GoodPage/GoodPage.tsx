@@ -10,7 +10,6 @@ import ChoiceIcon from "../../components/ChoiceIcon/ChoiceIcon";
 import Spinner from "../../components/Spinner/Spinner";
 import { ISeller } from "../../type/userType";
 import { Location } from "../../UI_Component/Icons";
-import { keyGenerate } from "../../utils/keyGenerate";
 
 const GoodPage = () => {
   const { id } = useParams();
@@ -28,8 +27,9 @@ const GoodPage = () => {
 
   const goChat = (supportСhat?: boolean) => {
     let chat;
+    const supportСhatId = process.env.REACT_APP_API_SUPPORT_CHAT || ""
     if (supportСhat) {
-      chat = findChatWithStore(process.env.REACT_APP_API_SUPPORT_CHAT!)
+      chat = findChatWithStore(supportСhatId)
     } else {
       chat = findChatWithStore()
     }
@@ -39,7 +39,7 @@ const GoodPage = () => {
       if (supportСhat) {
         dispatch(CREATE_NEW_CHAT({
           userId: data.user._id,
-          id: process.env.REACT_APP_API_SUPPORT_CHAT!,
+          id: supportСhatId,
           userTitle: process.env.REACT_APP_API_SUPPORT_CHAT_NAME!,
           titleId: data.user.publik.name
         }))
@@ -82,7 +82,7 @@ const GoodPage = () => {
               orientationAlbum
               setState={setImage} />
             <div className={classes.wrapperGood}>
-              <img className={classes.imgGood} src={image} />
+              <img className={classes.imgGood} src={image} alt="" />
               <div className={classes.description}>
                 <h3>{good.category}</h3>
                 <h3>{good.name}</h3>
@@ -90,7 +90,6 @@ const GoodPage = () => {
                 <p>{good.description}</p>
                 <div>{Array.isArray(good.characteristics) ?
                   good.characteristics.map(item => {
-                    const key = keyGenerate();
                     return (
                       <div key={item.name} className={classes.characteristics}><p>{item.name}:</p>
                         <p>{item.value}</p></div>)
