@@ -4,13 +4,14 @@ import { useAppDispatch, useAppSelector } from "./store/reduxHooks";
 import LoadingPage from "./Pages/LoadingPage/LoadingPage";
 import RoutesComponent from "./RoutesComponent";
 import MagazinPage from "./Pages/MagazinPage/MagazinPage";
-import { GET_USER_DATA } from "./store/slice";
+import { GET_REQUEST_HEADERS, GET_USER_DATA } from "./store/slice";
 import LoginPage from "./Pages/LoginPage/LoginPage";
 
 function App() {
   const page = useAppSelector((state) => state.page.loading);
   const dispatch = useAppDispatch();
   useEffect(() => {
+    dispatch(GET_REQUEST_HEADERS());
     dispatch(GET_USER_DATA());
   }, [dispatch])
   if (page === "COMPLICATED") {

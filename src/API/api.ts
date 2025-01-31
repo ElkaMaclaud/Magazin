@@ -34,7 +34,7 @@ fallbackAxiosInstance.interceptors.request.use((config: InternalAxiosRequestConf
     return Promise.reject(error);
 });
 
-type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+type HttpMethod = 'HEAD' | 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
 let initialRequestMade = false;
 

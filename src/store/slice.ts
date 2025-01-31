@@ -81,6 +81,17 @@ export const AUT_USER = createAsyncThunk<
     return rejectWithValue(`${error}`);
   }
 });
+export const GET_REQUEST_HEADERS = createAsyncThunk<
+  void,
+  undefined,
+  { rejectValue: string }
+>("page/GET_REQUEST_HEADERS", async (_, { rejectWithValue }) => {
+  try {
+    await sendRequest("resource", "HEAD" );
+  } catch (error) {
+    return rejectWithValue(`${error}`);
+  }
+});
 export const GET_USER_DATA = createAsyncThunk<
   IUser,
   undefined,
@@ -429,6 +440,12 @@ const slice = createSlice({
           },
         };
       }
+    });
+    builder.addCase(GET_REQUEST_HEADERS.fulfilled, (state) => {
+        return {
+          ...state,
+          loading: "COMPLICATED",
+        };
     });
     builder.addCase(GET_USER_DATA.fulfilled, (state, action) => {
       if (action.payload) {
