@@ -197,7 +197,6 @@ export const Slider: FC<{
   return (
     <div
       className={classes.cardWrapper}
-      onWheel={handleWheelEvent}
       ref={ref}
       style={{ margin: `${getMargin()}` }}
     >

@@ -1,9 +1,10 @@
-import React, { CSSProperties, useState } from "react";
-import { useAppSelector } from "../../store/reduxHooks";
+import React, { CSSProperties, useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
 import classes from "./style/MagazinPage.module.css";
 import GoodsList from "../../components/GoodsList/GoodsList";
 import { Link } from "react-router-dom";
 import { Slider } from "../../UI_Component";
+import { GET_DISCOUNT_GOODS } from "../../store/slice";
 
 const style: CSSProperties = {
   objectFit: "fill",
@@ -12,6 +13,11 @@ const style: CSSProperties = {
 const MagazinPage = () => {
   const { discount } = useAppSelector((state) => state.page.data);
   const [width] = useState(window.innerWidth - 60 > 1400 ? 1400 : window.innerWidth - 60)
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(GET_DISCOUNT_GOODS());
+  }, [dispatch])
   const list = [
     "https://zapovednaya-polyana.ru/upload/iblock/02b/02b8338e4070e7982c58c04566973411.jpg",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMEivlPv2zTrLdZDZbnhezCFuzgeDCU9O56Q&s",

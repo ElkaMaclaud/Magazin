@@ -61,6 +61,9 @@ const sendRequest = async (
                 return response;
             } catch (error) {
                 NProgress.done();
+                if (axios.isAxiosError(error) && error.response?.status === 403) {
+                    throw error;
+                }
                 attempt++;
                 if (attempt === 2) {
                     initialRequestMade = true
@@ -83,6 +86,9 @@ const sendRequest = async (
             return response;
         } catch (error) {
             NProgress.done();
+            if (axios.isAxiosError(error) && error.response?.status === 403) {
+                throw error;
+            }
             attempt++;
             if(attempt === 2) {
                 throw error;
